@@ -14,42 +14,44 @@ namespace Watch2Gether_Backend.Controllers
     [Route("[controller]")]
     public class UsersController : ControllerBase
     {
-        private readonly IUserRepository _userRepository;
         private readonly IUserService _userService;
-        private readonly IImageRepository _imageRepository;
         public UsersController(IUserRepository userRepository, IUserService userService, IImageRepository imageRepository)
         {
-            _userRepository = userRepository;
             _userService = userService;
-            _imageRepository = imageRepository;
         }
         [HttpGet]
         public ActionResult<IEnumerable<UserDTO>> GetAll()
         {
-            var result = _userRepository.GetUsers().Select(x => UserDTO.FromModel(x));
+            var result = _userService.GetUsers();
             return Ok(result);
         }
 
         [HttpPost]
         public ActionResult<UserDTO> AddUser(UserDTO user)
         {
-            user.Id = Guid.NewGuid();
-            var result = user.ToModel();
-            _userRepository.InsertUser(result);
-            return Ok(UserDTO.FromModel(result));
+            var result = _userService.AddUser(user);
+            return Ok(result);
         }
         [HttpPut]
-        public ActionResult<UserDTO> UpdateUser(UserDTO user)
+        public ActionResult<UserDTO?> UpdateUser(UpdateUserDTO user)
         {
-            var result = user.ToModel();
-            _userRepository.UpdateUser(result);
-            return Ok(user);
+            if (user.UserDetails.Id == Guid.Empty) return BadRequest();
+            var userFromDB = _userService.GetUserById(user.UserDetails.Id);
+            if (userFromDB is null) return NotFound();
+            var result = _userService.UpdateUser(userFromDB, user);
+            if (result is not null)
+            {
+                var userDTO = UserDTO.FromModel(userFromDB);
+                return Ok(userDTO);
+            }
+            else
+                return Unauthorized();
         }
 
         [HttpGet("{id}")]
         public ActionResult<UserDTO> GetUser(Guid id)
         {
-            var user = _userRepository.GetUserByID(id);
+            var user = _userService.GetUserById(id);
             if (user is null)
             {
                 return NotFound();
@@ -60,7 +62,7 @@ namespace Watch2Gether_Backend.Controllers
         [HttpDelete("{id}")]
         public ActionResult DeleteUser(Guid id)
         {
-            var user = _userRepository.DeleteUser(id);
+            var user = _userService.DeleteUser(id);
             if (user is null)
             {
                 return NotFound();
@@ -72,18 +74,9 @@ namespace Watch2Gether_Backend.Controllers
         {
             if (string.IsNullOrWhiteSpace(user.Email)) return BadRequest();
 
-            user.Id = Guid.NewGuid();
-            var result = user.ToModel();
-
-            if (_userRepository.IsUserAlreadyExist(result.Email ?? "")) return Conflict();
-
-            var salt = RandomNumberGenerator.GetBytes(128 / 8);
-            var hashed = _userService.HashPassword(result.PasswordHash ?? "", salt);
-            result.PasswordHash = hashed;
-            result.Salt = Convert.ToBase64String(salt);
-
-            _userRepository.InsertUser(result);
-            return Ok(user);
+            var result = _userService.Register(user);
+            if (result is null) return Conflict();
+            return Ok(result);
         }
         [HttpPost("login")]
         public ActionResult<UserDTO> Login(UserDTO user)

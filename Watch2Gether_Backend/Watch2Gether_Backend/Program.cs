@@ -1,3 +1,4 @@
+using Watch2Gether_Backend.Extensions;
 using Watch2Gether_Data.Extensions;
 
 namespace Watch2Gether_Backend
@@ -8,10 +9,7 @@ namespace Watch2Gether_Backend
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
@@ -41,6 +39,8 @@ namespace Watch2Gether_Backend
                     throw new ArgumentOutOfRangeException(nameof(builder.Environment.EnvironmentName),
                         builder.Environment.EnvironmentName, "Unknown environment");
             }
+
+            builder.Services.UseWatch2GetherBackend();
 
             var app = builder.Build();
 
