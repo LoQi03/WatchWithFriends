@@ -1,0 +1,14 @@
+D:\Repos\Watch2gether\Watch2Gether_Backend\Watch2Gether_Data\bin\Debug\net6.0\Watch2Gether_Data.deps.json
+D:\Repos\Watch2gether\Watch2Gether_Backend\Watch2Gether_Data\bin\Debug\net6.0\Watch2Gether_Data.runtimeconfig.json
+D:\Repos\Watch2gether\Watch2Gether_Backend\Watch2Gether_Data\bin\Debug\net6.0\Watch2Gether_Data.dll
+D:\Repos\Watch2gether\Watch2Gether_Backend\Watch2Gether_Data\bin\Debug\net6.0\Watch2Gether_Data.pdb
+D:\Repos\Watch2gether\Watch2Gether_Backend\Watch2Gether_Data\obj\Debug\net6.0\Watch2Gether_Data.csproj.AssemblyReference.cache
+D:\Repos\Watch2gether\Watch2Gether_Backend\Watch2Gether_Data\obj\Debug\net6.0\Watch2Gether_Data.GeneratedMSBuildEditorConfig.editorconfig
+D:\Repos\Watch2gether\Watch2Gether_Backend\Watch2Gether_Data\obj\Debug\net6.0\Watch2Gether_Data.AssemblyInfoInputs.cache
+D:\Repos\Watch2gether\Watch2Gether_Backend\Watch2Gether_Data\obj\Debug\net6.0\Watch2Gether_Data.AssemblyInfo.cs
+D:\Repos\Watch2gether\Watch2Gether_Backend\Watch2Gether_Data\obj\Debug\net6.0\Watch2Gether_Data.csproj.CoreCompileInputs.cache
+D:\Repos\Watch2gether\Watch2Gether_Backend\Watch2Gether_Data\obj\Debug\net6.0\Watch2Gether_Data.dll
+D:\Repos\Watch2gether\Watch2Gether_Backend\Watch2Gether_Data\obj\Debug\net6.0\refint\Watch2Gether_Data.dll
+D:\Repos\Watch2gether\Watch2Gether_Backend\Watch2Gether_Data\obj\Debug\net6.0\Watch2Gether_Data.pdb
+D:\Repos\Watch2gether\Watch2Gether_Backend\Watch2Gether_Data\obj\Debug\net6.0\Watch2Gether_Data.genruntimeconfig.cache
+D:\Repos\Watch2gether\Watch2Gether_Backend\Watch2Gether_Data\obj\Debug\net6.0\ref\Watch2Gether_Data.dll
