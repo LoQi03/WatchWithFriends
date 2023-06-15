@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
+using Watch2Gether_Data.Model;
 
 namespace Watch2Gether_Data.Repositories
 {

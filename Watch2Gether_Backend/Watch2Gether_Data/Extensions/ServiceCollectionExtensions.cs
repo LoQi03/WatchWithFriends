@@ -44,7 +44,6 @@ namespace Watch2Gether_Data.Extensions
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IImageRepository, ImageRepository>();
-
         }
     }
 }

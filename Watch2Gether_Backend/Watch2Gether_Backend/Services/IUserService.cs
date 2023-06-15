@@ -2,5 +2,6 @@
 {
     public interface IUserService
     {
+        string HashPassword(string password, byte[] salt);
     }
 }
