@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.Identity.Client;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Text;
 using Watch2Gether_Backend.Misc;
 using Watch2Gether_Backend.Services;
@@ -14,19 +16,54 @@ namespace Watch2Gether_Backend.Extensions
         {
             services.AddControllers();
             services.AddEndpointsApiExplorer();
-            services.AddSwaggerGen(option =>
-            {
-                option.SwaggerDoc("v1", new OpenApiInfo { Title = "Watch2GetherAPI", Version = "v1" });
-                option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+            services.AddSwaggerGen(options => SetSwaggerGenOptions(options));
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options => SetJwtBearerOptions(options));
+            services.AddAuthorization();
+            services.AddCors(options => SetCorseOptions(options));
+
+            //Dependencies
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IImageService, ImageService>();
+        }
+        private static void SetCorseOptions(CorsOptions options)
+        {
+
+            options.AddDefaultPolicy(
+                policy =>
                 {
-                    In = ParameterLocation.Header,
-                    Description = "token",
-                    Name = "Authorization",
-                    Type = SecuritySchemeType.Http,
-                    BearerFormat = "JWT",
-                    Scheme = "Bearer"
+                    policy.AllowAnyOrigin();
+                    policy.AllowAnyHeader();
+                    policy.AllowAnyMethod();
                 });
-                option.AddSecurityRequirement(new OpenApiSecurityRequirement
+
+        }
+        private static void SetJwtBearerOptions(JwtBearerOptions options)
+        {
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = Config.Instance?.Jwt?.Issuer,
+                ValidAudience = Config.Instance?.Jwt?.Audience,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Config.Instance?.Jwt?.Key ?? string.Empty))
+            };
+        }
+        private static void SetSwaggerGenOptions(SwaggerGenOptions options)
+        {
+            options.SwaggerDoc("v1", new OpenApiInfo { Title = "Watch2GetherAPI", Version = "v1" });
+            options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+            {
+                In = ParameterLocation.Header,
+                Description = "token",
+                Name = "Authorization",
+                Type = SecuritySchemeType.Http,
+                BearerFormat = "JWT",
+                Scheme = "Bearer"
+            });
+            options.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
                     {
                         new OpenApiSecurityScheme
@@ -40,39 +77,7 @@ namespace Watch2Gether_Backend.Extensions
                         new string[]{}
                     }
                 });
-            });
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(options =>
-            {
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    ValidIssuer = Config.Instance?.Jwt?.Issuer,
-                    ValidAudience = Config.Instance?.Jwt?.Audience,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Config.Instance?.Jwt?.Key ?? string.Empty))
-                };
-            });
-            services.AddAuthorization();
-
-            services.AddCors(options =>
-            {
-                options.AddDefaultPolicy(
-                    policy =>
-                    {
-                        policy.AllowAnyOrigin();
-                        policy.AllowAnyHeader();
-                        policy.AllowAnyMethod();
-                    });
-            });
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IImageService, ImageService>();
         }
     }
+
 }
