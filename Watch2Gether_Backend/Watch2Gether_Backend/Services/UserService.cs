@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -126,18 +125,19 @@ namespace Watch2Gether_Backend.Services
         {
             var issuer = Config.Instance?.Jwt?.Issuer;
             var audience = Config.Instance?.Jwt?.Audience;
-            var key = Encoding.ASCII.GetBytes(Config.Instance?.Jwt?.Key ?? "");
+            var key = Encoding.UTF8.GetBytes(Config.Instance?.Jwt?.Key ?? "");
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[]
                 {
                         new Claim("Id", user.Id.ToString() ?? string.Empty),
+                        new Claim("Email", user.Email),
                         new Claim(JwtRegisteredClaimNames.Sub, user.Email ?? string.Empty),
                         new Claim(JwtRegisteredClaimNames.Email, user.Email ?? string.Empty),
                         new Claim(JwtRegisteredClaimNames.Jti,
                         Guid.NewGuid().ToString())
                     }),
-                Expires = DateTime.UtcNow.AddDays(10),
+                Expires = DateTime.UtcNow.AddDays(15),
                 Issuer = issuer,
                 Audience = audience,
                 SigningCredentials = new SigningCredentials

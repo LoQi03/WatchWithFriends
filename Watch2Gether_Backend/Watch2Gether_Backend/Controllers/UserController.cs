@@ -7,6 +7,7 @@ using Watch2Gether_Data.Repositories;
 using System.Drawing;
 using Image = Watch2Gether_Data.Model.Image;
 using Watch2Gether_Backend.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Watch2Gether_Backend.Controllers
 {
@@ -21,20 +22,20 @@ namespace Watch2Gether_Backend.Controllers
             _imageService = imageService;
             _userService = userService;
         }
-        [HttpGet]
+        [HttpGet, Authorize]
         public ActionResult<IEnumerable<UserDTO>> GetAll()
         {
             var result = _userService.GetUsers();
             return Ok(result);
         }
 
-        [HttpPost]
+        [HttpPost, Authorize]
         public ActionResult<UserDTO> AddUser(UserDTO user)
         {
             var result = UserDTO.FromModel(_userService.AddUser(user));
             return Ok(result);
         }
-        [HttpPut]
+        [HttpPut, Authorize]
         public ActionResult<UserDTO?> UpdateUser(UpdateUserDTO user)
         {
             if (user.UserDetails?.Id == Guid.Empty) return BadRequest();
@@ -49,7 +50,7 @@ namespace Watch2Gether_Backend.Controllers
                 return Unauthorized();
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}"), Authorize]
         public ActionResult<UserDTO> GetUser(Guid id)
         {
             var user = _userService.GetUserById(id);
@@ -60,7 +61,7 @@ namespace Watch2Gether_Backend.Controllers
             return Ok(UserDTO.FromModel(user));
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}"), Authorize]
         public ActionResult DeleteUser(Guid id)
         {
             var user = _userService.DeleteUser(id);
@@ -95,7 +96,7 @@ namespace Watch2Gether_Backend.Controllers
             else
                 return NotFound();
         }
-        [HttpPost("{userid}/image")]
+        [HttpPost("{userid}/image"), Authorize]
         public ActionResult<UserDTO> AddImage(Guid userid)
         {
             var user = _userService.GetUserById(userid);

@@ -1,3 +1,8 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.Filters;
+using System.Text;
 using Watch2Gether_Backend.Extensions;
 using Watch2Gether_Backend.Misc;
 using Watch2Gether_Data.Extensions;
@@ -10,20 +15,6 @@ namespace Watch2Gether_Backend
         {
             var builder = WebApplication.CreateBuilder(args);
             Config.Instance = builder.Configuration.Get<Config>();
-            builder.Services.AddControllers();
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-
-            builder.Services.AddCors(options =>
-            {
-                options.AddDefaultPolicy(
-                    policy =>
-                    {
-                        policy.AllowAnyOrigin();
-                        policy.AllowAnyHeader();
-                        policy.AllowAnyMethod();
-                    });
-            });
 
             switch (builder.Environment.EnvironmentName)
             {
@@ -54,8 +45,10 @@ namespace Watch2Gether_Backend
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseCors();
 
             app.MapControllers();
 
