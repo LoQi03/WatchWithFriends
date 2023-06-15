@@ -15,8 +15,10 @@ namespace Watch2Gether_Backend.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
-        public UsersController(IUserRepository userRepository, IUserService userService, IImageRepository imageRepository)
+        private readonly IImageService _imageService;
+        public UsersController(IUserService userService, IImageService imageService)
         {
+            _imageService = imageService;
             _userService = userService;
         }
         [HttpGet]
@@ -29,20 +31,19 @@ namespace Watch2Gether_Backend.Controllers
         [HttpPost]
         public ActionResult<UserDTO> AddUser(UserDTO user)
         {
-            var result = _userService.AddUser(user);
+            var result = UserDTO.FromModel(_userService.AddUser(user));
             return Ok(result);
         }
         [HttpPut]
         public ActionResult<UserDTO?> UpdateUser(UpdateUserDTO user)
         {
-            if (user.UserDetails.Id == Guid.Empty) return BadRequest();
-            var userFromDB = _userService.GetUserById(user.UserDetails.Id);
+            if (user.UserDetails?.Id == Guid.Empty) return BadRequest();
+            var userFromDB = _userService.GetUserById(user.UserDetails?.Id);
             if (userFromDB is null) return NotFound();
             var result = _userService.UpdateUser(userFromDB, user);
             if (result is not null)
             {
-                var userDTO = UserDTO.FromModel(userFromDB);
-                return Ok(userDTO);
+                return Ok(result);
             }
             else
                 return Unauthorized();
@@ -81,23 +82,22 @@ namespace Watch2Gether_Backend.Controllers
         [HttpPost("login")]
         public ActionResult<UserDTO> Login(UserDTO user)
         {
-            var userFromDB = _userRepository.GetUserByEmail(user.Email ?? "");
+            if (user.Email is null || user.Email == string.Empty) return BadRequest();
+            var userFromDB = _userService.GetUserByEmail(user.Email ?? "");
             if (userFromDB is null)
             {
                 return Unauthorized();
             }
-            var userDto = UserDTO.FromModel(userFromDB);
-            var salt = Convert.FromBase64String(userFromDB.Salt ?? "");
-            var password = _userService.HashPassword(user.Password ?? "", salt);
-            if (password == userFromDB.PasswordHash)
-                return Ok(userDto);
+            var result = _userService.Login(user, userFromDB);
+            if (result is not null)
+                return Ok(result);
             else
-                return Unauthorized();
+                return NotFound();
         }
         [HttpPost("{userid}/image")]
         public ActionResult<UserDTO> AddImage(Guid userid)
         {
-            var user = _userRepository.GetUserByID(userid);
+            var user = _userService.GetUserById(userid);
             if (Request.Form.Files.Count == 0 || user is null) return BadRequest();
             var img = new Image();
             var file = Request.Form.Files[0];
@@ -119,20 +119,21 @@ namespace Watch2Gether_Backend.Controllers
             user.ImageId = imgId;
             img.Id = imgId;
             img.Data = data;
-            _imageRepository.InsertImage(img);
+            _userService.UpdateUser(user);
+            _imageService.InsertImage(img);
             return Ok(user);
         }
 
         [HttpGet("{userid}/image")]
         public ActionResult<IFormFile> GetImage(Guid userid)
         {
-            var user = _userRepository.GetUserByID(userid);
+            var user = _userService.GetUserById(userid);
 
             if (user is null) return NotFound();
 
             if (user.ImageId is null) return NotFound();
 
-            var image = _imageRepository.GetImageByID((Guid)user.ImageId);
+            var image = _imageService.GetImageById((Guid)user.ImageId);
 
             if (image is null) return NotFound();
 

@@ -8,10 +8,13 @@ namespace Watch2Gether_Backend.Services
     public interface IUserService
     {
         IEnumerable<UserDTO> GetUsers();
-        UserDTO AddUser(UserDTO userDTO);
-        User? UpdateUser(User userFromDB, UpdateUserDTO updateUser);
+        User AddUser(UserDTO userDTO);
+        UserDTO? UpdateUser(User userFromDB, UpdateUserDTO updateUser);
+        void UpdateUser(User userFromDB);
         User? GetUserById(Guid? id);
-        User? DeleteUser(Guid? id);
-        User? Register(UserDTO user);
+        UserDTO? DeleteUser(Guid? id);
+        UserDTO? Register(UserDTO user);
+        User? GetUserByEmail(string email);
+        UserDTO? Login(UserDTO user, User userFromDB);
     }
 }

@@ -15,12 +15,12 @@ namespace Watch2Gether_Backend.Services
             _userRepository = userRepository;
         }
 
-        public UserDTO AddUser(UserDTO userDTO)
+        public User AddUser(UserDTO userDTO)
         {
             userDTO.Id = Guid.NewGuid();
             var result = userDTO.ToModel();
             _userRepository.InsertUser(result);
-            return userDTO;
+            return result;
         }
 
         public IEnumerable<UserDTO> GetUsers()
@@ -40,14 +40,14 @@ namespace Watch2Gether_Backend.Services
             return hashed;
         }
 
-        public User? UpdateUser(User userFromDB, UpdateUserDTO updateUser)
+        public UserDTO? UpdateUser(User userFromDB, UpdateUserDTO updateUser)
         {
             var salt = Convert.FromBase64String(userFromDB.Salt ?? "");
-            var password = HashPassword(updateUser.UserDetails.Password ?? "", salt);
+            var password = HashPassword(updateUser?.UserDetails?.Password ?? "", salt);
             if (password == userFromDB.PasswordHash)
             {
-                userFromDB.Name = updateUser.UserDetails.Name;
-                userFromDB.Email = updateUser.UserDetails.Email;
+                userFromDB.Name = updateUser?.UserDetails?.Name;
+                userFromDB.Email = updateUser?.UserDetails?.Email;
                 if (updateUser.NewPassword != "")
                 {
                     var newSalt = RandomNumberGenerator.GetBytes(128 / 8);
@@ -56,7 +56,7 @@ namespace Watch2Gether_Backend.Services
                     userFromDB.Salt = Convert.ToBase64String(newSalt);
                 }
                 _userRepository.UpdateUser(userFromDB);
-                return userFromDB;
+                return UserDTO.FromModel(userFromDB);
             }
             else
                 return null;
@@ -65,16 +65,20 @@ namespace Watch2Gether_Backend.Services
         public User? GetUserById(Guid? id)
         {
             var user = _userRepository.GetUserByID(id ?? Guid.Empty);
-            return user;
+            if (user is not null)
+                return user;
+            else
+                return null;
         }
 
-        public User? DeleteUser(Guid? id)
+        public UserDTO? DeleteUser(Guid? id)
         {
             var result = _userRepository.DeleteUser(id ?? Guid.Empty);
-            return result;
+            if (result is not null) return UserDTO.FromModel(result);
+            else return null;
         }
 
-        public User? Register(UserDTO user)
+        public UserDTO? Register(UserDTO user)
         {
             user.Id = Guid.NewGuid();
             var result = user.ToModel();
@@ -87,7 +91,27 @@ namespace Watch2Gether_Backend.Services
             result.Salt = Convert.ToBase64String(salt);
 
             _userRepository.InsertUser(result);
+            return UserDTO.FromModel(result);
+        }
+        public User? GetUserByEmail(string email)
+        {
+            var result = _userRepository.GetUserByEmail(email);
             return result;
+        }
+
+        public UserDTO? Login(UserDTO user, User userFromDB)
+        {
+            var salt = Convert.FromBase64String(userFromDB.Salt ?? "");
+            var password = HashPassword(user.Password ?? "", salt);
+            if (password == userFromDB.PasswordHash)
+                return UserDTO.FromModel(userFromDB);
+            else
+                return null;
+        }
+
+        public void UpdateUser(User userFromDB)
+        {
+            _userRepository.UpdateUser(userFromDB);
         }
     }
 }
