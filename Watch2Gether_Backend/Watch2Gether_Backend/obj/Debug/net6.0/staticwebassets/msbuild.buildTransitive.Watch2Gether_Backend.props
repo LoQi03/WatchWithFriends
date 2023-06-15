@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\Watch2Gether_Backend.props" />
+</Project>
