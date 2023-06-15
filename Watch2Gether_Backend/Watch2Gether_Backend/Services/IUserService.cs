@@ -15,6 +15,6 @@ namespace Watch2Gether_Backend.Services
         UserDTO? DeleteUser(Guid? id);
         UserDTO? Register(UserDTO user);
         User? GetUserByEmail(string email);
-        UserDTO? Login(UserDTO user, User userFromDB);
+        string Login(UserDTO user, User userFromDB);
     }
 }

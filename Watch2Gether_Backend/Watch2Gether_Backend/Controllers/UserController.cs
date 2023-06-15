@@ -80,7 +80,7 @@ namespace Watch2Gether_Backend.Controllers
             return Ok(result);
         }
         [HttpPost("login")]
-        public ActionResult<UserDTO> Login(UserDTO user)
+        public ActionResult<string> Login(UserDTO user)
         {
             if (user.Email is null || user.Email == string.Empty) return BadRequest();
             var userFromDB = _userService.GetUserByEmail(user.Email ?? "");
@@ -89,7 +89,8 @@ namespace Watch2Gether_Backend.Controllers
                 return Unauthorized();
             }
             var result = _userService.Login(user, userFromDB);
-            if (result is not null)
+
+            if (result != string.Empty)
                 return Ok(result);
             else
                 return NotFound();

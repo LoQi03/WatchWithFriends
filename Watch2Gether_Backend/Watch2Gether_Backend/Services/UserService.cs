@@ -53,10 +53,10 @@ namespace Watch2Gether_Backend.Services
             {
                 userFromDB.Name = updateUser?.UserDetails?.Name;
                 userFromDB.Email = updateUser?.UserDetails?.Email;
-                if (updateUser.NewPassword != "")
+                if (updateUser?.NewPassword != "")
                 {
                     var newSalt = RandomNumberGenerator.GetBytes(128 / 8);
-                    var hashed = HashPassword(updateUser.NewPassword ?? "", newSalt);
+                    var hashed = HashPassword(updateUser?.NewPassword ?? "", newSalt);
                     userFromDB.PasswordHash = hashed;
                     userFromDB.Salt = Convert.ToBase64String(newSalt);
                 }
@@ -104,15 +104,17 @@ namespace Watch2Gether_Backend.Services
             return result;
         }
 
-        public UserDTO? Login(UserDTO user, User userFromDB)
+        public string Login(UserDTO user, User userFromDB)
         {
-            Console.WriteLine(CreateToken(user));
             var salt = Convert.FromBase64String(userFromDB.Salt ?? "");
             var password = HashPassword(user.Password ?? "", salt);
             if (password == userFromDB.PasswordHash)
-                return UserDTO.FromModel(userFromDB);
+            {
+                var token = CreateToken(user);
+                return token;
+            }
             else
-                return null;
+                return string.Empty;
         }
 
         public void UpdateUser(User userFromDB)
@@ -145,8 +147,8 @@ namespace Watch2Gether_Backend.Services
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(tokenDescriptor);
-            var jwtToken = tokenHandler.WriteToken(token);
-            return jwtToken;
+            var jwt = tokenHandler.WriteToken(token);
+            return jwt;
         }
     }
 }
