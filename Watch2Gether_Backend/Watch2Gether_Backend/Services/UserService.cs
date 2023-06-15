@@ -131,9 +131,9 @@ namespace Watch2Gether_Backend.Services
                 Subject = new ClaimsIdentity(new[]
                 {
                         new Claim("Id", user.Id.ToString() ?? string.Empty),
-                        new Claim("Email", user.Email),
-                        new Claim(JwtRegisteredClaimNames.Sub, user.Email ?? string.Empty),
-                        new Claim(JwtRegisteredClaimNames.Email, user.Email ?? string.Empty),
+                        new Claim("Email", user?.Email?? ""),
+                        new Claim(JwtRegisteredClaimNames.Sub, user?.Email ?? string.Empty),
+                        new Claim(JwtRegisteredClaimNames.Email, user?.Email ?? string.Empty),
                         new Claim(JwtRegisteredClaimNames.Jti,
                         Guid.NewGuid().ToString())
                     }),

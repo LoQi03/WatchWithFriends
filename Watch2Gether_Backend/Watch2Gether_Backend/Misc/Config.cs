@@ -17,6 +17,6 @@ namespace Watch2Gether_Backend.Misc
         public JwtConfig? Jwt { get; set; }
 
         [JsonIgnore]
-        public static Config Instance { get; set; }
+        public static Config? Instance { get; set; }
     }
 }

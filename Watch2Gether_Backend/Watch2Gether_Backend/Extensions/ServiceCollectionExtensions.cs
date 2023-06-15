@@ -54,9 +54,9 @@ namespace Watch2Gether_Backend.Extensions
                     ValidateAudience = true,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
-                    ValidIssuer = Config.Instance.Jwt?.Issuer,
-                    ValidAudience = Config.Instance.Jwt?.Audience,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Config.Instance?.Jwt.Key ?? string.Empty))
+                    ValidIssuer = Config.Instance?.Jwt?.Issuer,
+                    ValidAudience = Config.Instance?.Jwt?.Audience,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Config.Instance?.Jwt?.Key ?? string.Empty))
                 };
             });
             services.AddAuthorization();
