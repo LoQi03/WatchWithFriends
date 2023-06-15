@@ -1,6 +1,11 @@
 ﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Security.Cryptography;
+using System.Text;
+using Watch2Gether_Backend.Misc;
 using Watch2Gether_Backend.Model;
 using Watch2Gether_Data.Model;
 using Watch2Gether_Data.Repositories;
@@ -101,6 +106,7 @@ namespace Watch2Gether_Backend.Services
 
         public UserDTO? Login(UserDTO user, User userFromDB)
         {
+            Console.WriteLine(CreateToken(user));
             var salt = Convert.FromBase64String(userFromDB.Salt ?? "");
             var password = HashPassword(user.Password ?? "", salt);
             if (password == userFromDB.PasswordHash)
@@ -112,6 +118,35 @@ namespace Watch2Gether_Backend.Services
         public void UpdateUser(User userFromDB)
         {
             _userRepository.UpdateUser(userFromDB);
+        }
+
+        private string CreateToken(UserDTO user)
+        {
+            var issuer = Config.Instance?.Jwt?.Issuer;
+            var audience = Config.Instance?.Jwt?.Audience;
+            var key = Encoding.ASCII.GetBytes(Config.Instance?.Jwt?.Key ?? "");
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new[]
+                {
+                        new Claim("Id", user.Id.ToString() ?? string.Empty),
+                        new Claim(JwtRegisteredClaimNames.Sub, user.Email ?? string.Empty),
+                        new Claim(JwtRegisteredClaimNames.Email, user.Email ?? string.Empty),
+                        new Claim(JwtRegisteredClaimNames.Jti,
+                        Guid.NewGuid().ToString())
+                    }),
+                Expires = DateTime.UtcNow.AddDays(10),
+                Issuer = issuer,
+                Audience = audience,
+                SigningCredentials = new SigningCredentials
+                (new SymmetricSecurityKey(key),
+                SecurityAlgorithms.HmacSha512Signature)
+            };
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            var jwtToken = tokenHandler.WriteToken(token);
+            return jwtToken;
         }
     }
 }
