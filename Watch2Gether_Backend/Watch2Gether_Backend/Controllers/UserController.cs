@@ -61,6 +61,17 @@ namespace Watch2Gether_Backend.Controllers
             return Ok(UserDTO.FromModel(user));
         }
 
+        [HttpGet("token/{token}"), Authorize]
+        public ActionResult<UserDTO> GetUserByToken(string token)
+        {
+            var user = _userService.GetUserByToken(token);
+            if (user is null)
+            {
+                return NotFound();
+            }
+            return Ok(user);
+        }
+
         [HttpDelete("{id}"), Authorize]
         public ActionResult DeleteUser(Guid id)
         {
@@ -81,7 +92,7 @@ namespace Watch2Gether_Backend.Controllers
             return Ok(result);
         }
         [HttpPost("login")]
-        public ActionResult<string> Login(UserDTO user)
+        public ActionResult<LoginUserDTO> Login(UserDTO user)
         {
             if (user.Email is null || user.Email == string.Empty) return BadRequest();
             var userFromDB = _userService.GetUserByEmail(user.Email ?? "");
@@ -91,7 +102,7 @@ namespace Watch2Gether_Backend.Controllers
             }
             var result = _userService.Login(user, userFromDB);
 
-            if (result != string.Empty)
+            if (result is not null)
                 return Ok(result);
             else
                 return NotFound();

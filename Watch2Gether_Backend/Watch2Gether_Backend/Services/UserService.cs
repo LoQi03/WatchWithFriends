@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json.Linq;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -33,7 +34,7 @@ namespace Watch2Gether_Backend.Services
             return result;
         }
 
-        private string HashPassword(string password, byte[] salt)
+        private static string HashPassword(string password, byte[] salt)
         {
             string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
                 password: password,
@@ -103,17 +104,22 @@ namespace Watch2Gether_Backend.Services
             return result;
         }
 
-        public string Login(UserDTO user, User userFromDB)
+        public LoginUserDTO? Login(UserDTO user, User userFromDB)
         {
             var salt = Convert.FromBase64String(userFromDB.Salt ?? "");
             var password = HashPassword(user.Password ?? "", salt);
             if (password == userFromDB.PasswordHash)
             {
-                var token = CreateToken(user);
-                return token;
+                var resultUserDto = UserDTO.FromModel(userFromDB);
+                var loginUserDTO = new LoginUserDTO
+                {
+                    UserDetails = resultUserDto,
+                    Token = CreateToken(user),
+                };
+                return loginUserDTO;
             }
             else
-                return string.Empty;
+                return null;
         }
 
         public void UpdateUser(User userFromDB)
@@ -130,9 +136,7 @@ namespace Watch2Gether_Backend.Services
             {
                 Subject = new ClaimsIdentity(new[]
                 {
-                        new Claim("Id", user.Id.ToString() ?? string.Empty),
-                        new Claim("Email", user?.Email?? ""),
-                        new Claim(JwtRegisteredClaimNames.Sub, user?.Email ?? string.Empty),
+                        new Claim(JwtRegisteredClaimNames.Sub, user?.Id.ToString() ?? string.Empty),
                         new Claim(JwtRegisteredClaimNames.Email, user?.Email ?? string.Empty),
                         new Claim(JwtRegisteredClaimNames.Jti,
                         Guid.NewGuid().ToString())
@@ -149,6 +153,23 @@ namespace Watch2Gether_Backend.Services
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var jwt = tokenHandler.WriteToken(token);
             return jwt;
+        }
+
+        public UserDTO? GetUserByToken(string token)
+        {
+            var handler = new JwtSecurityTokenHandler();
+            var jwtSecurityToken = handler.ReadJwtToken(token);
+            var email = jwtSecurityToken.Claims.First(claim => claim.Type == JwtRegisteredClaimNames.Email).Value;
+
+            if (email == string.Empty) return null;
+
+            var userFromDB = GetUserByEmail(email);
+
+            if (userFromDB is null) return null;
+
+            var userDTO = UserDTO.FromModel(userFromDB);
+
+            return userDTO;
         }
     }
 }
