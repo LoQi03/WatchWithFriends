@@ -37,8 +37,8 @@ export default class AuthenticationService {
         this._isUserAlreadyLoggedIn = true;
     }
     public static async register(user: RegisterUserDto): Promise<void> {
-        const response = await API.register(user);
-        if (!response.user) {
+        const status = await API.register(user);
+        if (status !== 200) {
             throw new Error("Invalid response from server");
         }
     }

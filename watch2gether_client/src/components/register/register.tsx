@@ -48,8 +48,8 @@ export const RegistrationForm = (props: RegistrationFormProps): JSX.Element => {
                 <Style.SignUpTextField value={registerCredentials.name} name='name' onChange={handleRegisterCredentialsChange} label='Username' type="text" placeholder="Username" />
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker label='Birth Date'
-                        value={registerCredentials.birthDate}
-                        onChange={(date) => setRegisterCredentials({ ...registerCredentials, birthDate: date || new Date() })}
+                        value={dayjs(registerCredentials.birthDate)}
+                        onChange={(date) => setRegisterCredentials({ ...registerCredentials, birthDate: date?.toDate() ?? new Date() })}
                         slotProps={{ textField: { size: 'medium', variant: 'standard', style: { marginBottom: '25px', marginTop: '15px' } } }} />
                 </LocalizationProvider>
                 <Style.SignUpTextField
