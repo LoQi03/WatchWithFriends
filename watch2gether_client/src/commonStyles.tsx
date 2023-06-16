@@ -22,7 +22,10 @@ export const StyledTextField = styled(TextField)({
         color: "white",
     },
     "& .MuiInputLabel-root.Mui-focused": {
-        color: "white", // Válaszd ki a kívánt színt
+        color: "white",
+    },
+    "& .MuiIconButton-root": {
+        color: "white",
     },
     "& .MuiOutlinedInput-notchedOutline": {
         borderColor: "white",
@@ -46,6 +49,6 @@ export const GenericButton = (props: ButtonProps): JSX.Element => <Button
     variant="contained"
     style={{
         color: "white",
-        backgroundColor: "#20258D",
+        backgroundColor: "#3928C2",
     }}
     {...props} />;

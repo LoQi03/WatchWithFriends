@@ -13,10 +13,10 @@ export const InputContainer = styled.div`
         text-decoration: none;
     }
     `;
-export const SignInButton = styled(CommonStyle.GenericButton)({
+export const SignUpButton = styled(CommonStyle.GenericButton)({
     marginTop: "20px"
 });
 
-export const SignInTextField = styled(CommonStyle.StyledTextField)({
+export const SignUpTextField = styled(CommonStyle.StyledTextField)({
     marginTop: "20px",
 });
