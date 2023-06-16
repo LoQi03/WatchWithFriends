@@ -1,8 +1,3 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.Filters;
-using System.Text;
 using Watch2Gether_Backend.Extensions;
 using Watch2Gether_Backend.Misc;
 using Watch2Gether_Data.Extensions;

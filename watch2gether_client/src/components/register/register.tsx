@@ -44,8 +44,7 @@ export const RegistrationForm = (props: RegistrationFormProps): JSX.Element => {
             }
             const { error } = schema.validate(registerCredentials);
             if (error) {
-                setErrorMessage(error.message);
-                //setErrorMessage("The password must contain small and capital letters, symbols and numbers!");
+                setErrorMessage("The password must contain small and capital letters, symbols and numbers!");
                 return;
             }
             await AuthenticationService.register(registerCredentials);
