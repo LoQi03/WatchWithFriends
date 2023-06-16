@@ -46,6 +46,7 @@ export const StyledTextField = styled(TextField)({
             WebkitBoxShadow: '0 0 0 1000px #4F4F4F inset',
             backgroundColor: '#4F4F4F !important',
             WebkitTextFillColor: "white",
+            caretColor: "white",
         },
     },
 

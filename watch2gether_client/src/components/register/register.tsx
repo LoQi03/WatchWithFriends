@@ -16,14 +16,14 @@ export const RegistrationForm = (props: RegistrationFormProps): JSX.Element => {
     const [showPassword, setShowPassword] = React.useState(false);
     const [showConfrimPassword, setshowConfrimPassword] = React.useState(false);
     const [errorMessage, setErrorMessage] = React.useState<string>();
-    const [registerCredentials, setRegisterCredentials] = React.useState<RegisterUserDto>({ email: '', password: '', name: '', birthDate: dayjs('2022-04-17').toDate() });
+    const [registerCredentials, setRegisterCredentials] = React.useState<RegisterUserDto>({ email: '', password: '', name: '', birthDate: '1998-07-03' });
     const [confrimPassword, setConfrimPassword] = React.useState<string>('');
 
     const schema = joi.object({
         email: joi.string().required().email({ tlds: { allow: false } }),
         password: joi.string().regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{6,}$/).required(),
         name: joi.string().min(1).max(20).required(),
-        birthdate: joi.date().min("2001-01-01").required(),
+        birthDate: joi.string().required(),
     });
 
     const handleTogglePassword = () => {
@@ -37,6 +37,7 @@ export const RegistrationForm = (props: RegistrationFormProps): JSX.Element => {
     };
     const register = async () => {
         try {
+            console.log(registerCredentials);
             if (registerCredentials.password !== confrimPassword) {
                 setErrorMessage("Passwords don't match");
                 return;
@@ -44,6 +45,7 @@ export const RegistrationForm = (props: RegistrationFormProps): JSX.Element => {
             const { error } = schema.validate(registerCredentials);
             if (error) {
                 setErrorMessage(error.message);
+                //setErrorMessage("The password must contain small and capital letters, symbols and numbers!");
                 return;
             }
             await AuthenticationService.register(registerCredentials);
@@ -65,7 +67,7 @@ export const RegistrationForm = (props: RegistrationFormProps): JSX.Element => {
                     <DatePicker label='Birth Date'
                         value={dayjs(registerCredentials.birthDate)}
                         sx={Style.DataPickerTheme}
-                        onChange={(date) => setRegisterCredentials({ ...registerCredentials, birthDate: date?.toDate() ?? new Date() })}
+                        onChange={(date) => setRegisterCredentials({ ...registerCredentials, birthDate: date?.toISOString() ?? '' })}
                         slotProps={{ textField: { size: 'medium', variant: 'outlined', style: { marginTop: '20px' } } }} />
                 </LocalizationProvider>
                 <Style.SignUpTextField
