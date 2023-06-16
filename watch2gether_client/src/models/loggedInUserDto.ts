@@ -1,6 +1,6 @@
 import { UserDto } from "./userDto";
 
-export interface LoginUserDto {
+export interface LoggedInUserDto {
     user?: UserDto;
-    password?: string;
+    token?: string;
 }

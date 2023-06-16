@@ -1,9 +1,5 @@
-﻿using Azure.Core;
-using Microsoft.AspNetCore.Mvc;
-using System.Security.Cryptography;
+﻿using Microsoft.AspNetCore.Mvc;
 using Watch2Gether_Backend.Model;
-using Watch2Gether_Data.Model;
-using Watch2Gether_Data.Repositories;
 using System.Drawing;
 using Image = Watch2Gether_Data.Model.Image;
 using Watch2Gether_Backend.Services;
