@@ -1,32 +1,55 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, KeyboardEventHandler, useState } from 'react';
 import * as Style from './styles';
 import LoginIcon from '@mui/icons-material/Login';
 import { IconButton, InputAdornment } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { AuthenticationFormProps } from '../../pages/authentication/authentication';
 import { LoginCredentialsDto } from '../../models/loginCredentialsDto';
+import AuthenticationService from '../../services/authenticationService';
 
-export const LoginForm = (props: AuthenticationFormProps): JSX.Element => {
+interface LoginFormProps {
+    formChangeHandler: () => void;
+    loginChangeHandler: () => void;
+}
+
+export const LoginForm = (props: LoginFormProps): JSX.Element => {
     const [showPassword, setShowPassword] = React.useState(false);
     const [credentials, setCredentials] = useState<LoginCredentialsDto>({ email: '', password: '' });
+    const [errorMessage, setErrorMessage] = useState<string>();
     const handleTogglePassword = () => {
         setShowPassword((prevShowPassword) => !prevShowPassword);
     };
+
+    const handleKeyDown: KeyboardEventHandler<HTMLDivElement> = (event) => {
+        if (event.key === 'Enter') {
+            login();
+        }
+    };
+
     const handleCredentialsChange = (e: ChangeEvent<HTMLInputElement>) => {
         setCredentials({ ...credentials, [e.target.name]: e.target.value });
-        console.log(credentials);
+    };
+    const login = async () => {
+        try {
+            await AuthenticationService.login(credentials);
+            props.loginChangeHandler();
+        }
+        catch (error) {
+            setErrorMessage("Invalid credentials");
+            console.log(error);
+        }
     };
     return (
         <>
             <h1>Sign In</h1>
             <Style.InputContainer>
-                <Style.SignInTextField value={credentials.email} onChange={handleCredentialsChange} name='email' label='E-mail' type="text" placeholder="E-mail" />
+                <Style.SignInTextField onKeyDown={handleKeyDown} value={credentials.email} onChange={handleCredentialsChange} name='email' label='E-mail' type="text" placeholder="E-mail" />
                 <Style.SignInTextField
                     value={credentials.password}
                     onChange={handleCredentialsChange}
                     name='password'
                     label="Password"
                     type={showPassword ? 'text' : 'password'}
+                    onKeyDown={handleKeyDown}
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position="end">
@@ -42,7 +65,8 @@ export const LoginForm = (props: AuthenticationFormProps): JSX.Element => {
                     }}
                 />
                 <p style={{ cursor: "pointer" }} onClick={props.formChangeHandler}>Sign Up</p>
-                <Style.SignInButton size='large' startIcon={<LoginIcon />}>Sign In</Style.SignInButton>
+                {errorMessage && <p style={{ color: "red", fontSize: "14px" }}>{errorMessage}</p>}
+                <Style.SignInButton onClick={login} size='large' startIcon={<LoginIcon />}>Sign In</Style.SignInButton>
             </Style.InputContainer>
         </>
     )

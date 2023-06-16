@@ -57,7 +57,7 @@ namespace Watch2Gether_Backend.Controllers
             return Ok(UserDTO.FromModel(user));
         }
 
-        [HttpGet("token/{token}"), Authorize]
+        [HttpGet("token/{token}")]
         public ActionResult<UserDTO> GetUserByToken(string token)
         {
             var user = _userService.GetUserByToken(token);

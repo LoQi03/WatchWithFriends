@@ -6,10 +6,9 @@ export const InputContainer = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    & a{
+    & p{
         margin-top: 20px;
-        color: white;
-        font-size: 15px;
+        font-size: 17px;
         text-decoration: none;
     }
     `;

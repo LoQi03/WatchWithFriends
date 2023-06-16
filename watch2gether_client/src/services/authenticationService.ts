@@ -4,12 +4,10 @@ import { LoginCredentialsDto } from "../models/loginCredentialsDto";
 import { RegisterUserDto } from "../models/registerUserDto";
 
 export default class AuthenticationService {
-    constructor() {
-        let token = localStorage.getItem("token");
-        if (token) {
-            AuthenticationService.getUserByToken(token);
-        }
+    static setToken(token: string) {
+        throw new Error('Method not implemented.');
     }
+
     private static _isUserAlreadyLoggedIn: boolean;
     public static get isUserAlreadyLoggedIn(): boolean {
         return this._isUserAlreadyLoggedIn;
@@ -24,14 +22,17 @@ export default class AuthenticationService {
     public static get token(): string {
         return this.token;
     }
+    public static set token(value: string) {
+        this._token = value;
+    }
 
     public static async login(credentials: LoginCredentialsDto): Promise<void> {
-        const response = await API.login(credentials);
-        if (!response.user || !response.token) {
+        const { userDetails, token } = await API.login(credentials);
+        if (!userDetails || !token) {
             throw new Error("Invalid response from server");
         }
-        this._currentUser = response.user;
-        this._token = response.token;
+        this._currentUser = userDetails;
+        this._token = token;
         localStorage.setItem("token", this._token);
         this._isUserAlreadyLoggedIn = true;
     }
@@ -41,7 +42,7 @@ export default class AuthenticationService {
             throw new Error("Invalid response from server");
         }
     }
-    public static async getUserByToken(token: string): Promise<void> {
+    public static async verifyToken(token: string): Promise<void> {
         const response = await API.getUserByToken(token);
         if (!response) {
             this.logout();
