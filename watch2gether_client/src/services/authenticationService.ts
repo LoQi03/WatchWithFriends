@@ -4,10 +4,6 @@ import { LoginCredentialsDto } from "../models/loginCredentialsDto";
 import { RegisterUserDto } from "../models/registerUserDto";
 
 export default class AuthenticationService {
-    static setToken(token: string) {
-        throw new Error('Method not implemented.');
-    }
-
     private static _isUserAlreadyLoggedIn: boolean;
     public static get isUserAlreadyLoggedIn(): boolean {
         return this._isUserAlreadyLoggedIn;

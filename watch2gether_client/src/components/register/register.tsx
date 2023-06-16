@@ -40,6 +40,7 @@ export const RegistrationForm = (props: RegistrationFormProps): JSX.Element => {
             console.log(error);
         }
     };
+
     return (
         <>
             <h1>Sign Up</h1>
@@ -49,8 +50,9 @@ export const RegistrationForm = (props: RegistrationFormProps): JSX.Element => {
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker label='Birth Date'
                         value={dayjs(registerCredentials.birthDate)}
+                        sx={Style.DataPickerTheme}
                         onChange={(date) => setRegisterCredentials({ ...registerCredentials, birthDate: date?.toDate() ?? new Date() })}
-                        slotProps={{ textField: { size: 'medium', variant: 'standard', style: { marginBottom: '25px', marginTop: '15px' } } }} />
+                        slotProps={{ textField: { size: 'medium', variant: 'outlined', style: { marginTop: '20px' } } }} />
                 </LocalizationProvider>
                 <Style.SignUpTextField
                     value={registerCredentials.password}
