@@ -19,6 +19,7 @@ html {
   height: 100vh;
   width: 100vw;
   overflow: hidden;
+
 }
 
 #root {
@@ -28,4 +29,10 @@ html {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+input::-ms-reveal,
+input::-ms-clear {
+  display: none;
+  opacity: 0;
 }

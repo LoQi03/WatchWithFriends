@@ -41,9 +41,17 @@ export const StyledTextField = styled(TextField)({
             borderColor: "white",
         },
     },
+    input: {
+        '&:-webkit-autofill': {
+            WebkitBoxShadow: '0 0 0 1000px #4F4F4F inset',
+            backgroundColor: '#4F4F4F !important',
+            WebkitTextFillColor: "white",
+        },
+    },
+
     marginTop: "10px",
     width: "300px"
-})
+});
 
 export const GenericButton = (props: ButtonProps): JSX.Element => <Button
     variant="contained"

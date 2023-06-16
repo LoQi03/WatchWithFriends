@@ -7,6 +7,7 @@ import { RegisterUserDto } from '../../models/registerUserDto';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import dayjs from 'dayjs';
+import joi from 'joi';
 interface RegistrationFormProps {
     formChangeHandler: () => void;
 }
@@ -17,6 +18,14 @@ export const RegistrationForm = (props: RegistrationFormProps): JSX.Element => {
     const [errorMessage, setErrorMessage] = React.useState<string>();
     const [registerCredentials, setRegisterCredentials] = React.useState<RegisterUserDto>({ email: '', password: '', name: '', birthDate: dayjs('2022-04-17').toDate() });
     const [confrimPassword, setConfrimPassword] = React.useState<string>('');
+
+    const schema = joi.object({
+        email: joi.string().required().email({ tlds: { allow: false } }),
+        password: joi.string().regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{6,}$/).required(),
+        name: joi.string().min(1).max(20).required(),
+        birthdate: joi.date().min("2001-01-01").required(),
+    });
+
     const handleTogglePassword = () => {
         setShowPassword((prevShowPassword) => !prevShowPassword);
     };
@@ -30,6 +39,11 @@ export const RegistrationForm = (props: RegistrationFormProps): JSX.Element => {
         try {
             if (registerCredentials.password !== confrimPassword) {
                 setErrorMessage("Passwords don't match");
+                return;
+            }
+            const { error } = schema.validate(registerCredentials);
+            if (error) {
+                setErrorMessage(error.message);
                 return;
             }
             await AuthenticationService.register(registerCredentials);

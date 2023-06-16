@@ -18,6 +18,7 @@ function App() {
     setIsUserLoggedIn(AuthenticationService.isUserAlreadyLoggedIn);
   };
 
+
   return (
     <>
       {
