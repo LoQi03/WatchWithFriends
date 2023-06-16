@@ -1,5 +1,5 @@
 import { UserDto } from "../models/userDto";
-import * as API from "../api/UserManagementAPI";
+import * as API from "../api/userManagementAPI";
 import { LoginCredentialsDto } from "../models/loginCredentialsDto";
 import { RegisterUserDto } from "../models/registerUserDto";
 
