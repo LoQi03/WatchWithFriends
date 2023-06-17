@@ -15,6 +15,8 @@ import TvIcon from '@mui/icons-material/Tv';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AuthenticationService from '../../services/authenticationService';
 import ProfilePlaceHolder from '../../assets/images/profilePlaceholder.jpg';
+import { AuthenticationContext } from '../../App';
+import { Menu } from '@mui/material';
 
 type Anchor = 'left';
 
@@ -46,20 +48,27 @@ const navigationArrayTop: NavigationProps[] = [
     }
 ]
 
-interface SideNavbarProps {
-    logoutHandler: () => void;
-};
 
-export default function SideNavbar(props: SideNavbarProps) {
+export default function SideNavbar() {
+    const authContext = React.useContext(AuthenticationContext);
     const [state, setState] = React.useState({
         left: false
     });
+
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const open = Boolean(anchorEl);
+    const handleProfileClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleMenuClose = () => {
+        setAnchorEl(null);
+    };
 
     const navigate = useNavigate();
 
     const logout = async () => {
         await AuthenticationService.logout();
-        props.logoutHandler();
+        authContext?.logoutHandler();
         navigate('/');
     };
 
@@ -85,7 +94,7 @@ export default function SideNavbar(props: SideNavbarProps) {
         >
             <Style.StyledList>
                 <Style.StyledListItemForImage disablePadding>
-                    <Style.StyledImage src={WatchWithFriendsLogo} alt="WatchWithFriends" />
+                    <Style.StyledImage onClick={() => navigate('/')} src={WatchWithFriendsLogo} alt="WatchWithFriends" />
                 </Style.StyledListItemForImage>
 
                 {navigationArrayTop.map((navigation, index) => (
@@ -115,10 +124,30 @@ export default function SideNavbar(props: SideNavbarProps) {
             <React.Fragment key={'left'}>
                 <Style.HeaderContainer>
                     <div style={{ alignItems: "center", display: 'flex' }}>
-                        <Button onClick={toggleDrawer('left', true)}><MenuIcon sx={{ color: 'white' }}></MenuIcon></Button>
-                        <img style={{ height: "70px" }} src={WatchWithFriendsLogo} alt="WatchWithFriends" />
+                        <Button onClick={toggleDrawer('left', true)}><MenuIcon fontSize='large' sx={{ color: 'white' }}></MenuIcon></Button>
+                        <img onClick={() => navigate('/')} style={{ height: "70px", cursor: 'pointer' }} src={WatchWithFriendsLogo} alt="WatchWithFriends" />
                     </div>
-                    <Style.ProfileImage src={ProfilePlaceHolder} />
+                    <Button
+                        id="basic-button"
+                        aria-controls={open ? 'basic-menu' : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? 'true' : undefined}
+                        onClick={handleProfileClick}
+                    >
+                        <Style.ProfileImage src={ProfilePlaceHolder} />
+                    </Button>
+                    <Menu
+                        id="basic-menu"
+                        anchorEl={anchorEl}
+                        open={open}
+                        onClose={handleMenuClose}
+                        MenuListProps={{
+                            'aria-labelledby': 'basic-button',
+                        }}
+                    >
+                        <Style.StyledMenuItem onClick={() => { handleMenuClose(); navigate('/profile') }}><Style.StyledMenuItemButton><Person2Icon /> Profile</Style.StyledMenuItemButton></Style.StyledMenuItem >
+                        <Style.StyledMenuItem onClick={authContext?.logoutHandler}><Style.StyledMenuItemButton><LogoutIcon /> Logout</Style.StyledMenuItemButton></Style.StyledMenuItem >
+                    </Menu>
                 </Style.HeaderContainer>
                 <Drawer
                     anchor={'left'}

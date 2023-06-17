@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Box, List, ListItem } from "@mui/material";
+import { Box, List, ListItem, MenuItem } from "@mui/material";
 
 
 export const Header = styled.div`
@@ -38,7 +38,8 @@ export const StyledBox = styled(Box)`
 export const StyledImage = styled.img`
     width: 100%;
     object-fit: cover;
-    `;
+    cursor:'pointer' 
+ `;
 export const StyledListItemForImage = styled(ListItem)`
     margin-bottom: 20px;
     padding: 10px;
@@ -58,3 +59,15 @@ export const HeaderContainer = styled.div`
     align-items: center;
     width: 100%;
     `;
+export const StyledMenuItem = styled(MenuItem)`
+display: flex;
+align-items: center;
+justify-content: space-between;
+color: #3928C2;
+`;
+export const StyledMenuItemButton = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 100px;
+`;

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { createContext, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthenticationPage } from './pages/authentication/authentication';
 import AuthenticationService from './services/authenticationService';
@@ -9,8 +9,15 @@ import { ProfilePage } from './pages/profile/profile';
 import { FriendsPage } from './pages/friends/friends';
 import * as CommonSrtyles from './commonStyles';
 
-function App() {
 
+interface AppContextProps {
+  logoutHandler: () => void;
+  loginHandler: () => void;
+}
+
+export const AuthenticationContext = createContext<AppContextProps | undefined>(undefined);
+
+function App(): JSX.Element {
   const [token, setToken] = React.useState<string>(localStorage.getItem('token') || '');
   const [isUserLoggedIn, setIsUserLoggedIn] = React.useState<boolean>(false);
 
@@ -22,22 +29,23 @@ function App() {
     setToken(token);
   }, [token]);
 
-  const loginChangeHandler = () => {
+  const loginHandler = () => {
     setIsUserLoggedIn(AuthenticationService.isUserAlreadyLoggedIn);
   };
 
   const logoutHandler = () => {
+    AuthenticationService.logout();
     setIsUserLoggedIn(false);
     setToken('');
   };
 
   return (
-    <>
+    <AuthenticationContext.Provider value={{ logoutHandler, loginHandler }}>
       {
         isUserLoggedIn ?
           <>
             <BrowserRouter>
-              <SideNavbar logoutHandler={logoutHandler} />
+              <SideNavbar />
               <CommonSrtyles.PageContainer>
                 <Routes>
                   <Route path="/" element={<HomePage />} />
@@ -48,9 +56,9 @@ function App() {
               </CommonSrtyles.PageContainer>
             </BrowserRouter>
           </>
-          : <AuthenticationPage loginChangeHandler={loginChangeHandler} />
+          : <AuthenticationPage />
       }
-    </>
+    </AuthenticationContext.Provider >
   );
 }
 
