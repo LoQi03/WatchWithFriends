@@ -7,10 +7,13 @@ import { HomePage } from './pages/home/home';
 import { RoomsPage } from './pages/rooms/rooms';
 import { ProfilePage } from './pages/profile/profile';
 import { FriendsPage } from './pages/friends/friends';
+import * as CommonSrtyles from './commonStyles';
 
 function App() {
+
   const [token, setToken] = React.useState<string>(localStorage.getItem('token') || '');
   const [isUserLoggedIn, setIsUserLoggedIn] = React.useState<boolean>(false);
+
   useEffect(() => {
     if (token === '') return;
     AuthenticationService.token = token;
@@ -23,6 +26,10 @@ function App() {
     setIsUserLoggedIn(AuthenticationService.isUserAlreadyLoggedIn);
   };
 
+  const logoutHandler = () => {
+    setIsUserLoggedIn(false);
+    setToken('');
+  };
 
   return (
     <>
@@ -30,13 +37,15 @@ function App() {
         isUserLoggedIn ?
           <>
             <BrowserRouter>
-              <SideNavbar />
-              <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/rooms" element={<RoomsPage />} />
-                <Route path="/profile" element={<ProfilePage />} />
-                <Route path="/friends" element={<FriendsPage />} />
-              </Routes>
+              <SideNavbar logoutHandler={logoutHandler} />
+              <CommonSrtyles.PageContainer>
+                <Routes>
+                  <Route path="/" element={<HomePage />} />
+                  <Route path="/rooms" element={<RoomsPage />} />
+                  <Route path="/profile" element={<ProfilePage />} />
+                  <Route path="/friends" element={<FriendsPage />} />
+                </Routes>
+              </CommonSrtyles.PageContainer>
             </BrowserRouter>
           </>
           : <AuthenticationPage loginChangeHandler={loginChangeHandler} />

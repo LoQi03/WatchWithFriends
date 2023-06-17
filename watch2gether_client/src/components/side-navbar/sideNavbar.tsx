@@ -13,8 +13,10 @@ import Person2Icon from '@mui/icons-material/Person2';
 import GroupIcon from '@mui/icons-material/Group';
 import TvIcon from '@mui/icons-material/Tv';
 import LogoutIcon from '@mui/icons-material/Logout';
+import AuthenticationService from '../../services/authenticationService';
+import ProfilePlaceHolder from '../../assets/images/profilePlaceholder.jpg';
 
-type Anchor = 'top' | 'left' | 'bottom' | 'right';
+type Anchor = 'left';
 
 interface NavigationProps {
     title: string;
@@ -41,23 +43,25 @@ const navigationArrayTop: NavigationProps[] = [
         title: "Profile",
         navigationURL: "/profile",
         icon: <Person2Icon />
-    },
-    {
-        title: "Logout",
-        navigationURL: "/",
-        icon: <LogoutIcon />
     }
 ]
 
+interface SideNavbarProps {
+    logoutHandler: () => void;
+};
 
-
-export default function SideNavbar() {
+export default function SideNavbar(props: SideNavbarProps) {
     const [state, setState] = React.useState({
         left: false
     });
 
     const navigate = useNavigate();
 
+    const logout = async () => {
+        await AuthenticationService.logout();
+        props.logoutHandler();
+        navigate('/');
+    };
 
     const toggleDrawer =
         (anchor: Anchor, open: boolean) =>
@@ -95,13 +99,27 @@ export default function SideNavbar() {
                     </Style.StyledListItem>
                 ))}
             </Style.StyledList>
+            <Style.StyledListItem>
+                <ListItemButton onClick={logout} sx={{ position: 'absolute', bottom: '30px', left: '0px', width: '100%' }} >
+                    <ListItemIcon sx={{ color: "#3928C2", padding: '0px' }}>
+                        {<LogoutIcon />}
+                    </ListItemIcon>
+                    <ListItemText sx={{ color: "#3928C2" }} primary={'Logout'} />
+                </ListItemButton>
+            </Style.StyledListItem>
         </Style.StyledBox>
     );
 
     return (
         <Style.Header>
             <React.Fragment key={'left'}>
-                <Button onClick={toggleDrawer('left', true)}><MenuIcon sx={{ color: 'white' }}></MenuIcon></Button>
+                <Style.HeaderContainer>
+                    <div style={{ alignItems: "center", display: 'flex' }}>
+                        <Button onClick={toggleDrawer('left', true)}><MenuIcon sx={{ color: 'white' }}></MenuIcon></Button>
+                        <img style={{ height: "70px" }} src={WatchWithFriendsLogo} alt="WatchWithFriends" />
+                    </div>
+                    <Style.ProfileImage src={ProfilePlaceHolder} />
+                </Style.HeaderContainer>
                 <Drawer
                     anchor={'left'}
                     open={state['left']}

@@ -47,10 +47,13 @@ export default class AuthenticationService {
         this._currentUser = response;
         this._isUserAlreadyLoggedIn = true;
     }
-    public static logout(): void {
-        this._currentUser = undefined;
-        this._token = undefined;
-        localStorage.removeItem("token");
-        this._isUserAlreadyLoggedIn = false;
+    public static logout(): Promise<void> {
+        return new Promise((resolve) => {
+            this._currentUser = undefined;
+            this._token = undefined;
+            localStorage.removeItem("token");
+            this._isUserAlreadyLoggedIn = false;
+            resolve();
+        });
     }
 }
