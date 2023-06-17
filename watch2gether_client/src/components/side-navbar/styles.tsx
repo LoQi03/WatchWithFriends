@@ -49,7 +49,6 @@ export const StyledListItemForImage = styled(ListItem)`
     align-items: center;
 `;
 export const ProfileImage = styled.img`
-    margin-right: 20px;
     height: 50px;
     border-radius: 50%;
 `;
