@@ -18,7 +18,7 @@ export const AuthenticationPage = (props: AuthenticationPageProps): JSX.Element 
     };
 
     return (
-        <CommonStyle.PageContainer backgroundImage={backGroundImg}>
+        <CommonStyle.PageContainer backgroundImage={backGroundImg} >
             <Style.AuthenticationModal>
                 {isLogin ? <LoginForm loginChangeHandler={props.loginChangeHandler} formChangeHandler={formChangeHandler} ></LoginForm>
                     : <RegistrationForm formChangeHandler={formChangeHandler}></RegistrationForm>}

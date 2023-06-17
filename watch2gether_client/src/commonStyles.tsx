@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { Button, ButtonProps, TextField } from "@mui/material";
 
 export const PageContainer = styled.div<{ backgroundImage?: string }>`
+    background-color: #271B85;
     display: flex;
     flex-direction: column;
     align-items: center;
