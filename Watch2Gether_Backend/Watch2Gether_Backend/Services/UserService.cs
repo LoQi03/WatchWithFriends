@@ -126,7 +126,7 @@ namespace Watch2Gether_Backend.Services
             _userRepository.UpdateUser(userFromDB);
         }
 
-        private string CreateToken(UserDTO user)
+        private static string CreateToken(UserDTO user)
         {
             var issuer = Config.Instance?.Jwt?.Issuer;
             var audience = Config.Instance?.Jwt?.Audience;
