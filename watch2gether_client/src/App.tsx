@@ -10,13 +10,13 @@ import { FriendsPage } from './pages/friends/friends';
 import * as CommonSrtyles from './commonStyles';
 
 
+
 interface AppContextProps {
   logoutHandler: () => void;
   loginHandler: () => void;
 }
 
 export const AuthenticationContext = createContext<AppContextProps | undefined>(undefined);
-
 function App(): JSX.Element {
   const [token, setToken] = React.useState<string>(localStorage.getItem('token') || '');
   const [isUserLoggedIn, setIsUserLoggedIn] = React.useState<boolean>(false);

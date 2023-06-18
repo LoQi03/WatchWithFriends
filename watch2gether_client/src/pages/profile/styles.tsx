@@ -29,9 +29,9 @@ justify-content: center;
 `;
 
 export const StyledImage = styled.img`
-    height: 200px;
-    width: 200px;
-    border-radius: 200px;
+    height: 230px;
+    width: 230px;
+    border-radius: 50%;
  `;
 
 export const ChangePasswordLink = styled.a`
