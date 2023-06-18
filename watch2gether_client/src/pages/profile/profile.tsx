@@ -104,15 +104,7 @@ export const ProfilePage = (): JSX.Element => {
                     <Style.StyledImage src={imageSrc} alt="Avatar" />
                     <Button
                         startIcon={<UploadFileTwoToneIcon />}
-                        sx={{
-                            marginTop: '30px',
-                            backgroundColor: '#3f51b5',
-                            color: 'white',
-                            width: '55%',
-                            '&:hover': { backgroundColor: '#3f51b5' },
-                            '&:active': { backgroundColor: '#3f51b5' },
-                            '&:focus': { backgroundColor: '#3f51b5' }
-                        }}
+                        sx={Style.ChangeButtonStyle}
                         component="label"
                         variant="contained"
                     >

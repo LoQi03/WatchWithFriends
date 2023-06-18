@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import * as CommonStyle from "../../commonStyles";
+import { Theme } from "@emotion/react";
 
 export const ProfilePageContainer = styled.div`
 display: flex;
@@ -60,3 +61,13 @@ export const ImageContainer = styled.div`
     height: 250px;
     width: 250px;
 `;
+export const ChangeButtonStyle: Theme =
+{
+    marginTop: '30px',
+    backgroundColor: '#3f51b5',
+    color: 'white',
+    width: '55%',
+    '&:hover': { backgroundColor: '#3f51b5' },
+    '&:active': { backgroundColor: '#3f51b5' },
+    '&:focus': { backgroundColor: '#3f51b5' }
+}
