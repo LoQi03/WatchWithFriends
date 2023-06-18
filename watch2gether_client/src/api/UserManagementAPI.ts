@@ -24,7 +24,6 @@ export const updateUser = async (user: UpdateUserDto): Promise<AxiosResponse> =>
 }
 export const uploadProfilePicture = async (file: File, userid: string): Promise<AxiosResponse> => {
     const formData = new FormData();
-    console.log(file);
     formData.append("file", file);
     const response = await HttpClient.post<UserDto>(`Users/${userid}/image`, formData, { headers: { "Content-Type": "multipart/form-data" } });
     return response;

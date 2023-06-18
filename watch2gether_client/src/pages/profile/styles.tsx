@@ -64,10 +64,10 @@ export const ImageContainer = styled.div`
 export const ChangeButtonStyle: Theme =
 {
     marginTop: '30px',
-    backgroundColor: '#3f51b5',
+    backgroundColor: '#3928C2',
     color: 'white',
     width: '55%',
-    '&:hover': { backgroundColor: '#3f51b5' },
-    '&:active': { backgroundColor: '#3f51b5' },
-    '&:focus': { backgroundColor: '#3f51b5' }
+    '&:hover': { backgroundColor: '#3928C2' },
+    '&:active': { backgroundColor: '#3928C2' },
+    '&:focus': { backgroundColor: '#3928C2' }
 }
