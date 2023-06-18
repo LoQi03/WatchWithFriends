@@ -15,6 +15,9 @@ export default class AuthenticationService {
     public static get currentUser(): UserDto | undefined {
         return this._currentUser;
     }
+    public static set currentUser(value: UserDto | undefined) {
+        this._currentUser = value;
+    }
 
     private static _token?: string;
     public static get token(): string {
@@ -66,10 +69,9 @@ export default class AuthenticationService {
         console.log(decodedToken);
         const expirationDate = new Date(decodedToken.exp * 1000); // Unix timestamp érték átalakítása
         const currentDate = new Date();
-        console.log(expirationDate, currentDate);
+
         if (expirationDate < currentDate) {
-            console.log(expirationDate, currentDate)
-            console.log("Token expired");
+            this.logout();
             return false;
         }
         return true;

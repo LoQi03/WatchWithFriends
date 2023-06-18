@@ -5,6 +5,7 @@ import { IconButton, InputAdornment } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { LoginCredentialsDto } from '../../models/loginCredentialsDto';
 import AuthenticationService from '../../services/authenticationService';
+import * as CommonStyles from '../../commonStyles';
 
 interface LoginFormProps {
     formChangeHandler: () => void;
@@ -65,7 +66,7 @@ export const LoginForm = (props: LoginFormProps): JSX.Element => {
                     }}
                 />
                 <p style={{ cursor: "pointer" }} onClick={props.formChangeHandler}>Sign Up</p>
-                {errorMessage && <p style={{ color: "red", fontSize: "14px" }}>{errorMessage}</p>}
+                {errorMessage && <CommonStyles.ErrorMassage style={{ color: "red", fontSize: "14px" }}>{errorMessage}</CommonStyles.ErrorMassage>}
                 <Style.SignInButton onClick={login} size='large' startIcon={<LoginIcon />}>Sign In</Style.SignInButton>
             </Style.InputContainer>
         </>

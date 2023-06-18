@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useContext, useMemo, useState } from 'react';
 import * as Style from './styles'
 import ProfilePicturePlaceholder from '../../assets/images/profilePlaceholder.jpg';
 import { UserDto } from '../../models/userDto';
@@ -6,14 +6,19 @@ import AuthenticationService from '../../services/authenticationService';
 import { Button, IconButton, InputAdornment } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import * as CommonStyle from "../../commonStyles";
+import * as API from '../../api/userManagementAPI';
+import { UpdateUserDto } from '../../models/updateUserDto';
+import { AuthenticationContext } from '../../App';
 
 export const ProfilePage = (): JSX.Element => {
+    const authContext = useContext(AuthenticationContext);
     const [newPassword, setNewPassword] = useState('');
     const [confrimNewPassword, setConfrimNewPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [showConfrimNewPassword, setshowConfrimNewPassword] = useState(false);
     const [showNewPassword, setshowNewPassword] = useState(false);
     const [showChangePassword, setShowChangePassword] = useState(false);
+    const [errorMassage, setErrorMassage] = useState('');
     const [userDetails, setUserDetails] = useState<UserDto>(
         {
             name: '',
@@ -39,9 +44,26 @@ export const ProfilePage = (): JSX.Element => {
         setUserDetails({ ...userDetails, [e.target.name]: e.target.value });
     };
 
-    const save = () => {
+    const save = async () => {
+        setErrorMassage('');
         if (newPassword !== confrimNewPassword) return;
-        //AuthenticationService.updateUserDetails(userDetails);
+        let updateUserDto: UpdateUserDto = {
+            userDetails: userDetails,
+            newPassword: newPassword
+        };
+        if (AuthenticationService.checkTokenExpiration() === false) authContext?.logoutHandler();
+        try {
+            const respone = await API.updateUser(updateUserDto);
+            if (respone.status === 200) {
+                AuthenticationService.currentUser = updateUserDto.userDetails;
+                AuthenticationService.currentUser.password = '';
+                setUserDetails(AuthenticationService.currentUser);
+                setNewPassword('');
+                setConfrimNewPassword('');
+            }
+        } catch (error) {
+            setErrorMassage('Wrong credentials or user already exists');
+        };
     };
     const discard = () => {
         setUserDetails(AuthenticationService.currentUser ?? {
@@ -121,6 +143,7 @@ export const ProfilePage = (): JSX.Element => {
                                 }}
                             />
                         </> : <Style.ChangePasswordLink onClick={() => setShowChangePassword(true)}>Change Password</Style.ChangePasswordLink>}
+                    {errorMassage !== '' ? <CommonStyle.ErrorMassage>{errorMassage}</CommonStyle.ErrorMassage> : null}
                     <Style.ButtonContainer>
                         <Button variant="contained" sx={{ marginRight: '10px' }} onClick={discard} color="error">Discard</Button>
                         <CommonStyle.GenericButton onClick={save} title='Save' >Save</CommonStyle.GenericButton>

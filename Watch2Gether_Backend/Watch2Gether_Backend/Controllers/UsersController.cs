@@ -43,7 +43,7 @@ namespace Watch2Gether_Backend.Controllers
                 return Ok(result);
             }
             else
-                return Unauthorized();
+                return BadRequest();
         }
 
         [HttpGet("{id}"), Authorize]

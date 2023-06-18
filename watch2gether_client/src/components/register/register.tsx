@@ -8,6 +8,7 @@ import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import dayjs from 'dayjs';
 import joi from 'joi';
+import * as CommonStyles from '../../commonStyles';
 interface RegistrationFormProps {
     formChangeHandler: () => void;
 }
@@ -109,7 +110,7 @@ export const RegistrationForm = (props: RegistrationFormProps): JSX.Element => {
                     }}
                 />
                 <p style={{ cursor: "pointer" }} onClick={props.formChangeHandler}>Sign In</p>
-                {errorMessage && <p style={{ color: "red", fontSize: "14px" }}>{errorMessage}</p>}
+                {errorMessage && <CommonStyles.ErrorMassage style={{ color: "red", fontSize: "14px" }}>{errorMessage}</CommonStyles.ErrorMassage>}
                 <Style.SignUpButton onClick={register} size='large' >Sign Up</Style.SignUpButton>
             </Style.InputContainer>
         </>
