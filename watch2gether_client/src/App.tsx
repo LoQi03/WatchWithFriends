@@ -24,6 +24,7 @@ function App(): JSX.Element {
   useEffect(() => {
     if (token === '') return;
     AuthenticationService.token = token;
+    AuthenticationService.checkTokenExpiration();
     const verifyToken = async () => await AuthenticationService.verifyToken(token);
     verifyToken().then(() => setIsUserLoggedIn(true)).catch(() => setIsUserLoggedIn(false));
     setToken(token);

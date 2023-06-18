@@ -2,6 +2,7 @@ import { UserDto } from "../models/userDto";
 import * as API from "../api/userManagementAPI";
 import { LoginCredentialsDto } from "../models/loginCredentialsDto";
 import { RegisterUserDto } from "../models/registerUserDto";
+import jwtDecode from 'jwt-decode'
 
 export default class AuthenticationService {
     private static _isUserAlreadyLoggedIn: boolean;
@@ -55,5 +56,12 @@ export default class AuthenticationService {
             this._isUserAlreadyLoggedIn = false;
             resolve();
         });
+    }
+    public static checkTokenExpiration(): boolean {
+        const token = localStorage.getItem("token");
+        if (!token) return false;
+        const decodedToken = jwtDecode(token);
+        console.log(decodedToken);
+        return true;
     }
 }
