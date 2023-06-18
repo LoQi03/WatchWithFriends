@@ -3,6 +3,7 @@ import * as API from "../api/userManagementAPI";
 import { LoginCredentialsDto } from "../models/loginCredentialsDto";
 import { RegisterUserDto } from "../models/registerUserDto";
 import jwtDecode from 'jwt-decode'
+import { WebToken } from "../models/webToken";
 
 export default class AuthenticationService {
     private static _isUserAlreadyLoggedIn: boolean;
@@ -60,8 +61,15 @@ export default class AuthenticationService {
     public static checkTokenExpiration(): boolean {
         const token = localStorage.getItem("token");
         if (!token) return false;
-        const decodedToken = jwtDecode(token);
-        console.log(decodedToken);
+
+        const decodedToken = jwtDecode<WebToken>(token);
+        const expirationDate = new Date(decodedToken.exp * 1000);
+        const currentDate = new Date();
+
+        if (expirationDate < currentDate) {
+            console.log("Token expired");
+            return false;
+        }
         return true;
     }
 }
