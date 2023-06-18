@@ -30,7 +30,7 @@ justify-content: center;
 export const StyledImage = styled.img`
     height: 200px;
     width: 200px;
-    border-radius: 50%;
+    border-radius: 200px;
  `;
 
 export const ChangePasswordLink = styled.a`
@@ -49,4 +49,14 @@ export const ButtonContainer = styled.div`
     justify-content: end;
     margin-top: 20px;
     width: 100%;
+`;
+
+export const ImageContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    height: 250px;
+    width: 250px;
 `;

@@ -140,11 +140,19 @@ namespace Watch2Gether_Backend.Controllers
 
             if (user is null) return NotFound();
 
-            if (user.ImageId is null) return NotFound();
+            if (user.ImageId is null)
+            {
+                byte[] placeHolder = System.IO.File.ReadAllBytes("./Assets/Images/profilePlaceholder.jpg");
+                return File(placeHolder, "image/png");
+            }
 
             var image = _imageService.GetImageById((Guid)user.ImageId);
 
-            if (image is null) return NotFound();
+            if (image is null)
+            {
+                byte[] placeHolder = System.IO.File.ReadAllBytes("./Assets/Images/profilePlaceholder.jpg");
+                return File(placeHolder, "image/png");
+            }
 
             return File(image.Data!, "image/jpeg");
         }

@@ -62,3 +62,8 @@ export const GenericButton = (props: ButtonProps): JSX.Element => <Button
         backgroundColor: "#3928C2",
     }}
     {...props} />;
+
+export const ErrorMassage = styled.p`
+    color: red;
+    font-size: 15px;
+    `;

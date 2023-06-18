@@ -66,10 +66,9 @@ export default class AuthenticationService {
         if (!token) return false;
 
         const decodedToken = jwtDecode<WebToken>(token);
-        console.log(decodedToken);
-        const expirationDate = new Date(decodedToken.exp * 1000); // Unix timestamp érték átalakítása
-        const currentDate = new Date();
+        const expirationDate = new Date(decodedToken.exp * 1000);
 
+        const currentDate = new Date();
         if (expirationDate < currentDate) {
             this.logout();
             return false;

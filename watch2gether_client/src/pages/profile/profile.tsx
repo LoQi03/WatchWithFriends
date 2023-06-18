@@ -1,6 +1,5 @@
-import React, { useContext, useMemo, useState } from 'react';
+import React, { ChangeEvent, useContext, useMemo, useState } from 'react';
 import * as Style from './styles'
-import ProfilePicturePlaceholder from '../../assets/images/profilePlaceholder.jpg';
 import { UserDto } from '../../models/userDto';
 import AuthenticationService from '../../services/authenticationService';
 import { Button, IconButton, InputAdornment } from '@mui/material';
@@ -9,6 +8,8 @@ import * as CommonStyle from "../../commonStyles";
 import * as API from '../../api/userManagementAPI';
 import { UpdateUserDto } from '../../models/updateUserDto';
 import { AuthenticationContext } from '../../App';
+import UploadFileTwoToneIcon from '@mui/icons-material/UploadFileTwoTone';
+import * as AppConfig from '../../AppConfig';
 
 export const ProfilePage = (): JSX.Element => {
     const authContext = useContext(AuthenticationContext);
@@ -19,6 +20,8 @@ export const ProfilePage = (): JSX.Element => {
     const [showNewPassword, setshowNewPassword] = useState(false);
     const [showChangePassword, setShowChangePassword] = useState(false);
     const [errorMassage, setErrorMassage] = useState('');
+    const [imageSrc, setImageSrc] = useState('');
+    const [imgFile, setImgFile] = useState<File | undefined>(undefined);
     const [userDetails, setUserDetails] = useState<UserDto>(
         {
             name: '',
@@ -29,6 +32,7 @@ export const ProfilePage = (): JSX.Element => {
     useMemo(() => {
         if (AuthenticationService.currentUser === undefined) return;
         setUserDetails(AuthenticationService.currentUser);
+        setImageSrc(`${AppConfig.GetConfig().apiUrl}Users/${AuthenticationService.currentUser?.id}/image`);
     }, [])
 
     const handleTogglePassword = () => {
@@ -44,6 +48,22 @@ export const ProfilePage = (): JSX.Element => {
         setUserDetails({ ...userDetails, [e.target.name]: e.target.value });
     };
 
+    const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
+        let file = event.target.files?.[0];
+        setImgFile(file);
+        const reader = new FileReader();
+
+        reader.onload = () => {
+            if (reader.readyState === 2 && typeof reader.result === 'string') {
+                setImageSrc(reader.result);
+            }
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    };
+
     const save = async () => {
         setErrorMassage('');
         if (newPassword !== confrimNewPassword) return;
@@ -55,6 +75,8 @@ export const ProfilePage = (): JSX.Element => {
         try {
             const respone = await API.updateUser(updateUserDto);
             if (respone.status === 200) {
+                if (imgFile !== undefined)
+                    await API.uploadProfilePicture(imgFile, AuthenticationService.currentUser?.id ?? "");
                 AuthenticationService.currentUser = updateUserDto.userDetails;
                 AuthenticationService.currentUser.password = '';
                 setUserDetails(AuthenticationService.currentUser);
@@ -78,7 +100,30 @@ export const ProfilePage = (): JSX.Element => {
         <Style.ProfilePageContainer>
             <h1>Profile</h1>
             <Style.ProfilePageContent>
-                <Style.StyledImage src={ProfilePicturePlaceholder} alt="Avatar" />
+                <Style.ImageContainer>
+                    <Style.StyledImage src={imageSrc} alt="Avatar" />
+                    <Button
+                        startIcon={<UploadFileTwoToneIcon />}
+                        sx={{
+                            marginTop: '30px',
+                            backgroundColor: '#3f51b5',
+                            color: 'white',
+                            width: '55%',
+                            '&:hover': { backgroundColor: '#3f51b5' },
+                            '&:active': { backgroundColor: '#3f51b5' },
+                            '&:focus': { backgroundColor: '#3f51b5' }
+                        }}
+                        component="label"
+                        variant="contained"
+                    >
+                        Change
+                        <input
+                            type="file"
+                            hidden
+                            onChange={handleImageChange}
+                        />
+                    </Button>
+                </Style.ImageContainer>
                 <Style.ProfilePageInputContainer>
                     <Style.ProfilePageTextField onChange={handleUserDetailsChange} value={userDetails.name ?? ''} name='name' label='Username' type='text' placeholder="Username" />
                     <Style.ProfilePageTextField onChange={handleUserDetailsChange} value={userDetails.email ?? ''} name='email' label='E-mail' type='text' placeholder="E-mail" />

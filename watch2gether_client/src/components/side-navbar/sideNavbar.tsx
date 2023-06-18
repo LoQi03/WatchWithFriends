@@ -14,9 +14,9 @@ import GroupIcon from '@mui/icons-material/Group';
 import TvIcon from '@mui/icons-material/Tv';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AuthenticationService from '../../services/authenticationService';
-import ProfilePlaceHolder from '../../assets/images/profilePlaceholder.jpg';
 import { AuthenticationContext } from '../../App';
 import { Menu } from '@mui/material';
+import * as AppConfig from '../../AppConfig';
 
 type Anchor = 'left';
 
@@ -134,7 +134,7 @@ export default function SideNavbar() {
                         aria-expanded={open ? 'true' : undefined}
                         onClick={handleProfileClick}
                     >
-                        <Style.ProfileImage src={ProfilePlaceHolder} />
+                        <Style.ProfileImage src={`${AppConfig.GetConfig().apiUrl}Users/${AuthenticationService.currentUser?.id}/image`} />
                     </Button>
                     <Menu
                         id="basic-menu"
