@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Watch2Gether_Data.Data;
 using Watch2Gether_Data.Repositories;
 using Watch2Gether_Data.Repositories.Core;
@@ -41,7 +36,7 @@ namespace Watch2Gether_Data.Extensions
                 default:
                     throw new ArgumentOutOfRangeException(nameof(dataBaseType), dataBaseType, null);
             }
-
+            services.AddDbContext<RoomsDBContext>(options => options.UseInMemoryDatabase(databaseName: "Rooms"));
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IImageRepository, ImageRepository>();
         }

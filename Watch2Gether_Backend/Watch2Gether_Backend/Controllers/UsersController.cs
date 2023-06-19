@@ -125,6 +125,7 @@ namespace Watch2Gether_Backend.Controllers
 
             imgBitmap?.Save(streamReadDataFromImage, System.Drawing.Imaging.ImageFormat.Jpeg); //only windows supp
             data = streamReadDataFromImage.ToArray();
+            if (user.ImageId is not null) _imageService.RemoveImage(user.ImageId ?? Guid.Empty);
             user.ImageId = imgId;
             img.Id = imgId;
             img.Data = data;

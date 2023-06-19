@@ -21,5 +21,9 @@ namespace Watch2Gether_Backend.Services
         {
             _imageRepository.InsertImage(image);
         }
+        public void RemoveImage(Guid imgid)
+        {
+            _imageRepository.DeleteImage(imgid);
+        }
     }
 }
