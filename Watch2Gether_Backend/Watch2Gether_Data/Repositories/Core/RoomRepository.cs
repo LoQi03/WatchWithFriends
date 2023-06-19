@@ -6,7 +6,7 @@ namespace Watch2Gether_Data.Repositories.Core
     internal class RoomRepository : IRoomRepository
     {
 
-        private RoomsDBContext context;
+        private readonly RoomsDBContext context;
 
         public RoomRepository(RoomsDBContext context)
         {
@@ -45,7 +45,7 @@ namespace Watch2Gether_Data.Repositories.Core
 
             if (room is null) return;
 
-            room.Users.Add(userId);
+            room.Users?.Add(userId);
             context.Update(room);
             Save();
         }

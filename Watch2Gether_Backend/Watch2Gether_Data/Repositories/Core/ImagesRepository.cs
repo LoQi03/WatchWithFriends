@@ -5,7 +5,7 @@ namespace Watch2Gether_Data.Repositories.Core
 {
     internal class ImageRepository : IImageRepository
     {
-        private Watch2GetherDBContext context;
+        private readonly Watch2GetherDBContext context;
 
         public ImageRepository(Watch2GetherDBContext context)
         {

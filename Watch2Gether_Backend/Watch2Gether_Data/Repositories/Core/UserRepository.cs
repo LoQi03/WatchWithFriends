@@ -5,7 +5,7 @@ namespace Watch2Gether_Data.Repositories.Core
 {
     internal class UserRepository : IUserRepository
     {
-        private Watch2GetherDBContext context;
+        private readonly Watch2GetherDBContext context;
 
         public UserRepository(Watch2GetherDBContext context)
         {
