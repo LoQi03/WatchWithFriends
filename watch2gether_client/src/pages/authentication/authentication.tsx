@@ -7,8 +7,6 @@ import { RegistrationForm } from '../../components/register/register';
 import { AuthenticationContext } from '../../App';
 
 
-
-
 export const AuthenticationPage = (): JSX.Element => {
     const authContext = React.useContext(AuthenticationContext);
     const [isLogin, setIsLogin] = React.useState(true);
