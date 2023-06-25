@@ -50,5 +50,15 @@ namespace Watch2Gether_Backend.Controllers
             }
             return Ok(result);
         }
+        [HttpPost("{roomid}/users/{userid}"), Authorize]
+        public ActionResult AddUserToRoom(Guid roomid, Guid userid)
+        {
+            var result = _roomService.AddUserToRoom(roomid, userid);
+            if (result is null)
+            {
+                return NotFound();
+            }
+            return Ok(result);
+        }
     }
 }
