@@ -10,5 +10,6 @@ namespace Watch2Gether_Backend.Services
         RoomDTO? DeleteRoom(Guid roomId);
         RoomDTO? GetRoom(Guid id);
         RoomDTO? AddUserToRoom(Guid roomid, Guid userid);
+        RoomDTO? GetRoomById(Guid id);
     }
 }

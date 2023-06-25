@@ -10,9 +10,11 @@ namespace Watch2Gether_Backend.Services
     internal class RoomService : IRoomService
     {
         private readonly IRoomRepository _roomRepository;
-        public RoomService(IRoomRepository roomRepository)
+        private readonly IUserRepository _userRepository;
+        public RoomService(IRoomRepository roomRepository, IUserRepository userRepository)
         {
             _roomRepository = roomRepository;
+            _userRepository = userRepository;
         }
         public IEnumerable<Room> GetAllRooms()
         {
@@ -23,7 +25,9 @@ namespace Watch2Gether_Backend.Services
             if (room is null) return null;
             var salt = RandomNumberGenerator.GetBytes(128 / 8);
             var hashed = HashPassword(room.Password ?? "", salt);
-            var users = new List<Guid>() { room.Creator };
+            var creator = _userRepository.GetUserByID(room.Creator);
+            if (creator is null) return null;
+            var users = new List<User>() { creator };
             var roomDB = new Room()
             {
                 Id = Guid.NewGuid(),
@@ -53,10 +57,18 @@ namespace Watch2Gether_Backend.Services
             var room = _roomRepository.GetRoomByID(roomid);
             if (room is null) return null;
             if (room.Users?.Count() > 0) return null;
-            List<Guid>? users = room.Users?.ToList();
-            users?.Add(userid);
+            var users = room.Users?.ToList();
+            var user = _userRepository.GetUserByID(userid);
+            if (user is null) return null;
+            users?.Add(user);
             room.Users = users;
             _roomRepository.UpdateRoom(room);
+            return RoomDTO.FromModel(room);
+        }
+        public RoomDTO? GetRoomById(Guid id)
+        {
+            var room = _roomRepository.GetRoomByID(id);
+            if (room is null) return null;
             return RoomDTO.FromModel(room);
         }
         private static string HashPassword(string password, byte[] salt)
