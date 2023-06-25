@@ -24,6 +24,7 @@ namespace Watch2Gether_Backend.Extensions
             //Dependencies
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IImageService, ImageService>();
+            services.AddScoped<IRoomService, RoomService>();
         }
         private static void SetCorseOptions(CorsOptions options)
         {
