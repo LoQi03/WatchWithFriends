@@ -23,11 +23,15 @@ function App(): JSX.Element {
 
   useEffect(() => {
     if (token === '') return;
-    AuthenticationService.token = token;
-    AuthenticationService.checkTokenExpiration();
-    const verifyToken = async () => await AuthenticationService.verifyToken(token);
-    verifyToken().then(() => setIsUserLoggedIn(true)).catch(() => setIsUserLoggedIn(false));
-    setToken(token);
+    try {
+      AuthenticationService.token = token;
+      AuthenticationService.checkTokenExpiration();
+      const verifyToken = async () => await AuthenticationService.verifyToken(token);
+      verifyToken().then(() => setIsUserLoggedIn(true)).catch(() => setIsUserLoggedIn(false));
+      setToken(token);
+    } catch {
+      setIsUserLoggedIn(false);
+    }
   }, [token]);
 
   const loginHandler = () => {
@@ -35,15 +39,17 @@ function App(): JSX.Element {
   };
 
   const logoutHandler = () => {
-    AuthenticationService.logout();
-    setIsUserLoggedIn(false);
-    setToken('');
+    if (isUserLoggedIn) {
+      AuthenticationService.logout();
+      setIsUserLoggedIn(false);
+      setToken('');
+    }
   };
 
   return (
     <AuthenticationContext.Provider value={{ logoutHandler, loginHandler }}>
       {
-        isUserLoggedIn ?
+        AuthenticationService.isUserAlreadyLoggedIn ?
           <>
             <BrowserRouter>
               <SideNavbar />
