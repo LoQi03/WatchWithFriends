@@ -33,7 +33,7 @@ namespace Watch2Gether_Backend.Services
             return result;
         }
 
-        private static string HashPassword(string password, byte[] salt)
+        private string HashPassword(string password, byte[] salt)
         {
             string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
                 password: password,
