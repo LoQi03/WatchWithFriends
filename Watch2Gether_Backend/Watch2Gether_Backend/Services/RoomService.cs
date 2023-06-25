@@ -3,6 +3,7 @@ using System.Security.Cryptography;
 using Watch2Gether_Backend.Model;
 using Watch2Gether_Data.Model;
 using Watch2Gether_Data.Repositories;
+using System.Collections.Generic;
 
 namespace Watch2Gether_Backend.Services
 {
@@ -58,7 +59,7 @@ namespace Watch2Gether_Backend.Services
             _roomRepository.UpdateRoom(room);
             return RoomDTO.FromModel(room);
         }
-        private string HashPassword(string password, byte[] salt)
+        private static string HashPassword(string password, byte[] salt)
         {
             string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
                 password: password,

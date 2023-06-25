@@ -39,17 +39,6 @@ namespace Watch2Gether_Data.Repositories.Core
             return Room;
         }
 
-        public void AddUserToRoom(Guid userId, Guid roomId)
-        {
-            var room = context.Rooms.FirstOrDefault(x => x.Id == roomId);
-
-            if (room is null) return;
-
-            room.Users?.Add(userId);
-            context.Update(room);
-            Save();
-        }
-
         public void UpdateRoom(Room Room)
         {
             var entity = context.Rooms.FirstOrDefault(x => x.Id == Room.Id);

@@ -9,7 +9,7 @@ namespace Watch2Gether_Backend.Model
         public Guid Id { get; set; }
         public string? Name { get; set; }
         public Guid Creator { get; set; }
-        public Collection<Guid>? Users { get; set; }
+        public IEnumerable<Guid>? Users { get; set; }
         public string? Password { get; set; }
 
         public static RoomDTO FromModel(Room model)

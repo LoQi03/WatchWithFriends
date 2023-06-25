@@ -6,6 +6,7 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Text;
 using Watch2Gether_Backend.Misc;
 using Watch2Gether_Backend.Services;
+using Watch2Gether_Data.Repositories;
 
 namespace Watch2Gether_Backend.Extensions
 {
@@ -22,9 +23,10 @@ namespace Watch2Gether_Backend.Extensions
             services.AddCors(options => SetCorseOptions(options));
 
             //Dependencies
+            services.AddScoped<IRoomService, RoomService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IImageService, ImageService>();
-            services.AddScoped<IRoomService, RoomService>();
+
         }
         private static void SetCorseOptions(CorsOptions options)
         {

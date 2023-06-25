@@ -39,6 +39,7 @@ namespace Watch2Gether_Data.Extensions
             services.AddDbContext<RoomsDBContext>(options => options.UseInMemoryDatabase(databaseName: "Rooms"));
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IImageRepository, ImageRepository>();
+            services.AddScoped<IRoomRepository, RoomRepository>();
         }
     }
 }
