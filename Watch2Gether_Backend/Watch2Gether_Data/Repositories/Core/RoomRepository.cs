@@ -6,9 +6,9 @@ namespace Watch2Gether_Data.Repositories.Core
     internal class RoomRepository : IRoomRepository
     {
 
-        private readonly RoomsDBContext context;
+        private readonly Watch2GetherDBContext context;
 
-        public RoomRepository(RoomsDBContext context)
+        public RoomRepository(Watch2GetherDBContext context)
         {
             this.context = context;
         }

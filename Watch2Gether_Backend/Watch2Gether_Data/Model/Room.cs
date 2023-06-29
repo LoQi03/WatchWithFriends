@@ -14,8 +14,9 @@ namespace Watch2Gether_Data.Model
         [Required] public Guid Id { get; set; }
         [Required] public string? Name { get; set; }
         [Required] public Guid Creator { get; set; }
-        [Required] public IEnumerable<User>? Users { get; set; }
+        [Required] public ICollection<User> Users { get; set; }
         [Required] public string? PasswordHash { get; set; }
+        [Required] public DateTime CreationTime { get; set; }
         [Required] public string? Salt { get; set; }
     }
 }
