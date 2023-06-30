@@ -13,10 +13,9 @@ import Person2Icon from '@mui/icons-material/Person2';
 import GroupIcon from '@mui/icons-material/Group';
 import TvIcon from '@mui/icons-material/Tv';
 import LogoutIcon from '@mui/icons-material/Logout';
-import AuthenticationService from '../../services/authenticationService';
-import { AuthenticationContext } from '../../App';
 import { Menu } from '@mui/material';
 import * as AppConfig from '../../AppConfig';
+import { AuthContext } from '../../services/authenticationContext';
 
 type Anchor = 'left';
 
@@ -50,7 +49,7 @@ const navigationArrayTop: NavigationProps[] = [
 
 
 export default function SideNavbar() {
-    const authContext = React.useContext(AuthenticationContext);
+    const authContext = React.useContext(AuthContext);
     const [state, setState] = React.useState({
         left: false
     });
@@ -67,8 +66,7 @@ export default function SideNavbar() {
     const navigate = useNavigate();
 
     const logout = async () => {
-        await AuthenticationService.logout();
-        authContext?.logoutHandler();
+        authContext?.logout();
         navigate('/');
     };
 
@@ -134,7 +132,7 @@ export default function SideNavbar() {
                         aria-expanded={open ? 'true' : undefined}
                         onClick={handleProfileClick}
                     >
-                        <Style.ProfileImage src={`${AppConfig.GetConfig().apiUrl}Users/${AuthenticationService.currentUser?.id}/image`} />
+                        <Style.ProfileImage src={`${AppConfig.GetConfig().apiUrl}Users/${authContext?.currentUser?.id}/image`} />
                     </Button>
                     <Menu
                         id="basic-menu"
@@ -146,7 +144,7 @@ export default function SideNavbar() {
                         }}
                     >
                         <Style.StyledMenuItem onClick={() => { handleMenuClose(); navigate('/profile') }}><Style.StyledMenuItemButton><Person2Icon /> Profile</Style.StyledMenuItemButton></Style.StyledMenuItem >
-                        <Style.StyledMenuItem onClick={authContext?.logoutHandler}><Style.StyledMenuItemButton><LogoutIcon /> Logout</Style.StyledMenuItemButton></Style.StyledMenuItem >
+                        <Style.StyledMenuItem onClick={logout}><Style.StyledMenuItemButton><LogoutIcon /> Logout</Style.StyledMenuItemButton></Style.StyledMenuItem >
                     </Menu>
                 </Style.HeaderContainer>
                 <Drawer

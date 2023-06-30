@@ -1,71 +1,68 @@
-import React, { createContext, useEffect } from 'react';
+import React, { useContext, useEffect, useMemo } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AuthenticationPage } from './pages/authentication/authentication';
-import AuthenticationService from './services/authenticationService';
 import SideNavbar from './components/side-navbar/sideNavbar';
 import { HomePage } from './pages/home/home';
 import { RoomsPage } from './pages/rooms/rooms';
 import { ProfilePage } from './pages/profile/profile';
 import { FriendsPage } from './pages/friends/friends';
 import * as CommonSrtyles from './commonStyles';
+import { AuthContext, AuthProvider } from './services/authenticationContext';
+import { AuthenticationPage } from './pages/authentication/authentication';
 
 
-
-interface AppContextProps {
-  logoutHandler: () => void;
-  loginHandler: () => void;
+interface VerifyTokenHandlerProps {
+  verifyTokenHandler: () => void;
+  isUserAlreadyLoggedIn: boolean;
 }
-
-export const AuthenticationContext = createContext<AppContextProps | undefined>(undefined);
-function App(): JSX.Element {
-  const [token, setToken] = React.useState<string>(localStorage.getItem('token') || '');
-  const [isUserLoggedIn, setIsUserLoggedIn] = React.useState<boolean>(false);
+const VerifyTokenHandler = (props: VerifyTokenHandlerProps): null => {
+  const authContext = useContext(AuthContext);
 
   useEffect(() => {
-    if (token === '') return;
-    try {
-      AuthenticationService.token = token;
-      AuthenticationService.checkTokenExpiration();
-      const verifyToken = async () => await AuthenticationService.verifyToken(token);
-      verifyToken().then(() => setIsUserLoggedIn(true)).catch(() => setIsUserLoggedIn(false));
-      setToken(token);
-    } catch {
-      setIsUserLoggedIn(false);
-    }
-  }, [token]);
+    const verifyTokenAsync = async () => {
+      if (authContext) {
+        let result = await authContext.verifyToken();
+        if (result)
+          props.verifyTokenHandler();
+      }
+    };
 
-  const loginHandler = () => {
-    setIsUserLoggedIn(AuthenticationService.isUserAlreadyLoggedIn);
+    verifyTokenAsync();
+  }, [authContext]);
+
+  return null;
+};
+
+function App(): JSX.Element {
+  const [isUserAlreadyLoggedIn, setIsUserAlreadyLoggedIn] = React.useState(false);
+  const authContext = useContext(AuthContext);
+
+  const isUserAlreadyLoggedInChangeHandler = () => {
+    setIsUserAlreadyLoggedIn(prev => !prev);
   };
-
-  const logoutHandler = () => {
-    if (isUserLoggedIn) {
-      AuthenticationService.logout();
-      setIsUserLoggedIn(false);
-      setToken('');
-    }
+  const verifyTokenHandler = () => {
+    setIsUserAlreadyLoggedIn(true);
   };
 
   return (
-    <AuthenticationContext.Provider value={{ logoutHandler, loginHandler }}>
+    <AuthProvider isUserAlreadyLoggedInChangeHandler={isUserAlreadyLoggedInChangeHandler}>
       {
-        AuthenticationService.isUserAlreadyLoggedIn ?
-          <>
-            <BrowserRouter>
-              <SideNavbar />
-              <CommonSrtyles.PageContainer>
-                <Routes>
-                  <Route path="/" element={<HomePage />} />
-                  <Route path="/rooms" element={<RoomsPage />} />
-                  <Route path="/profile" element={<ProfilePage />} />
-                  <Route path="/friends" element={<FriendsPage />} />
-                </Routes>
-              </CommonSrtyles.PageContainer>
-            </BrowserRouter>
-          </>
+        isUserAlreadyLoggedIn ?
+          <BrowserRouter>
+            <SideNavbar />
+            <CommonSrtyles.PageContainer>
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/rooms" element={<RoomsPage />} />
+                <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/friends" element={<FriendsPage />} />
+              </Routes>
+            </CommonSrtyles.PageContainer>
+          </BrowserRouter>
           : <AuthenticationPage />
       }
-    </AuthenticationContext.Provider >
+      <VerifyTokenHandler isUserAlreadyLoggedIn={isUserAlreadyLoggedIn} verifyTokenHandler={verifyTokenHandler} />
+    </AuthProvider>
+
   );
 }
 

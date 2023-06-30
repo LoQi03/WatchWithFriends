@@ -1,18 +1,17 @@
 import React, { ChangeEvent, useContext, useMemo, useState } from 'react';
 import * as Style from './styles'
 import { UserDto } from '../../models/userDto';
-import AuthenticationService from '../../services/authenticationService';
 import { Button, IconButton, InputAdornment } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import * as CommonStyle from "../../commonStyles";
 import * as API from '../../api/userManagementAPI';
 import { UpdateUserDto } from '../../models/updateUserDto';
-import { AuthenticationContext } from '../../App';
 import UploadFileTwoToneIcon from '@mui/icons-material/UploadFileTwoTone';
 import * as AppConfig from '../../AppConfig';
+import { AuthContext } from '../../services/authenticationContext';
 
 export const ProfilePage = (): JSX.Element => {
-    const authContext = useContext(AuthenticationContext);
+    const authContext = useContext(AuthContext);
     const [newPassword, setNewPassword] = useState('');
     const [confrimNewPassword, setConfrimNewPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
@@ -30,10 +29,11 @@ export const ProfilePage = (): JSX.Element => {
         }
     );
     useMemo(() => {
-        if (AuthenticationService.currentUser === undefined) return;
-        setUserDetails(AuthenticationService.currentUser);
-        setImageSrc(`${AppConfig.GetConfig().apiUrl}Users/${AuthenticationService.currentUser?.id}/image`);
-    }, [])
+        if (authContext && authContext.currentUser) {
+            setUserDetails(authContext.currentUser);
+            setImageSrc(`${AppConfig.GetConfig().apiUrl}Users/${authContext?.currentUser?.id}/image`);
+        }
+    }, [authContext])
 
     const handleTogglePassword = () => {
         setShowPassword((prevShowPassword) => !prevShowPassword);
@@ -71,15 +71,17 @@ export const ProfilePage = (): JSX.Element => {
             userDetails: userDetails,
             newPassword: newPassword
         };
-        if (AuthenticationService.checkTokenExpiration() === false) authContext?.logoutHandler();
+        if (authContext?.checkTokenExpiration() === false) authContext?.logout();
         try {
             const respone = await API.updateUser(updateUserDto);
             if (respone.status === 200) {
-                if (imgFile !== undefined)
-                    await API.uploadProfilePicture(imgFile, AuthenticationService.currentUser?.id ?? "");
-                AuthenticationService.currentUser = updateUserDto.userDetails;
-                AuthenticationService.currentUser.password = '';
-                setUserDetails(AuthenticationService.currentUser);
+                if (imgFile !== undefined && authContext?.currentUser?.id !== undefined)
+                    await API.uploadProfilePicture(imgFile, authContext?.currentUser?.id);
+                updateUserDto.userDetails.password = "";
+                setUserDetails(updateUserDto.userDetails);
+                if (authContext?.currentUser?.id !== undefined) {
+                    setUserDetails(authContext?.currentUser);
+                }
                 setNewPassword('');
                 setConfrimNewPassword('');
             }
@@ -88,7 +90,7 @@ export const ProfilePage = (): JSX.Element => {
         };
     };
     const discard = () => {
-        setUserDetails(AuthenticationService.currentUser ?? {
+        setUserDetails(authContext?.currentUser ?? {
             name: '',
             email: '',
             password: ''

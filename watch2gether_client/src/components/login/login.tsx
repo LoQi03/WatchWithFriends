@@ -4,15 +4,15 @@ import LoginIcon from '@mui/icons-material/Login';
 import { IconButton, InputAdornment } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { LoginCredentialsDto } from '../../models/loginCredentialsDto';
-import AuthenticationService from '../../services/authenticationService';
 import * as CommonStyles from '../../commonStyles';
+import { AuthContext } from '../../services/authenticationContext';
 
 interface LoginFormProps {
     formChangeHandler: () => void;
-    loginChangeHandler: () => void;
 }
 
 export const LoginForm = (props: LoginFormProps): JSX.Element => {
+    const authContext = React.useContext(AuthContext);
     const [showPassword, setShowPassword] = React.useState(false);
     const [credentials, setCredentials] = useState<LoginCredentialsDto>({ email: '', password: '' });
     const [errorMessage, setErrorMessage] = useState<string>();
@@ -31,8 +31,8 @@ export const LoginForm = (props: LoginFormProps): JSX.Element => {
     };
     const login = async () => {
         try {
-            await AuthenticationService.login(credentials);
-            props.loginChangeHandler();
+            console.log(authContext?.isUserAlreadyLoggedIn);
+            await authContext?.login(credentials);
         }
         catch (error) {
             setErrorMessage("Invalid credentials");

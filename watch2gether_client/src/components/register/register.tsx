@@ -2,18 +2,19 @@ import React, { ChangeEvent } from 'react';
 import * as Style from './styles';
 import { IconButton, InputAdornment } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import AuthenticationService from '../../services/authenticationService';
 import { RegisterUserDto } from '../../models/registerUserDto';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import dayjs from 'dayjs';
 import joi from 'joi';
 import * as CommonStyles from '../../commonStyles';
+import { AuthContext } from '../../services/authenticationContext';
 interface RegistrationFormProps {
     formChangeHandler: () => void;
 }
 
 export const RegistrationForm = (props: RegistrationFormProps): JSX.Element => {
+    const authContext = React.useContext(AuthContext);
     const [showPassword, setShowPassword] = React.useState(false);
     const [showConfrimPassword, setshowConfrimPassword] = React.useState(false);
     const [errorMessage, setErrorMessage] = React.useState<string>();
@@ -48,7 +49,7 @@ export const RegistrationForm = (props: RegistrationFormProps): JSX.Element => {
                 setErrorMessage("The password must contain small and capital letters, symbols and numbers!");
                 return;
             }
-            await AuthenticationService.register(registerCredentials);
+            await authContext?.register(registerCredentials);
             props.formChangeHandler();
         }
         catch (error) {
