@@ -3550,11 +3550,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Watch2gether\\Watch2Gether_Backend\\Watch2Gether_Data\\Watch2Gether_Data.csproj",
+      "projectUniqueName": "C:\\Repos\\Watch2gether\\Watch2Gether_Backend\\Watch2Gether_Data\\Watch2Gether_Data.csproj",
       "projectName": "Watch2Gether_Data",
-      "projectPath": "D:\\Watch2gether\\Watch2Gether_Backend\\Watch2Gether_Data\\Watch2Gether_Data.csproj",
+      "projectPath": "C:\\Repos\\Watch2gether\\Watch2Gether_Backend\\Watch2Gether_Data\\Watch2Gether_Data.csproj",
       "packagesPath": "C:\\Users\\mates\\.nuget\\packages\\",
-      "outputPath": "D:\\Watch2gether\\Watch2Gether_Backend\\Watch2Gether_Data\\obj\\",
+      "outputPath": "C:\\Repos\\Watch2gether\\Watch2Gether_Backend\\Watch2Gether_Data\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -3909,11 +3909,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Watch2gether\\Watch2Gether_Backend\\Watch2Gether_Backend\\Watch2Gether_Backend.csproj",
+      "projectUniqueName": "C:\\Repos\\Watch2gether\\Watch2Gether_Backend\\Watch2Gether_Backend\\Watch2Gether_Backend.csproj",
       "projectName": "Watch2Gether_Backend",
-      "projectPath": "D:\\Watch2gether\\Watch2Gether_Backend\\Watch2Gether_Backend\\Watch2Gether_Backend.csproj",
+      "projectPath": "C:\\Repos\\Watch2gether\\Watch2Gether_Backend\\Watch2Gether_Backend\\Watch2Gether_Backend.csproj",
       "packagesPath": "C:\\Users\\mates\\.nuget\\packages\\",
-      "outputPath": "D:\\Watch2gether\\Watch2Gether_Backend\\Watch2Gether_Backend\\obj\\",
+      "outputPath": "C:\\Repos\\Watch2gether\\Watch2Gether_Backend\\Watch2Gether_Backend\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -3935,8 +3935,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "D:\\Watch2gether\\Watch2Gether_Backend\\Watch2Gether_Data\\Watch2Gether_Data.csproj": {
-              "projectPath": "D:\\Watch2gether\\Watch2Gether_Backend\\Watch2Gether_Data\\Watch2Gether_Data.csproj"
+            "C:\\Repos\\Watch2gether\\Watch2Gether_Backend\\Watch2Gether_Data\\Watch2Gether_Data.csproj": {
+              "projectPath": "C:\\Repos\\Watch2gether\\Watch2Gether_Backend\\Watch2Gether_Data\\Watch2Gether_Data.csproj"
             }
           }
         }
