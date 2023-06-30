@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SideNavbar from './components/side-navbar/sideNavbar';
 import { HomePage } from './pages/home/home';
@@ -27,14 +27,13 @@ const VerifyTokenHandler = (props: VerifyTokenHandlerProps): null => {
     };
 
     verifyTokenAsync();
-  }, [authContext]);
+  }, [authContext, props]);
 
   return null;
 };
 
 function App(): JSX.Element {
   const [isUserAlreadyLoggedIn, setIsUserAlreadyLoggedIn] = React.useState(false);
-  const authContext = useContext(AuthContext);
 
   const isUserAlreadyLoggedInChangeHandler = () => {
     setIsUserAlreadyLoggedIn(prev => !prev);
