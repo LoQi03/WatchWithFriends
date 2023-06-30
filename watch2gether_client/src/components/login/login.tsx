@@ -31,7 +31,6 @@ export const LoginForm = (props: LoginFormProps): JSX.Element => {
     };
     const login = async () => {
         try {
-            console.log(authContext?.isUserAlreadyLoggedIn);
             await authContext?.login(credentials);
         }
         catch (error) {

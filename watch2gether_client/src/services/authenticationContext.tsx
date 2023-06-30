@@ -35,29 +35,24 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
     const [isUserAlreadyLoggedIn, setIsUserAlreadyLoggedIn] = useState(false);
 
     const login = async (credentials: LoginCredentialsDto): Promise<void> => {
-        try {
-            const { userDetails, token } = await API.login(credentials);
-            if (!userDetails || !token) {
-                throw new Error("Invalid response from server");
-            }
-            setCurrentUser(userDetails);
-            setToken(token);
-            localStorage.setItem("token", token);
-            setIsUserAlreadyLoggedIn(true);
-            isUserAlreadyLoggedInChangeHandler();
-        } catch (error) {
-            // Kezeljük az esetleges hibát
+
+        const { userDetails, token } = await API.login(credentials);
+        if (!userDetails || !token) {
+            throw new Error("Invalid response from server");
         }
+        setCurrentUser(userDetails);
+        setToken(token);
+        localStorage.setItem("token", token);
+        setIsUserAlreadyLoggedIn(true);
+        isUserAlreadyLoggedInChangeHandler();
+
     };
 
     const register = async (user: RegisterUserDto): Promise<void> => {
-        try {
-            const status = await API.register(user);
-            if (status !== 200) {
-                throw new Error("Invalid response from server");
-            }
-        } catch (error) {
-            // Kezeljük az esetleges hibát
+
+        const status = await API.register(user);
+        if (status !== 200) {
+            throw new Error("Invalid response from server");
         }
     };
 
@@ -78,15 +73,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
     };
 
     const logout = async (): Promise<void> => {
-        try {
-            setCurrentUser(null);
-            setToken(null);
-            localStorage.removeItem("token");
-            setIsUserAlreadyLoggedIn(false);
-            isUserAlreadyLoggedInChangeHandler();
-        } catch (error) {
-            // Kezeljük az esetleges hibát
-        }
+        setCurrentUser(null);
+        setToken(null);
+        localStorage.removeItem("token");
+        setIsUserAlreadyLoggedIn(false);
+        window.location.reload();
     };
 
     const checkTokenExpiration = (): boolean => {

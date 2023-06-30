@@ -21,8 +21,9 @@ const VerifyTokenHandler = (props: VerifyTokenHandlerProps): null => {
     const verifyTokenAsync = async () => {
       if (authContext) {
         let result = await authContext.verifyToken();
-        if (result)
+        if (result) {
           props.verifyTokenHandler();
+        }
       }
     };
 

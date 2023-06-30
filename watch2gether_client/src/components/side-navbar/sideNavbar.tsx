@@ -67,7 +67,6 @@ export default function SideNavbar() {
 
     const logout = async () => {
         authContext?.logout();
-        navigate('/');
     };
 
     const toggleDrawer =
