@@ -3,7 +3,6 @@ using System.Security.Cryptography;
 using Watch2Gether_Backend.Model;
 using Watch2Gether_Data.Model;
 using Watch2Gether_Data.Repositories;
-using System.Collections.Generic;
 
 namespace Watch2Gether_Backend.Services
 {
@@ -36,6 +35,7 @@ namespace Watch2Gether_Backend.Services
                 PasswordHash = hashed,
                 Creator = room.Creator,
                 Users = users,
+                CreationTime = DateTime.Now,
             };
             _roomRepository.InsertRoom(roomDB);
             return RoomDTO.FromModel(roomDB);

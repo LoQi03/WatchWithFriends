@@ -20,7 +20,9 @@ namespace Watch2Gether_Data.Repositories.Core
 
         public Room? GetRoomByID(Guid id)
         {
-            return context.Rooms.Find(id);
+            return context.Rooms
+                .Include(r=>r.Users)
+                .FirstOrDefault(x=>x.Id == id);
         }
 
         public void InsertRoom(Room Room)
