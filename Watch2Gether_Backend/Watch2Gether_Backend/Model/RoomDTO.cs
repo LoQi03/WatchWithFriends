@@ -1,6 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using System.ComponentModel.DataAnnotations;
-using Watch2Gether_Data.Model;
+﻿using Watch2Gether_Data.Model;
 
 namespace Watch2Gether_Backend.Model
 {
@@ -27,7 +25,7 @@ namespace Watch2Gether_Backend.Model
 
         public Room ToModel()
         {
-            var users = Users?.Select(x => x.ToModel());
+            var users = (ICollection<User>?)Users?.Select(x=>x.ToModel());
             return new Room
             {
                 Id = Id,

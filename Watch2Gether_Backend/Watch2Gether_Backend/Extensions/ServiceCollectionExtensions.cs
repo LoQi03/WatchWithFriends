@@ -4,9 +4,12 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Text;
+using Newtonsoft.Json;
 using Watch2Gether_Backend.Misc;
 using Watch2Gether_Backend.Services;
 using Watch2Gether_Data.Repositories;
+using Microsoft.AspNetCore.Mvc;
+using System.Text.Json.Serialization;
 
 namespace Watch2Gether_Backend.Extensions
 {
@@ -26,7 +29,13 @@ namespace Watch2Gether_Backend.Extensions
             services.AddScoped<IRoomService, RoomService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IImageService, ImageService>();
+            services.AddControllers()
+            .AddJsonOptions(options =>SetJsonOption(options));
 
+        }
+        private static void SetJsonOption(JsonOptions options)
+        {
+            options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
         }
         private static void SetCorseOptions(CorsOptions options)
         {

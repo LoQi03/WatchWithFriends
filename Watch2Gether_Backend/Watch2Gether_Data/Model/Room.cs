@@ -11,12 +11,12 @@ namespace Watch2Gether_Data.Model
 {
     public class Room
     {
-        [Required] public Guid Id { get; set; }
-        [Required] public string? Name { get; set; }
-        [Required] public Guid Creator { get; set; }
-        [Required] public ICollection<User> Users { get; set; }
-        [Required] public string? PasswordHash { get; set; }
-        [Required] public DateTime CreationTime { get; set; }
-        [Required] public string? Salt { get; set; }
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+        public Guid Creator { get; set; }
+        public ICollection<User> Users { get; set; }
+        public string? PasswordHash { get; set; }
+        public DateTime CreationTime { get; set; }
+        public string? Salt { get; set; }
     }
 }

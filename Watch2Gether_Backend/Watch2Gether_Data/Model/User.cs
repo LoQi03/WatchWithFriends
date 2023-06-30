@@ -6,18 +6,13 @@ namespace Watch2Gether_Data.Model
     public class User
     {
 
-        [Required] public Guid Id { get; set; }
-
-        [Required] public string? Name { get; set; }
-
-        [Required] public string? Email { get; set; }
-
-        [Required] public string? PasswordHash { get; set; }
-
-        [Required] public string? Salt { get; set; }
-
-        [Required] public DateTime BirthDate { get; set; }
-
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string? PasswordHash { get; set; }
+        public string? Salt { get; set; }
+        public DateTime BirthDate { get; set; }
+        public ICollection<Room>? Rooms { get; set; }
         public Guid? ImageId { get; set; }
 
     }

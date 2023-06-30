@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Watch2Gether_Data.Data;
 
@@ -11,9 +12,11 @@ using Watch2Gether_Data.Data;
 namespace Watch2Gether_Data.Migrations
 {
     [DbContext(typeof(Watch2GetherDBContext))]
-    partial class Watch2GetherDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230630064441_AddRooms")]
+    partial class AddRooms
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

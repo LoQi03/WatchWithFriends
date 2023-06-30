@@ -1,4 +1,5 @@
-﻿using Watch2Gether_Data.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Watch2Gether_Data.Data;
 using Watch2Gether_Data.Model;
 
 namespace Watch2Gether_Data.Repositories.Core
@@ -14,7 +15,7 @@ namespace Watch2Gether_Data.Repositories.Core
         }
         public IEnumerable<Room> GetRooms()
         {
-            return context.Rooms.ToList();
+            return context.Rooms.Include(r => r.Users);
         }
 
         public Room? GetRoomByID(Guid id)
