@@ -110,8 +110,8 @@ export const RegistrationForm = (props: RegistrationFormProps): JSX.Element => {
                         ),
                     }}
                 />
-                <p style={{ cursor: "pointer" }} onClick={props.formChangeHandler}>Sign In</p>
-                {errorMessage && <CommonStyles.ErrorMassage style={{ color: "red", fontSize: "14px" }}>{errorMessage}</CommonStyles.ErrorMassage>}
+                <CommonStyles.SignSwitchButton onClick={props.formChangeHandler}>Sign In</CommonStyles.SignSwitchButton>
+                {errorMessage && <CommonStyles.ErrorMassage >{errorMessage}</CommonStyles.ErrorMassage>}
                 <Style.SignUpButton onClick={register} size='large' >Sign Up</Style.SignUpButton>
             </Style.InputContainer>
         </>

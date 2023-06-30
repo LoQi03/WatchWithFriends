@@ -64,8 +64,8 @@ export const LoginForm = (props: LoginFormProps): JSX.Element => {
                         ),
                     }}
                 />
-                <p style={{ cursor: "pointer" }} onClick={props.formChangeHandler}>Sign Up</p>
-                {errorMessage && <CommonStyles.ErrorMassage style={{ color: "red", fontSize: "14px" }}>{errorMessage}</CommonStyles.ErrorMassage>}
+                <CommonStyles.SignSwitchButton onClick={props.formChangeHandler}>Sign Up</CommonStyles.SignSwitchButton>
+                {errorMessage && <CommonStyles.ErrorMassage>{errorMessage}</CommonStyles.ErrorMassage>}
                 <Style.SignInButton onClick={login} size='large' startIcon={<LoginIcon />}>Sign In</Style.SignInButton>
             </Style.InputContainer>
         </>

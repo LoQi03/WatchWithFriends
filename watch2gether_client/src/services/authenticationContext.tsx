@@ -1,4 +1,4 @@
-import React, { createContext, useState, ReactNode } from 'react';
+import React, { createContext, useState, ReactNode, useEffect, useContext } from 'react';
 import { UserDto } from '../models/userDto';
 import { LoginCredentialsDto } from '../models/loginCredentialsDto';
 import { RegisterUserDto } from '../models/registerUserDto';
@@ -120,4 +120,26 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
             {children}
         </AuthContext.Provider>
     );
+};
+export interface VerifyTokenHandlerProps {
+    verifyTokenHandler: () => void;
+    isUserAlreadyLoggedIn: boolean;
+}
+export const VerifyTokenHandler = (props: VerifyTokenHandlerProps): null => {
+    const authContext = useContext(AuthContext);
+
+    useEffect(() => {
+        const verifyTokenAsync = async () => {
+            if (authContext) {
+                let result = await authContext.verifyToken();
+                if (result) {
+                    props.verifyTokenHandler();
+                }
+            }
+        };
+
+        verifyTokenAsync();
+    }, [authContext, props]);
+
+    return null;
 };
