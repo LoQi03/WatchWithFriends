@@ -151,7 +151,7 @@ export const VerifyTokenHandler = (props: VerifyTokenHandlerProps): null => {
         };
 
         verifyTokenAsync();
-    }, [props, isTokenVerified, checkTokenExpiration]); // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props, isTokenVerified, checkTokenExpiration]);
 
 
     return null;
