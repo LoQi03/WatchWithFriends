@@ -1,4 +1,4 @@
-import React, { createContext, useState, ReactNode, useEffect, useContext } from 'react';
+import React, { createContext, useState, ReactNode, useContext, useMemo, useCallback } from 'react';
 import { UserDto } from '../models/userDto';
 import { LoginCredentialsDto } from '../models/loginCredentialsDto';
 import { RegisterUserDto } from '../models/registerUserDto';
@@ -126,20 +126,33 @@ export interface VerifyTokenHandlerProps {
     isUserAlreadyLoggedIn: boolean;
 }
 export const VerifyTokenHandler = (props: VerifyTokenHandlerProps): null => {
+    const [isTokenVerified, setIsTokenVerified] = useState(false);
     const authContext = useContext(AuthContext);
 
-    useEffect(() => {
+
+    const checkTokenExpiration = useCallback(async (): Promise<boolean> => {
+        if (isTokenVerified) return true;
+        let result = await authContext?.verifyToken();
+        if (!result) {
+            return false;
+        }
+        return result;
+    }, [authContext, isTokenVerified]);
+
+
+    useMemo(() => {
+
         const verifyTokenAsync = async () => {
-            if (authContext) {
-                let result = await authContext.verifyToken();
-                if (result) {
-                    props.verifyTokenHandler();
-                }
+            var result = await checkTokenExpiration();
+            if (result && !isTokenVerified) {
+                setIsTokenVerified(true);
+                props.verifyTokenHandler();
             }
         };
 
         verifyTokenAsync();
-    }, [authContext, props]);
+    }, [props, isTokenVerified, checkTokenExpiration]); // eslint-disable-next-line react-hooks/exhaustive-deps
+
 
     return null;
 };
