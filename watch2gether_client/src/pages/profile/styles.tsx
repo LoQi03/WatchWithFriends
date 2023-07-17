@@ -8,9 +8,7 @@ flex-direction: column;
 align-items: center;
 justify-content: center;
 padding: 20px;
-background-color: #4F4F4F;
 border-radius: 10px;
-box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
 @media (max-width: 768px) {
     zoom: 0.65;
 }
@@ -32,6 +30,7 @@ export const StyledImage = styled.img`
     height: 230px;
     width: 230px;
     border-radius: 50%;
+    margin-bottom: 20px;
  `;
 
 export const ChangePasswordLink = styled.a`
@@ -61,12 +60,11 @@ export const ImageContainer = styled.div`
     height: 250px;
     width: 250px;
 `;
-export const ChangeButtonStyle: Theme =
+export const ProfileButtonStyle: Theme =
 {
-    marginTop: '30px',
+    paddingX: '30px',
     backgroundColor: '#3928C2',
     color: 'white',
-    width: '55%',
     '&:hover': { backgroundColor: '#3928C2' },
     '&:active': { backgroundColor: '#3928C2' },
     '&:focus': { backgroundColor: '#3928C2' }

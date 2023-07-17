@@ -1,7 +1,6 @@
 import React from 'react';
 import * as Styles from './styles';
-import * as CommonStyle from '../../commonStyles';
-import { Autocomplete } from '@mui/material';
+import * as CommonStyles from '../../commonStyles';
 import { RoomListItem } from '../../components/room-list-item/room-list-item';
 
 export const RoomsPage = (): JSX.Element => {
@@ -9,15 +8,15 @@ export const RoomsPage = (): JSX.Element => {
         <Styles.RoomsPageContainer>
             <Styles.HeaderBar>
                 <h1>Rooms</h1>
-                <Autocomplete
-                    disablePortal
-                    id="combo-box-demo"
-                    options={[]}
-                    sx={{ width: 300 }}
-                    renderInput={(params) => <CommonStyle.StyledTextField sx={{ width: 300 }} {...params} label="Rooms" />}
-                />
+                <CommonStyles.StyledTextField placeholder="Search" />
             </Styles.HeaderBar>
             <Styles.RoomList>
+                <RoomListItem />
+                <RoomListItem />
+
+                <RoomListItem />
+                <RoomListItem />
+                <RoomListItem />
                 <RoomListItem />
                 <RoomListItem />
                 <RoomListItem />
@@ -28,7 +27,7 @@ export const RoomsPage = (): JSX.Element => {
                 <RoomListItem />
             </Styles.RoomList>
             <Styles.ActionBar>
-                <CommonStyle.GenericButton>Create Room</CommonStyle.GenericButton>
+                <CommonStyles.GenericButton>Create Room</CommonStyles.GenericButton>
             </Styles.ActionBar>
         </Styles.RoomsPageContainer>
     )

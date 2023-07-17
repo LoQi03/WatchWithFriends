@@ -2,7 +2,7 @@ import React from 'react';
 import * as Styles from './styles';
 import * as AppConfig from '../../AppConfig';
 import Person2Icon from '@mui/icons-material/Person2';
-import * as CommonStyles from '../../commonStyles';
+import { Button } from '@mui/material';
 
 export const RoomListItem = (): JSX.Element => {
     return (
@@ -13,7 +13,7 @@ export const RoomListItem = (): JSX.Element => {
             </Styles.RoomListItemHeader>
             <Styles.RoomListActionBar>
                 <Styles.CountUserContainer><Person2Icon /> 100</Styles.CountUserContainer>
-                <CommonStyles.GenericButton>Join</CommonStyles.GenericButton>
+                <Button variant='contained' color='success'>Join</Button>
             </Styles.RoomListActionBar>
         </Styles.RoomListItemContainer>
     )

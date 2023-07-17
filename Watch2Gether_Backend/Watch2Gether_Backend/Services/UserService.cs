@@ -46,7 +46,7 @@ namespace Watch2Gether_Backend.Services
 
         public UserDTO? UpdateUser(User userFromDB, UpdateUserDTO updateUser)
         {
-            var salt = Convert.FromBase64String(userFromDB.Salt ?? "");
+            var salt = Convert.FromBase64String(userFromDB.Salt);
             var password = HashPassword(updateUser?.UserDetails?.Password ?? "", salt);
             if (password == userFromDB.PasswordHash)
             {
@@ -63,23 +63,44 @@ namespace Watch2Gether_Backend.Services
                 return UserDTO.FromModel(userFromDB);
             }
             else
+            {
                 return null;
+            }
         }
 
         public User? GetUserById(Guid? id)
         {
             var user = _userRepository.GetUserByID(id ?? Guid.Empty);
             if (user is not null)
+            {
                 return user;
+            }    
             else
+            {
                 return null;
+            }
         }
 
         public UserDTO? DeleteUser(Guid? id)
         {
-            var result = _userRepository.DeleteUser(id ?? Guid.Empty);
-            if (result is not null) return UserDTO.FromModel(result);
-            else return null;
+            UserIdValidition(id);
+            var result = _userRepository.DeleteUser(id.Value);
+            if (result != null)
+            {
+                return UserDTO.FromModel(result);
+            }
+            else
+            {
+                return null;
+            }
+        }
+        private void UserIdValidition(Guid? id)
+        {
+            if(id != null)
+            {
+                return;
+            }
+            throw new InvalidOperationException("User id is null!");
         }
 
         public UserDTO? Register(UserDTO user)
@@ -87,10 +108,13 @@ namespace Watch2Gether_Backend.Services
             user.Id = Guid.NewGuid();
             var result = user.ToModel();
 
-            if (_userRepository.IsUserAlreadyExist(result.Email ?? "")) return null;
+            if (_userRepository.IsUserAlreadyExist(result.Email))
+            {
+                return null;
+            } 
 
             var salt = RandomNumberGenerator.GetBytes(128 / 8);
-            var hashed = HashPassword(result.PasswordHash ?? "", salt);
+            var hashed = HashPassword(result.PasswordHash!, salt);
             result.PasswordHash = hashed;
             result.Salt = Convert.ToBase64String(salt);
 
@@ -105,8 +129,8 @@ namespace Watch2Gether_Backend.Services
 
         public LoginUserDTO? Login(UserDTO user, User userFromDB)
         {
-            var salt = Convert.FromBase64String(userFromDB.Salt ?? "");
-            var password = HashPassword(user.Password ?? "", salt);
+            var salt = Convert.FromBase64String(userFromDB.Salt!);
+            var password = HashPassword(user.Password!, salt);
             if (password == userFromDB.PasswordHash)
             {
                 var resultUserDto = UserDTO.FromModel(userFromDB);
@@ -118,7 +142,9 @@ namespace Watch2Gether_Backend.Services
                 return loginUserDTO;
             }
             else
+            {
                 return null;
+            }
         }
 
         public void UpdateUser(User userFromDB)
@@ -130,7 +156,7 @@ namespace Watch2Gether_Backend.Services
         {
             var issuer = Config.Instance?.Jwt?.Issuer;
             var audience = Config.Instance?.Jwt?.Audience;
-            var key = Encoding.UTF8.GetBytes(Config.Instance?.Jwt?.Key ?? "");
+            var key = Encoding.UTF8.GetBytes(Config.Instance?.Jwt?.Key!);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[]
@@ -144,8 +170,10 @@ namespace Watch2Gether_Backend.Services
                 Issuer = issuer,
                 Audience = audience,
                 SigningCredentials = new SigningCredentials
-                (new SymmetricSecurityKey(key),
-                SecurityAlgorithms.HmacSha512Signature)
+                (
+                new SymmetricSecurityKey(key),
+                SecurityAlgorithms.HmacSha512Signature
+                )
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();

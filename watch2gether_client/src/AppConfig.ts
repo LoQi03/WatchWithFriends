@@ -17,6 +17,7 @@ export function GetConfig(): AppConfig {
     if (error) {
         throw new Error(`Config validation error: ${error.message}`);
     }
-    else
+    else {
         return value;
+    }
 }

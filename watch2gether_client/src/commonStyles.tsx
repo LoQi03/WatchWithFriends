@@ -2,17 +2,18 @@ import styled from "@emotion/styled";
 import { Button, ButtonProps, TextField } from "@mui/material";
 
 export const PageContainer = styled.div<{ backgroundImage?: string }>`
+    padding-top: 80px;
     background-color: #271B85;
+    align-items: center;
+    width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    justify-content: start;
     background-image: url(${props => props.backgroundImage});
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     height: 100%;
-    width: 100%;
 `;
 
 export const StyledTextField = styled(TextField)({

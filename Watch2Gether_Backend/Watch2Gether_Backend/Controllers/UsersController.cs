@@ -36,14 +36,19 @@ namespace Watch2Gether_Backend.Controllers
         {
             if (user.UserDetails?.Id == Guid.Empty) return BadRequest();
             var userFromDB = _userService.GetUserById(user.UserDetails?.Id);
-            if (userFromDB is null) return NotFound();
+            if (userFromDB is null)
+            {
+                return NotFound();
+            } 
             var result = _userService.UpdateUser(userFromDB, user);
             if (result is not null)
             {
                 return Ok(result);
             }
             else
+            {
                 return BadRequest();
+            }    
         }
 
         [HttpGet("{id}"), Authorize]
@@ -99,9 +104,14 @@ namespace Watch2Gether_Backend.Controllers
             var result = _userService.Login(user, userFromDB);
 
             if (result is not null)
+            {
                 return Ok(result);
+            }    
+
             else
+            {
                 return NotFound();
+            }
         }
         [HttpPost("{userid}/image"), Authorize]
         public ActionResult<UserDTO> AddImage(Guid userid)
@@ -114,8 +124,10 @@ namespace Watch2Gether_Backend.Controllers
 
             using var streamReadImgFile = file.OpenReadStream();
 
-            if (streamReadImgFile is null) return BadRequest();
-
+            if (streamReadImgFile is null)
+            {
+                return BadRequest();
+            } 
             var imgBitmap = new Bitmap(streamReadImgFile); //only windows supp
 
             byte[] data;
@@ -125,7 +137,7 @@ namespace Watch2Gether_Backend.Controllers
 
             imgBitmap?.Save(streamReadDataFromImage, System.Drawing.Imaging.ImageFormat.Jpeg); //only windows supp
             data = streamReadDataFromImage.ToArray();
-            if (user.ImageId is not null) _imageService.RemoveImage(user.ImageId ?? Guid.Empty);
+            _imageService.RemoveImage(user.ImageId);
             user.ImageId = imgId;
             img.Id = imgId;
             img.Data = data;
@@ -139,7 +151,10 @@ namespace Watch2Gether_Backend.Controllers
         {
             var user = _userService.GetUserById(userid);
 
-            if (user is null) return NotFound();
+            if (user is null)
+            {
+                return NotFound();
+            } 
 
             if (user.ImageId is null)
             {

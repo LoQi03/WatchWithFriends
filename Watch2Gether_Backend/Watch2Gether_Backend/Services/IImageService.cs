@@ -6,6 +6,6 @@ namespace Watch2Gether_Backend.Services
     {
         Image? GetImageById(Guid id);
         void InsertImage(Image image);
-        void RemoveImage(Guid imgid);
+        void RemoveImage(Guid? imgid);
     }
 }

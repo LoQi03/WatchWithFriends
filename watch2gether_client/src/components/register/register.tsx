@@ -39,7 +39,6 @@ export const RegistrationForm = (props: RegistrationFormProps): JSX.Element => {
     };
     const register = async () => {
         try {
-            console.log(registerCredentials);
             if (registerCredentials.password !== confrimPassword) {
                 setErrorMessage("Passwords don't match");
                 return;

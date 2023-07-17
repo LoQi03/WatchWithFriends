@@ -21,9 +21,18 @@ namespace Watch2Gether_Backend.Services
         {
             _imageRepository.InsertImage(image);
         }
-        public void RemoveImage(Guid imgid)
+        public void RemoveImage(Guid? imgid)
         {
-            _imageRepository.DeleteImage(imgid);
+            ImageIdValidition(imgid);
+            _imageRepository.DeleteImage(imgid!.Value);
+        }
+        private void ImageIdValidition(Guid? imgid) 
+        { 
+            if(imgid != null) 
+            {
+                return;
+            }
+            throw new NullReferenceException("Image id is null!");
         }
     }
 }

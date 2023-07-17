@@ -15,10 +15,12 @@ export const AuthenticationPage = (): JSX.Element => {
 
     return (
         <CommonStyle.PageContainer backgroundImage={backGroundImg} >
-            <Style.AuthenticationModal>
-                {isLogin ? <LoginForm formChangeHandler={formChangeHandler} ></LoginForm>
-                    : <RegistrationForm formChangeHandler={formChangeHandler}></RegistrationForm>}
-            </Style.AuthenticationModal>
+            <Style.AuthenticationModalContainer>
+                <Style.AuthenticationModal>
+                    {isLogin ? <LoginForm formChangeHandler={formChangeHandler} ></LoginForm>
+                        : <RegistrationForm formChangeHandler={formChangeHandler}></RegistrationForm>}
+                </Style.AuthenticationModal>
+            </Style.AuthenticationModalContainer>
         </CommonStyle.PageContainer>
     );
 }

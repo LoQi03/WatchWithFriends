@@ -106,7 +106,7 @@ export const ProfilePage = (): JSX.Element => {
                     <Style.StyledImage src={imageSrc} alt="Avatar" />
                     <Button
                         startIcon={<UploadFileTwoToneIcon />}
-                        sx={Style.ChangeButtonStyle}
+                        sx={Style.ProfileButtonStyle}
                         component="label"
                         variant="contained"
                     >
@@ -185,7 +185,7 @@ export const ProfilePage = (): JSX.Element => {
                     {errorMassage !== '' ? <CommonStyle.ErrorMassage>{errorMassage}</CommonStyle.ErrorMassage> : null}
                     <Style.ButtonContainer>
                         <Button variant="contained" sx={{ marginRight: '10px' }} onClick={discard} color="error">Discard</Button>
-                        <CommonStyle.GenericButton onClick={save} title='Save' >Save</CommonStyle.GenericButton>
+                        <Button sx={Style.ProfileButtonStyle} onClick={save} title='Save' >Save</Button>
                     </Style.ButtonContainer>
                 </Style.ProfilePageInputContainer>
             </Style.ProfilePageContent>
