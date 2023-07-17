@@ -4,15 +4,21 @@ import * as AppConfig from '../../AppConfig';
 import Person2Icon from '@mui/icons-material/Person2';
 import { Button } from '@mui/material';
 
-export const RoomListItem = (): JSX.Element => {
+export interface RoomListItemProps {
+    name: string;
+    creatorId: string;
+    userCount: number;
+};
+
+export const RoomListItem = (props: RoomListItemProps): JSX.Element => {
     return (
         <Styles.RoomListItemContainer>
             <Styles.RoomListItemHeader>
-                <h3>PlaceHolder Name</h3>
-                <Styles.CreatorImage src={`${AppConfig.GetConfig().apiUrl}Users/${"ca3cb892-6527-432a-b6f8-e95b57d73e09"}/image`} />
+                <h3>{props.name}</h3>
+                <Styles.CreatorImage src={`${AppConfig.GetConfig().apiUrl}Users/${props.creatorId}/image`} />
             </Styles.RoomListItemHeader>
             <Styles.RoomListActionBar>
-                <Styles.CountUserContainer><Person2Icon /> 100</Styles.CountUserContainer>
+                <Styles.CountUserContainer><Person2Icon />{props.userCount}</Styles.CountUserContainer>
                 <Button variant='contained' color='success'>Join</Button>
             </Styles.RoomListActionBar>
         </Styles.RoomListItemContainer>

@@ -35,7 +35,7 @@ namespace Watch2Gether_Backend.Extensions
         }
         private static void SetJsonOption(JsonOptions options)
         {
-            options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+            options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
         }
         private static void SetCorseOptions(CorsOptions options)
         {

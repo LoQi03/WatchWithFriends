@@ -5,15 +5,20 @@ export const RoomsPageContainer = styled.div`
     height: 100%;
     display: flex;
     flex-direction: column;
+    align-items: center;
     justify-content: space-between;
     padding-bottom: 20px;
 `;
 export const HeaderBar = styled.div`
     display: flex;
     justify-content: space-between;
+    width: 100%;
 `;
 export const RoomList = styled.div`
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 75%;
     margin-top: 15px;
     margin-bottom: 15px;
     overflow-y: auto;
@@ -43,4 +48,11 @@ export const RoomList = styled.div`
 export const ActionBar = styled.div`
     display: flex;
     justify-content:end;
+    width: 100%;
+`;
+export const RoomListContainer = styled.div`
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    height: 100%;
 `;

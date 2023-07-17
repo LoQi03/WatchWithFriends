@@ -5,7 +5,7 @@ export const AuthenticationModal = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #4F4F4F;
+    background-color: #271B85;
     border-radius: 15px;
     padding: 20px 40px;
     opacity: 0;

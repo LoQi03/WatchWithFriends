@@ -21,13 +21,26 @@ namespace Watch2Gether_Backend.Services
         }
         public RoomDTO? CreateRoom(RoomDTO room)
         {
-            if (room is null) return null;
+            if (room is null)
+            {
+                return null;
+            }
             var salt = RandomNumberGenerator.GetBytes(128 / 8);
             var hashed = HashPassword(room.Password!, salt);
             var creator = _userRepository.GetUserByID(room.Creator);
-            if (creator is null) return null;
+            if (creator is null)
+            {
+                return null;
+            } 
             var users = new List<User>() { creator };
-            var roomDB = new Room()
+            var roomDB = CreateRoom(room, salt, hashed, users);
+            _roomRepository.InsertRoom(roomDB);
+            return RoomDTO.FromModel(roomDB);
+        }
+
+        private Room CreateRoom(RoomDTO room, byte[] salt, string hashed, List<User> users)
+        {
+            return new Room()
             {
                 Id = Guid.NewGuid(),
                 Name = room.Name!,
@@ -37,9 +50,8 @@ namespace Watch2Gether_Backend.Services
                 Users = users,
                 CreationTime = DateTime.Now,
             };
-            _roomRepository.InsertRoom(roomDB);
-            return RoomDTO.FromModel(roomDB);
         }
+
         public RoomDTO? DeleteRoom(Guid roomId)
         {
             var room = _roomRepository.DeleteRoom(roomId);
@@ -89,9 +101,9 @@ namespace Watch2Gether_Backend.Services
             } 
             return RoomDTO.FromModel(room);
         }
-        private static string HashPassword(string password, byte[] salt)
+        private string HashPassword(string password, byte[] salt)
         {
-            string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+            var hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
                 password: password,
                 salt: salt,
                 prf: KeyDerivationPrf.HMACSHA1,
