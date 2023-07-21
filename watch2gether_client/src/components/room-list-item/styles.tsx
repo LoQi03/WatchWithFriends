@@ -7,6 +7,7 @@ export const RoomListItemContainer = styled.div`
     margin-bottom: 10px;
     background-color: #3928C2;
     border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 `;
 export const RoomListItemHeader = styled.div`
     display: flex;

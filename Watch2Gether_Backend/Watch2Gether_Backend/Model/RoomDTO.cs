@@ -12,7 +12,7 @@ namespace Watch2Gether_Backend.Model
 
         public static RoomDTO FromModel(Room model)
         {
-            var users = (List<UserDTO>) model.Users?.Select(x => UserDTO.FromModel(x));
+            var users =  model.Users?.Select(x => UserDTO.FromModel(x)).ToList();
             return new RoomDTO
             {
                 Id = model.Id,

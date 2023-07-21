@@ -10,6 +10,7 @@ export interface CreateRoomContextType {
     open: boolean;
     handleonClose: () => void;
     handleOpen: () => void;
+    getRoomsAsync: () => Promise<void>;
 }
 
 export const RoomContext = createContext<CreateRoomContextType | null>(null);
@@ -21,18 +22,18 @@ export const RoomsPage = (): JSX.Element => {
     const handleonClose = (): void => setOpen(false);
     const [rooms, setRooms] = useState<RoomDto[]>();
 
+    const getRoomsAsync = async (): Promise<void> => {
+        const result = await API.getRooms();
+        setRooms(result);
+    };
+
+
     useMemo(() => {
         if (rooms) {
             return;
         }
-        const getRoomsAsync = async (): Promise<void> => {
-            const result = await API.getRooms();
-            setRooms(result);
-            console.log(result);
-        };
         getRoomsAsync();
     }, [rooms]);
-
 
     return (
         <Styles.RoomsPageContainer>
@@ -50,7 +51,7 @@ export const RoomsPage = (): JSX.Element => {
             <Styles.ActionBar>
                 <CommonStyles.GenericButton onClick={handleOpen}>Create Room</CommonStyles.GenericButton>
             </Styles.ActionBar>
-            <RoomContext.Provider value={{ open, handleonClose, handleOpen }}>
+            <RoomContext.Provider value={{ open, handleonClose, handleOpen, getRoomsAsync }}>
                 <CreateRoom />
             </RoomContext.Provider>
         </Styles.RoomsPageContainer>

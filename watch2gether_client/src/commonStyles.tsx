@@ -45,8 +45,8 @@ export const StyledTextField = styled(TextField)({
     },
     input: {
         '&:-webkit-autofill': {
-            WebkitBoxShadow: '0 0 0 1000px #4F4F4F inset',
-            backgroundColor: '#4F4F4F !important',
+            WebkitBoxShadow: '0 0 0 1000px #271B85 inset',
+            backgroundColor: '#271B85 !important',
             WebkitTextFillColor: "white",
             caretColor: "white",
         },
