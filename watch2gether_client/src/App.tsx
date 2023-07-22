@@ -8,6 +8,7 @@ import { FriendsPage } from './pages/friends/friends';
 import * as CommonSrtyles from './commonStyles';
 import { AuthProvider, VerifyTokenHandler } from './services/authenticationContext';
 import { AuthenticationPage } from './pages/authentication/authentication';
+import { RoomPage } from './pages/room/room';
 
 
 
@@ -34,6 +35,7 @@ function App(): JSX.Element {
                 <Route path="/rooms" element={<RoomsPage />} />
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/friends" element={<FriendsPage />} />
+                <Route path="/room/:id" element={<RoomPage />} />
               </Routes>
             </CommonSrtyles.PageContainer>
           </BrowserRouter>

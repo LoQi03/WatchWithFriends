@@ -3,14 +3,21 @@ import * as Styles from './styles';
 import * as AppConfig from '../../AppConfig';
 import Person2Icon from '@mui/icons-material/Person2';
 import { Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 export interface RoomListItemProps {
+    id: string;
     name: string;
     creatorId: string;
     userCount: number;
 };
 
 export const RoomListItem = (props: RoomListItemProps): JSX.Element => {
+    const navigate = useNavigate();
+    const join = (): void => {
+        navigate(`/room/${props.id}`);
+    };
+
     return (
         <Styles.RoomListItemContainer>
             <Styles.RoomListItemHeader>
@@ -19,7 +26,7 @@ export const RoomListItem = (props: RoomListItemProps): JSX.Element => {
             </Styles.RoomListItemHeader>
             <Styles.RoomListActionBar>
                 <Styles.CountUserContainer><Person2Icon />{props.userCount}</Styles.CountUserContainer>
-                <Button variant='contained' color='success'>Join</Button>
+                <Button onClick={join} variant='contained' color='success'>Join</Button>
             </Styles.RoomListActionBar>
         </Styles.RoomListItemContainer>
     )
