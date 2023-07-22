@@ -5,6 +5,7 @@ import { RegisterUserDto } from '../models/registerUserDto';
 import * as API from '../api/userManagementAPI';
 import { WebToken } from '../models/webToken';
 import jwtDecode from 'jwt-decode';
+import { updateAuthorizationHeader } from '../HttpClient';
 
 interface AuthContextType {
     currentUser: UserDto | null;
@@ -43,9 +44,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
         setCurrentUser(userDetails);
         setToken(token);
         localStorage.setItem("token", token);
+        updateAuthorizationHeader();
         setIsUserAlreadyLoggedIn(true);
         isUserAlreadyLoggedInChangeHandler();
-
     };
 
     const register = async (user: RegisterUserDto): Promise<void> => {
@@ -65,6 +66,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
                 await logout();
                 throw new Error("Invalid response from server");
             }
+            updateAuthorizationHeader();
             setCurrentUser(response);
             return true;
         } catch (error) {
@@ -76,6 +78,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
         setCurrentUser(null);
         setToken(null);
         localStorage.removeItem("token");
+        updateAuthorizationHeader();
         setIsUserAlreadyLoggedIn(false);
         window.location.reload();
     };
@@ -125,6 +128,7 @@ export interface VerifyTokenHandlerProps {
     verifyTokenHandler: () => void;
     isUserAlreadyLoggedIn: boolean;
 }
+
 export const VerifyTokenHandler = (props: VerifyTokenHandlerProps): null => {
     const [isTokenVerified, setIsTokenVerified] = useState(false);
     const authContext = useContext(AuthContext);

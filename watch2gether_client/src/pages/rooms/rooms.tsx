@@ -1,10 +1,11 @@
-import React, { createContext, useMemo, useState } from 'react';
+import React, { createContext, useCallback, useMemo, useState } from 'react';
 import * as Styles from './styles';
 import * as CommonStyles from '../../commonStyles';
 import { CreateRoom } from '../../components/create-room/create-room';
 import { RoomDto } from '../../models/roomDto';
 import * as API from '../../api/roomManagmentAPI'
 import { RoomListItem } from '../../components/room-list-item/room-list-item';
+import { AuthContext } from '../../services/authenticationContext';
 
 export interface CreateRoomContextType {
     open: boolean;
@@ -21,11 +22,20 @@ export const RoomsPage = (): JSX.Element => {
     const handleOpen = (): void => setOpen(true);
     const handleonClose = (): void => setOpen(false);
     const [rooms, setRooms] = useState<RoomDto[]>();
+    const aouthService = React.useContext(AuthContext);
 
-    const getRoomsAsync = async (): Promise<void> => {
-        const result = await API.getRooms();
-        setRooms(result);
-    };
+    const getRoomsAsync = useCallback(async (): Promise<void> => {
+        try {
+            const response = await API.getRooms();
+            if (response.status !== 200) {
+                aouthService?.logout();
+            }
+            setRooms(response.data);
+        }
+        catch (error) {
+            console.log(error);
+        };
+    }, [aouthService]);
 
 
     useMemo(() => {
@@ -33,7 +43,7 @@ export const RoomsPage = (): JSX.Element => {
             return;
         }
         getRoomsAsync();
-    }, [rooms]);
+    }, [rooms, getRoomsAsync]);
 
     return (
         <Styles.RoomsPageContainer>

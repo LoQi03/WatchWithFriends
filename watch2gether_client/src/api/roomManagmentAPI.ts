@@ -1,11 +1,12 @@
-import HttpClient from "../HttpClient";
+import { AxiosResponse } from "axios";
 import { RoomDto } from "../models/roomDto";
+import { httpClient } from "../HttpClient";
 
-export const getRooms = async (): Promise<RoomDto[]> => {
-    const { data } = await HttpClient.get<RoomDto[]>(`Rooms`);
-    return data;
+export const getRooms = async (): Promise<AxiosResponse<RoomDto[], any>> => {
+    const response = await httpClient.get<RoomDto[]>(`Rooms`);
+    return response;
 };
-export const createRoom = async (room: RoomDto): Promise<RoomDto> => {
-    const { data } = await HttpClient.post<RoomDto>(`Rooms`, room);
-    return data;
+export const createRoom = async (room: RoomDto): Promise<AxiosResponse<RoomDto, any>> => {
+    const response = await httpClient.post<RoomDto>(`Rooms`, room);
+    return response;
 };
