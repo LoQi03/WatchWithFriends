@@ -27,13 +27,10 @@ export const RoomsPage = (): JSX.Element => {
     const getRoomsAsync = useCallback(async (): Promise<void> => {
         try {
             const response = await API.getRooms();
-            if (response.status !== 200) {
-                aouthService?.logout();
-            }
             setRooms(response.data);
         }
         catch (error) {
-            console.log(error);
+            aouthService?.logout();
         };
     }, [aouthService]);
 

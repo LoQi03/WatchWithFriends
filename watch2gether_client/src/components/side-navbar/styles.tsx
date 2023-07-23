@@ -60,10 +60,10 @@ export const HeaderContainer = styled.div`
     width: 100%;
     `;
 export const StyledMenuItem = styled(MenuItem)`
-display: flex;
-align-items: center;
-justify-content: space-between;
-color: #3928C2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #3928C2;
 `;
 export const StyledMenuItemButton = styled.div`
     display: flex;
