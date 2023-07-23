@@ -21,23 +21,6 @@ export const ChatEntry = (props: ChatEntryProps): JSX.Element => {
             {
                 isCurrentUser ?
                     <>
-                        <Styles.CurrentUserChatEntryName>{props.name}</Styles.CurrentUserChatEntryName>
-                        <Styles.ChatEntryContainer isCurrentUser={isCurrentUser}>
-                            <Tooltip arrow={true} placement='left' title={props.date?.toUTCString()}>
-                                <Styles.ChatEntryImage src={`${AppConfig.GetConfig().apiUrl}Users/${props.id}/image`} />
-                            </Tooltip>
-                            <Styles.ChatEntryContent isCurrentUser={isCurrentUser}>
-                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Incidunt dolor delectus, quas sit iusto soluta facilis mollitia error eos earum ipsam possimus, distinctio eveniet amet repellat accusamus corrupti dolore tenetur!
-                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Incidunt dolor delectus, quas sit iusto soluta facilis mollitia error eos earum ipsam possimus, distinctio eveniet amet repellat accusamus corrupti dolore tenetur!
-                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Incidunt dolor delectus, quas sit iusto soluta facilis mollitia error eos earum ipsam possimus, distinctio eveniet amet repellat accusamus corrupti dolore tenetur!
-                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Incidunt dolor delectus, quas sit iusto soluta facilis mollitia error eos earum ipsam possimus, distinctio eveniet amet repellat accusamus corrupti dolore tenetur!
-                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Incidunt dolor delectus, quas sit iusto soluta facilis mollitia error eos earum ipsam possimus, distinctio eveniet amet repellat accusamus corrupti dolore tenetur!
-                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Incidunt dolor delectus, quas sit iusto soluta facilis mollitia error eos earum ipsam possimus, distinctio eveniet amet repellat accusamus corrupti dolore tenetur!
-                            </Styles.ChatEntryContent>
-                        </Styles.ChatEntryContainer>
-                    </>
-                    :
-                    <>
                         <Styles.OtherUserChatEntryNameContainer>
                             <Styles.OtherUserChatEntryName>{props.name}</Styles.OtherUserChatEntryName>
                         </Styles.OtherUserChatEntryNameContainer>
@@ -55,6 +38,24 @@ export const ChatEntry = (props: ChatEntryProps): JSX.Element => {
                             </Tooltip>
                         </Styles.ChatEntryContainer>
                     </>
+                    :
+                    <>
+                        <Styles.CurrentUserChatEntryName>{props.name}</Styles.CurrentUserChatEntryName>
+                        <Styles.ChatEntryContainer isCurrentUser={isCurrentUser}>
+                            <Tooltip arrow={true} placement='left' title={props.date?.toUTCString()}>
+                                <Styles.ChatEntryImage src={`${AppConfig.GetConfig().apiUrl}Users/${props.id}/image`} />
+                            </Tooltip>
+                            <Styles.ChatEntryContent isCurrentUser={isCurrentUser}>
+                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Incidunt dolor delectus, quas sit iusto soluta facilis mollitia error eos earum ipsam possimus, distinctio eveniet amet repellat accusamus corrupti dolore tenetur!
+                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Incidunt dolor delectus, quas sit iusto soluta facilis mollitia error eos earum ipsam possimus, distinctio eveniet amet repellat accusamus corrupti dolore tenetur!
+                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Incidunt dolor delectus, quas sit iusto soluta facilis mollitia error eos earum ipsam possimus, distinctio eveniet amet repellat accusamus corrupti dolore tenetur!
+                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Incidunt dolor delectus, quas sit iusto soluta facilis mollitia error eos earum ipsam possimus, distinctio eveniet amet repellat accusamus corrupti dolore tenetur!
+                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Incidunt dolor delectus, quas sit iusto soluta facilis mollitia error eos earum ipsam possimus, distinctio eveniet amet repellat accusamus corrupti dolore tenetur!
+                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Incidunt dolor delectus, quas sit iusto soluta facilis mollitia error eos earum ipsam possimus, distinctio eveniet amet repellat accusamus corrupti dolore tenetur!
+                            </Styles.ChatEntryContent>
+                        </Styles.ChatEntryContainer>
+                    </>
+
             }
         </>
     )

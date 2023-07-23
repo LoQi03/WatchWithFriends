@@ -17,7 +17,7 @@ namespace Watch2Gether_Data.Repositories.Core
             return context.Users.ToList();
         }
 
-        public User? GetUserByID(Guid id)
+        public User? GetUserById(Guid id)
         {
             return context.Users.Find(id);
         }

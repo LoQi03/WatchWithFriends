@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-
-namespace Watch2Gether_Data.Model
+﻿namespace Watch2Gether_Data.Model
 {
     public class User
     {

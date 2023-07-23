@@ -16,7 +16,7 @@ namespace Watch2Gether_Data.Repositories.Core
             return context.Images.ToList();
         }
 
-        public Image? GetImageByID(Guid id)
+        public Image? GetImageById(Guid id)
         {
             return context.Images.Find(id);
         }

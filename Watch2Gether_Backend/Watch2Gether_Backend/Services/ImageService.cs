@@ -13,7 +13,7 @@ namespace Watch2Gether_Backend.Services
 
         public Image? GetImageById(Guid id)
         {
-            var result = _imageRepository.GetImageByID(id);
+            var result = _imageRepository.GetImageById(id);
             return result;
         }
 

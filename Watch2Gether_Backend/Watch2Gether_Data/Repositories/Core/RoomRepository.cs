@@ -18,7 +18,7 @@ namespace Watch2Gether_Data.Repositories.Core
             return context.Rooms.Include(r => r.Users);
         }
 
-        public Room? GetRoomByID(Guid id)
+        public Room? GetRoomById(Guid id)
         {
             return context.Rooms
                 .Include(r=>r.Users)
@@ -33,13 +33,16 @@ namespace Watch2Gether_Data.Repositories.Core
 
         public Room? DeleteRoom(Guid RoomID)
         {
-            var Room = context.Rooms.Find(RoomID);
+            var room = context.Rooms.Find(RoomID);
 
-            if (Room is null) return null;
+            if (room is null) return null;
 
-            context.Rooms.Remove(Room);
+            room.ChatEntries = null;
             Save();
-            return Room;
+
+            context.Rooms.Remove(room);
+            Save();
+            return room;
         }
 
         public void UpdateRoom(Room Room)

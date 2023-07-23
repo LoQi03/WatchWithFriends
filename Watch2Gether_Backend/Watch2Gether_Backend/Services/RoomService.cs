@@ -27,7 +27,7 @@ namespace Watch2Gether_Backend.Services
             }
             var salt = RandomNumberGenerator.GetBytes(128 / 8);
             var hashed = HashPassword(room.Password!, salt);
-            var creator = _userRepository.GetUserByID(room.Creator);
+            var creator = _userRepository.GetUserById(room.Creator);
             if (creator is null)
             {
                 return null;
@@ -63,7 +63,7 @@ namespace Watch2Gether_Backend.Services
         }
         public RoomDTO? GetRoom(Guid id)
         {
-            var room = _roomRepository.GetRoomByID(id);
+            var room = _roomRepository.GetRoomById(id);
             if (room is null) 
             {
                 return null;
@@ -72,7 +72,7 @@ namespace Watch2Gether_Backend.Services
         }
         public RoomDTO? AddUserToRoom(Guid roomid, Guid userid)
         {
-            var room = _roomRepository.GetRoomByID(roomid);
+            var room = _roomRepository.GetRoomById(roomid);
             if (room is null) 
             {
                 return null;
@@ -82,7 +82,7 @@ namespace Watch2Gether_Backend.Services
                 return null;
             } 
             var users = room.Users?.ToList();
-            var user = _userRepository.GetUserByID(userid);
+            var user = _userRepository.GetUserById(userid);
             if (user is null)
             {
                 return null;
@@ -94,7 +94,7 @@ namespace Watch2Gether_Backend.Services
         }
         public RoomDTO? GetRoomById(Guid id)
         {
-            var room = _roomRepository.GetRoomByID(id);
+            var room = _roomRepository.GetRoomById(id);
             if (room is null)
             {
                 return null;

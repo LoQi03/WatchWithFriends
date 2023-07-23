@@ -7,6 +7,7 @@ namespace Watch2Gether_Backend.Model
         public Guid Id { get; set; }
         public string? Name { get; set; }
         public Guid Creator { get; set; }
+        public List<ChatEntry> ChatEntries { get; set; }
         public List<UserDTO>? Users { get; set; }
         public string? Password { get; set; }
 
@@ -19,7 +20,8 @@ namespace Watch2Gether_Backend.Model
                 Name = model.Name,
                 Creator = model.Creator,
                 Users = users,
-                Password = null
+                Password = null,
+                ChatEntries = model.ChatEntries.ToList()
             };
         }
 
@@ -33,7 +35,8 @@ namespace Watch2Gether_Backend.Model
                 Creator = Creator,
                 Users = users,
                 PasswordHash = Password ?? "",
-                Salt = string.Empty
+                Salt = string.Empty,
+                ChatEntries = ChatEntries
             };
         }
     }

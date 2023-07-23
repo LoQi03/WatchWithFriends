@@ -4,7 +4,7 @@ export const ChatEntryContainer = styled.div<{ isCurrentUser: boolean }>`
     display: flex;
     gap: 10px;
     align-items: end;
-    justify-content: ${props => props.isCurrentUser ? "start" : "end"};
+    justify-content: ${props => props.isCurrentUser ? "end" : "start"};
     width: 100%;
 `;
 

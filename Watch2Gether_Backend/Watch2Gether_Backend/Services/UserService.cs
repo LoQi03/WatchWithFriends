@@ -70,7 +70,7 @@ namespace Watch2Gether_Backend.Services
 
         public User? GetUserById(Guid? id)
         {
-            var user = _userRepository.GetUserByID(id ?? Guid.Empty);
+            var user = _userRepository.GetUserById(id ?? Guid.Empty);
             if (user is not null)
             {
                 return user;
