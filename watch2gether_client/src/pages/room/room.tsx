@@ -11,13 +11,12 @@ export const RoomPage = (): JSX.Element => {
     const params = useParams();
 
     useEffect(() => {
-        // Feliratkozás a hubhoz
+
         const newConnection = new signalR.HubConnectionBuilder()
-            .withUrl(AppConfig.GetConfig().apiUrl + 'roomHub') // Hub URL-je (a szerver által biztosított elérési út)
+            .withUrl(AppConfig.GetConfig().apiUrl + 'roomHub')
             .withAutomaticReconnect()
             .build();
 
-        // Kapcsolat létrehozása
         if (!connection) {
             newConnection
                 .start()
@@ -28,7 +27,6 @@ export const RoomPage = (): JSX.Element => {
 
             setConnection(newConnection);
         }
-        // A kapcsolat lezárása a komponens kihelyezésének eltávolításakor
         return () => {
             if (connection) {
                 connection.stop();
