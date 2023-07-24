@@ -46,13 +46,14 @@ namespace Watch2Gether_Backend
 
             app.UseCors();
 
-            app.UseEndpoints(endpoints =>
+            /*app.UseEndpoints(endpoints =>
             {
                 endpoints.MapHub<RoomHub>("/Rooms/chat"); 
 
                 endpoints.MapControllers();
             });
-
+            */
+            app.MapControllers();
             app.Run();
         }
     }

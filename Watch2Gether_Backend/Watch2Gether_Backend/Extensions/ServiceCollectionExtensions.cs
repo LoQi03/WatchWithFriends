@@ -20,24 +20,25 @@ namespace Watch2Gether_Backend.Extensions
         public static void UseWatch2GetherBackend(this IServiceCollection services)
         {
             services.AddSignalR();
-            services.AddControllers();
+            services.AddControllers()
+                    .AddJsonOptions(options => SetJsonOption(options));
+
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen(options => SetSwaggerGenOptions(options));
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options => SetJwtBearerOptions(options));
+                    .AddJwtBearer(options => SetJwtBearerOptions(options));
             services.AddAuthorization();
+
             services.AddCors(options => SetCorseOptions(options));
 
-            //Dependencies
+            // Dependencies
             services.AddScoped<IRoomService, RoomService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IImageService, ImageService>();
 
-            //Singletons
+            // Singletons
             services.AddScoped<RoomHub>();
-
-            services.AddControllers()
-            .AddJsonOptions(options =>SetJsonOption(options));
 
         }
         private static void SetJsonOption(JsonOptions options)

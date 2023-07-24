@@ -12,13 +12,11 @@ namespace Watch2Gether_Backend.Model
 
         public static RoomDTO FromModel(Room model)
         {
-            var users =  model.Users?.Select(x => UserDTO.FromModel(x)).ToList();
             return new RoomDTO
             {
                 Id = model.Id,
                 Name = model.Name,
                 Creator = model.Creator,
-                Users = users,
                 Password = null,
             };
         }
@@ -31,7 +29,6 @@ namespace Watch2Gether_Backend.Model
                 Id = Id,
                 Name = Name,
                 Creator = Creator,
-                Users = users,
                 PasswordHash = Password ?? "",
                 Salt = string.Empty,
             };

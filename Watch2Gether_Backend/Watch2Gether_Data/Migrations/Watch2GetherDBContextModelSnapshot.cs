@@ -22,23 +22,6 @@ namespace Watch2Gether_Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("RoomUser", b =>
-                {
-                    b.Property<Guid>("RoomId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("RoomId", "UserId");
-
-                    b.HasIndex("RoomId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("RoomUser");
-                });
-
             modelBuilder.Entity("Watch2Gether_Data.Model.Image", b =>
                 {
                     b.Property<Guid>("Id")
@@ -52,33 +35,6 @@ namespace Watch2Gether_Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Images");
-                });
-
-            modelBuilder.Entity("Watch2Gether_Data.Model.Room", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("Creator")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Salt")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Rooms");
                 });
 
             modelBuilder.Entity("Watch2Gether_Data.Model.User", b =>
@@ -110,21 +66,6 @@ namespace Watch2Gether_Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("RoomUser", b =>
-                {
-                    b.HasOne("Watch2Gether_Data.Model.Room", null)
-                        .WithMany()
-                        .HasForeignKey("RoomId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Watch2Gether_Data.Model.User", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

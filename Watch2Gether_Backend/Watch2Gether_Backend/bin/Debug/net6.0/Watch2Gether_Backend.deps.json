@@ -10,7 +10,7 @@
         "dependencies": {
           "Microsoft.AspNetCore.Authentication.JwtBearer": "6.0.18",
           "Microsoft.AspNetCore.SignalR.Client": "7.0.9",
-          "Microsoft.EntityFrameworkCore.Design": "7.0.7",
+          "Microsoft.EntityFrameworkCore.Design": "7.0.9",
           "Newtonsoft.Json": "13.0.3",
           "Swashbuckle.AspNetCore": "6.2.3",
           "Swashbuckle.AspNetCore.Filters": "7.0.6",
@@ -260,7 +260,7 @@
         }
       },
       "Microsoft.EntityFrameworkCore.Analyzers/7.0.9": {},
-      "Microsoft.EntityFrameworkCore.Design/7.0.7": {
+      "Microsoft.EntityFrameworkCore.Design/7.0.9": {
         "dependencies": {
           "Humanizer.Core": "2.14.1",
           "Microsoft.EntityFrameworkCore.Relational": "7.0.9",
@@ -269,8 +269,8 @@
         },
         "runtime": {
           "lib/net6.0/Microsoft.EntityFrameworkCore.Design.dll": {
-            "assemblyVersion": "7.0.7.0",
-            "fileVersion": "7.0.723.25405"
+            "assemblyVersion": "7.0.9.0",
+            "fileVersion": "7.0.923.31909"
           }
         }
       },
@@ -1061,12 +1061,12 @@
       "path": "microsoft.entityframeworkcore.analyzers/7.0.9",
       "hashPath": "microsoft.entityframeworkcore.analyzers.7.0.9.nupkg.sha512"
     },
-    "Microsoft.EntityFrameworkCore.Design/7.0.7": {
+    "Microsoft.EntityFrameworkCore.Design/7.0.9": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-wCG4pBGMTmtxKM44e1uOClPhkzQ3LQmqJ6CzuO+V24XtHB6gR3OWdMqi6g+50PGJrFHsyEMzi7XqEqJS5tnPRw==",
-      "path": "microsoft.entityframeworkcore.design/7.0.7",
-      "hashPath": "microsoft.entityframeworkcore.design.7.0.7.nupkg.sha512"
+      "sha512": "sha512-tWsa+spzKZAwHrUP6vYM1LLh0P89UMcldEjerFPPZb0LcI/ONQmh7ldK4Q8TeRuIiuXxYgRYPElSgxwLp14oug==",
+      "path": "microsoft.entityframeworkcore.design/7.0.9",
+      "hashPath": "microsoft.entityframeworkcore.design.7.0.9.nupkg.sha512"
     },
     "Microsoft.EntityFrameworkCore.InMemory/7.0.9": {
       "type": "package",

@@ -12,12 +12,10 @@ namespace Watch2Gether_Backend.Services
     {
         private readonly IRoomRepository _roomRepository;
         private readonly IUserRepository _userRepository;
-        private readonly IHubContext<RoomHub> _chatHubContext;
         public RoomService(IRoomRepository roomRepository, IUserRepository userRepository, IHubContext<RoomHub> chatHubContext)
         {
             _roomRepository = roomRepository;
             _userRepository = userRepository;
-            _chatHubContext = chatHubContext;
         }
         public IEnumerable<Room> GetAllRooms()
         {
@@ -51,7 +49,6 @@ namespace Watch2Gether_Backend.Services
                 Salt = Convert.ToBase64String(salt),
                 PasswordHash = hashed,
                 Creator = room.Creator,
-                Users = users,
                 CreationTime = DateTime.Now,
             };
         }
@@ -81,18 +78,12 @@ namespace Watch2Gether_Backend.Services
             {
                 return null;
             }
-            if (room.Users?.Count() > 0)
-            {
-                return null;
-            } 
-            var users = room.Users?.ToList();
             var user = _userRepository.GetUserById(userid);
             if (user is null)
             {
                 return null;
             } 
-            users?.Add(user);
-            room.Users = users;
+
             _roomRepository.UpdateRoom(room);
             return RoomDTO.FromModel(room);
         }

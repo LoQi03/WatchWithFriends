@@ -9,7 +9,6 @@
         public string? PasswordHash { get; set; }
         public string? Salt { get; set; }
         public DateTime BirthDate { get; set; }
-        public ICollection<Room>? Rooms { get; set; }
         public Guid? ImageId { get; set; }
 
     }

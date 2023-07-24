@@ -329,11 +329,11 @@
           "lib/netstandard2.0/_._": {}
         }
       },
-      "Microsoft.EntityFrameworkCore.Design/7.0.7": {
+      "Microsoft.EntityFrameworkCore.Design/7.0.9": {
         "type": "package",
         "dependencies": {
           "Humanizer.Core": "2.14.1",
-          "Microsoft.EntityFrameworkCore.Relational": "7.0.7",
+          "Microsoft.EntityFrameworkCore.Relational": "7.0.9",
           "Microsoft.Extensions.DependencyModel": "7.0.0",
           "Mono.TextTemplating": "2.2.1"
         },
@@ -1932,10 +1932,10 @@
         "microsoft.entityframeworkcore.analyzers.nuspec"
       ]
     },
-    "Microsoft.EntityFrameworkCore.Design/7.0.7": {
-      "sha512": "wCG4pBGMTmtxKM44e1uOClPhkzQ3LQmqJ6CzuO+V24XtHB6gR3OWdMqi6g+50PGJrFHsyEMzi7XqEqJS5tnPRw==",
+    "Microsoft.EntityFrameworkCore.Design/7.0.9": {
+      "sha512": "tWsa+spzKZAwHrUP6vYM1LLh0P89UMcldEjerFPPZb0LcI/ONQmh7ldK4Q8TeRuIiuXxYgRYPElSgxwLp14oug==",
       "type": "package",
-      "path": "microsoft.entityframeworkcore.design/7.0.7",
+      "path": "microsoft.entityframeworkcore.design/7.0.9",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1943,7 +1943,7 @@
         "build/net6.0/Microsoft.EntityFrameworkCore.Design.props",
         "lib/net6.0/Microsoft.EntityFrameworkCore.Design.dll",
         "lib/net6.0/Microsoft.EntityFrameworkCore.Design.xml",
-        "microsoft.entityframeworkcore.design.7.0.7.nupkg.sha512",
+        "microsoft.entityframeworkcore.design.7.0.9.nupkg.sha512",
         "microsoft.entityframeworkcore.design.nuspec"
       ]
     },
@@ -4277,7 +4277,7 @@
     "net6.0": [
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 6.0.18",
       "Microsoft.AspNetCore.SignalR.Client >= 7.0.9",
-      "Microsoft.EntityFrameworkCore.Design >= 7.0.7",
+      "Microsoft.EntityFrameworkCore.Design >= 7.0.9",
       "Newtonsoft.Json >= 13.0.3",
       "Swashbuckle.AspNetCore >= 6.2.3",
       "Swashbuckle.AspNetCore.Filters >= 7.0.6",
@@ -4346,7 +4346,7 @@
             "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
             "suppressParent": "All",
             "target": "Package",
-            "version": "[7.0.7, )"
+            "version": "[7.0.9, )"
           },
           "Newtonsoft.Json": {
             "target": "Package",

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "tOuLlB1XH8JqeibHqGhzNmYXtCotATUqklkkfQ2EBENdlEeNE6F6t8JM6X42WQFCTA+wkDKqA5bV+FWqXKcUmA==",
+  "dgSpecHash": "bKf09X+5WuHgUNAueHHl+cXx/nR+DzNIU/EL9O753JLJ5GDXMnrf0pOT/aWQIEOPXKpcBPvWsnmrz9EweqPOrA==",
   "success": true,
   "projectFilePath": "C:\\Repos\\Watch2gether\\Watch2Gether_Backend\\Watch2Gether_Backend\\Watch2Gether_Backend.csproj",
   "expectedPackageFiles": [
@@ -22,7 +22,7 @@
     "C:\\Users\\mates\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.9\\microsoft.entityframeworkcore.7.0.9.nupkg.sha512",
     "C:\\Users\\mates\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\7.0.9\\microsoft.entityframeworkcore.abstractions.7.0.9.nupkg.sha512",
     "C:\\Users\\mates\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\7.0.9\\microsoft.entityframeworkcore.analyzers.7.0.9.nupkg.sha512",
-    "C:\\Users\\mates\\.nuget\\packages\\microsoft.entityframeworkcore.design\\7.0.7\\microsoft.entityframeworkcore.design.7.0.7.nupkg.sha512",
+    "C:\\Users\\mates\\.nuget\\packages\\microsoft.entityframeworkcore.design\\7.0.9\\microsoft.entityframeworkcore.design.7.0.9.nupkg.sha512",
     "C:\\Users\\mates\\.nuget\\packages\\microsoft.entityframeworkcore.inmemory\\7.0.9\\microsoft.entityframeworkcore.inmemory.7.0.9.nupkg.sha512",
     "C:\\Users\\mates\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\7.0.9\\microsoft.entityframeworkcore.relational.7.0.9.nupkg.sha512",
     "C:\\Users\\mates\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\7.0.9\\microsoft.entityframeworkcore.sqlserver.7.0.9.nupkg.sha512",
