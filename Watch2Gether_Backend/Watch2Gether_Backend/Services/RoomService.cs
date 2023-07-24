@@ -1,19 +1,23 @@
 ﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using Microsoft.AspNetCore.SignalR;
 using System.Security.Cryptography;
+using Watch2Gether_Backend.Hubs;
 using Watch2Gether_Backend.Model;
 using Watch2Gether_Data.Model;
 using Watch2Gether_Data.Repositories;
 
 namespace Watch2Gether_Backend.Services
 {
-    internal class RoomService : IRoomService
+    internal sealed class RoomService : IRoomService
     {
         private readonly IRoomRepository _roomRepository;
         private readonly IUserRepository _userRepository;
-        public RoomService(IRoomRepository roomRepository, IUserRepository userRepository)
+        private readonly IHubContext<RoomHub> _chatHubContext;
+        public RoomService(IRoomRepository roomRepository, IUserRepository userRepository, IHubContext<RoomHub> chatHubContext)
         {
             _roomRepository = roomRepository;
             _userRepository = userRepository;
+            _chatHubContext = chatHubContext;
         }
         public IEnumerable<Room> GetAllRooms()
         {

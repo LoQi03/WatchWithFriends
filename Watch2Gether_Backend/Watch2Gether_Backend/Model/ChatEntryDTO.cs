@@ -1,10 +1,9 @@
-﻿namespace Watch2Gether_Data.Model
+﻿namespace Watch2Gether_Backend.Model
 {
-    public class ChatEntry
+    public class ChatEntryDTO
     {
-        public Guid Id { get; set; }
         public Guid RoomId { get; set; }
-        public Room Room { get; set; }
+        public Guid UserId { get; set; }
         public string Name { get; set; }
         public string Message { get; set; }
         public DateTime MessageTime { get; set; }

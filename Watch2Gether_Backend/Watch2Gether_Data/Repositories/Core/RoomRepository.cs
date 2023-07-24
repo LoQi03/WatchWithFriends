@@ -37,7 +37,6 @@ namespace Watch2Gether_Data.Repositories.Core
 
             if (room is null) return null;
 
-            room.ChatEntries = null;
             Save();
 
             context.Rooms.Remove(room);

@@ -3,7 +3,7 @@ using Watch2Gether_Data.Repositories;
 
 namespace Watch2Gether_Backend.Services
 {
-    internal class ImageService : IImageService
+    internal sealed class ImageService : IImageService
     {
         private readonly IImageRepository _imageRepository;
         public ImageService(IImageRepository imageService)

@@ -10,6 +10,8 @@ using Watch2Gether_Backend.Services;
 using Watch2Gether_Data.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.SignalR;
+using Watch2Gether_Backend.Hubs;
 
 namespace Watch2Gether_Backend.Extensions
 {
@@ -17,6 +19,7 @@ namespace Watch2Gether_Backend.Extensions
     {
         public static void UseWatch2GetherBackend(this IServiceCollection services)
         {
+            services.AddSignalR();
             services.AddControllers();
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen(options => SetSwaggerGenOptions(options));
@@ -29,6 +32,10 @@ namespace Watch2Gether_Backend.Extensions
             services.AddScoped<IRoomService, RoomService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IImageService, ImageService>();
+
+            //Singletons
+            services.AddScoped<RoomHub>();
+
             services.AddControllers()
             .AddJsonOptions(options =>SetJsonOption(options));
 

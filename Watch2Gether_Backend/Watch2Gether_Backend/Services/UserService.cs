@@ -11,7 +11,7 @@ using Watch2Gether_Data.Repositories;
 
 namespace Watch2Gether_Backend.Services
 {
-    internal class UserService : IUserService
+    internal sealed class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
         public UserService(IUserRepository userRepository)

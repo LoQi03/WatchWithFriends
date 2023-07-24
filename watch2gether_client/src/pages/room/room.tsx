@@ -12,14 +12,6 @@ export const RoomPage = (): JSX.Element => {
             <div style={{ width: '30%', backgroundColor: 'white', padding: '10px' }}>
                 <ChatEntry date={new Date()} name='Máté' message='test' id={authContext?.currentUser?.id!}></ChatEntry>
                 <ChatEntry date={new Date()} name='Valaki' message='test' id={'bbc92a31-c449-4081-9169-89ed459d5cff'}></ChatEntry>
-                <ChatEntry date={new Date()} name='Máté' message='test' id={authContext?.currentUser?.id!}></ChatEntry>
-                <ChatEntry date={new Date()} name='Valaki' message='test' id={'bbc92a31-c449-4081-9169-89ed459d5cff'}></ChatEntry>
-                <ChatEntry date={new Date()} name='Máté' message='test' id={authContext?.currentUser?.id!}></ChatEntry>
-                <ChatEntry date={new Date()} name='Valaki' message='test' id={'bbc92a31-c449-4081-9169-89ed459d5cff'}></ChatEntry>
-                <ChatEntry date={new Date()} name='Máté' message='test' id={authContext?.currentUser?.id!}></ChatEntry>
-                <ChatEntry date={new Date()} name='Valaki' message='test' id={'bbc92a31-c449-4081-9169-89ed459d5cff'}></ChatEntry>
-                <ChatEntry date={new Date()} name='Máté' message='test' id={authContext?.currentUser?.id!}></ChatEntry>
-                <ChatEntry date={new Date()} name='Valaki' message='test' id={'bbc92a31-c449-4081-9169-89ed459d5cff'}></ChatEntry>
             </div>
         </>
     )

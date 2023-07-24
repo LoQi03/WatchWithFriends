@@ -280,3 +280,13 @@ C:\Repos\Watch2gether\Watch2Gether_Backend\Watch2Gether_Backend\obj\Debug\net6.0
 C:\Repos\Watch2gether\Watch2Gether_Backend\Watch2Gether_Backend\obj\Debug\net6.0\Watch2Gether_Backend.pdb
 C:\Repos\Watch2gether\Watch2Gether_Backend\Watch2Gether_Backend\obj\Debug\net6.0\Watch2Gether_Backend.genruntimeconfig.cache
 C:\Repos\Watch2gether\Watch2Gether_Backend\Watch2Gether_Backend\obj\Debug\net6.0\ref\Watch2Gether_Backend.dll
+C:\Repos\Watch2gether\Watch2Gether_Backend\Watch2Gether_Backend\bin\Debug\net6.0\Microsoft.AspNetCore.Connections.Abstractions.dll
+C:\Repos\Watch2gether\Watch2Gether_Backend\Watch2Gether_Backend\bin\Debug\net6.0\Microsoft.AspNetCore.Http.Connections.Client.dll
+C:\Repos\Watch2gether\Watch2Gether_Backend\Watch2Gether_Backend\bin\Debug\net6.0\Microsoft.AspNetCore.Http.Connections.Common.dll
+C:\Repos\Watch2gether\Watch2Gether_Backend\Watch2Gether_Backend\bin\Debug\net6.0\Microsoft.AspNetCore.SignalR.Client.dll
+C:\Repos\Watch2gether\Watch2Gether_Backend\Watch2Gether_Backend\bin\Debug\net6.0\Microsoft.AspNetCore.SignalR.Client.Core.dll
+C:\Repos\Watch2gether\Watch2Gether_Backend\Watch2Gether_Backend\bin\Debug\net6.0\Microsoft.AspNetCore.SignalR.Common.dll
+C:\Repos\Watch2gether\Watch2Gether_Backend\Watch2Gether_Backend\bin\Debug\net6.0\Microsoft.AspNetCore.SignalR.Protocols.Json.dll
+C:\Repos\Watch2gether\Watch2Gether_Backend\Watch2Gether_Backend\bin\Debug\net6.0\Microsoft.Extensions.Features.dll
+C:\Repos\Watch2gether\Watch2Gether_Backend\Watch2Gether_Backend\bin\Debug\net6.0\System.IO.Pipelines.dll
+C:\Repos\Watch2gether\Watch2Gether_Backend\Watch2Gether_Backend\bin\Debug\net6.0\System.Threading.Channels.dll

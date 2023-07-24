@@ -17,7 +17,7 @@ namespace Watch2Gether_Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.7")
+                .HasAnnotation("ProductVersion", "7.0.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -37,38 +37,6 @@ namespace Watch2Gether_Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("RoomUser");
-                });
-
-            modelBuilder.Entity("Watch2Gether_Data.Model.ChatEntry", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Message")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("MessageTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("RoomId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("RoomId1")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RoomId");
-
-                    b.HasIndex("RoomId1");
-
-                    b.ToTable("ChatEntries");
                 });
 
             modelBuilder.Entity("Watch2Gether_Data.Model.Image", b =>
@@ -157,28 +125,6 @@ namespace Watch2Gether_Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Watch2Gether_Data.Model.ChatEntry", b =>
-                {
-                    b.HasOne("Watch2Gether_Data.Model.Room", null)
-                        .WithMany("ChatEntries")
-                        .HasForeignKey("RoomId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Watch2Gether_Data.Model.Room", "Room")
-                        .WithMany()
-                        .HasForeignKey("RoomId1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Room");
-                });
-
-            modelBuilder.Entity("Watch2Gether_Data.Model.Room", b =>
-                {
-                    b.Navigation("ChatEntries");
                 });
 #pragma warning restore 612, 618
         }

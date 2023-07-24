@@ -10,7 +10,6 @@ namespace Watch2Gether_Data.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<Room> Rooms { get; set; }
-        public DbSet<ChatEntry> ChatEntries { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -36,11 +35,6 @@ namespace Watch2Gether_Data.Data
                         j.HasIndex("RoomId").IsUnique(false);
                     }
                 );
-            modelBuilder.Entity<Room>()
-            .HasMany(r => r.ChatEntries)
-            .WithOne()
-            .HasForeignKey(ce => ce.RoomId)
-            .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

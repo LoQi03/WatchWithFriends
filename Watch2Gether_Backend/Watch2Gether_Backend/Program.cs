@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.SignalR;
 using Watch2Gether_Backend.Extensions;
+using Watch2Gether_Backend.Hubs;
 using Watch2Gether_Backend.Misc;
 using Watch2Gether_Data.Extensions;
 
@@ -44,7 +46,12 @@ namespace Watch2Gether_Backend
 
             app.UseCors();
 
-            app.MapControllers();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapHub<RoomHub>("/Rooms/chat"); 
+
+                endpoints.MapControllers();
+            });
 
             app.Run();
         }
