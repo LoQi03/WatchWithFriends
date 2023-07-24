@@ -1,11 +1,41 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { ChatEntry } from '../../components/chat/chat-entry/chat-entry';
 import { AuthContext } from '../../services/authenticationContext';
+import * as signalR from '@microsoft/signalr';
+import * as AppConfig from '../../AppConfig';
 
 export const RoomPage = (): JSX.Element => {
     const authContext = React.useContext(AuthContext);
+    const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
     const params = useParams();
+
+    useEffect(() => {
+        // Feliratkozás a hubhoz
+        const newConnection = new signalR.HubConnectionBuilder()
+            .withUrl(AppConfig.GetConfig().apiUrl + 'roomHub') // Hub URL-je (a szerver által biztosított elérési út)
+            .withAutomaticReconnect()
+            .build();
+
+        // Kapcsolat létrehozása
+        if (!connection) {
+            newConnection
+                .start()
+                .then(() => {
+                    console.log('Kapcsolódva a chat hubhoz.');
+                })
+                .catch((err) => console.error('Hiba a hubhoz való csatlakozáskor:', err));
+
+            setConnection(newConnection);
+        }
+        // A kapcsolat lezárása a komponens kihelyezésének eltávolításakor
+        return () => {
+            if (connection) {
+                connection.stop();
+            }
+        };
+    }, [connection, setConnection]);
+
     return (
         <>
             <h1>{params.id}</h1>

@@ -14,8 +14,8 @@ namespace Watch2Gether_Backend.Controllers
         {
             _roomService = roomService;
         }
-        [HttpGet, Authorize]
-        public ActionResult GetRooms()
+        [HttpGet]
+        public ActionResult<IEnumerable<RoomDTO>?> GetRooms()
         {
             var rooms = _roomService.GetAllRooms();
             return Ok(rooms);
@@ -30,7 +30,7 @@ namespace Watch2Gether_Backend.Controllers
             }
             return Ok(room);
         }
-        [HttpPost, Authorize]
+        [HttpPost]
         public ActionResult CreateRoom(RoomDTO room)
         {
             var result = _roomService.CreateRoom(room);
@@ -50,15 +50,6 @@ namespace Watch2Gether_Backend.Controllers
             }
             return Ok(result);
         }
-        [HttpPost("{roomid}/users/{userid}"), Authorize]
-        public ActionResult AddUserToRoom(Guid roomid, Guid userid)
-        {
-            var result = _roomService.AddUserToRoom(roomid, userid);
-            if (result is null)
-            {
-                return NotFound();
-            }
-            return Ok(result);
-        }
+       
     }
 }

@@ -42,18 +42,20 @@ namespace Watch2Gether_Backend
             app.UseHttpsRedirection();
 
             app.UseAuthentication();
+            app.UseRouting();
             app.UseAuthorization();
 
             app.UseCors();
 
-            /*app.UseEndpoints(endpoints =>
+            app.UseEndpoints(endpoints =>
             {
-                endpoints.MapHub<RoomHub>("/Rooms/chat"); 
+                endpoints.MapHub<RoomHub>("roomHub"); 
 
                 endpoints.MapControllers();
             });
-            */
-            app.MapControllers();
+            app.MapControllerRoute(
+                name: "default",
+                pattern: "{controller}/{action=Index}/{id?}");
             app.Run();
         }
     }

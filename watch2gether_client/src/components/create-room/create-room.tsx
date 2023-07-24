@@ -6,8 +6,10 @@ import * as CommonStyles from '../../commonStyles';
 import * as API from '../../api/roomManagmentAPI';
 import { RoomDto } from "../../models/roomDto";
 import { AuthContext } from "../../services/authenticationContext";
+import { useNavigate } from "react-router-dom";
 
 export const CreateRoom = (): JSX.Element => {
+    const navigate = useNavigate();
     const authContext = useContext(AuthContext);
     const createRoomContext = useContext(RoomContext);
     const [roomName, setRoomName] = React.useState<string>('');
@@ -16,14 +18,17 @@ export const CreateRoom = (): JSX.Element => {
         createRoomContext?.handleonClose();
     };
     const create = async (): Promise<void> => {
+        if (!authContext?.currentUser) {
+            return;
+        }
         const room: RoomDto = {
             name: roomName,
             password: password,
-            creator: authContext?.currentUser?.id || '',
+            creatorId: authContext?.currentUser.id,
         };
-        await API.createRoom(room);
+        const { data } = await API.createRoom(room);
         await createRoomContext?.getRoomsAsync();
-        createRoomContext?.handleonClose();
+        navigate(`/room/${data.id}`);
     };
     return (
         <Modal

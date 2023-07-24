@@ -5,11 +5,11 @@ namespace Watch2Gether_Backend.Services
 {
     public interface IRoomService
     {
-        IEnumerable<Room> GetAllRooms();
+        IEnumerable<RoomDTO>? GetAllRooms();
         RoomDTO? CreateRoom(RoomDTO room);
         RoomDTO? DeleteRoom(Guid roomId);
         RoomDTO? GetRoom(Guid id);
-        RoomDTO? AddUserToRoom(Guid roomid, Guid userid);
+        RoomDTO? AddUserToRoom(Guid roomid, Guid userid,string contextId);
         RoomDTO? GetRoomById(Guid id);
     }
 }

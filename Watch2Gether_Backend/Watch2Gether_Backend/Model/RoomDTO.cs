@@ -6,8 +6,8 @@ namespace Watch2Gether_Backend.Model
     {
         public Guid Id { get; set; }
         public string? Name { get; set; }
-        public Guid Creator { get; set; }
-        public List<UserDTO>? Users { get; set; }
+        public Guid CreatorId { get; set; }
+        public List<RoomUser>? UserIds { get; set; }
         public string? Password { get; set; }
 
         public static RoomDTO FromModel(Room model)
@@ -16,21 +16,22 @@ namespace Watch2Gether_Backend.Model
             {
                 Id = model.Id,
                 Name = model.Name,
-                Creator = model.Creator,
+                CreatorId = model.CreatorId,
                 Password = null,
+                UserIds = model.UserIds?.ToList(),
             };
         }
 
         public Room ToModel()
         {
-            var users = (ICollection<User>?)Users?.Select(x=>x.ToModel());
             return new Room
             {
                 Id = Id,
                 Name = Name,
-                Creator = Creator,
+                CreatorId = CreatorId,
                 PasswordHash = Password ?? "",
                 Salt = string.Empty,
+                UserIds = UserIds,
             };
         }
     }

@@ -23,6 +23,7 @@ export const ProfilePage = (): JSX.Element => {
     const [imgFile, setImgFile] = useState<File | undefined>(undefined);
     const [userDetails, setUserDetails] = useState<UserDto>(
         {
+            id: '',
             name: '',
             email: '',
             password: ''
@@ -91,6 +92,7 @@ export const ProfilePage = (): JSX.Element => {
     };
     const discard = () => {
         setUserDetails(authContext?.currentUser ?? {
+            id: '',
             name: '',
             email: '',
             password: ''

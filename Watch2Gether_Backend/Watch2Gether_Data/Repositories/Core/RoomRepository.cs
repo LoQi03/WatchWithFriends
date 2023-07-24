@@ -23,15 +23,15 @@ namespace Watch2Gether_Data.Repositories.Core
             return _context.Rooms.Find(id);
         }
 
-        public void InsertRoom(Room Room)
+        public void InsertRoom(Room room)
         {
-            _context.Rooms.Add(Room);
+            _context.Rooms.Add(room);
             Save();
         }
 
-        public Room? DeleteRoom(Guid RoomID)
+        public Room? DeleteRoom(Guid roomId)
         {
-            var room = _context.Rooms.Find(RoomID);
+            var room = _context.Rooms.Find(roomId);
 
             if (room is null) return null;
 
@@ -42,14 +42,15 @@ namespace Watch2Gether_Data.Repositories.Core
             return room;
         }
 
-        public void UpdateRoom(Room Room)
+        public void UpdateRoom(Room room)
         {
-            var entity = _context.Rooms.FirstOrDefault(x => x.Id == Room.Id);
+            var entity = _context.Rooms.FirstOrDefault(x => x.Id == room.Id);
 
             if (entity is null) return;
 
-            entity.Id = Room.Id;
-            entity.Name = Room.Name;
+            entity.Id = room.Id;
+            entity.Name = room.Name;
+            entity.UserIds = room.UserIds;
 
             _context.Update(entity);
             Save();

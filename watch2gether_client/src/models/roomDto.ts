@@ -1,9 +1,9 @@
-import { UserDto } from "./userDto";
+import { RoomUser } from "./roomUser";
 
 export interface RoomDto {
     id?: string;
     name?: string;
-    creator?: string;
-    users?: UserDto[];
+    creatorId: string;
+    userIds?: RoomUser[];
     password?: string;
 };

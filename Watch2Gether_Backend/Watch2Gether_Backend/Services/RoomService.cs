@@ -17,9 +17,10 @@ namespace Watch2Gether_Backend.Services
             _roomRepository = roomRepository;
             _userRepository = userRepository;
         }
-        public IEnumerable<Room> GetAllRooms()
+        public IEnumerable<RoomDTO>? GetAllRooms()
         {
-            return _roomRepository.GetRooms();
+            var result = _roomRepository.GetRooms();
+            return result.Select(x => RoomDTO.FromModel(x));
         }
         public RoomDTO? CreateRoom(RoomDTO room)
         {
@@ -29,18 +30,17 @@ namespace Watch2Gether_Backend.Services
             }
             var salt = RandomNumberGenerator.GetBytes(128 / 8);
             var hashed = HashPassword(room.Password!, salt);
-            var creator = _userRepository.GetUserById(room.Creator);
+            var creator = _userRepository.GetUserById(room.CreatorId);
             if (creator is null)
             {
                 return null;
             } 
-            var users = new List<User>() { creator };
-            var roomDB = CreateRoom(room, salt, hashed, users);
+            var roomDB = CreateRoom(room, salt, hashed,creator);
             _roomRepository.InsertRoom(roomDB);
             return RoomDTO.FromModel(roomDB);
         }
 
-        private Room CreateRoom(RoomDTO room, byte[] salt, string hashed, List<User> users)
+        private Room CreateRoom(RoomDTO room, byte[] salt, string hashed,User creator)
         {
             return new Room()
             {
@@ -48,8 +48,9 @@ namespace Watch2Gether_Backend.Services
                 Name = room.Name!,
                 Salt = Convert.ToBase64String(salt),
                 PasswordHash = hashed,
-                Creator = room.Creator,
+                CreatorId = creator.Id,
                 CreationTime = DateTime.Now,
+                UserIds = new List<RoomUser>()
             };
         }
 
@@ -71,10 +72,10 @@ namespace Watch2Gether_Backend.Services
             } 
             return RoomDTO.FromModel(room);
         }
-        public RoomDTO? AddUserToRoom(Guid roomid, Guid userid)
+        public RoomDTO? AddUserToRoom(Guid roomid, Guid userid,string ContextId)
         {
             var room = _roomRepository.GetRoomById(roomid);
-            if (room is null) 
+            if (room is null)
             {
                 return null;
             }
@@ -82,11 +83,22 @@ namespace Watch2Gether_Backend.Services
             if (user is null)
             {
                 return null;
-            } 
-
+            }
+            var roomUser = CreateRoomUser(userid, ContextId);
+            room.UserIds.Add(roomUser);
             _roomRepository.UpdateRoom(room);
             return RoomDTO.FromModel(room);
         }
+
+        private RoomUser CreateRoomUser(Guid userid, string ContextId)
+        {
+            return new RoomUser()
+            {
+                ContextId = ContextId,
+                UserId = userid,
+            };
+        }
+
         public RoomDTO? GetRoomById(Guid id)
         {
             var room = _roomRepository.GetRoomById(id);

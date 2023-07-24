@@ -166,7 +166,7 @@ namespace Watch2Gether_Backend.Services
                         new Claim(JwtRegisteredClaimNames.Jti,
                         Guid.NewGuid().ToString())
                     }),
-                Expires = DateTime.UtcNow.AddHours(1),
+                Expires = DateTime.UtcNow.AddDays(15),
                 Issuer = issuer,
                 Audience = audience,
                 SigningCredentials = new SigningCredentials

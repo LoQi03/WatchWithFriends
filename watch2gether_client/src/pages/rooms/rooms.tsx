@@ -28,9 +28,11 @@ export const RoomsPage = (): JSX.Element => {
         try {
             const response = await API.getRooms();
             setRooms(response.data);
+
         }
         catch (error) {
             aouthService?.logout();
+            console.log(error);
         };
     }, [aouthService]);
 
@@ -51,7 +53,7 @@ export const RoomsPage = (): JSX.Element => {
             <Styles.RoomListContainer>
                 <Styles.RoomList>
                     {
-                        rooms && rooms.map((room: RoomDto) => <RoomListItem key={room.id} id={room.id!} name={room.name!} creatorId={room.creator!} userCount={room.users?.length ?? 0} />)
+                        rooms && rooms.map((room: RoomDto) => <RoomListItem key={room.id} id={room.id!} name={room.name!} creatorId={room.creatorId} userCount={room.userIds?.length ?? 0} />)
                     }
                 </Styles.RoomList>
             </Styles.RoomListContainer>

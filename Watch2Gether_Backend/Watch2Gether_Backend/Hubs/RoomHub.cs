@@ -4,12 +4,20 @@ using Watch2Gether_Backend.Services;
 
 namespace Watch2Gether_Backend.Hubs
 {
-    public sealed class RoomHub : Hub
+    public class RoomHub : Hub
     {
         private readonly IRoomService _roomService;
         public RoomHub(IRoomService roomService) 
         {
             _roomService = roomService;
+        }
+        public override Task OnConnectedAsync()
+        {
+            return base.OnConnectedAsync();
+        }
+        public override Task OnDisconnectedAsync(Exception? exception)
+        {
+            return base.OnDisconnectedAsync(exception);
         }
         public Task BroadcastMessage(ChatEntryDTO chatEntry)
         {
