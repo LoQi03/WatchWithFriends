@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Watch2Gether_Data.Model;
+﻿using Watch2Gether_Data.Model;
 
 namespace Watch2Gether_Data.Repositories
 {
@@ -14,6 +9,7 @@ namespace Watch2Gether_Data.Repositories
         void InsertRoom(Room Room);
         Room? DeleteRoom(Guid RoomID);
         void UpdateRoom(Room Room);
+        IEnumerable<RoomUser> GetRoomUsersById(Guid roomId);
         void Save();
     }
 }

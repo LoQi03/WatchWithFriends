@@ -50,7 +50,6 @@ namespace Watch2Gether_Backend.Services
                 PasswordHash = hashed,
                 CreatorId = creator.Id,
                 CreationTime = DateTime.Now,
-                UserIds = new List<RoomUser>()
             };
         }
 
@@ -72,7 +71,7 @@ namespace Watch2Gether_Backend.Services
             } 
             return RoomDTO.FromModel(room);
         }
-        public RoomDTO? AddUserToRoom(Guid roomid, Guid userid,string ContextId)
+        public RoomDTO? AddUserToRoom(Guid roomid, Guid userid, string contextId, string name)
         {
             var room = _roomRepository.GetRoomById(roomid);
             if (room is null)
@@ -84,17 +83,18 @@ namespace Watch2Gether_Backend.Services
             {
                 return null;
             }
-            var roomUser = CreateRoomUser(userid, ContextId);
-            room.UserIds.Add(roomUser);
+            var roomUser = CreateRoomUser(userid, contextId, name);
+            room.RoomUsers?.Add(roomUser);
             _roomRepository.UpdateRoom(room);
             return RoomDTO.FromModel(room);
         }
 
-        private RoomUser CreateRoomUser(Guid userid, string ContextId)
+        private RoomUser CreateRoomUser(Guid userid, string ContextId,string name)
         {
             return new RoomUser()
             {
-                ContextId = ContextId,
+                Id= Guid.NewGuid(),
+                ConnectionId = ContextId,
                 UserId = userid,
             };
         }
@@ -117,6 +117,14 @@ namespace Watch2Gether_Backend.Services
                 iterationCount: 10000,
                 numBytesRequested: 256 / 8));
             return hashed;
+        }
+        public bool RoomValidition(RoomDTO? room)
+        {
+            if(room == null)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

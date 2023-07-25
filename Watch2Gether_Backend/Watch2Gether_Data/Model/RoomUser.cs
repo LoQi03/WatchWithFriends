@@ -10,6 +10,9 @@ namespace Watch2Gether_Data.Model
     {
         public Guid Id { get; set; }
         public Guid UserId { get; set; }
-        public string ContextId { get; set; }
+        public string ConnectionId { get; set; }
+        public string Name { get; set; }
+        public Guid RoomId { get; set; }
+        public Room Room { get; set; }
     }
 }

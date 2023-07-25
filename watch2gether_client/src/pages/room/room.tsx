@@ -28,7 +28,7 @@ export const RoomPage = (): JSX.Element => {
                     .build();
 
                 roomConnection.onclose((error) => {
-                    console.error('A kapcsolat lezárult:', error);
+                    console.error('Connection closed:', error);
                 });
 
                 roomConnection.on('ReciveMessage', (message: ChatEntryDto) => {
@@ -36,16 +36,22 @@ export const RoomPage = (): JSX.Element => {
                 });
 
                 await roomConnection.start();
-                console.log('Kapcsolódva a chat hubhoz.');
+                roomConnection.invoke("JoinRoom", params.id, authContext?.currentUser?.id, authContext?.currentUser?.name);
+                console.log('Connected to the hub.');
                 setConnection(roomConnection);
             } catch (err) {
-                console.error('Hiba a hubhoz való csatlakozáskor:', err);
+                console.error('error when connecting to the hub:', err);
             }
         };
 
         if (!connection) {
             startConnection();
         }
+        return () => {
+            if (connection) {
+                connection.stop();
+            }
+        };
     }, [connection]);
 
     const sendMessage = async (messageText: string): Promise<void> => {

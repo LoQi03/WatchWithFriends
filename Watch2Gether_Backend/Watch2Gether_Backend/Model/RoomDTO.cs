@@ -18,7 +18,7 @@ namespace Watch2Gether_Backend.Model
                 Name = model.Name,
                 CreatorId = model.CreatorId,
                 Password = null,
-                UserIds = model.UserIds?.ToList(),
+                UserIds = model.RoomUsers?.ToList(),
             };
         }
 
@@ -31,7 +31,7 @@ namespace Watch2Gether_Backend.Model
                 CreatorId = CreatorId,
                 PasswordHash = Password ?? "",
                 Salt = string.Empty,
-                UserIds = UserIds,
+                RoomUsers = UserIds,
             };
         }
     }
