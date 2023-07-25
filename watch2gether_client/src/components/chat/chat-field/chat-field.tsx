@@ -18,6 +18,7 @@ export const ChatField = (props: ChatFieldParams): JSX.Element => {
     const send = (): void => {
         setMessageText(messageText);
         roomContext?.sendMessage(messageText);
+        setMessageText('');
     }
 
     return (

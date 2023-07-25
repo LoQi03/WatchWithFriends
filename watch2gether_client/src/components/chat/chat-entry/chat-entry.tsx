@@ -19,8 +19,6 @@ export const ChatEntry = (props: ChatEntryProps): JSX.Element => {
             {
                 isCurrentUser ?
                     <>
-                        <Styles.OtherUserChatEntryNameContainer>
-                        </Styles.OtherUserChatEntryNameContainer>
                         <Styles.ChatEntryContainer isCurrentUser={isCurrentUser}>
                             <Styles.ChatEntryContent isCurrentUser={isCurrentUser}>
                                 {props.chatEntry.message}
@@ -33,7 +31,7 @@ export const ChatEntry = (props: ChatEntryProps): JSX.Element => {
                     :
                     <>
                         <Styles.ChatEntryContainer isCurrentUser={isCurrentUser}>
-                            <Tooltip arrow={true} placement='right' title={props.chatEntry.name + ' | ' + props.chatEntry.messageTime}>
+                            <Tooltip arrow={true} placement='left' title={props.chatEntry.name + ' | ' + props.chatEntry.messageTime}>
                                 <Styles.ChatEntryImage src={`${AppConfig.GetConfig().apiUrl}Users/${props.chatEntry.userId}/image`} />
                             </Tooltip>
                             <Styles.ChatEntryContent isCurrentUser={isCurrentUser}>

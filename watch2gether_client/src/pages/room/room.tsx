@@ -5,6 +5,7 @@ import * as signalR from '@microsoft/signalr';
 import * as AppConfig from '../../AppConfig';
 import { ChatField } from '../../components/chat/chat-field/chat-field';
 import { ChatEntryDto } from '../../models/chatEntryDto';
+import { Guid } from 'guid-typescript';
 
 export interface RoomContextType {
     sendMessage: (messageText: string) => Promise<void>;
@@ -20,21 +21,20 @@ export const RoomPage = (): JSX.Element => {
 
     useEffect(() => {
         const startConnection = async () => {
-            const roomConnection = new signalR.HubConnectionBuilder()
-                .withUrl(AppConfig.GetConfig().apiUrl + 'roomHub')
-                .withAutomaticReconnect()
-                .build();
-
-            // Eseménykezelő a kapcsolat lezárásához
-            roomConnection.onclose((error) => {
-                console.error('A kapcsolat lezárult:', error);
-            });
-
-            roomConnection.on('ReciveMessage', (message: ChatEntryDto) => {
-                setMessages((prevMessages) => [...prevMessages, message]);
-            });
-
             try {
+                const roomConnection = new signalR.HubConnectionBuilder()
+                    .withUrl(AppConfig.GetConfig().apiUrl + 'roomHub')
+                    .withAutomaticReconnect()
+                    .build();
+
+                roomConnection.onclose((error) => {
+                    console.error('A kapcsolat lezárult:', error);
+                });
+
+                roomConnection.on('ReciveMessage', (message: ChatEntryDto) => {
+                    setMessages((prevMessages) => [...prevMessages, message]);
+                });
+
                 await roomConnection.start();
                 console.log('Kapcsolódva a chat hubhoz.');
                 setConnection(roomConnection);
@@ -42,28 +42,25 @@ export const RoomPage = (): JSX.Element => {
                 console.error('Hiba a hubhoz való csatlakozáskor:', err);
             }
         };
+
         if (!connection) {
             startConnection();
         }
-
-        /*return () => {
-            if (connection) {
-                connection.stop();
-            }
-        };*/
     }, [connection]);
 
     const sendMessage = async (messageText: string): Promise<void> => {
         console.log(messageText);
         const message: ChatEntryDto = {
+            id: Guid.create().toString(),
             message: messageText,
             roomId: params.id ?? "",
             userId: authContext?.currentUser?.id ?? "",
             messageTime: new Date(),
             name: authContext?.currentUser?.name ?? ""
         };
-        console.log(message);
+        console.log(messages);
         connection?.invoke("SendMessage", message);
+        console.log(messages);
     };
 
     return (

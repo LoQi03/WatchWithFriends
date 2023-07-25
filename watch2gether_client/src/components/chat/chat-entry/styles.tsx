@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 
 export const ChatEntryContainer = styled.div<{ isCurrentUser: boolean }>`
+    margin-top: 10px;
     display: flex;
     gap: 10px;
     align-items: end;
