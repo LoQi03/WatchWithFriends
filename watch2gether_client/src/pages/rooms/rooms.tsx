@@ -14,7 +14,7 @@ export interface CreateRoomContextType {
     getRoomsAsync: () => Promise<void>;
 }
 
-export const RoomContext = createContext<CreateRoomContextType | null>(null);
+export const RoomsContext = createContext<CreateRoomContextType | null>(null);
 
 
 export const RoomsPage = (): JSX.Element => {
@@ -60,9 +60,9 @@ export const RoomsPage = (): JSX.Element => {
             <Styles.ActionBar>
                 <CommonStyles.GenericButton onClick={handleOpen}>Create Room</CommonStyles.GenericButton>
             </Styles.ActionBar>
-            <RoomContext.Provider value={{ open, handleonClose, handleOpen, getRoomsAsync }}>
+            <RoomsContext.Provider value={{ open, handleonClose, handleOpen, getRoomsAsync }}>
                 <CreateRoom />
-            </RoomContext.Provider>
+            </RoomsContext.Provider>
         </Styles.RoomsPageContainer>
     )
 };

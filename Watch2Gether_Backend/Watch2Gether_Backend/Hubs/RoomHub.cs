@@ -19,7 +19,7 @@ namespace Watch2Gether_Backend.Hubs
         {
             return base.OnDisconnectedAsync(exception);
         }
-        public Task BroadcastMessage(ChatEntryDTO chatEntry)
+        public Task SendMessage(ChatEntryDTO chatEntry)
         {
             return Clients.All.SendAsync("ReciveMessage", chatEntry);
         }

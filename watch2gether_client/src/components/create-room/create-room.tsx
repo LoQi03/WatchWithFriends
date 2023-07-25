@@ -1,6 +1,6 @@
 import { Box, Modal } from "@mui/material";
 import React, { useContext } from "react";
-import { RoomContext } from "../../pages/rooms/rooms";
+import { RoomsContext } from "../../pages/rooms/rooms";
 import * as Styles from './styles';
 import * as CommonStyles from '../../commonStyles';
 import * as API from '../../api/roomManagmentAPI';
@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 export const CreateRoom = (): JSX.Element => {
     const navigate = useNavigate();
     const authContext = useContext(AuthContext);
-    const createRoomContext = useContext(RoomContext);
+    const createRoomContext = useContext(RoomsContext);
     const [roomName, setRoomName] = React.useState<string>('');
     const [password, setPassword] = React.useState<string>('');
     const close = (): void => {

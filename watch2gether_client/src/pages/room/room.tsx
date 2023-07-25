@@ -1,46 +1,74 @@
-import React, { useEffect, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { ChatEntry } from '../../components/chat/chat-entry/chat-entry';
 import { AuthContext } from '../../services/authenticationContext';
 import * as signalR from '@microsoft/signalr';
 import * as AppConfig from '../../AppConfig';
+import { ChatField } from '../../components/chat/chat-field/chat-field';
+import { ChatEntryDto } from '../../models/chatEntryDto';
+
+export interface RoomContextType {
+    sendMessage: (messageText: string) => Promise<void>;
+}
+
+export const RoomContext = createContext<RoomContextType | null>(null);
 
 export const RoomPage = (): JSX.Element => {
     const authContext = React.useContext(AuthContext);
     const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
+    const [messages, setMessages] = useState<ChatEntryDto[]>([]);
     const params = useParams();
 
     useEffect(() => {
+        const startConnection = async () => {
+            const roomConnection = new signalR.HubConnectionBuilder()
+                .withUrl(AppConfig.GetConfig().apiUrl + 'roomHub')
+                .withAutomaticReconnect()
+                .build();
 
-        const newConnection = new signalR.HubConnectionBuilder()
-            .withUrl(AppConfig.GetConfig().apiUrl + 'roomHub')
-            .withAutomaticReconnect()
-            .build();
+            // Eseménykezelő a kapcsolat lezárásához
+            roomConnection.onclose((error) => {
+                console.error('A kapcsolat lezárult:', error);
+            });
 
+            roomConnection.on('ReciveMessage', (message: ChatEntryDto) => {
+                setMessages((prevMessages) => [...prevMessages, message]);
+            });
+
+            try {
+                await roomConnection.start();
+                console.log('Kapcsolódva a chat hubhoz.');
+                setConnection(roomConnection);
+            } catch (err) {
+                console.error('Hiba a hubhoz való csatlakozáskor:', err);
+            }
+        };
         if (!connection) {
-            newConnection
-                .start()
-                .then(() => {
-                    console.log('Kapcsolódva a chat hubhoz.');
-                })
-                .catch((err) => console.error('Hiba a hubhoz való csatlakozáskor:', err));
-
-            setConnection(newConnection);
+            startConnection();
         }
-        return () => {
+
+        /*return () => {
             if (connection) {
                 connection.stop();
             }
+        };*/
+    }, [connection]);
+
+    const sendMessage = async (messageText: string): Promise<void> => {
+        console.log(messageText);
+        const message: ChatEntryDto = {
+            message: messageText,
+            roomId: params.id ?? "",
+            userId: authContext?.currentUser?.id ?? "",
+            messageTime: new Date(),
+            name: authContext?.currentUser?.name ?? ""
         };
-    }, [connection, setConnection]);
+        console.log(message);
+        connection?.invoke("SendMessage", message);
+    };
 
     return (
-        <>
-            <h1>{params.id}</h1>
-            <div style={{ width: '30%', backgroundColor: 'white', padding: '10px' }}>
-                <ChatEntry date={new Date()} name='Máté' message='test' id={authContext?.currentUser?.id!}></ChatEntry>
-                <ChatEntry date={new Date()} name='Valaki' message='test' id={'bbc92a31-c449-4081-9169-89ed459d5cff'}></ChatEntry>
-            </div>
-        </>
-    )
+        <RoomContext.Provider value={{ sendMessage }}>
+            <ChatField messages={messages} />
+        </RoomContext.Provider>
+    );
 };
