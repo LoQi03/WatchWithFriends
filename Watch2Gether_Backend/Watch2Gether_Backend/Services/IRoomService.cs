@@ -13,5 +13,6 @@ namespace Watch2Gether_Backend.Services
         RoomDTO? GetRoomById(Guid id);
         bool RoomValidition(RoomDTO? room);
         RoomDTO? DisconnectRoom(string roomUserId);
+        List<UserDTO> GetRoomUsers(RoomDTO room);
     }
 }

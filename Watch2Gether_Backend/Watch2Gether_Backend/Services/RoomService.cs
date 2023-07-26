@@ -41,7 +41,17 @@ namespace Watch2Gether_Backend.Services
             _roomRepository.InsertRoom(roomDB);
             return RoomDTO.FromModel(roomDB);
         }
-
+        public List<UserDTO> GetRoomUsers(RoomDTO room)
+        {
+            var users = new List<UserDTO>();
+            var userIds = room?.RoomUsers?.Select(x => x.UserId);
+            foreach(var userId in userIds)
+            {
+                var user = _userRepository.GetUserById(userId);
+                users.Add(UserDTO.FromModel(user));
+            }
+            return users;
+        }
         private Room CreateRoom(RoomDTO room, byte[] salt, string hashed,User creator)
         {
             return new Room()

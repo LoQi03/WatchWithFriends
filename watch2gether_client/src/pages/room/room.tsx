@@ -6,6 +6,9 @@ import * as AppConfig from '../../AppConfig';
 import { ChatField } from '../../components/chat/chat-field/chat-field';
 import { ChatEntryDto } from '../../models/chatEntryDto';
 import { Guid } from 'guid-typescript';
+import { UserDto } from '../../models/userDto';
+import * as Styles from './styles';
+import { RoomUsers } from '../../components/room-users/room-users';
 
 export interface RoomContextType {
     sendMessage: (messageText: string) => Promise<void>;
@@ -17,7 +20,9 @@ export const RoomPage = (): JSX.Element => {
     const authContext = React.useContext(AuthContext);
     const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
     const [messages, setMessages] = useState<ChatEntryDto[]>([]);
+    const [users, setUsers] = useState<UserDto[]>();
     const params = useParams();
+
 
     useEffect(() => {
         const startConnection = async () => {
@@ -33,6 +38,11 @@ export const RoomPage = (): JSX.Element => {
 
                 roomConnection.on('ReciveMessage', (message: ChatEntryDto) => {
                     setMessages((prevMessages) => [...prevMessages, message]);
+                });
+
+                roomConnection.on('GetRoomUsers', async (users: UserDto[]) => {
+                    setUsers(users);
+                    console.log(users);
                 });
 
                 await roomConnection.start();
@@ -52,7 +62,7 @@ export const RoomPage = (): JSX.Element => {
                 connection.stop();
             }
         };
-    }, [connection]);
+    }, [connection, params.id, authContext?.currentUser?.id, authContext?.currentUser?.name]);
 
     const sendMessage = async (messageText: string): Promise<void> => {
         console.log(messageText);
@@ -71,7 +81,10 @@ export const RoomPage = (): JSX.Element => {
 
     return (
         <RoomContext.Provider value={{ sendMessage }}>
-            <ChatField messages={messages} />
+            <Styles.RoomContainer>
+                <ChatField messages={messages} />
+                <RoomUsers users={users ?? []} />
+            </Styles.RoomContainer>
         </RoomContext.Provider>
     );
 };

@@ -16,26 +16,39 @@ namespace Watch2Gether_Backend.Hubs
         {
             return base.OnConnectedAsync();
         }
-        public override Task OnDisconnectedAsync(Exception? exception)
+        public override async Task OnDisconnectedAsync(Exception? exception)
         {
-            _roomService.DisconnectRoom(Context.ConnectionId);
-            return base.OnDisconnectedAsync(exception);
+            var room = _roomService.DisconnectRoom(Context.ConnectionId);
+            var users = _roomService.GetRoomUsers(room);
+            foreach (var user in room?.RoomUsers)
+            {
+                await Clients.Clients(user.Id).SendAsync("GetRoomUsers", users);
+            }
         }
-        public Task SendMessage(ChatEntryDTO chatEntry)
+        public async Task SendMessage(ChatEntryDTO chatEntry)
         {
-            return Clients.All.SendAsync("ReciveMessage", chatEntry);
+            var room = _roomService.GetRoom(chatEntry.RoomId);
+            if (!_roomService.RoomValidition(room))
+            {
+                return;
+            }
+            foreach (var user in room?.RoomUsers)
+            {
+                await Clients.Clients(user.Id).SendAsync("ReciveMessage", chatEntry);
+            }
         }
         public async Task JoinRoom(Guid roomId,Guid userId,string name)
         {
-           var room = _roomService.GetRoom(roomId);
+            var room = _roomService.GetRoom(roomId);
             if(!_roomService.RoomValidition(room))
             {
                 return;
             }
-            room = await Task.Run(()=>_roomService.JoinRoom(roomId, userId,Context.ConnectionId,name));
-            foreach(var user in room.RoomUsers)
+            room = _roomService.JoinRoom(roomId, userId,Context.ConnectionId, name);
+            var users =_roomService.GetRoomUsers(room);
+            foreach (var user in room?.RoomUsers)
             {
-                await Clients.Clients(user.Id).SendAsync("GetRoomUser", room.RoomUsers.Select(x=>x.UserId));
+                await Clients.Clients(user.Id).SendAsync("GetRoomUsers", users);
             } 
         }
     }

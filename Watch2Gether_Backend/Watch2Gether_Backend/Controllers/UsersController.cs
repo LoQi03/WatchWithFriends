@@ -35,7 +35,7 @@ namespace Watch2Gether_Backend.Controllers
         public ActionResult<UserDTO?> UpdateUser(UpdateUserDTO user)
         {
             if (user.UserDetails?.Id == Guid.Empty) return BadRequest();
-            var userFromDB = _userService.GetUserById(user.UserDetails?.Id);
+            var userFromDB = _userService.GetUserById(user.UserDetails?.Id ?? Guid.Empty);
             if (userFromDB is null)
             {
                 return NotFound();

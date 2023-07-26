@@ -11,7 +11,7 @@ namespace Watch2Gether_Backend.Services
         User AddUser(UserDTO userDTO);
         UserDTO? UpdateUser(User userFromDB, UpdateUserDTO updateUser);
         void UpdateUser(User userFromDB);
-        User? GetUserById(Guid? id);
+        User? GetUserById(Guid id);
         UserDTO? DeleteUser(Guid? id);
         UserDTO? Register(UserDTO user);
         User? GetUserByEmail(string email);
