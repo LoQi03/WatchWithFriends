@@ -12,10 +12,12 @@ namespace Watch2Gether_Backend.Services
     {
         private readonly IRoomRepository _roomRepository;
         private readonly IUserRepository _userRepository;
-        public RoomService(IRoomRepository roomRepository, IUserRepository userRepository, IHubContext<RoomHub> chatHubContext)
+        private readonly IRoomUserRepository _roomUserRepository;
+        public RoomService(IRoomRepository roomRepository, IUserRepository userRepository, IRoomUserRepository roomUserRepository)
         {
             _roomRepository = roomRepository;
             _userRepository = userRepository;
+            _roomUserRepository = roomUserRepository;
         }
         public IEnumerable<RoomDTO>? GetAllRooms()
         {
@@ -71,7 +73,7 @@ namespace Watch2Gether_Backend.Services
             } 
             return RoomDTO.FromModel(room);
         }
-        public RoomDTO? AddUserToRoom(Guid roomid, Guid userid, string contextId, string name)
+        public RoomDTO? JoinRoom(Guid roomid, Guid userid, string contextId, string name)
         {
             var room = _roomRepository.GetRoomById(roomid);
             if (room is null)
@@ -83,19 +85,34 @@ namespace Watch2Gether_Backend.Services
             {
                 return null;
             }
-            var roomUser = CreateRoomUser(userid, contextId, name);
-            room.RoomUsers?.Add(roomUser);
-            _roomRepository.UpdateRoom(room);
+            var roomUser = CreateRoomUser(userid, contextId, name,room);
+            _roomUserRepository.InsertRoomUser(roomUser);
+            return RoomDTO.FromModel(room);
+        }
+        public RoomDTO? DisconnectRoom(string roomUserId)
+        {
+            var deletedUser =_roomUserRepository.DeleteRoomUser(roomUserId);
+            if(deletedUser == null)
+            {
+                return null;
+            }
+            var room = _roomRepository.GetRoomById(deletedUser.RoomId);
+            if (room == null)
+            {
+                return null;
+            }
             return RoomDTO.FromModel(room);
         }
 
-        private RoomUser CreateRoomUser(Guid userid, string ContextId,string name)
+        private RoomUser CreateRoomUser(Guid userid, string ContextId,string name,Room room)
         {
             return new RoomUser()
             {
-                Id= Guid.NewGuid(),
-                ConnectionId = ContextId,
+                Name = name,
+                Id= ContextId,
                 UserId = userid,
+                Room = room,
+                RoomId = room.Id
             };
         }
 

@@ -18,6 +18,7 @@ namespace Watch2Gether_Backend.Hubs
         }
         public override Task OnDisconnectedAsync(Exception? exception)
         {
+            _roomService.DisconnectRoom(Context.ConnectionId);
             return base.OnDisconnectedAsync(exception);
         }
         public Task SendMessage(ChatEntryDTO chatEntry)
@@ -26,16 +27,16 @@ namespace Watch2Gether_Backend.Hubs
         }
         public async Task JoinRoom(Guid roomId,Guid userId,string name)
         {
-            var room = _roomService.GetRoom(roomId);
+           var room = _roomService.GetRoom(roomId);
             if(!_roomService.RoomValidition(room))
             {
                 return;
             }
-            _roomService.AddUserToRoom(roomId, userId,Context.ConnectionId,name);
-            foreach(var user in room.UserIds)
+            room = await Task.Run(()=>_roomService.JoinRoom(roomId, userId,Context.ConnectionId,name));
+            foreach(var user in room.RoomUsers)
             {
-                await Clients.Clients(user.ConnectionId).SendAsync("GetRoomUser", user);
-            }
+                await Clients.Clients(user.Id).SendAsync("GetRoomUser", room.RoomUsers.Select(x=>x.UserId));
+            } 
         }
     }
 }

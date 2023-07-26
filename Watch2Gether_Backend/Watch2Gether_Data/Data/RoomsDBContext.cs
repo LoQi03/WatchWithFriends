@@ -7,7 +7,7 @@ namespace Watch2Gether_Data.Data
     {
         public RoomsDBContext(DbContextOptions<RoomsDBContext> options) : base(options) { }
         public DbSet<Room> Rooms { get; set; }
-        public DbSet<RoomUser> RoomsUser { get; set;}
+        public DbSet<RoomUser> RoomUsers { get; set;}
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Room>()

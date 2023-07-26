@@ -4,13 +4,10 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Text;
-using Newtonsoft.Json;
 using Watch2Gether_Backend.Misc;
 using Watch2Gether_Backend.Services;
-using Watch2Gether_Data.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json.Serialization;
-using Microsoft.AspNetCore.SignalR;
 using Watch2Gether_Backend.Hubs;
 
 namespace Watch2Gether_Backend.Extensions
