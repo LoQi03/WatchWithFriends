@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using Watch2Gether_Backend.Model;
 using Watch2Gether_Backend.Services;
-using Watch2Gether_Data.Model;
 
 namespace Watch2Gether_Backend.Hubs
 {
