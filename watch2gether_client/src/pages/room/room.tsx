@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { AuthContext } from '../../services/authenticationContext';
 import * as signalR from '@microsoft/signalr';
@@ -9,6 +9,8 @@ import { Guid } from 'guid-typescript';
 import { UserDto } from '../../models/userDto';
 import * as Styles from './styles';
 import { RoomUsers } from '../../components/room-users/room-users';
+import ReactPlayer from 'react-player';
+import { OnProgressProps } from 'react-player/base';
 
 export interface RoomContextType {
     sendMessage: (messageText: string) => Promise<void>;
@@ -22,8 +24,8 @@ export const RoomPage = (): JSX.Element => {
     const [messages, setMessages] = useState<ChatEntryDto[]>([]);
     const [users, setUsers] = useState<UserDto[]>();
     const params = useParams();
-
-
+    const [playedSeconds, setPlayedSeconds] = useState(0);
+    const playerRef = useRef<ReactPlayer>(null);
     useEffect(() => {
         const startConnection = async () => {
             try {
@@ -79,9 +81,25 @@ export const RoomPage = (): JSX.Element => {
         console.log(messages);
     };
 
+    const handleProgress = (state: OnProgressProps) => {
+        setPlayedSeconds(state.playedSeconds);
+        console.log(playedSeconds);
+    };
+
+    const handleSeek = (seconds: number) => {
+        if (playerRef.current) {
+            playerRef.current.seekTo(seconds, 'seconds');
+        }
+    };
+
     return (
         <RoomContext.Provider value={{ sendMessage }}>
             <Styles.RoomContainer>
+                <ReactPlayer
+                    ref={playerRef}
+                    controls
+                    url='https://www.youtube.com/watch?v=DAOZJPquY_w'
+                    onProgress={handleProgress} />
                 <ChatField messages={messages} />
                 <RoomUsers users={users ?? []} />
             </Styles.RoomContainer>
