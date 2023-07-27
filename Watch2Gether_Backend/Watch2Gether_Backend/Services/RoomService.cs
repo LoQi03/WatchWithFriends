@@ -36,8 +36,8 @@ namespace Watch2Gether_Backend.Services
             if (creator is null)
             {
                 return null;
-            } 
-            var roomDB = CreateRoom(room, salt, hashed,creator);
+            }
+            var roomDB = CreateRoom(room, salt, hashed, creator);
             _roomRepository.InsertRoom(roomDB);
             return RoomDTO.FromModel(roomDB);
         }
@@ -45,14 +45,14 @@ namespace Watch2Gether_Backend.Services
         {
             var users = new List<UserDTO>();
             var userIds = room?.RoomUsers?.Select(x => x.UserId);
-            foreach(var userId in userIds)
+            foreach (var userId in userIds)
             {
                 var user = _userRepository.GetUserById(userId);
                 users.Add(UserDTO.FromModel(user));
             }
             return users;
         }
-        private Room CreateRoom(RoomDTO room, byte[] salt, string hashed,User creator)
+        private Room CreateRoom(RoomDTO room, byte[] salt, string hashed, User creator)
         {
             return new Room()
             {
@@ -71,16 +71,16 @@ namespace Watch2Gether_Backend.Services
             if (room is null)
             {
                 return null;
-            } 
+            }
             return RoomDTO.FromModel(room);
         }
         public RoomDTO? GetRoom(Guid id)
         {
             var room = _roomRepository.GetRoomById(id);
-            if (room is null) 
+            if (room is null)
             {
                 return null;
-            } 
+            }
             return RoomDTO.FromModel(room);
         }
         public RoomDTO? JoinRoom(Guid roomid, Guid userid, string contextId, string name)
@@ -95,14 +95,14 @@ namespace Watch2Gether_Backend.Services
             {
                 return null;
             }
-            var roomUser = CreateRoomUser(userid, contextId, name,room);
+            var roomUser = CreateRoomUser(userid, contextId, name, room);
             _roomUserRepository.InsertRoomUser(roomUser);
             return RoomDTO.FromModel(room);
         }
         public RoomDTO? DisconnectRoom(string roomUserId)
         {
-            var deletedUser =_roomUserRepository.DeleteRoomUser(roomUserId);
-            if(deletedUser == null)
+            var deletedUser = _roomUserRepository.DeleteRoomUser(roomUserId);
+            if (deletedUser == null)
             {
                 return null;
             }
@@ -114,12 +114,12 @@ namespace Watch2Gether_Backend.Services
             return RoomDTO.FromModel(room);
         }
 
-        private RoomUser CreateRoomUser(Guid userid, string ContextId,string name,Room room)
+        private RoomUser CreateRoomUser(Guid userid, string ContextId, string name, Room room)
         {
             return new RoomUser()
             {
                 Name = name,
-                Id= ContextId,
+                Id = ContextId,
                 UserId = userid,
                 Room = room,
                 RoomId = room.Id
@@ -132,7 +132,7 @@ namespace Watch2Gether_Backend.Services
             if (room is null)
             {
                 return null;
-            } 
+            }
             return RoomDTO.FromModel(room);
         }
         private string HashPassword(string password, byte[] salt)
@@ -144,14 +144,6 @@ namespace Watch2Gether_Backend.Services
                 iterationCount: 10000,
                 numBytesRequested: 256 / 8));
             return hashed;
-        }
-        public bool RoomValidition(RoomDTO? room)
-        {
-            if(room == null)
-            {
-                return false;
-            }
-            return true;
         }
     }
 }

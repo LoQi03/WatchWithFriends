@@ -8,7 +8,7 @@ namespace Watch2Gether_Backend.Hubs
     public class RoomHub : Hub
     {
         private readonly IRoomService _roomService;
-        public RoomHub(IRoomService roomService) 
+        public RoomHub(IRoomService roomService)
         {
             _roomService = roomService;
         }
@@ -28,7 +28,7 @@ namespace Watch2Gether_Backend.Hubs
         public async Task SendMessage(ChatEntryDTO chatEntry)
         {
             var room = _roomService.GetRoom(chatEntry.RoomId);
-            if (!_roomService.RoomValidition(room))
+            if (!room.Validition())
             {
                 return;
             }
@@ -37,19 +37,19 @@ namespace Watch2Gether_Backend.Hubs
                 await Clients.Clients(user.Id).SendAsync("ReciveMessage", chatEntry);
             }
         }
-        public async Task JoinRoom(Guid roomId,Guid userId,string name)
+        public async Task JoinRoom(Guid roomId, Guid userId, string name)
         {
             var room = _roomService.GetRoom(roomId);
-            if(!_roomService.RoomValidition(room))
+            if (!room.Validition())
             {
                 return;
             }
-            room = _roomService.JoinRoom(roomId, userId,Context.ConnectionId, name);
-            var users =_roomService.GetRoomUsers(room);
+            room = _roomService.JoinRoom(roomId, userId, Context.ConnectionId, name);
+            var users = _roomService.GetRoomUsers(room);
             foreach (var user in room?.RoomUsers)
             {
                 await Clients.Clients(user.Id).SendAsync("GetRoomUsers", users);
-            } 
+            }
         }
     }
 }

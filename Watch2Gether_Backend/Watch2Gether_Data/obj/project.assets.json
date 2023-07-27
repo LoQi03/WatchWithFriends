@@ -3544,24 +3544,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\mates\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\z004tnuf\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Repos\\Watch2gether\\Watch2Gether_Backend\\Watch2Gether_Data\\Watch2Gether_Data.csproj",
+      "projectUniqueName": "C:\\W2G\\Watch2gether\\Watch2Gether_Backend\\Watch2Gether_Data\\Watch2Gether_Data.csproj",
       "projectName": "Watch2Gether_Data",
-      "projectPath": "C:\\Repos\\Watch2gether\\Watch2Gether_Backend\\Watch2Gether_Data\\Watch2Gether_Data.csproj",
-      "packagesPath": "C:\\Users\\mates\\.nuget\\packages\\",
-      "outputPath": "C:\\Repos\\Watch2gether\\Watch2Gether_Backend\\Watch2Gether_Data\\obj\\",
+      "projectPath": "C:\\W2G\\Watch2gether\\Watch2Gether_Backend\\Watch2Gether_Data\\Watch2Gether_Data.csproj",
+      "packagesPath": "C:\\Users\\z004tnuf\\.nuget\\packages\\",
+      "outputPath": "C:\\W2G\\Watch2gether\\Watch2Gether_Backend\\Watch2Gether_Data\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\mates\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\z004tnuf\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

@@ -39,16 +39,16 @@ namespace Watch2Gether_Backend.Controllers
             if (userFromDB is null)
             {
                 return NotFound();
-            } 
+            }
             var result = _userService.UpdateUser(userFromDB, user);
-            if (result is not null)
+            if (result.Validition())
             {
                 return Ok(result);
             }
             else
             {
                 return BadRequest();
-            }    
+            }
         }
 
         [HttpGet("{id}"), Authorize]
@@ -106,7 +106,7 @@ namespace Watch2Gether_Backend.Controllers
             if (result is not null)
             {
                 return Ok(result);
-            }    
+            }
 
             else
             {
@@ -127,7 +127,7 @@ namespace Watch2Gether_Backend.Controllers
             if (streamReadImgFile is null)
             {
                 return BadRequest();
-            } 
+            }
             var imgBitmap = new Bitmap(streamReadImgFile); //only windows supp
 
             byte[] data;
@@ -154,7 +154,7 @@ namespace Watch2Gether_Backend.Controllers
             if (user is null)
             {
                 return NotFound();
-            } 
+            }
 
             if (user.ImageId is null)
             {
