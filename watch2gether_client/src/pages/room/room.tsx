@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useRef, useState } from 'react';
+import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { AuthContext } from '../../services/authenticationContext';
 import * as signalR from '@microsoft/signalr';
@@ -19,12 +19,13 @@ export interface RoomContextType {
 export const RoomContext = createContext<RoomContextType | null>(null);
 
 export const RoomPage = (): JSX.Element => {
-    const authContext = React.useContext(AuthContext);
+    const authContext = useContext(AuthContext);
     const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
     const [messages, setMessages] = useState<ChatEntryDto[]>([]);
     const [users, setUsers] = useState<UserDto[]>();
     const params = useParams();
     const [playedSeconds, setPlayedSeconds] = useState(0);
+    const [shouldPlay, setShouldPlay] = useState(false);
     const playerRef = useRef<ReactPlayer>(null);
     useEffect(() => {
         const startConnection = async () => {
@@ -89,19 +90,32 @@ export const RoomPage = (): JSX.Element => {
     const handleSeek = (seconds: number) => {
         if (playerRef.current) {
             playerRef.current.seekTo(seconds, 'seconds');
+            setShouldPlay(true);
         }
     };
 
     return (
         <RoomContext.Provider value={{ sendMessage }}>
             <Styles.RoomContainer>
-                <ReactPlayer
-                    ref={playerRef}
-                    controls
-                    url='https://www.youtube.com/watch?v=DAOZJPquY_w'
-                    onProgress={handleProgress} />
-                <ChatField messages={messages} />
-                <RoomUsers users={users ?? []} />
+                {
+                    connection &&
+                    <>
+                        <ReactPlayer
+                            ref={playerRef}
+                            controls
+                            url='https://www.youtube.com/watch?v=DAOZJPquY_w'
+                            onProgress={handleProgress}
+                            onReady={() => console.log("onReady")}
+                            onStart={() => console.log("onStart")}
+                            onPause={() => console.log("onPause")}
+                            onError={() => console.log("onError")}
+                            playing={shouldPlay}
+                        />
+                        <ChatField messages={messages} />
+                        <RoomUsers users={users ?? []} />
+                        <button onClick={() => handleSeek(playedSeconds + 10)}>+10</button>
+                    </>
+                }
             </Styles.RoomContainer>
         </RoomContext.Provider>
     );
