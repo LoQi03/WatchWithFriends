@@ -9,7 +9,7 @@ export const ChatFieldContainer = styled.div`
     border-radius:20px;
     height:800px;
     max-height:800px;
-    width:400px;
+    width:35%;
 `;
 export const ChatFieldContent = styled.div`
     overflow-x:hidden;

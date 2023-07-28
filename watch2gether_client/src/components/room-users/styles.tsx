@@ -5,6 +5,7 @@ export const RoomUsersContainer = styled.div`
     overflow-y: auto;
     overflow-x: hidden;
     display: flex;
+    width: 10%;
     flex-direction: column;
     background-color: white;
     padding: 15px;
@@ -33,4 +34,5 @@ export const UserName = styled.p`
     font-size: 16px;
     color: black;
     width: 100%;
+    text-align: center;
 `;
