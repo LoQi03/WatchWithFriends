@@ -26,7 +26,7 @@ namespace Watch2Gether_Backend.Services
         }
         public RoomDTO? CreateRoom(RoomDTO room)
         {
-            if (!room.Validition())
+            if (room == null)
             {
                 return null;
             }

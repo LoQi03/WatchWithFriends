@@ -9,6 +9,7 @@ import * as CommonSrtyles from './commonStyles';
 import { AuthProvider, VerifyTokenHandler } from './services/authenticationContext';
 import { AuthenticationPage } from './pages/authentication/authentication';
 import { RoomPage } from './pages/room/room';
+import CookieConsent from 'react-cookie-consent';
 
 
 
@@ -41,6 +42,7 @@ function App(): JSX.Element {
           </BrowserRouter>
           : <AuthenticationPage />
       }
+      <CookieConsent>This website uses cookies to enhance the user experience.</CookieConsent>
       <VerifyTokenHandler isUserAlreadyLoggedIn={isUserAlreadyLoggedIn} verifyTokenHandler={verifyTokenHandler} />
     </AuthProvider>
 

@@ -41,7 +41,7 @@ namespace Watch2Gether_Backend.Controllers
                 return NotFound();
             }
             var result = _userService.UpdateUser(userFromDB, user);
-            if (result.Validition())
+            if (result != null)
             {
                 return Ok(result);
             }
@@ -86,16 +86,24 @@ namespace Watch2Gether_Backend.Controllers
         [HttpPost("register")]
         public ActionResult<UserDTO> Register(UserDTO user)
         {
-            if (string.IsNullOrWhiteSpace(user.Email)) return BadRequest();
-
+            if (string.IsNullOrWhiteSpace(user.Email))
+            {
+                return BadRequest();
+            }
             var result = _userService.Register(user);
-            if (result is null) return Conflict();
+            if (result is null)
+            {
+                return Conflict();
+            } 
             return Ok(result);
         }
         [HttpPost("login")]
         public ActionResult<LoginUserDTO> Login(UserDTO user)
         {
-            if (user.Email is null || user.Email == string.Empty) return BadRequest();
+            if (user.Email is null || user.Email == string.Empty)
+            {
+                return BadRequest();
+            } 
             var userFromDB = _userService.GetUserByEmail(user.Email ?? "");
             if (userFromDB is null)
             {

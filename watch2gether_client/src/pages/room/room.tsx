@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { AuthContext } from '../../services/authenticationContext';
 import * as signalR from '@microsoft/signalr';
@@ -10,7 +10,7 @@ import { UserDto } from '../../models/userDto';
 import * as Styles from './styles';
 import { RoomUsers } from '../../components/room-users/room-users';
 import ReactPlayer from 'react-player';
-import { OnProgressProps } from 'react-player/base';
+import { VideoPlayerDto } from '../../models/currentVideoDto';
 
 export interface RoomContextType {
     sendMessage: (messageText: string) => Promise<void>;
@@ -24,9 +24,71 @@ export const RoomPage = (): JSX.Element => {
     const [messages, setMessages] = useState<ChatEntryDto[]>([]);
     const [users, setUsers] = useState<UserDto[]>();
     const params = useParams();
-    const [playedSeconds, setPlayedSeconds] = useState(0);
     const [shouldPlay, setShouldPlay] = useState(false);
     const playerRef = useRef<ReactPlayer>(null);
+
+    const videoPlayerHandler = useCallback((videoPlayer: VideoPlayerDto) => {
+        if (videoPlayer.roomId !== params.id) {
+            return;
+        }
+        if (videoPlayer.isPaused !== null && videoPlayer.isPaused) {
+            const player = playerRef.current?.getInternalPlayer();
+            if (player === undefined) {
+                return;
+            }
+            console.log('pause');
+            player.pauseVideo();
+        }
+        if (videoPlayer.isPlaying !== null && videoPlayer.isPlaying) {
+            const player = playerRef.current?.getInternalPlayer();
+            console.log(player);
+            if (player === undefined) {
+                return;
+            }
+            console.log('play');
+            player.playVideo();
+        }
+        if (videoPlayer.duration !== null) {
+            const player = playerRef.current?.getInternalPlayer();
+            if (player === undefined) {
+                return;
+            }
+            console.log(videoPlayer.duration);
+            player.seekTo(videoPlayer.duration);
+        }
+        if (videoPlayer.duration) {
+            handleSeek(videoPlayer.duration);
+        }
+    }, [params.id]);
+
+    const onStart = async (): Promise<void> => {
+        await connection?.invoke("VideoPlayer", {
+            roomId: params.id,
+            isPlaying: true
+        });
+    };
+    const onPause = async (): Promise<void> => {
+        await connection?.invoke("VideoPlayer", {
+            roomId: params.id,
+            isPaused: true
+        });
+    };
+
+    const onSeek = async (seconds: number): Promise<void> => {
+        console.log('seek:' + seconds);
+        await connection?.invoke("VideoPlayer", {
+            roomId: params.id,
+            duration: seconds
+        });
+    };
+
+    const messageHandler = useCallback((message: ChatEntryDto) => {
+        if (message.roomId !== params.id) {
+            return;
+        }
+        setMessages((prevMessages) => [...prevMessages, message]);
+    }, [params.id]);
+
     useEffect(() => {
         const startConnection = async () => {
             try {
@@ -40,12 +102,15 @@ export const RoomPage = (): JSX.Element => {
                 });
 
                 roomConnection.on('ReciveMessage', (message: ChatEntryDto) => {
-                    setMessages((prevMessages) => [...prevMessages, message]);
+                    messageHandler(message);
+                });
+
+                roomConnection.on('VideoPlayerHandler', (videoPlayer: VideoPlayerDto) => {
+                    videoPlayerHandler(videoPlayer);
                 });
 
                 roomConnection.on('GetRoomUsers', async (users: UserDto[]) => {
                     setUsers(users);
-                    console.log(users);
                 });
 
                 await roomConnection.start();
@@ -65,7 +130,7 @@ export const RoomPage = (): JSX.Element => {
                 connection.stop();
             }
         };
-    }, [connection, params.id, authContext?.currentUser?.id, authContext?.currentUser?.name]);
+    }, [connection, params.id, authContext?.currentUser?.id, authContext?.currentUser?.name, messageHandler, videoPlayerHandler]);
 
     const sendMessage = async (messageText: string): Promise<void> => {
         console.log(messageText);
@@ -77,15 +142,10 @@ export const RoomPage = (): JSX.Element => {
             messageTime: new Date(),
             name: authContext?.currentUser?.name ?? ""
         };
-        console.log(messages);
         connection?.invoke("SendMessage", message);
-        console.log(messages);
     };
 
-    const handleProgress = (state: OnProgressProps) => {
-        setPlayedSeconds(state.playedSeconds);
-        console.log(playedSeconds);
-    };
+
 
     const handleSeek = (seconds: number) => {
         if (playerRef.current) {
@@ -104,16 +164,17 @@ export const RoomPage = (): JSX.Element => {
                             ref={playerRef}
                             controls
                             url='https://www.youtube.com/watch?v=DAOZJPquY_w'
-                            onProgress={handleProgress}
+                            onPlay={onStart}
                             onReady={() => console.log("onReady")}
-                            onStart={() => console.log("onStart")}
-                            onPause={() => console.log("onPause")}
+                            autoStart={true}
+                            onStart={onStart}
+                            onPause={onPause}
                             onError={() => console.log("onError")}
-                            playing={shouldPlay}
+                            playing={true}
+                            autoPlay={true}
                         />
                         <ChatField messages={messages} />
                         <RoomUsers users={users ?? []} />
-                        <button onClick={() => handleSeek(playedSeconds + 10)}>+10</button>
                     </>
                 }
             </Styles.RoomContainer>

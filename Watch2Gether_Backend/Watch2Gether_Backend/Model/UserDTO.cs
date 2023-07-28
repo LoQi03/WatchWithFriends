@@ -42,14 +42,6 @@ namespace Watch2Gether_Backend.Model
                 ImageId = ImageId
             };
         }
-        public bool Validition()
-        {
-            if (this == null)
-            {
-                return false;
-            }
-            return true;
-        }
 
     }
 }

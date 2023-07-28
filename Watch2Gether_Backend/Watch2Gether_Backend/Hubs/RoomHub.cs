@@ -17,7 +17,7 @@ namespace Watch2Gether_Backend.Hubs
         }
         public async Task VideoPlayer(VideoPlayerDTO videoPlayerDTO)
         {
-            var room = _roomService.DisconnectRoom(Context.ConnectionId);
+            var room = _roomService.GetRoom(videoPlayerDTO.RoomId);
             foreach (var roomUser in room?.RoomUsers)
             {
                 await Clients.Clients(roomUser.Id).SendAsync("VideoPlayerHandler", videoPlayerDTO);
@@ -35,7 +35,7 @@ namespace Watch2Gether_Backend.Hubs
         public async Task SendMessage(ChatEntryDTO chatEntry)
         {
             var room = _roomService.GetRoom(chatEntry.RoomId);
-            if (!room.Validition())
+            if (room == null)
             {
                 return;
             }
@@ -47,7 +47,7 @@ namespace Watch2Gether_Backend.Hubs
         public async Task JoinRoom(Guid roomId, Guid userId, string name)
         {
             var room = _roomService.GetRoom(roomId);
-            if (!room.Validition())
+            if (room == null)
             {
                 return;
             }

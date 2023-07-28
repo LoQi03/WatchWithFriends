@@ -34,13 +34,5 @@ namespace Watch2Gether_Backend.Model
                 RoomUsers = RoomUsers,
             };
         }
-        public bool Validition()
-        {
-            if (this == null)
-            {
-                return false;
-            }
-            return true;
-        }
     }
 }
