@@ -158,13 +158,16 @@ export const RoomPage = (): JSX.Element => {
     }, [connection, params.id, authContext?.currentUser?.id, authContext?.currentUser?.name, messageHandler, videoPlayerHandler]);
 
     const sendMessage = async (messageText: string): Promise<void> => {
+        if (!authContext?.currentUser?.name || !authContext?.currentUser?.id || !params.id) {
+            return;
+        }
         const message: ChatEntryDto = {
             id: Guid.create().toString(),
             message: messageText,
-            roomId: params.id ?? "",
-            userId: authContext?.currentUser?.id ?? "",
+            roomId: params.id,
+            userId: authContext?.currentUser?.id,
             messageTime: new Date(),
-            name: authContext?.currentUser?.name ?? ""
+            name: authContext?.currentUser?.name
         };
         connection?.invoke("SendMessage", message);
     };
