@@ -1,8 +1,6 @@
 import React, { useContext, useState } from "react";
 import * as Styles from './styles'
-import * as CommonStyles from '../../../commonStyles'
 import { ChatEntry } from "../chat-entry/chat-entry";
-import SendIcon from '@mui/icons-material/Send';
 import { ChatEntryDto } from "../../../models/chatEntryDto";
 import { RoomContext } from "../../../pages/room/room";
 import { TextField } from "@mui/material";
@@ -37,10 +35,38 @@ export const ChatField = (props: ChatFieldParams): JSX.Element => {
                     sx={
                         {
                             width: "100%",
-                            marginRight: "10px"
+                            marginRight: "10px",
+                            borderRadius: "5px",
+                            backgroundColor: "#271B85",
+                            "& .MuiInputBase-input": {
+                                color: "white",
+                            },
+                            "& .MuiInputLabel-root": {
+                                color: "white",
+                            },
+                            "& .MuiInputLabel-root.Mui-focused": {
+                                color: "white",
+                            },
+                            "& .MuiIconButton-root": {
+                                color: "white",
+                            },
+                            "& .MuiOutlinedInput-notchedOutline": {
+                                color: "white",
+                            },
+                            "& .MuiOutlinedInput-root": {
+                                "& fieldset": {
+                                    border: "0",
+                                },
+                                "&:hover fieldset": {
+                                    border: "0",
+                                },
+                                "&.Mui-focused fieldset": {
+                                    border: "0",
+                                },
+                            },
                         }
                     } value={messageText} onChange={e => setMessageText(e.target.value)} />
-                <CommonStyles.GenericButton onClick={send} endIcon={<SendIcon />}>Send</CommonStyles.GenericButton>
+                <Styles.SendButton onClick={send} />
             </Styles.ChatFieldActionBar>
         </Styles.ChatFieldContainer>
     );

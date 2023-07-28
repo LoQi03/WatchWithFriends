@@ -11,7 +11,7 @@ export const ChatEntryContainer = styled.div<{ isCurrentUser: boolean }>`
 
 export const ChatEntryContent = styled.div<{ isCurrentUser: boolean }>`
     max-width: 80%;
-    border-radius: 20px;
+    border-radius: 10px;
     background-color: ${props => props.isCurrentUser ? "#3928C2" : "#271B85"};
     padding: 20px;
     white-space: auto;

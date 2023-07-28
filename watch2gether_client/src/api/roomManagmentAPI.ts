@@ -10,3 +10,7 @@ export const createRoom = async (room: RoomDto): Promise<AxiosResponse<RoomDto, 
     const response = await httpClient.post<RoomDto>(`Rooms`, room);
     return response;
 };
+export const getRoomById = async (id: string): Promise<AxiosResponse<RoomDto, any>> => {
+    const response = await httpClient.get<RoomDto>(`Rooms/${id}`);
+    return response;
+};

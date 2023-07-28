@@ -1,15 +1,15 @@
 import styled from "@emotion/styled";
 import { TextField, TextFieldProps } from "@mui/material";
+import SendIcon from '@mui/icons-material/Send';
 
 export const ChatFieldContainer = styled.div`
     display:flex;
     flex-direction:column;
     justify-content:space-between;
     background-color: white;
-    border-radius:20px;
-    height:800px;
-    max-height:800px;
-    width:35%;
+    height:75vh;
+    max-height:100%;
+    width:100%;
 `;
 export const ChatFieldContent = styled.div`
     overflow-x:hidden;
@@ -20,6 +20,8 @@ export const ChatFieldContent = styled.div`
 export const ChatFieldActionBar = styled.div`
     display:flex;
     padding:10px;
+    align-items:center;
+    background-color:#3928C2;
 `;
 export const RichTextField = (props: TextFieldProps): JSX.Element => <TextField
     id="outlined-multiline-static"
@@ -33,3 +35,10 @@ export const RichTextField = (props: TextFieldProps): JSX.Element => <TextField
         }
     }
 />
+
+export const SendButton = styled(SendIcon)`
+    color: white;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+`;
