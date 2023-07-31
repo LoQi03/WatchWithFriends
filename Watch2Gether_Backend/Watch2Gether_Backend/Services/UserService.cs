@@ -48,51 +48,43 @@ namespace Watch2Gether_Backend.Services
         {
             var salt = Convert.FromBase64String(userFromDB.Salt);
             var password = HashPassword(updateUser?.UserDetails?.Password ?? "", salt);
-            if (password == userFromDB.PasswordHash)
-            {
-                userFromDB.Name = updateUser?.UserDetails?.Name;
-                userFromDB.Email = updateUser?.UserDetails?.Email;
-                if (updateUser?.NewPassword != "")
-                {
-                    var newSalt = RandomNumberGenerator.GetBytes(128 / 8);
-                    var hashed = HashPassword(updateUser?.NewPassword ?? "", newSalt);
-                    userFromDB.PasswordHash = hashed;
-                    userFromDB.Salt = Convert.ToBase64String(newSalt);
-                }
-                _userRepository.UpdateUser(userFromDB);
-                return UserDTO.FromModel(userFromDB);
-            }
-            else
+            if (password != userFromDB.PasswordHash)
             {
                 return null;
             }
+            userFromDB.Name = updateUser?.UserDetails?.Name;
+            userFromDB.Email = updateUser?.UserDetails?.Email;
+            if (updateUser?.NewPassword != "")
+            {
+                var newSalt = RandomNumberGenerator.GetBytes(128 / 8);
+                var hashed = HashPassword(updateUser?.NewPassword ?? "", newSalt);
+                userFromDB.PasswordHash = hashed;
+                userFromDB.Salt = Convert.ToBase64String(newSalt);
+            }
+            _userRepository.UpdateUser(userFromDB);
+            return UserDTO.FromModel(userFromDB);
+
         }
 
         public User? GetUserById(Guid id)
         {
             var user = _userRepository.GetUserById(id);
-            if (user is not null)
-            {
-                return user;
-            }    
-            else
+            if (user is null)
             {
                 return null;
             }
+            return user;
         }
 
         public UserDTO? DeleteUser(Guid? id)
         {
             UserIdValidition(id);
             var result = _userRepository.DeleteUser(id.Value);
-            if (result != null)
-            {
-                return UserDTO.FromModel(result);
-            }
-            else
+            if (result == null)
             {
                 return null;
             }
+            return UserDTO.FromModel(result);
         }
         private void UserIdValidition(Guid? id)
         {
@@ -131,20 +123,17 @@ namespace Watch2Gether_Backend.Services
         {
             var salt = Convert.FromBase64String(userFromDB.Salt!);
             var password = HashPassword(user.Password!, salt);
-            if (password == userFromDB.PasswordHash)
-            {
-                var resultUserDto = UserDTO.FromModel(userFromDB);
-                var loginUserDTO = new LoginUserDTO
-                {
-                    UserDetails = resultUserDto,
-                    Token = CreateToken(user),
-                };
-                return loginUserDTO;
-            }
-            else
+            if (password != userFromDB.PasswordHash)
             {
                 return null;
             }
+            var resultUserDto = UserDTO.FromModel(userFromDB);
+            var loginUserDTO = new LoginUserDTO
+            {
+                UserDetails = resultUserDto,
+                Token = CreateToken(user),
+            };
+            return loginUserDTO;
         }
 
         public void UpdateUser(User userFromDB)
@@ -188,11 +177,17 @@ namespace Watch2Gether_Backend.Services
             var jwtSecurityToken = handler.ReadJwtToken(token);
             var email = jwtSecurityToken.Claims.First(claim => claim.Type == JwtRegisteredClaimNames.Email).Value;
 
-            if (email == string.Empty) return null;
+            if (email == string.Empty) 
+            {
+                return null;
+            } 
 
             var userFromDB = GetUserByEmail(email);
 
-            if (userFromDB is null) return null;
+            if (userFromDB is null) 
+            {
+                return null;
+            } 
 
             var userDTO = UserDTO.FromModel(userFromDB);
 

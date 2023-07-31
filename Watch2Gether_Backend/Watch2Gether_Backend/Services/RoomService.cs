@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
-using Microsoft.AspNetCore.SignalR;
 using System.Security.Cryptography;
-using Watch2Gether_Backend.Hubs;
 using Watch2Gether_Backend.Model;
 using Watch2Gether_Data.Model;
 using Watch2Gether_Data.Repositories;
@@ -41,10 +39,14 @@ namespace Watch2Gether_Backend.Services
             _roomRepository.InsertRoom(roomDB);
             return RoomDTO.FromModel(roomDB);
         }
-        public List<UserDTO> GetRoomUsers(RoomDTO room)
+        public List<UserDTO>? GetRoomUsers(RoomDTO room)
         {
             var users = new List<UserDTO>();
             var userIds = room?.RoomUsers?.Select(x => x.UserId);
+            if(userIds == null)
+            {
+                return null;
+            }
             foreach (var userId in userIds)
             {
                 var user = _userRepository.GetUserById(userId);

@@ -5,6 +5,9 @@ import Replay10Icon from '@mui/icons-material/Replay10';
 import PauseIcon from '@mui/icons-material/Pause';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import VolumeOffIcon from '@mui/icons-material/VolumeOff';
+import FullscreenIcon from '@mui/icons-material/Fullscreen';
+import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
+import { Theme } from "@emotion/react";
 
 export const RoomContainer = styled.div`
     margin-top: 20px;
@@ -19,11 +22,29 @@ export const UsersContainer = styled.div`
     display: flex;
     flex-direction: column;
 `;
-export const VideoPlayerContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    width: 60%;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+export const VideoPlayerContainer = styled.div<{ isFullScreen: boolean }>`
+${props => props.isFullScreen
+        ?
+        `
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            box-shadow: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
+        `
+        :
+        `
+            display: flex;
+            flex-direction: column;
+            height: 50%;
+            width: 60%;
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+        `
+    }
 `;
 export const VideoPlayerActionBar = styled.div`
     display: flex;
@@ -61,23 +82,39 @@ export const Forward = styled(Forward10Icon)`
 `;
 
 export const Volume = styled(VolumeUpIcon)`
+    margin-left: 20px;
     color: white;
     cursor: pointer;
     width: 30px;
     height: 30px;
 `
 export const Mute = styled(VolumeOffIcon)`
+    margin-left: 20px;
     color: white;
     cursor: pointer;
     width: 30px;
     height: 30px;
 `;
 
+export const FullScreen = styled(FullscreenIcon)`
+    padding-right: 10px;
+    color: white;
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+`;
+export const ExitFullScreen = styled(FullscreenExitIcon)`
+    padding-right: 10px;
+    color: white;
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+`;
 export const PlayAndSeekActionBar = styled.div`
     margin-left: 10px;
     display: flex;
-    justify-content: space-between;
-    width: 70%;
+    justify-content: start;
+    width: 100%;
     height: 50px;
     background-color: #3928C2;
     align-items: center;
@@ -95,6 +132,7 @@ export const VolumeActionBar = styled.div`
     width: 20%;
     gap: 15px;
     padding-right: 20px;
+    max-width: 200px;
 `;
 
 export const ChatContainer = styled.div`
@@ -113,3 +151,7 @@ export const QueueContainer = styled.div`
     background-color: #3928C2;
     height: 100%;
 `;
+
+export const VolumeActionBarSlider: Theme = { color: 'white', width: '100%' };
+
+export const VideoPlayerSlider: Theme = { color: 'white', width: '100%' };

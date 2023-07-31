@@ -12,21 +12,14 @@ import { RoomUsers } from '../../components/room-users/room-users';
 import ReactPlayer from 'react-player';
 import { VideoPlayerDto } from '../../models/currentVideoDto';
 import { Slider } from '@mui/material';
+import { convertSecondsToTimeFormat } from '../../misc/convertSecondsToTimeFormat';
+import { toggleFullScreen } from '../../misc/toggleFullScreen';
 
 export interface RoomContextType {
     sendMessage: (messageText: string) => Promise<void>;
 }
 
 export const RoomContext = createContext<RoomContextType | null>(null);
-
-function convertSecondsToTimeFormat(seconds: number): string {
-    const minutes: number = Math.floor(seconds / 60);
-    const remainingSeconds: number = seconds % 60;
-
-    const timeFormatted: string = `${minutes}:${String(remainingSeconds).padStart(2, "0")}`;
-
-    return timeFormatted;
-}
 
 export const RoomPage = (): JSX.Element => {
     const authContext = useContext(AuthContext);
@@ -38,7 +31,7 @@ export const RoomPage = (): JSX.Element => {
     const [isPlaying, setIsPlaying] = useState(false);
     const [position, setPosition] = useState<number>(0);
     const [volume, setVolume] = useState<number>(50);
-    // const [currentRoom, setCurrentRoom] = useState<RoomDto>();
+    const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
 
     const videoPlayerHandler = useCallback((videoPlayer: VideoPlayerDto) => {
         if (videoPlayer.roomId !== params.id) {
@@ -91,28 +84,12 @@ export const RoomPage = (): JSX.Element => {
         });
     };
 
-    /*const getCurrentRoom = useCallback(async () => {
-        if (!params.id) {
-            return;
-        }
-        const response = await API.getRoomById(params.id);
-        setCurrentRoom(response.data);
-    }, [params.id]);*/
-
     const messageHandler = useCallback((message: ChatEntryDto) => {
         if (message.roomId !== params.id) {
             return;
         }
         setMessages((prevMessages) => [...prevMessages, message]);
     }, [params.id]);
-
-
-    /* useEffect(() => {
-         const getCurrentRoomAsync = async () => {
-             await getCurrentRoom();
-         };
-         getCurrentRoomAsync();
-     }, [params.id, getCurrentRoom]);*/
 
     useEffect(() => {
         const startConnection = async () => {
@@ -180,6 +157,11 @@ export const RoomPage = (): JSX.Element => {
         }
         player.setVolume(volume);
     };
+    const handleFullScreen = (isFullScreen: boolean): void => {
+        setIsFullScreen(isFullScreen);
+        toggleFullScreen(isFullScreen);
+    };
+
 
     return (
         <RoomContext.Provider value={{ sendMessage }}>
@@ -187,7 +169,7 @@ export const RoomPage = (): JSX.Element => {
                 {
                     connection &&
                     <>
-                        <Styles.VideoPlayerContainer>
+                        <Styles.VideoPlayerContainer isFullScreen={isFullScreen}>
                             <ReactPlayer
                                 onProgress={(progress) => onProgress(progress)}
                                 width={'100%'}
@@ -201,6 +183,7 @@ export const RoomPage = (): JSX.Element => {
                                 onPause={onPause}
                                 onError={() => console.log("onError")}
                                 playing={isPlaying}
+                                isFullscreen={true}
                             />
                             <Styles.VideoPlayerActionBar>
                                 <Styles.PlayAndSeekActionBar>
@@ -210,7 +193,7 @@ export const RoomPage = (): JSX.Element => {
                                     <Slider
                                         aria-label="time-indicator"
                                         size="medium"
-                                        sx={{ color: 'white', width: '80%' }}
+                                        sx={Styles.VideoPlayerSlider}
                                         min={0}
                                         step={1}
                                         value={position}
@@ -224,7 +207,7 @@ export const RoomPage = (): JSX.Element => {
                                     <Slider
                                         aria-label="volume-indicator"
                                         size="medium"
-                                        sx={{ color: 'white', width: '100%' }}
+                                        sx={Styles.VolumeActionBarSlider}
                                         min={0}
                                         step={10}
                                         value={volume}
@@ -232,10 +215,8 @@ export const RoomPage = (): JSX.Element => {
                                         onChange={(_, value) => onVolumeChange(value as number)}
                                     />
                                 </Styles.VolumeActionBar>
+                                {isFullScreen ? <Styles.ExitFullScreen onClick={() => handleFullScreen(false)} /> : <Styles.FullScreen onClick={() => handleFullScreen(true)} />}
                             </Styles.VideoPlayerActionBar>
-                            <Styles.QueueContainer>
-                                asda
-                            </Styles.QueueContainer>
                         </Styles.VideoPlayerContainer>
                         <Styles.ChatContainer>
                             <RoomUsers users={users ?? []} />
