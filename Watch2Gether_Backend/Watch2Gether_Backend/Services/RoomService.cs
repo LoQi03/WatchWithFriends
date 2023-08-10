@@ -28,13 +28,16 @@ namespace Watch2Gether_Backend.Services
             {
                 return null;
             }
+
             var salt = RandomNumberGenerator.GetBytes(128 / 8);
             var hashed = HashPassword(room.Password!, salt);
             var creator = _userRepository.GetUserById(room.CreatorId);
+
             if (creator == null)
             {
                 return null;
             }
+
             var roomDB = CreateRoom(room, salt, hashed, creator);
             _roomRepository.InsertRoom(roomDB);
             return RoomDTO.FromModel(roomDB);
@@ -43,15 +46,18 @@ namespace Watch2Gether_Backend.Services
         {
             var users = new List<UserDTO>();
             var userIds = room?.RoomUsers?.Select(x => x.UserId);
+
             if(userIds == null)
             {
                 return null;
             }
+
             foreach (var userId in userIds)
             {
                 var user = _userRepository.GetUserById(userId);
                 users.Add(UserDTO.FromModel(user));
             }
+
             return users;
         }
         private Room CreateRoom(RoomDTO room, byte[] salt, string hashed, User creator)
@@ -88,15 +94,19 @@ namespace Watch2Gether_Backend.Services
         public RoomDTO? JoinRoom(Guid roomid, Guid userid, string contextId, string name)
         {
             var room = _roomRepository.GetRoomById(roomid);
+
             if (room == null)
             {
                 return null;
             }
+
             var user = _userRepository.GetUserById(userid);
+
             if (user == null)
             {
                 return null;
             }
+
             var roomUser = CreateRoomUser(userid, contextId, name, room);
             _roomUserRepository.InsertRoomUser(roomUser);
             return RoomDTO.FromModel(room);
@@ -104,15 +114,19 @@ namespace Watch2Gether_Backend.Services
         public RoomDTO? DisconnectRoom(string roomUserId)
         {
             var deletedUser = _roomUserRepository.DeleteRoomUser(roomUserId);
+
             if (deletedUser == null)
             {
                 return null;
             }
+
             var room = _roomRepository.GetRoomById(deletedUser.RoomId);
+            
             if (room == null)
             {
                 return null;
             }
+
             return RoomDTO.FromModel(room);
         }
 

@@ -9,6 +9,14 @@ import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import { Theme } from "@emotion/react";
 
+export const RoomHeader = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+`;
+
 export const RoomContainer = styled.div`
     margin-top: 20px;
     width: 70%;

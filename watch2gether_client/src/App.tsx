@@ -11,15 +11,13 @@ import { AuthenticationPage } from './pages/authentication/authentication';
 import { RoomPage } from './pages/room/room';
 import CookieConsent from 'react-cookie-consent';
 
-
-
-
 function App(): JSX.Element {
   const [isUserAlreadyLoggedIn, setIsUserAlreadyLoggedIn] = React.useState(false);
 
   const isUserAlreadyLoggedInChangeHandler = () => {
     setIsUserAlreadyLoggedIn(prev => !prev);
   };
+
   const verifyTokenHandler = () => {
     setIsUserAlreadyLoggedIn(true);
   };

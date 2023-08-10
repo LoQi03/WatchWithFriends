@@ -33,8 +33,6 @@ namespace Watch2Gether_Backend.Extensions
             services.AddScoped<IRoomService, RoomService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IImageService, ImageService>();
-
-            // Singletons
             services.AddScoped<RoomHub>();
 
         }

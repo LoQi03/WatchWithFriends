@@ -14,6 +14,8 @@ import { VideoPlayerDto } from '../../models/currentVideoDto';
 import { Slider } from '@mui/material';
 import { convertSecondsToTimeFormat } from '../../misc/convertSecondsToTimeFormat';
 import { toggleFullScreen } from '../../misc/toggleFullScreen';
+import * as CommonStyles from "../../commonStyles";
+import { getYoutubeVideoTitle } from '../../misc/getVideoTitle';
 
 export interface RoomContextType {
     sendMessage: (messageText: string) => Promise<void>;
@@ -32,10 +34,15 @@ export const RoomPage = (): JSX.Element => {
     const [position, setPosition] = useState<number>(0);
     const [volume, setVolume] = useState<number>(50);
     const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
+    const [currentUrl, setCurrentUrl] = useState<string>('');
+    const [newUrl, setNewUrl] = useState<string>('');
 
     const videoPlayerHandler = useCallback((videoPlayer: VideoPlayerDto) => {
         if (videoPlayer.roomId !== params.id) {
             return;
+        }
+        if (videoPlayer.currentVideoUrl !== null && videoPlayer.currentVideoUrl !== currentUrl) {
+            setCurrentUrl(videoPlayer.currentVideoUrl!);
         }
         if (videoPlayer.isPaused !== null && videoPlayer.isPaused) {
             setIsPlaying(false);
@@ -122,6 +129,7 @@ export const RoomPage = (): JSX.Element => {
             } catch (err) {
                 console.error('error when connecting to the hub:', err);
             }
+            getYoutubeVideoTitle("https://www.youtube.com/watch?v=kphq2TsVRIs").then((title) => console.log(title));
         };
 
         if (!connection) {
@@ -157,14 +165,25 @@ export const RoomPage = (): JSX.Element => {
         }
         player.setVolume(volume);
     };
+
     const handleFullScreen = (isFullScreen: boolean): void => {
         setIsFullScreen(isFullScreen);
         toggleFullScreen(isFullScreen);
     };
 
+    const handlePlayUrl = async (url: string): Promise<void> => {
+        await connection?.invoke("VideoPlayer", {
+            roomId: params.id,
+            currentVideoUrl: url
+        });
+    };
 
     return (
         <RoomContext.Provider value={{ sendMessage }}>
+            <Styles.RoomHeader>
+                <CommonStyles.StyledTextField onChange={e => setNewUrl(e.target.value)} />
+                <CommonStyles.GenericButton onClick={() => handlePlayUrl(newUrl)}>Play</CommonStyles.GenericButton>
+            </Styles.RoomHeader>
             <Styles.RoomContainer>
                 {
                     connection &&
@@ -176,14 +195,10 @@ export const RoomPage = (): JSX.Element => {
                                 height={'100%'}
                                 ref={playerRef}
                                 controls={false}
-                                url='https://www.youtube.com/watch?v=DAOZJPquY_w'
+                                url={currentUrl}
                                 onPlay={onStart}
-                                onReady={() => console.log("onReady")}
-                                onStart={() => console.log("onStart")}
                                 onPause={onPause}
-                                onError={() => console.log("onError")}
                                 playing={isPlaying}
-                                isFullscreen={true}
                             />
                             <Styles.VideoPlayerActionBar>
                                 <Styles.PlayAndSeekActionBar>
