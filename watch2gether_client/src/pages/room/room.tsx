@@ -15,7 +15,6 @@ import { Slider } from '@mui/material';
 import { convertSecondsToTimeFormat } from '../../misc/convertSecondsToTimeFormat';
 import { toggleFullScreen } from '../../misc/toggleFullScreen';
 import * as CommonStyles from "../../commonStyles";
-import { getYoutubeVideoTitle } from '../../misc/getVideoTitle';
 
 export interface RoomContextType {
     sendMessage: (messageText: string) => Promise<void>;
@@ -129,7 +128,6 @@ export const RoomPage = (): JSX.Element => {
             } catch (err) {
                 console.error('error when connecting to the hub:', err);
             }
-            getYoutubeVideoTitle("https://www.youtube.com/watch?v=m0zJsAFzvys&list=RDm0zJsAFzvys&start_radio=1").then((title) => console.log(title));
         };
 
         if (!connection) {

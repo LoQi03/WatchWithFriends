@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Watch2Gether_Data.Data;
 using Watch2Gether_Data.Model;
 
@@ -37,7 +33,10 @@ namespace Watch2Gether_Data.Repositories.Core
         {
             var user = await context.Users.FindAsync(userID);
 
-            if (user is null) return null;
+            if (user is null) 
+            {
+                return null;
+            } 
 
             context.Users.Remove(user);
             await SaveAsync();
@@ -58,7 +57,10 @@ namespace Watch2Gether_Data.Repositories.Core
         {
             var entity = await context.Users.FirstOrDefaultAsync(x => x.Id == user.Id);
 
-            if (entity == null) return;
+            if (entity == null) 
+            {
+                return;
+            } 
 
             entity.Email = user.Email;
             entity.PasswordHash = user.PasswordHash;

@@ -1,8 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Watch2Gether_Data.Data;
 using Watch2Gether_Data.Model;
 
@@ -41,7 +37,10 @@ namespace Watch2Gether_Data.Repositories.Core
         {
             var room = await _context.Rooms.FindAsync(roomId);
 
-            if (room is null) return null;
+            if (room is null) 
+            {
+                return null;
+            }
 
             _context.Rooms.Remove(room);
             await SaveAsync();
@@ -50,8 +49,7 @@ namespace Watch2Gether_Data.Repositories.Core
 
         public async Task<Room?> UpdateRoomAsync(Room room)
         {
-            var entity = await _context.Rooms.Include(r => r.RoomUsers)
-                                             .FirstOrDefaultAsync(x => x.Id == room.Id);
+            var entity = await _context.Rooms.Include(r => r.RoomUsers).FirstOrDefaultAsync(x => x.Id == room.Id);
 
             if (entity is null)
             {

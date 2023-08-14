@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Watch2Gether_Data.Data;
-using Watch2Gether_Data.Model;
 using Watch2Gether_Data.Repositories;
 using Watch2Gether_Data.Repositories.Core;
 

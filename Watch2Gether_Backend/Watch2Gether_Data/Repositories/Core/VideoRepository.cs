@@ -1,8 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Watch2Gether_Data.Data;
 using Watch2Gether_Data.Model;
 
@@ -37,7 +33,10 @@ namespace Watch2Gether_Data.Repositories.Core
         {
             var Video = await _context.Videos.FindAsync(VideoId);
 
-            if (Video is null) return null;
+            if (Video is null) 
+            {
+                return null;
+            } 
 
             _context.Videos.Remove(Video);
             await SaveAsync();
@@ -48,7 +47,10 @@ namespace Watch2Gether_Data.Repositories.Core
         {
             var entity = await _context.Videos.FirstOrDefaultAsync(x => x.Id == Video.Id);
 
-            if (entity is null) return;
+            if (entity is null) 
+            {
+                return;
+            } 
 
             entity.Id = Video.Id;
             entity.Name = Video.Name;

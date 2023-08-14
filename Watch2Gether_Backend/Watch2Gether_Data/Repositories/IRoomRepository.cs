@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Watch2Gether_Data.Model;
+﻿using Watch2Gether_Data.Model;
 
 namespace Watch2Gether_Data.Repositories
 {

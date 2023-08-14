@@ -1,8 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Watch2Gether_Data.Data;
 using Watch2Gether_Data.Model;
 
@@ -37,7 +33,10 @@ namespace Watch2Gether_Data.Repositories.Core
         {
             var roomUser = await _context.RoomUsers.FindAsync(roomUserId);
 
-            if (roomUser is null) return null;
+            if (roomUser is null) 
+            {
+                return null;
+            } 
 
             _context.RoomUsers.Remove(roomUser);
             await SaveAsync();
@@ -48,7 +47,10 @@ namespace Watch2Gether_Data.Repositories.Core
         {
             var entity = await _context.RoomUsers.FirstOrDefaultAsync(x => x.Id == roomUser.Id);
 
-            if (entity is null) return;
+            if (entity is null) 
+            {
+                return;
+            } 
 
             entity.Id = roomUser.Id;
             entity.UserId = roomUser.UserId;

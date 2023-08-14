@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.SignalR;
-using Microsoft.VisualBasic;
 using Watch2Gether_Backend.Model;
 using Watch2Gether_Backend.Services;
 
