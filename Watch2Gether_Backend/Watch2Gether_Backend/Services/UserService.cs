@@ -19,18 +19,18 @@ namespace Watch2Gether_Backend.Services
             _userRepository = userRepository;
         }
 
-        public User AddUser(UserDTO userDTO)
+        public async Task<User> AddUser(UserDTO userDTO)
         {
             userDTO.Id = Guid.NewGuid();
             var result = userDTO.ToModel();
-            _userRepository.InsertUser(result);
+            await _userRepository.InsertUserAsync(result);
             return result;
         }
 
-        public IEnumerable<UserDTO> GetUsers()
+        public async Task<IEnumerable<UserDTO>> GetUsers()
         {
-            var result = _userRepository.GetUsers().Select(x => UserDTO.FromModel(x));
-            return result;
+            var result = await _userRepository.GetUsersAsync();
+            return result.Select(x => UserDTO.FromModel(x));
         }
 
         private string HashPassword(string password, byte[] salt)
@@ -44,7 +44,7 @@ namespace Watch2Gether_Backend.Services
             return hashed;
         }
 
-        public UserDTO? UpdateUser(User userFromDB, UpdateUserDTO updateUser)
+        public async Task<UserDTO?> UpdateUser(User userFromDB, UpdateUserDTO updateUser)
         {
             var salt = Convert.FromBase64String(userFromDB.Salt);
             var password = HashPassword(updateUser?.UserDetails?.Password ?? "", salt);
@@ -61,14 +61,14 @@ namespace Watch2Gether_Backend.Services
                 userFromDB.PasswordHash = hashed;
                 userFromDB.Salt = Convert.ToBase64String(newSalt);
             }
-            _userRepository.UpdateUser(userFromDB);
+            await _userRepository.UpdateUserAsync(userFromDB);
             return UserDTO.FromModel(userFromDB);
 
         }
 
-        public User? GetUserById(Guid id)
+        public async Task<User?> GetUserById(Guid id)
         {
-            var user = _userRepository.GetUserById(id);
+            var user = await _userRepository.GetUserByIdAsync(id);
             if (user is null)
             {
                 return null;
@@ -76,10 +76,10 @@ namespace Watch2Gether_Backend.Services
             return user;
         }
 
-        public UserDTO? DeleteUser(Guid? id)
+        public async Task<UserDTO?> DeleteUser(Guid? id)
         {
             UserIdValidition(id);
-            var result = _userRepository.DeleteUser(id.Value);
+            var result = await _userRepository.DeleteUserAsync(id.Value);
             if (result == null)
             {
                 return null;
@@ -95,12 +95,12 @@ namespace Watch2Gether_Backend.Services
             throw new InvalidOperationException("User id is null!");
         }
 
-        public UserDTO? Register(UserDTO user)
+        public async Task<UserDTO?> Register(UserDTO user)
         {
             user.Id = Guid.NewGuid();
             var result = user.ToModel();
 
-            if (_userRepository.IsUserAlreadyExist(result.Email))
+            if (await _userRepository.IsUserAlreadyExistAsync(result.Email))
             {
                 return null;
             } 
@@ -110,12 +110,12 @@ namespace Watch2Gether_Backend.Services
             result.PasswordHash = hashed;
             result.Salt = Convert.ToBase64String(salt);
 
-            _userRepository.InsertUser(result);
+            await _userRepository.UpdateUserAsync(result);
             return UserDTO.FromModel(result);
         }
-        public User? GetUserByEmail(string email)
+        public async Task<User?> GetUserByEmail(string email)
         {
-            var result = _userRepository.GetUserByEmail(email);
+            var result = await _userRepository.GetUserByEmailAsync(email);
             return result;
         }
 
@@ -136,9 +136,9 @@ namespace Watch2Gether_Backend.Services
             return loginUserDTO;
         }
 
-        public void UpdateUser(User userFromDB)
+        public Task UpdateUser(User userFromDB)
         {
-            _userRepository.UpdateUser(userFromDB);
+            return _userRepository.UpdateUserAsync(userFromDB);
         }
 
         private string CreateToken(UserDTO user)
@@ -171,7 +171,7 @@ namespace Watch2Gether_Backend.Services
             return jwt;
         }
 
-        public UserDTO? GetUserByToken(string token)
+        public async Task<UserDTO?> GetUserByToken(string token)
         {
             var handler = new JwtSecurityTokenHandler();
             var jwtSecurityToken = handler.ReadJwtToken(token);
@@ -182,7 +182,7 @@ namespace Watch2Gether_Backend.Services
                 return null;
             } 
 
-            var userFromDB = GetUserByEmail(email);
+            var userFromDB = await GetUserByEmail(email);
 
             if (userFromDB is null) 
             {

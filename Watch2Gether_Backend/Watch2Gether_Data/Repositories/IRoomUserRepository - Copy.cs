@@ -1,13 +1,16 @@
-﻿using Watch2Gether_Data.Model;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Watch2Gether_Data.Model;
 
 namespace Watch2Gether_Data.Repositories
 {
     public interface IVideoRepository
     {
-        IEnumerable<Video> GetVideos();
-        Video? GetVideoById(string id);
-        void InsertVideo(Video Video);
-        Video? DeleteVideo(string VideoId);
-        void UpdateVideo(Video Video);
+        Task<IEnumerable<Video>> GetVideosAsync();
+        Task<Video?> GetVideoByIdAsync(string id);
+        Task InsertVideoAsync(Video Video);
+        Task<Video?> DeleteVideoAsync(string VideoId);
+        Task UpdateVideoAsync(Video Video);
     }
 }

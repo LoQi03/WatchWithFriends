@@ -19,28 +19,28 @@ namespace Watch2Gether_Backend.Controllers
             _userService = userService;
         }
         [HttpGet, Authorize]
-        public ActionResult<IEnumerable<UserDTO>> GetAll()
+        public async Task<ActionResult<IEnumerable<UserDTO>>> GetAll()
         {
-            var result = _userService.GetUsers();
+            var result = await _userService.GetUsers();
             return Ok(result);
         }
 
         [HttpPost, Authorize]
-        public ActionResult<UserDTO> AddUser(UserDTO user)
+        public async Task<ActionResult<UserDTO>> AddUser(UserDTO user)
         {
-            var result = UserDTO.FromModel(_userService.AddUser(user));
+            var result = UserDTO.FromModel(await _userService.AddUser(user));
             return Ok(result);
         }
         [HttpPut, Authorize]
-        public ActionResult<UserDTO?> UpdateUser(UpdateUserDTO user)
+        public async Task<ActionResult<UserDTO?>> UpdateUser(UpdateUserDTO user)
         {
             if (user.UserDetails?.Id == Guid.Empty) return BadRequest();
-            var userFromDB = _userService.GetUserById(user.UserDetails?.Id ?? Guid.Empty);
+            var userFromDB = await _userService.GetUserById(user.UserDetails?.Id ?? Guid.Empty);
             if (userFromDB is null)
             {
                 return NotFound();
             }
-            var result = _userService.UpdateUser(userFromDB, user);
+            var result = await _userService.UpdateUser(userFromDB, user);
             if (result != null)
             {
                 return Ok(result);
@@ -52,9 +52,9 @@ namespace Watch2Gether_Backend.Controllers
         }
 
         [HttpGet("{id}"), Authorize]
-        public ActionResult<UserDTO> GetUser(Guid id)
+        public async Task<ActionResult<UserDTO>> GetUser(Guid id)
         {
-            var user = _userService.GetUserById(id);
+            var user = await _userService.GetUserById(id);
             if (user is null)
             {
                 return NotFound();
@@ -63,9 +63,9 @@ namespace Watch2Gether_Backend.Controllers
         }
 
         [HttpGet("token/{token}")]
-        public ActionResult<UserDTO> GetUserByToken(string token)
+        public async Task<ActionResult<UserDTO>> GetUserByToken(string token)
         {
-            var user = _userService.GetUserByToken(token);
+            var user = await _userService.GetUserByToken(token);
             if (user is null)
             {
                 return NotFound();
@@ -74,9 +74,9 @@ namespace Watch2Gether_Backend.Controllers
         }
 
         [HttpDelete("{id}"), Authorize]
-        public ActionResult DeleteUser(Guid id)
+        public async Task<ActionResult> DeleteUser(Guid id)
         {
-            var user = _userService.DeleteUser(id);
+            var user = await _userService.DeleteUser(id);
             if (user is null)
             {
                 return NotFound();
@@ -84,13 +84,13 @@ namespace Watch2Gether_Backend.Controllers
             return Ok(user);
         }
         [HttpPost("register")]
-        public ActionResult<UserDTO> Register(UserDTO user)
+        public async Task<ActionResult<UserDTO>> Register(UserDTO user)
         {
             if (string.IsNullOrWhiteSpace(user.Email))
             {
                 return BadRequest();
             }
-            var result = _userService.Register(user);
+            var result = await _userService.Register(user);
             if (result is null)
             {
                 return Conflict();
@@ -98,13 +98,13 @@ namespace Watch2Gether_Backend.Controllers
             return Ok(result);
         }
         [HttpPost("login")]
-        public ActionResult<LoginUserDTO> Login(UserDTO user)
+        public async Task<ActionResult<LoginUserDTO>> Login(UserDTO user)
         {
             if (user.Email is null || user.Email == string.Empty)
             {
                 return BadRequest();
             } 
-            var userFromDB = _userService.GetUserByEmail(user.Email ?? "");
+            var userFromDB = await _userService.GetUserByEmail(user.Email ?? "");
             if (userFromDB is null)
             {
                 return Unauthorized();
@@ -122,9 +122,9 @@ namespace Watch2Gether_Backend.Controllers
             }
         }
         [HttpPost("{userid}/image"), Authorize]
-        public ActionResult<UserDTO> AddImage(Guid userid)
+        public async Task<ActionResult<UserDTO>> AddImage(Guid userid)
         {
-            var user = _userService.GetUserById(userid);
+            var user = await _userService.GetUserById(userid);
             if (Request.Form.Files.Count == 0 || user is null) return BadRequest();
             var img = new Image();
             var file = Request.Form.Files[0];
@@ -145,19 +145,19 @@ namespace Watch2Gether_Backend.Controllers
 
             imgBitmap?.Save(streamReadDataFromImage, System.Drawing.Imaging.ImageFormat.Jpeg); //only windows supp
             data = streamReadDataFromImage.ToArray();
-            _imageService.RemoveImage(user.ImageId);
+            await _imageService.RemoveImage(user.ImageId);
             user.ImageId = imgId;
             img.Id = imgId;
             img.Data = data;
-            _userService.UpdateUser(user);
-            _imageService.InsertImage(img);
+            await _userService.UpdateUser(user);
+            await _imageService.InsertImage(img);
             return Ok(user);
         }
 
         [HttpGet("{userid}/image")]
-        public ActionResult<IFormFile> GetImage(Guid userid)
+        public async Task<ActionResult<IFormFile>> GetImage(Guid userid)
         {
-            var user = _userService.GetUserById(userid);
+            var user = await _userService.GetUserById(userid);
 
             if (user is null)
             {
@@ -170,7 +170,7 @@ namespace Watch2Gether_Backend.Controllers
                 return File(placeHolder, "image/png");
             }
 
-            var image = _imageService.GetImageById((Guid)user.ImageId);
+            var image = await _imageService.GetImageById((Guid)user.ImageId);
 
             if (image is null)
             {

@@ -26,12 +26,12 @@ namespace Watch2Gether_Backend.Services
             _roomUserRepository = roomUserRepository;
             _videoRepository = videoRepository;
         }
-        public IEnumerable<RoomDTO>? GetAllRooms()
+        public async Task<IEnumerable<RoomDTO>?> GetAllRooms()
         {
-            var result = _roomRepository.GetRooms();
+            var result = await _roomRepository.GetRoomsAsync();
             return result.Select(x => RoomDTO.FromModel(x));
         }
-        public RoomDTO? CreateRoom(RoomDTO room)
+        public async Task<RoomDTO?> CreateRoom(RoomDTO room)
         {
             if (room == null)
             {
@@ -40,7 +40,7 @@ namespace Watch2Gether_Backend.Services
 
             var salt = RandomNumberGenerator.GetBytes(128 / 8);
             var hashed = HashPassword(room.Password!, salt);
-            var creator = _userRepository.GetUserById(room.CreatorId);
+            var creator = await _userRepository.GetUserByIdAsync(room.CreatorId);
 
             if (creator == null)
             {
@@ -48,10 +48,10 @@ namespace Watch2Gether_Backend.Services
             }
 
             var roomDB = CreateRoom(room, salt, hashed, creator);
-            _roomRepository.InsertRoom(roomDB);
+            await _roomRepository.InsertRoomAsync(roomDB);
             return RoomDTO.FromModel(roomDB);
         }
-        public List<UserDTO>? GetRoomUsers(RoomDTO room)
+        public async Task<List<UserDTO>?> GetRoomUsers(RoomDTO room)
         {
             var users = new List<UserDTO>();
             var userIds = room?.RoomUsers?.Select(x => x.UserId);
@@ -63,7 +63,7 @@ namespace Watch2Gether_Backend.Services
 
             foreach (var userId in userIds)
             {
-                var user = _userRepository.GetUserById(userId);
+                var user = await _userRepository.GetUserByIdAsync(userId);
                 users.Add(UserDTO.FromModel(user));
             }
 
@@ -82,34 +82,34 @@ namespace Watch2Gether_Backend.Services
             };
         }
 
-        public RoomDTO? DeleteRoom(Guid roomId)
+        public async Task<RoomDTO?> DeleteRoom(Guid roomId)
         {
-            var room = _roomRepository.DeleteRoom(roomId);
+            var room = await _roomRepository.DeleteRoomAsync(roomId);
             if (room == null)
             {
                 return null;
             }
             return RoomDTO.FromModel(room);
         }
-        public RoomDTO? GetRoom(Guid id)
+        public async Task<RoomDTO?> GetRoom(Guid id)
         {
-            var room = _roomRepository.GetRoomById(id);
+            var room = await _roomRepository.GetRoomByIdAsync(id);
             if (room == null)
             {
                 return null;
             }
             return RoomDTO.FromModel(room);
         }
-        public RoomDTO? JoinRoom(Guid roomid, Guid userid, string contextId, string name)
+        public async Task<RoomDTO?> JoinRoom(Guid roomid, Guid userid, string contextId, string name)
         {
-            var room = _roomRepository.GetRoomById(roomid);
+            var room = await _roomRepository.GetRoomByIdAsync(roomid);
 
             if (room == null)
             {
                 return null;
             }
 
-            var user = _userRepository.GetUserById(userid);
+            var user = await _userRepository.GetUserByIdAsync(userid);
 
             if (user == null)
             {
@@ -117,19 +117,19 @@ namespace Watch2Gether_Backend.Services
             }
 
             var roomUser = CreateRoomUser(userid, contextId, name, room);
-            _roomUserRepository.InsertRoomUser(roomUser);
+            await _roomUserRepository.InsertRoomUserAsync(roomUser);
             return RoomDTO.FromModel(room);
         }
-        public RoomDTO? DisconnectRoom(string roomUserId)
+        public async Task<RoomDTO?> DisconnectRoom(string roomUserId)
         {
-            var deletedUser = _roomUserRepository.DeleteRoomUser(roomUserId);
+            var deletedUser = await _roomUserRepository.DeleteRoomUserAsync(roomUserId);
 
             if (deletedUser == null)
             {
                 return null;
             }
 
-            var room = _roomRepository.GetRoomById(deletedUser.RoomId);
+            var room = await  _roomRepository.GetRoomByIdAsync(deletedUser.RoomId);
             
             if (room == null)
             {
@@ -150,18 +150,18 @@ namespace Watch2Gether_Backend.Services
             };
         }
 
-        public RoomDTO? GetRoomById(Guid id)
+        public async Task<RoomDTO?> GetRoomById(Guid id)
         {
-            var room = _roomRepository.GetRoomById(id);
+            var room = await _roomRepository.GetRoomByIdAsync(id);
             if (room == null)
             {
                 return null;
             }
             return RoomDTO.FromModel(room);
         }
-        public void AddVideo(Guid roomId, Video video)
+        public async Task AddVideo(Guid roomId, Video video)
         {
-            var room = _roomRepository.GetRoomById(roomId);
+            var room = await _roomRepository.GetRoomByIdAsync(roomId);
 
             RoomValidition(room);
 
@@ -171,11 +171,11 @@ namespace Watch2Gether_Backend.Services
             if (room?.CurrentVideo == null)
             {
                 room.CurrentVideo = video;
-                _roomRepository.UpdateRoom(room);
+                await _roomRepository.UpdateRoomAsync(room);
             }
             else
             {
-                _videoRepository.InsertVideo(video);
+                await _videoRepository.InsertVideoAsync(video);
             }
         }
         private void RoomValidition(Room room)

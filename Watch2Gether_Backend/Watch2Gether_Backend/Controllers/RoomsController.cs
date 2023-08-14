@@ -15,15 +15,15 @@ namespace Watch2Gether_Backend.Controllers
             _roomService = roomService;
         }
         [HttpGet]
-        public ActionResult<IEnumerable<RoomDTO>?> GetRooms()
+        public async Task<ActionResult<IEnumerable<RoomDTO>?>> GetRooms()
         {
-            var rooms = _roomService.GetAllRooms();
+            var rooms = await _roomService.GetAllRooms();
             return Ok(rooms);
         }
         [HttpGet("{id}"), Authorize]
-        public ActionResult GetRoom(Guid id)
+        public async Task<ActionResult> GetRoom(Guid id)
         {
-            var room = _roomService.GetRoomById(id);
+            var room = await _roomService.GetRoomById(id);
             if (room is null)
             {
                 return NotFound();
@@ -31,9 +31,9 @@ namespace Watch2Gether_Backend.Controllers
             return Ok(room);
         }
         [HttpPost]
-        public ActionResult CreateRoom(RoomDTO room)
+        public async Task<ActionResult> CreateRoom(RoomDTO room)
         {
-            var result = _roomService.CreateRoom(room);
+            var result = await _roomService.CreateRoom(room);
             if (result is null)
             {
                 return BadRequest();
@@ -41,9 +41,9 @@ namespace Watch2Gether_Backend.Controllers
             return Ok(result);
         }
         [HttpDelete("{id}"), Authorize]
-        public ActionResult DeleteRoom(Guid id)
+        public async Task<ActionResult> DeleteRoom(Guid id)
         {
-            var result = _roomService.DeleteRoom(id);
+            var result = await _roomService.DeleteRoom(id);
             if (result is null)
             {
                 return NotFound();

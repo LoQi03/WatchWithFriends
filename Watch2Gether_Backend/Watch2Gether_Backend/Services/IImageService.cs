@@ -4,8 +4,8 @@ namespace Watch2Gether_Backend.Services
 {
     public interface IImageService
     {
-        Image? GetImageById(Guid id);
-        void InsertImage(Image image);
-        void RemoveImage(Guid? imgid);
+        Task<Image?> GetImageById(Guid id);
+        Task InsertImage(Image image);
+        Task RemoveImage(Guid? imgid);
     }
 }

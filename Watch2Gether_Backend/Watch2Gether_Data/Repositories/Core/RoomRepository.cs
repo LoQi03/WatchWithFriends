@@ -1,4 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Watch2Gether_Data.Data;
 using Watch2Gether_Data.Model;
 
@@ -13,46 +17,46 @@ namespace Watch2Gether_Data.Repositories.Core
             _context = context;
         }
 
-        public IEnumerable<Room> GetRooms()
+        public async Task<IEnumerable<Room>> GetRoomsAsync()
         {
-            return _context.Rooms
+            return await _context.Rooms
                 .Include(r => r.RoomUsers)
-                .ToList();
+                .ToListAsync();
         }
 
-        public Room? GetRoomById(Guid id) 
-        { 
-            return _context.Rooms
+        public async Task<Room?> GetRoomByIdAsync(Guid id)
+        {
+            return await _context.Rooms
                 .Include(r => r.RoomUsers)
-                .FirstOrDefault(r => r.Id == id);
+                .FirstOrDefaultAsync(r => r.Id == id);
         }
 
-        public void InsertRoom(Room room)
+        public async Task InsertRoomAsync(Room room)
         {
             _context.Rooms.Add(room);
-            Save();
+            await SaveAsync();
         }
 
-        public Room? DeleteRoom(Guid roomId)
+        public async Task<Room?> DeleteRoomAsync(Guid roomId)
         {
-            var room = _context.Rooms.Find(roomId);
+            var room = await _context.Rooms.FindAsync(roomId);
 
             if (room is null) return null;
 
             _context.Rooms.Remove(room);
-            Save();
+            await SaveAsync();
             return room;
         }
 
-        public Room? UpdateRoom(Room room)
+        public async Task<Room?> UpdateRoomAsync(Room room)
         {
-            var entity = _context.Rooms.Include(r => r.RoomUsers)
-                                       .FirstOrDefault(x => x.Id == room.Id);
+            var entity = await _context.Rooms.Include(r => r.RoomUsers)
+                                             .FirstOrDefaultAsync(x => x.Id == room.Id);
 
             if (entity is null)
             {
                 return null;
-            } 
+            }
 
             entity.Name = room.Name;
             entity.CurrentVideo = room.CurrentVideo;
@@ -63,13 +67,13 @@ namespace Watch2Gether_Data.Repositories.Core
             entity.RoomUsers = room.RoomUsers;
 
             _context.Update(entity);
-            Save();
+            await SaveAsync();
             return entity;
         }
 
-        public void Save()
+        public async Task SaveAsync()
         {
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
         private bool disposed = false;

@@ -1,16 +1,19 @@
-﻿using Watch2Gether_Data.Model;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Watch2Gether_Data.Model;
 
 namespace Watch2Gether_Data.Repositories
 {
     public interface IUserRepository : IDisposable
     {
-        IEnumerable<User> GetUsers();
-        User? GetUserById(Guid UserId);
-        void InsertUser(User User);
-        User? DeleteUser(Guid UserID);
-        User? GetUserByEmail(string Email);
-        bool IsUserAlreadyExist(string Email);
-        void UpdateUser(User User);
-        void Save();
+        Task<IEnumerable<User>> GetUsersAsync();
+        Task<User?> GetUserByIdAsync(Guid UserId);
+        Task InsertUserAsync(User User);
+        Task<User?> DeleteUserAsync(Guid UserID);
+        Task<User?> GetUserByEmailAsync(string Email);
+        Task<bool> IsUserAlreadyExistAsync(string Email);
+        Task UpdateUserAsync(User User);
+        Task SaveAsync();
     }
 }

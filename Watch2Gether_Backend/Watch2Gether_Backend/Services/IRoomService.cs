@@ -4,13 +4,13 @@ namespace Watch2Gether_Backend.Services
 {
     public interface IRoomService
     {
-        IEnumerable<RoomDTO>? GetAllRooms();
-        RoomDTO? CreateRoom(RoomDTO room);
-        RoomDTO? DeleteRoom(Guid roomId);
-        RoomDTO? GetRoom(Guid id);
-        RoomDTO? JoinRoom(Guid roomid, Guid userid, string connectionId, string name);
-        RoomDTO? GetRoomById(Guid id);
-        RoomDTO? DisconnectRoom(string roomUserId);
-        List<UserDTO>? GetRoomUsers(RoomDTO room);
+        Task<IEnumerable<RoomDTO>?> GetAllRooms();
+        Task<RoomDTO?> CreateRoom(RoomDTO room);
+        Task<RoomDTO?> DeleteRoom(Guid roomId);
+        Task<RoomDTO?> GetRoom(Guid id);
+        Task<RoomDTO?> JoinRoom(Guid roomid, Guid userid, string connectionId, string name);
+        Task<RoomDTO?> GetRoomById(Guid id);
+        Task<RoomDTO?> DisconnectRoom(string roomUserId);
+        Task<List<UserDTO>?> GetRoomUsers(RoomDTO room);
     }
 }

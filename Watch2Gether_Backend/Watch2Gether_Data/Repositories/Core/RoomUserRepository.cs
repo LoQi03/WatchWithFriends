@@ -1,4 +1,9 @@
-﻿using Watch2Gether_Data.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Watch2Gether_Data.Data;
 using Watch2Gether_Data.Model;
 
 namespace Watch2Gether_Data.Repositories.Core
@@ -9,38 +14,39 @@ namespace Watch2Gether_Data.Repositories.Core
 
         public RoomUserRepository(RoomsDBContext context)
         {
-           _context = context;
-        }
-        public IEnumerable<RoomUser> GetRoomUsers()
-        {
-            return _context.RoomUsers.ToList();
+            _context = context;
         }
 
-        public RoomUser? GetRoomUserById(string id)
+        public async Task<IEnumerable<RoomUser>> GetRoomUsersAsync()
         {
-            return _context.RoomUsers.Find(id);
+            return await _context.RoomUsers.ToListAsync();
         }
 
-        public void InsertRoomUser(RoomUser roomUser)
+        public async Task<RoomUser?> GetRoomUserByIdAsync(string id)
+        {
+            return await _context.RoomUsers.FindAsync(id);
+        }
+
+        public async Task InsertRoomUserAsync(RoomUser roomUser)
         {
             _context.RoomUsers.Add(roomUser);
-            Save();
+            await SaveAsync();
         }
 
-        public RoomUser? DeleteRoomUser(string roomUserId)
+        public async Task<RoomUser?> DeleteRoomUserAsync(string roomUserId)
         {
-            var roomUser = _context.RoomUsers.Find(roomUserId);
+            var roomUser = await _context.RoomUsers.FindAsync(roomUserId);
 
             if (roomUser is null) return null;
 
             _context.RoomUsers.Remove(roomUser);
-            Save();
+            await SaveAsync();
             return roomUser;
         }
 
-        public void UpdateRoomUser(RoomUser roomUser)
+        public async Task UpdateRoomUserAsync(RoomUser roomUser)
         {
-            var entity = _context.RoomUsers.FirstOrDefault(x => x.Id == roomUser.Id);
+            var entity = await _context.RoomUsers.FirstOrDefaultAsync(x => x.Id == roomUser.Id);
 
             if (entity is null) return;
 
@@ -48,12 +54,12 @@ namespace Watch2Gether_Data.Repositories.Core
             entity.UserId = roomUser.UserId;
 
             _context.Update(entity);
-            Save();
+            await SaveAsync();
         }
 
-        public void Save()
+        public async Task SaveAsync()
         {
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
         private bool disposed = false;

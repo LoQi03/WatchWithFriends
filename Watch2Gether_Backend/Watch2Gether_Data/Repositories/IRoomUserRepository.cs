@@ -1,13 +1,16 @@
-﻿using Watch2Gether_Data.Model;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Watch2Gether_Data.Model;
 
 namespace Watch2Gether_Data.Repositories
 {
     public interface IRoomUserRepository
     {
-        IEnumerable<RoomUser> GetRoomUsers();
-        RoomUser? GetRoomUserById(string id);
-        void InsertRoomUser(RoomUser roomUser);
-        RoomUser? DeleteRoomUser(string roomUserId);
-        void UpdateRoomUser(RoomUser roomUser);
+        Task<IEnumerable<RoomUser>> GetRoomUsersAsync();
+        Task<RoomUser?> GetRoomUserByIdAsync(string id);
+        Task InsertRoomUserAsync(RoomUser roomUser);
+        Task<RoomUser?> DeleteRoomUserAsync(string roomUserId);
+        Task UpdateRoomUserAsync(RoomUser roomUser);
     }
 }

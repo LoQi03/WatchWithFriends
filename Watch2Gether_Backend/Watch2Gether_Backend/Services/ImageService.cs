@@ -11,21 +11,20 @@ namespace Watch2Gether_Backend.Services
             _imageRepository = imageService;
         }
 
-        public Image? GetImageById(Guid id)
+        public Task<Image?> GetImageById(Guid id)
         {
-            var result = _imageRepository.GetImageById(id);
-            return result;
+            return _imageRepository.GetImageByIdAsync(id);
         }
 
-        public void InsertImage(Image image)
+        public Task InsertImage(Image image)
         {
-            _imageRepository.InsertImage(image);
+            return _imageRepository.InsertImageAsync(image);
         }
-        public void RemoveImage(Guid? imgid)
+        public async Task RemoveImage(Guid? imgid)
         {
             if (ImageIdValidition(imgid))
             {
-                _imageRepository.DeleteImage(imgid.Value);
+                await _imageRepository.DeleteImageAsync(imgid.Value);
             }
         }
         private bool ImageIdValidition(Guid? imgid) 

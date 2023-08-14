@@ -42,6 +42,7 @@ namespace Watch2Gether_Data.Extensions
             services.AddScoped<IImageRepository, ImageRepository>();
             services.AddScoped<IRoomRepository, RoomRepository>();
             services.AddScoped<IRoomUserRepository, RoomUserRepository>();
+            services.AddScoped<IVideoRepository, VideoRepository>();
         }
     }
 }

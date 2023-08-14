@@ -1,4 +1,9 @@
-﻿using Watch2Gether_Data.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Watch2Gether_Data.Data;
 using Watch2Gether_Data.Model;
 
 namespace Watch2Gether_Data.Repositories.Core
@@ -9,38 +14,39 @@ namespace Watch2Gether_Data.Repositories.Core
 
         public VideoRepository(RoomsDBContext context)
         {
-           _context = context;
-        }
-        public IEnumerable<Video> GetVideos()
-        {
-            return _context.Videos.ToList();
+            _context = context;
         }
 
-        public Video? GetVideoById(string id)
+        public async Task<IEnumerable<Video>> GetVideosAsync()
         {
-            return _context.Videos.Find(id);
+            return await _context.Videos.ToListAsync();
         }
 
-        public void InsertVideo(Video Video)
+        public async Task<Video?> GetVideoByIdAsync(string id)
+        {
+            return await _context.Videos.FindAsync(id);
+        }
+
+        public async Task InsertVideoAsync(Video Video)
         {
             _context.Videos.Add(Video);
-            Save();
+            await SaveAsync();
         }
 
-        public Video? DeleteVideo(string VideoId)
+        public async Task<Video?> DeleteVideoAsync(string VideoId)
         {
-            var Video = _context.Videos.Find(VideoId);
+            var Video = await _context.Videos.FindAsync(VideoId);
 
             if (Video is null) return null;
 
             _context.Videos.Remove(Video);
-            Save();
+            await SaveAsync();
             return Video;
         }
 
-        public void UpdateVideo(Video Video)
+        public async Task UpdateVideoAsync(Video Video)
         {
-            var entity = _context.Videos.FirstOrDefault(x => x.Id == Video.Id);
+            var entity = await _context.Videos.FirstOrDefaultAsync(x => x.Id == Video.Id);
 
             if (entity is null) return;
 
@@ -48,12 +54,12 @@ namespace Watch2Gether_Data.Repositories.Core
             entity.Name = Video.Name;
 
             _context.Update(entity);
-            Save();
+            await SaveAsync();
         }
 
-        public void Save()
+        public async Task SaveAsync()
         {
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
         private bool disposed = false;

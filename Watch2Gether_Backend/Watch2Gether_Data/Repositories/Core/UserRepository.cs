@@ -1,4 +1,9 @@
-﻿using Watch2Gether_Data.Data;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Watch2Gether_Data.Data;
 using Watch2Gether_Data.Model;
 
 namespace Watch2Gether_Data.Repositories.Core
@@ -12,43 +17,46 @@ namespace Watch2Gether_Data.Repositories.Core
             this.context = context;
         }
 
-        public IEnumerable<User> GetUsers()
+        public async Task<IEnumerable<User>> GetUsersAsync()
         {
-            return context.Users.ToList();
+            return await context.Users.ToListAsync();
         }
 
-        public User? GetUserById(Guid id)
+        public async Task<User?> GetUserByIdAsync(Guid id)
         {
-            return context.Users.Find(id);
+            return await context.Users.FindAsync(id);
         }
 
-        public void InsertUser(User user)
+        public async Task InsertUserAsync(User user)
         {
             context.Users.Add(user);
-            Save();
+            await SaveAsync();
         }
 
-        public User? DeleteUser(Guid userID)
+        public async Task<User?> DeleteUserAsync(Guid userID)
         {
-            var user = context.Users.Find(userID);
+            var user = await context.Users.FindAsync(userID);
 
             if (user is null) return null;
 
             context.Users.Remove(user);
-            Save();
+            await SaveAsync();
             return user;
         }
-        public User? GetUserByEmail(string Email)
+
+        public async Task<User?> GetUserByEmailAsync(string Email)
         {
-            return context.Users.Where(x => x.Email == Email).FirstOrDefault();
+            return await context.Users.Where(x => x.Email == Email).FirstOrDefaultAsync();
         }
-        public bool IsUserAlreadyExist(string Email)
+
+        public async Task<bool> IsUserAlreadyExistAsync(string Email)
         {
-            return context.Users.Where(x => x.Email == Email).FirstOrDefault() != null ? true : false;
+            return await context.Users.AnyAsync(x => x.Email == Email);
         }
-        public void UpdateUser(User user)
+
+        public async Task UpdateUserAsync(User user)
         {
-            var entity = context.Users.FirstOrDefault(x => x.Id == user.Id);
+            var entity = await context.Users.FirstOrDefaultAsync(x => x.Id == user.Id);
 
             if (entity == null) return;
 
@@ -58,12 +66,12 @@ namespace Watch2Gether_Data.Repositories.Core
             entity.BirthDate = user.BirthDate;
 
             context.Update(entity);
-            Save();
+            await SaveAsync();
         }
 
-        public void Save()
+        public async Task SaveAsync()
         {
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
 
         private bool disposed = false;

@@ -1,4 +1,9 @@
-﻿using Watch2Gether_Data.Data;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Watch2Gether_Data.Data;
 using Watch2Gether_Data.Model;
 
 namespace Watch2Gether_Data.Repositories.Core
@@ -11,36 +16,37 @@ namespace Watch2Gether_Data.Repositories.Core
         {
             this.context = context;
         }
-        public IEnumerable<Image> GetImages()
+
+        public async Task<IEnumerable<Image>> GetImagesAsync()
         {
-            return context.Images.ToList();
+            return await context.Images.ToListAsync();
         }
 
-        public Image? GetImageById(Guid id)
+        public async Task<Image?> GetImageByIdAsync(Guid id)
         {
-            return context.Images.Find(id);
+            return await context.Images.FindAsync(id);
         }
 
-        public void InsertImage(Image Image)
+        public async Task InsertImageAsync(Image Image)
         {
             context.Images.Add(Image);
-            Save();
+            await SaveAsync();
         }
 
-        public Image? DeleteImage(Guid ImageID)
+        public async Task<Image?> DeleteImageAsync(Guid ImageID)
         {
-            var Image = context.Images.Find(ImageID);
+            var Image = await context.Images.FindAsync(ImageID);
 
             if (Image is null) return null;
 
             context.Images.Remove(Image);
-            Save();
+            await SaveAsync();
             return Image;
         }
 
-        public void UpdateImage(Image Image)
+        public async Task UpdateImageAsync(Image Image)
         {
-            var entity = context.Images.FirstOrDefault(x => x.Id == Image.Id);
+            var entity = await context.Images.FirstOrDefaultAsync(x => x.Id == Image.Id);
 
             if (entity is null) return;
 
@@ -48,12 +54,12 @@ namespace Watch2Gether_Data.Repositories.Core
             entity.Data = Image.Data;
 
             context.Update(entity);
-            Save();
+            await SaveAsync();
         }
 
-        public void Save()
+        public Task SaveAsync()
         {
-            context.SaveChanges();
+            return context.SaveChangesAsync();
         }
 
         private bool disposed = false;
