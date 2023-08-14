@@ -60,7 +60,7 @@ export const RoomPage = (): JSX.Element => {
         if (videoPlayer.duration) {
             setPosition(videoPlayer.duration);
         }
-    }, [params.id]);
+    }, [params.id, currentUrl]);
 
     const onStart = async (): Promise<void> => {
         await connection?.invoke("VideoPlayer", {
@@ -129,7 +129,7 @@ export const RoomPage = (): JSX.Element => {
             } catch (err) {
                 console.error('error when connecting to the hub:', err);
             }
-            getYoutubeVideoTitle("https://www.youtube.com/watch?v=kphq2TsVRIs").then((title) => console.log(title));
+            getYoutubeVideoTitle("https://www.youtube.com/watch?v=m0zJsAFzvys&list=RDm0zJsAFzvys&start_radio=1").then((title) => console.log(title));
         };
 
         if (!connection) {
@@ -200,38 +200,39 @@ export const RoomPage = (): JSX.Element => {
                                 onPause={onPause}
                                 playing={isPlaying}
                             />
-                            <Styles.VideoPlayerActionBar>
-                                <Styles.PlayAndSeekActionBar>
-                                    {
-                                        isPlaying ? <Styles.Pause onClick={onPause} /> : <Styles.Play onClick={onStart} />
-                                    }
-                                    <Slider
-                                        aria-label="time-indicator"
-                                        size="medium"
-                                        sx={Styles.VideoPlayerSlider}
-                                        min={0}
-                                        step={1}
-                                        value={position}
-                                        max={playerRef.current?.getDuration() ?? 0}
-                                        onChange={(_, value) => onSeek(value as number)}
-                                    />
-                                    <Styles.TimeIndicator>{convertSecondsToTimeFormat(position)}</Styles.TimeIndicator>
-                                </Styles.PlayAndSeekActionBar>
-                                <Styles.VolumeActionBar>
-                                    {volume > 0 ? <Styles.Volume onClick={() => onVolumeChange(0)} /> : <Styles.Mute onClick={() => onVolumeChange(50)} />}
-                                    <Slider
-                                        aria-label="volume-indicator"
-                                        size="medium"
-                                        sx={Styles.VolumeActionBarSlider}
-                                        min={0}
-                                        step={10}
-                                        value={volume}
-                                        max={100}
-                                        onChange={(_, value) => onVolumeChange(value as number)}
-                                    />
-                                </Styles.VolumeActionBar>
-                                {isFullScreen ? <Styles.ExitFullScreen onClick={() => handleFullScreen(false)} /> : <Styles.FullScreen onClick={() => handleFullScreen(true)} />}
-                            </Styles.VideoPlayerActionBar>
+                            {currentUrl &&
+                                <Styles.VideoPlayerActionBar>
+                                    <Styles.PlayAndSeekActionBar>
+                                        {
+                                            isPlaying ? <Styles.Pause onClick={onPause} /> : <Styles.Play onClick={onStart} />
+                                        }
+                                        <Slider
+                                            aria-label="time-indicator"
+                                            size="medium"
+                                            sx={Styles.VideoPlayerSlider}
+                                            min={0}
+                                            step={1}
+                                            value={position}
+                                            max={playerRef.current?.getDuration() ?? 0}
+                                            onChange={(_, value) => onSeek(value as number)}
+                                        />
+                                        <Styles.TimeIndicator>{convertSecondsToTimeFormat(position)}</Styles.TimeIndicator>
+                                    </Styles.PlayAndSeekActionBar>
+                                    <Styles.VolumeActionBar>
+                                        {volume > 0 ? <Styles.Volume onClick={() => onVolumeChange(0)} /> : <Styles.Mute onClick={() => onVolumeChange(50)} />}
+                                        <Slider
+                                            aria-label="volume-indicator"
+                                            size="medium"
+                                            sx={Styles.VolumeActionBarSlider}
+                                            min={0}
+                                            step={10}
+                                            value={volume}
+                                            max={100}
+                                            onChange={(_, value) => onVolumeChange(value as number)}
+                                        />
+                                    </Styles.VolumeActionBar>
+                                    {isFullScreen ? <Styles.ExitFullScreen onClick={() => handleFullScreen(false)} /> : <Styles.FullScreen onClick={() => handleFullScreen(true)} />}
+                                </Styles.VideoPlayerActionBar>}
                         </Styles.VideoPlayerContainer>
                         <Styles.ChatContainer>
                             <RoomUsers users={users ?? []} />

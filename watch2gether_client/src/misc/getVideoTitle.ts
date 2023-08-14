@@ -21,7 +21,7 @@ export const getYoutubeVideoTitle = async (videoUrl: string) => {
         const data = response.data;
 
         if (data.items.length > 0) {
-            return data.items[0].snippet.title;
+            return data.items[0].snippet;
         } else {
             throw new Error('YouTube video title not found.');
         }

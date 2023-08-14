@@ -8,7 +8,7 @@ namespace Watch2Gether_Data.Repositories
         Room? GetRoomById(Guid RoomId);
         void InsertRoom(Room Room);
         Room? DeleteRoom(Guid RoomID);
-        void UpdateRoom(Room Room);
+        Room? UpdateRoom(Room room);
         void Save();
     }
 }

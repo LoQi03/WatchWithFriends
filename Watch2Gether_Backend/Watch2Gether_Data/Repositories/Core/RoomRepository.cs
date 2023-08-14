@@ -44,17 +44,27 @@ namespace Watch2Gether_Data.Repositories.Core
             return room;
         }
 
-        public void UpdateRoom(Room room)
+        public Room? UpdateRoom(Room room)
         {
             var entity = _context.Rooms.Include(r => r.RoomUsers)
                                        .FirstOrDefault(x => x.Id == room.Id);
 
-            if (entity is null) return;
+            if (entity is null)
+            {
+                return null;
+            } 
 
             entity.Name = room.Name;
+            entity.CurrentVideo = room.CurrentVideo;
+            entity.PlayList = room.PlayList;
+            entity.PasswordHash = room.PasswordHash;
+            entity.Salt = room.Salt;
+            entity.CreatorId = room.CreatorId;
+            entity.RoomUsers = room.RoomUsers;
 
             _context.Update(entity);
             Save();
+            return entity;
         }
 
         public void Save()

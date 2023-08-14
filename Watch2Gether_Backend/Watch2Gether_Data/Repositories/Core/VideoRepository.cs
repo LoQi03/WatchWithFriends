@@ -3,49 +3,49 @@ using Watch2Gether_Data.Model;
 
 namespace Watch2Gether_Data.Repositories.Core
 {
-    internal class RoomUserRepository : IRoomUserRepository
+    internal class VideoRepository : IVideoRepository
     {
         private readonly RoomsDBContext _context;
 
-        public RoomUserRepository(RoomsDBContext context)
+        public VideoRepository(RoomsDBContext context)
         {
            _context = context;
         }
-        public IEnumerable<RoomUser> GetRoomUsers()
+        public IEnumerable<Video> GetVideos()
         {
-            return _context.RoomUsers.ToList();
+            return _context.Videos.ToList();
         }
 
-        public RoomUser? GetRoomUserById(string id)
+        public Video? GetVideoById(string id)
         {
-            return _context.RoomUsers.Find(id);
+            return _context.Videos.Find(id);
         }
 
-        public void InsertRoomUser(RoomUser roomUser)
+        public void InsertVideo(Video Video)
         {
-            _context.RoomUsers.Add(roomUser);
+            _context.Videos.Add(Video);
             Save();
         }
 
-        public RoomUser? DeleteRoomUser(string roomUserId)
+        public Video? DeleteVideo(string VideoId)
         {
-            var roomUser = _context.RoomUsers.Find(roomUserId);
+            var Video = _context.Videos.Find(VideoId);
 
-            if (roomUser is null) return null;
+            if (Video is null) return null;
 
-            _context.RoomUsers.Remove(roomUser);
+            _context.Videos.Remove(Video);
             Save();
-            return roomUser;
+            return Video;
         }
 
-        public void UpdateRoomUser(RoomUser roomUser)
+        public void UpdateVideo(Video Video)
         {
-            var entity = _context.RoomUsers.FirstOrDefault(x => x.Id == roomUser.Id);
+            var entity = _context.Videos.FirstOrDefault(x => x.Id == Video.Id);
 
             if (entity is null) return;
 
-            entity.Id = roomUser.Id;
-            entity.UserId = roomUser.UserId;
+            entity.Id = Video.Id;
+            entity.Name = Video.Name;
 
             _context.Update(entity);
             Save();

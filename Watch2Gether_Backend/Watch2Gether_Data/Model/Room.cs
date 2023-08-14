@@ -9,5 +9,7 @@
         public DateTime CreationTime { get; set; }
         public string? Salt { get; set; }
         public ICollection<RoomUser> RoomUsers { get; set; }
+        public ICollection<Video>? PlayList { get; set; }
+        public Video? CurrentVideo { get; set; }
     }
 }

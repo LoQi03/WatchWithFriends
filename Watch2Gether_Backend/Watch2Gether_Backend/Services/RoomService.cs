@@ -11,11 +11,20 @@ namespace Watch2Gether_Backend.Services
         private readonly IRoomRepository _roomRepository;
         private readonly IUserRepository _userRepository;
         private readonly IRoomUserRepository _roomUserRepository;
-        public RoomService(IRoomRepository roomRepository, IUserRepository userRepository, IRoomUserRepository roomUserRepository)
+        private readonly IVideoRepository _videoRepository;
+
+        public RoomService
+            (
+                IRoomRepository roomRepository,
+                IUserRepository userRepository,
+                IRoomUserRepository roomUserRepository,
+                IVideoRepository videoRepository
+            )
         {
             _roomRepository = roomRepository;
             _userRepository = userRepository;
             _roomUserRepository = roomUserRepository;
+            _videoRepository = videoRepository;
         }
         public IEnumerable<RoomDTO>? GetAllRooms()
         {
@@ -134,7 +143,6 @@ namespace Watch2Gether_Backend.Services
         {
             return new RoomUser()
             {
-                Name = name,
                 Id = ContextId,
                 UserId = userid,
                 Room = room,
@@ -151,6 +159,34 @@ namespace Watch2Gether_Backend.Services
             }
             return RoomDTO.FromModel(room);
         }
+        public void AddVideo(Guid roomId, Video video)
+        {
+            var room = _roomRepository.GetRoomById(roomId);
+
+            RoomValidition(room);
+
+            video.RoomId = roomId;
+            video.Room = room;
+
+            if (room?.CurrentVideo == null)
+            {
+                room.CurrentVideo = video;
+                _roomRepository.UpdateRoom(room);
+            }
+            else
+            {
+                _videoRepository.InsertVideo(video);
+            }
+        }
+        private void RoomValidition(Room room)
+        {
+            if (room != null)
+            {
+                return;
+            }
+            throw new ArgumentException("Room is not exist!");
+        }
+
         private string HashPassword(string password, byte[] salt)
         {
             var hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(

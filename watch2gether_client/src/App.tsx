@@ -24,6 +24,7 @@ function App(): JSX.Element {
 
   return (
     <AuthProvider isUserAlreadyLoggedInChangeHandler={isUserAlreadyLoggedInChangeHandler}>
+      <VerifyTokenHandler isUserAlreadyLoggedIn={isUserAlreadyLoggedIn} verifyTokenHandler={verifyTokenHandler} />
       {
         isUserAlreadyLoggedIn ?
           <BrowserRouter>
@@ -41,7 +42,6 @@ function App(): JSX.Element {
           : <AuthenticationPage />
       }
       <CookieConsent>This website uses cookies to enhance the user experience.</CookieConsent>
-      <VerifyTokenHandler isUserAlreadyLoggedIn={isUserAlreadyLoggedIn} verifyTokenHandler={verifyTokenHandler} />
     </AuthProvider>
 
   );
