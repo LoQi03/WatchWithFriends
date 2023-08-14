@@ -60,7 +60,7 @@ export const RoomPage = (): JSX.Element => {
         if (videoPlayer.duration) {
             setPosition(videoPlayer.duration);
         }
-    }, [params.id, currentUrl]);
+    }, [params.id]);
 
     const onStart = async (): Promise<void> => {
         await connection?.invoke("VideoPlayer", {
