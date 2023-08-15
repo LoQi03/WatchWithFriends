@@ -58,11 +58,10 @@ export const RoomPage = (): JSX.Element => {
             if (player === undefined) {
                 return;
             }
-
             const position = player.getCurrentTime();
             const difference = Math.abs(videoPlayer.duration - position);
 
-            if (difference >= 5) {
+            if (difference >= 15) {
                 player.seekTo(videoPlayer.duration);
             }
         }
@@ -81,16 +80,8 @@ export const RoomPage = (): JSX.Element => {
     }, []);
 
     const onStart = async (): Promise<void> => {
-        if (authContext?.currentUser?.id !== currentRoom?.creatorId) {
-            await connection?.invoke("VideoPlayer", {
-                roomId: params.id,
-                isPlaying: true
-            });
-            return;
-        }
         await connection?.invoke("VideoPlayer", {
             roomId: params.id,
-            duration: position,
             isPlaying: true
         });
     };
