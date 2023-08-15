@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Watch2Gether_Backend.Hubs;
 using Watch2Gether_Backend.Model;
 using Watch2Gether_Backend.Services;
 
@@ -10,9 +11,11 @@ namespace Watch2Gether_Backend.Controllers
     public class RoomsController : ControllerBase
     {
         private readonly IRoomService _roomService;
-        public RoomsController(IRoomService roomService)
+        private readonly IRoomHub _roomHub;
+        public RoomsController(IRoomService roomService,IRoomHub roomHub)
         {
             _roomService = roomService;
+            _roomHub = roomHub;
         }
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RoomDTO>?>> GetRooms()
@@ -55,7 +58,7 @@ namespace Watch2Gether_Backend.Controllers
         {
             video.Id = Guid.NewGuid();
             var result = await _roomService.AddVideo(id, video);
-            return result;
+            return Ok(result);
         }
     }
 }

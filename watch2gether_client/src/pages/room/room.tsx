@@ -40,6 +40,7 @@ export const RoomPage = (): JSX.Element => {
     const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
     const [newUrl, setNewUrl] = useState<string>('');
     const [currentRoom, setCurrentRoom] = useState<RoomDto | null>(null);
+    const [currentVideo, setCurrentVideo] = useState<VideoDto | null>(null);
 
     const videoPlayerHandler = useCallback((videoPlayer: VideoPlayerDto) => {
         if (videoPlayer.roomId !== params.id) {
@@ -63,6 +64,18 @@ export const RoomPage = (): JSX.Element => {
         }
     }, [params.id]);
 
+    const updateRoomHandler = useCallback((room: RoomDto) => {
+        setCurrentRoom(room);
+        if (!room.currentVideo) {
+            return;
+        }
+        var currentVideo = room.playList?.find(x => x.id === room.currentVideo);
+        if (!currentVideo) {
+            return;
+        }
+        setCurrentVideo(currentVideo);
+    }, []);
+
     const onStart = async (): Promise<void> => {
         await connection?.invoke("VideoPlayer", {
             roomId: params.id,
@@ -77,19 +90,19 @@ export const RoomPage = (): JSX.Element => {
         });
     };
 
-    const onProgress = async (progress: { played: number; playedSeconds: number; loaded: number; loadedSeconds: number; }): Promise<void> => {
-        if (Math.round(progress.playedSeconds) === position) {
-            return;
-        }
-        setPosition(Math.round(progress.playedSeconds));
-    };
-
     const onSeek = async (seconds: number): Promise<void> => {
         console.log('seek:' + seconds);
         await connection?.invoke("VideoPlayer", {
             roomId: params.id,
             duration: seconds
         });
+    };
+
+    const onProgress = async (progress: { played: number; playedSeconds: number; loaded: number; loadedSeconds: number; }): Promise<void> => {
+        if (Math.round(progress.playedSeconds) === position) {
+            return;
+        }
+        setPosition(Math.round(progress.playedSeconds));
     };
 
     const messageHandler = useCallback((message: ChatEntryDto) => {
@@ -100,7 +113,7 @@ export const RoomPage = (): JSX.Element => {
     }, [params.id]);
 
     useMemo(() => {
-        if (currentRoom) {
+        if (currentRoom !== null) {
             return;
         }
         const getRoom = async () => {
@@ -109,7 +122,14 @@ export const RoomPage = (): JSX.Element => {
             }
             const { data } = await API.getRoomById(params.id);
             setCurrentRoom(data);
-            console.log(currentRoom);
+            if (!data.currentVideo || !data || !data.playList) {
+                return;
+            }
+            var currentVideo = data.playList?.find(x => x.id === data.currentVideo);
+            if (!currentVideo) {
+                return;
+            }
+            setCurrentVideo(currentVideo);
         };
         getRoom();
     }, [params.id, currentRoom]);
@@ -138,6 +158,14 @@ export const RoomPage = (): JSX.Element => {
                     setUsers(users);
                 });
 
+                roomConnection.on('UpdateRoomHandler', async (room: RoomDto) => {
+                    updateRoomHandler(room);
+                });
+
+                roomConnection.on('CurrentVideoPlayerStatusHandler', async (videoPlayer: VideoPlayerDto) => {
+                    videoPlayerHandler(videoPlayer);
+                });
+
                 await roomConnection.start();
                 roomConnection.invoke("JoinRoom", params.id, authContext?.currentUser?.id, authContext?.currentUser?.name);
                 console.log('Connected to the hub.');
@@ -155,7 +183,7 @@ export const RoomPage = (): JSX.Element => {
                 connection.stop();
             }
         };
-    }, [connection, params.id, authContext?.currentUser?.id, authContext?.currentUser?.name, messageHandler, videoPlayerHandler]);
+    }, [connection, params.id, authContext?.currentUser?.id, authContext?.currentUser?.name, messageHandler, videoPlayerHandler, updateRoomHandler]);
 
     const sendMessage = async (messageText: string): Promise<void> => {
         if (!authContext?.currentUser?.name || !authContext?.currentUser?.id || !params.id) {
@@ -190,14 +218,10 @@ export const RoomPage = (): JSX.Element => {
         if (!url) {
             return;
         }
-
         const videoDetails = await getVideoDetails(url);
         if (!videoDetails) {
             return;
         }
-
-        console.log(videoDetails);
-
         const response = await fetch(videoDetails.thumbnails.standard);
         const imageBlob = await response.blob();
         const imageBase64 = await blobToBase64(imageBlob); // blob to base64 konverzió
@@ -211,9 +235,13 @@ export const RoomPage = (): JSX.Element => {
         if (!params.id) {
             return;
         }
+        const { data } = await API.addVideoToRoom(params.id, video);
 
-        console.log(video)
-        await API.addVideoToRoom(params.id, video);
+        if (!data || !connection) {
+            return;
+        }
+
+        connection.invoke("UpdateRoom", data);
     };
 
     return (
@@ -233,13 +261,13 @@ export const RoomPage = (): JSX.Element => {
                                 height={'100%'}
                                 ref={playerRef}
                                 controls={false}
-                                url={currentRoom?.currentVideo?.url}
+                                url={currentVideo?.url}
                                 onPlay={onStart}
                                 onPause={onPause}
                                 playing={isPlaying}
                             />
                             {
-                                currentRoom?.currentVideo?.url &&
+                                currentVideo?.url &&
                                 <Styles.VideoPlayerActionBar>
                                     <Styles.PlayAndSeekActionBar>
                                         {

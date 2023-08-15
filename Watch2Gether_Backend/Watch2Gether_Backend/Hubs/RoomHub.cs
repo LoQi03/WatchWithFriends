@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using Watch2Gether_Backend.Model;
 using Watch2Gether_Backend.Services;
+using Watch2Gether_Data.Model;
 
 namespace Watch2Gether_Backend.Hubs
 {
@@ -15,18 +16,45 @@ namespace Watch2Gether_Backend.Hubs
         {
             return base.OnConnectedAsync();
         }
-        public async Task VideoPlayer(VideoPlayerDTO videoPlayerDTO)
+        public async Task UpdateRoom(RoomDTO room)
         {
-            var room = await _roomService.GetRoom(videoPlayerDTO.RoomId);
+            if(room.RoomUsers == null)
+            {
+                return;
+            }
             foreach (var roomUser in room?.RoomUsers)
             {
-                await Clients.Clients(roomUser.Id).SendAsync("VideoPlayerHandler", videoPlayerDTO);
+                await Clients.Clients(roomUser.Id).SendAsync("UpdateRoomHandler", room);
+            }
+        }
+        public async Task CurrentVideoStatus(VideoPlayer videoPlayer, string id)
+        {
+            await Clients.Clients(id).SendAsync("CurrentVideoPlayerStatusHandler", videoPlayer);
+        }
+        public async Task VideoPlayer(VideoPlayer videoPlayer)
+        {
+            var room = await _roomService.GetRoom(videoPlayer.RoomId);
+            if (room.RoomUsers == null)
+            {
+                return;
+            }
+            foreach (var roomUser in room?.RoomUsers)
+            {
+                await Clients.Clients(roomUser.Id).SendAsync("VideoPlayerHandler", videoPlayer);
             }
         }
         public override async Task OnDisconnectedAsync(Exception? exception)
         {
             var room = await _roomService.DisconnectRoom(Context.ConnectionId);
+            if (room == null)
+            {
+                return;
+            }
             var users = await _roomService.GetRoomUsers(room);
+            if (room.RoomUsers == null)
+            {
+                return;
+            }
             foreach (var roomUser in room?.RoomUsers)
             {
                 await Clients.Clients(roomUser.Id).SendAsync("GetRoomUsers", users);
@@ -36,6 +64,10 @@ namespace Watch2Gether_Backend.Hubs
         {
             var room = await _roomService.GetRoom(chatEntry.RoomId);
             if (room == null)
+            {
+                return;
+            }
+            if (room.RoomUsers == null)
             {
                 return;
             }
@@ -53,6 +85,10 @@ namespace Watch2Gether_Backend.Hubs
             }
             room = await _roomService.JoinRoom(roomId, userId, Context.ConnectionId, name);
             var users = await _roomService.GetRoomUsers(room);
+            if (room.RoomUsers == null)
+            {
+                return;
+            }
             foreach (var roomUser in room?.RoomUsers)
             {
                 await Clients.Clients(roomUser.Id).SendAsync("GetRoomUsers", users);
