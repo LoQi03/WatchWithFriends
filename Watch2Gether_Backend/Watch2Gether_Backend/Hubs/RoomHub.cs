@@ -16,9 +16,10 @@ namespace Watch2Gether_Backend.Hubs
         {
             return base.OnConnectedAsync();
         }
+
         public async Task UpdateRoom(RoomDTO room)
         {
-            if(room.RoomUsers == null)
+            if (room.RoomUsers == null)
             {
                 return;
             }
@@ -26,6 +27,10 @@ namespace Watch2Gether_Backend.Hubs
             {
                 await Clients.Clients(roomUser.Id).SendAsync("UpdateRoomHandler", room);
             }
+        }
+        public async Task CallCreator()
+        {
+            await Clients.Clients(Context.ConnectionId).SendAsync("GetCurrentVideoStatus", Context.ConnectionId);
         }
         public async Task CurrentVideoStatus(VideoPlayer videoPlayer, string id)
         {

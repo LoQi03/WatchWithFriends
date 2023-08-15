@@ -52,15 +52,19 @@ export const RoomPage = (): JSX.Element => {
         if (videoPlayer.isPlaying !== null && videoPlayer.isPlaying) {
             setIsPlaying(true);
         }
-        if (videoPlayer.duration !== null) {
+        if (videoPlayer.duration !== null && videoPlayer.duration !== undefined) {
             const player = playerRef.current?.getInternalPlayer();
+
             if (player === undefined) {
                 return;
             }
-            player.seekTo(videoPlayer.duration);
-        }
-        if (videoPlayer.duration) {
-            setPosition(videoPlayer.duration);
+
+            const position = player.getCurrentTime();
+            const difference = Math.abs(videoPlayer.duration - position);
+
+            if (difference >= 5) {
+                player.seekTo(videoPlayer.duration);
+            }
         }
     }, [params.id]);
 
@@ -77,8 +81,16 @@ export const RoomPage = (): JSX.Element => {
     }, []);
 
     const onStart = async (): Promise<void> => {
+        if (authContext?.currentUser?.id !== currentRoom?.creatorId) {
+            await connection?.invoke("VideoPlayer", {
+                roomId: params.id,
+                isPlaying: true
+            });
+            return;
+        }
         await connection?.invoke("VideoPlayer", {
             roomId: params.id,
+            duration: position,
             isPlaying: true
         });
     };
@@ -161,11 +173,6 @@ export const RoomPage = (): JSX.Element => {
                 roomConnection.on('UpdateRoomHandler', async (room: RoomDto) => {
                     updateRoomHandler(room);
                 });
-
-                roomConnection.on('CurrentVideoPlayerStatusHandler', async (videoPlayer: VideoPlayerDto) => {
-                    videoPlayerHandler(videoPlayer);
-                });
-
                 await roomConnection.start();
                 roomConnection.invoke("JoinRoom", params.id, authContext?.currentUser?.id, authContext?.currentUser?.name);
                 console.log('Connected to the hub.');
@@ -183,7 +190,12 @@ export const RoomPage = (): JSX.Element => {
                 connection.stop();
             }
         };
-    }, [connection, params.id, authContext?.currentUser?.id, authContext?.currentUser?.name, messageHandler, videoPlayerHandler, updateRoomHandler]);
+    }, [connection, params.id,
+        authContext?.currentUser?.id,
+        authContext?.currentUser?.name,
+        messageHandler,
+        videoPlayerHandler,
+        updateRoomHandler]);
 
     const sendMessage = async (messageText: string): Promise<void> => {
         if (!authContext?.currentUser?.name || !authContext?.currentUser?.id || !params.id) {
@@ -224,7 +236,7 @@ export const RoomPage = (): JSX.Element => {
         }
         const response = await fetch(videoDetails.thumbnails.standard);
         const imageBlob = await response.blob();
-        const imageBase64 = await blobToBase64(imageBlob); // blob to base64 konverzió
+        const imageBase64 = await blobToBase64(imageBlob);
 
         const video: VideoDto = {
             url: url,
