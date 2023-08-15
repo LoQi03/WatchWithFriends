@@ -53,7 +53,7 @@ namespace Watch2Gether_Data.Repositories.Core
             } 
 
             entity.Id = Video.Id;
-            entity.Name = Video.Name;
+            entity.Title = Video.Title;
 
             _context.Update(entity);
             await SaveAsync();

@@ -50,6 +50,12 @@ namespace Watch2Gether_Backend.Controllers
             }
             return Ok(result);
         }
-       
+        [HttpPost("{id}/Videos"), Authorize]
+        public async Task<ActionResult<RoomDTO>> AddVideoToRoom(Guid id ,Video video)
+        {
+            video.Id = Guid.NewGuid();
+            var result = await _roomService.AddVideo(id, video);
+            return result;
+        }
     }
 }

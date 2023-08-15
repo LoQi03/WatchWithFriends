@@ -8,7 +8,7 @@ const getYoutubeVideoIdFromUrl = (url: string) => {
     return match && match[2].length === 11 ? match[2] : null;
 };
 
-export const getYoutubeVideoTitle = async (videoUrl: string) => {
+export const getVideoDetails = async (videoUrl: string) => {
     const videoId = getYoutubeVideoIdFromUrl(videoUrl);
     if (!videoId) {
         throw new Error('Invalid YouTube video URL.');

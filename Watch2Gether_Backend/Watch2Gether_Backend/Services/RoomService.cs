@@ -159,7 +159,7 @@ namespace Watch2Gether_Backend.Services
             }
             return RoomDTO.FromModel(room);
         }
-        public async Task AddVideo(Guid roomId, Video video)
+        public async Task<RoomDTO> AddVideo(Guid roomId, Video video)
         {
             var room = await _roomRepository.GetRoomByIdAsync(roomId);
 
@@ -170,13 +170,15 @@ namespace Watch2Gether_Backend.Services
 
             if (room?.CurrentVideo == null)
             {
-                room.CurrentVideo = video;
-                await _roomRepository.UpdateRoomAsync(room);
+                room.CurrentVideo = video.Id;
+                await _videoRepository.InsertVideoAsync(video);
             }
             else
             {
                 await _videoRepository.InsertVideoAsync(video);
             }
+            room = await _roomRepository.GetRoomByIdAsync(room.Id);
+            return RoomDTO.FromModel(room);
         }
         private void RoomValidition(Room room)
         {

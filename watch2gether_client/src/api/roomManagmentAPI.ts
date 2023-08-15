@@ -1,6 +1,7 @@
 import { AxiosResponse } from "axios";
 import { RoomDto } from "../models/roomDto";
 import { httpClient } from "../HttpClient";
+import { VideoDto } from "../models/videoDto";
 
 export const getRooms = async (): Promise<AxiosResponse<RoomDto[], any>> => {
     const response = await httpClient.get<RoomDto[]>(`Rooms`);
@@ -14,3 +15,7 @@ export const getRoomById = async (id: string): Promise<AxiosResponse<RoomDto, an
     const response = await httpClient.get<RoomDto>(`Rooms/${id}`);
     return response;
 };
+export const addVideoToRoom = async (id: string, video: VideoDto): Promise<AxiosResponse<RoomDto, any>> => {
+    const response = await httpClient.post<RoomDto>(`Rooms/${id}/Videos`, video);
+    return response;
+}

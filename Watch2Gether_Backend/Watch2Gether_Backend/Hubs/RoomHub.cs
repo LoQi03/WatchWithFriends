@@ -4,7 +4,7 @@ using Watch2Gether_Backend.Services;
 
 namespace Watch2Gether_Backend.Hubs
 {
-    public class RoomHub : Hub
+    public class RoomHub : Hub, IRoomHub
     {
         private readonly IRoomService _roomService;
         public RoomHub(IRoomService roomService)

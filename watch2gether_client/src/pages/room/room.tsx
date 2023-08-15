@@ -1,4 +1,4 @@
-import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { AuthContext } from '../../services/authenticationContext';
 import * as signalR from '@microsoft/signalr';
@@ -10,11 +10,16 @@ import { UserDto } from '../../models/userDto';
 import * as Styles from './styles';
 import { RoomUsers } from '../../components/room-users/room-users';
 import ReactPlayer from 'react-player';
-import { VideoPlayerDto } from '../../models/currentVideoDto';
+import { VideoPlayerDto } from '../../models/videoPlayerDto';
 import { Slider } from '@mui/material';
 import { convertSecondsToTimeFormat } from '../../misc/convertSecondsToTimeFormat';
 import { toggleFullScreen } from '../../misc/toggleFullScreen';
 import * as CommonStyles from "../../commonStyles";
+import { VideoDto } from '../../models/videoDto';
+import { RoomDto } from '../../models/roomDto';
+import * as API from '../../api/roomManagmentAPI';
+import { getVideoDetails } from '../../misc/getVideoDetails';
+import { blobToBase64 } from '../../misc/blobToBase64';
 
 export interface RoomContextType {
     sendMessage: (messageText: string) => Promise<void>;
@@ -33,15 +38,12 @@ export const RoomPage = (): JSX.Element => {
     const [position, setPosition] = useState<number>(0);
     const [volume, setVolume] = useState<number>(50);
     const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
-    const [currentUrl, setCurrentUrl] = useState<string>('');
     const [newUrl, setNewUrl] = useState<string>('');
+    const [currentRoom, setCurrentRoom] = useState<RoomDto | null>(null);
 
     const videoPlayerHandler = useCallback((videoPlayer: VideoPlayerDto) => {
         if (videoPlayer.roomId !== params.id) {
             return;
-        }
-        if (videoPlayer.currentVideoUrl !== null && videoPlayer.currentVideoUrl !== currentUrl) {
-            setCurrentUrl(videoPlayer.currentVideoUrl!);
         }
         if (videoPlayer.isPaused !== null && videoPlayer.isPaused) {
             setIsPlaying(false);
@@ -96,6 +98,21 @@ export const RoomPage = (): JSX.Element => {
         }
         setMessages((prevMessages) => [...prevMessages, message]);
     }, [params.id]);
+
+    useMemo(() => {
+        if (currentRoom) {
+            return;
+        }
+        const getRoom = async () => {
+            if (!params.id) {
+                return;
+            }
+            const { data } = await API.getRoomById(params.id);
+            setCurrentRoom(data);
+            console.log(currentRoom);
+        };
+        getRoom();
+    }, [params.id, currentRoom]);
 
     useEffect(() => {
         const startConnection = async () => {
@@ -170,10 +187,33 @@ export const RoomPage = (): JSX.Element => {
     };
 
     const handlePlayUrl = async (url: string): Promise<void> => {
-        await connection?.invoke("VideoPlayer", {
-            roomId: params.id,
-            currentVideoUrl: url
-        });
+        if (!url) {
+            return;
+        }
+
+        const videoDetails = await getVideoDetails(url);
+        if (!videoDetails) {
+            return;
+        }
+
+        console.log(videoDetails);
+
+        const response = await fetch(videoDetails.thumbnails.standard);
+        const imageBlob = await response.blob();
+        const imageBase64 = await blobToBase64(imageBlob); // blob to base64 konverzió
+
+        const video: VideoDto = {
+            url: url,
+            image: imageBase64,
+            title: videoDetails.title,
+        };
+
+        if (!params.id) {
+            return;
+        }
+
+        console.log(video)
+        await API.addVideoToRoom(params.id, video);
     };
 
     return (
@@ -193,12 +233,13 @@ export const RoomPage = (): JSX.Element => {
                                 height={'100%'}
                                 ref={playerRef}
                                 controls={false}
-                                url={currentUrl}
+                                url={currentRoom?.currentVideo?.url}
                                 onPlay={onStart}
                                 onPause={onPause}
                                 playing={isPlaying}
                             />
-                            {currentUrl &&
+                            {
+                                currentRoom?.currentVideo?.url &&
                                 <Styles.VideoPlayerActionBar>
                                     <Styles.PlayAndSeekActionBar>
                                         {

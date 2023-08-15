@@ -9,6 +9,8 @@ namespace Watch2Gether_Backend.Model
         public Guid CreatorId { get; set; }
         public List<RoomUser>? RoomUsers { get; set; }
         public string? Password { get; set; }
+        public List<Video>? PlayList { get; set; }
+        public Guid? CurrentVideo { get; set; }
 
         public static RoomDTO FromModel(Room model)
         {
@@ -19,6 +21,8 @@ namespace Watch2Gether_Backend.Model
                 CreatorId = model.CreatorId,
                 Password = null,
                 RoomUsers = model.RoomUsers?.ToList(),
+                CurrentVideo = model.CurrentVideo,
+                PlayList = model.PlayList?.ToList(),
             };
         }
 
@@ -32,6 +36,8 @@ namespace Watch2Gether_Backend.Model
                 PasswordHash = Password ?? "",
                 Salt = string.Empty,
                 RoomUsers = RoomUsers,
+                CurrentVideo = CurrentVideo,
+                PlayList = PlayList?.ToList(),
             };
         }
     }

@@ -17,6 +17,7 @@ namespace Watch2Gether_Data.Repositories.Core
         {
             return await _context.Rooms
                 .Include(r => r.RoomUsers)
+                .Include(p => p.PlayList)
                 .ToListAsync();
         }
 
@@ -24,6 +25,7 @@ namespace Watch2Gether_Data.Repositories.Core
         {
             return await _context.Rooms
                 .Include(r => r.RoomUsers)
+                .Include(p => p.PlayList)
                 .FirstOrDefaultAsync(r => r.Id == id);
         }
 
@@ -49,7 +51,7 @@ namespace Watch2Gether_Data.Repositories.Core
 
         public async Task<Room?> UpdateRoomAsync(Room room)
         {
-            var entity = await _context.Rooms.Include(r => r.RoomUsers).FirstOrDefaultAsync(x => x.Id == room.Id);
+            var entity = await _context.Rooms.Include(r => r.RoomUsers).Include(v=>v.PlayList).FirstOrDefaultAsync(x => x.Id == room.Id);
 
             if (entity is null)
             {

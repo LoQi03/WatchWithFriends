@@ -3,6 +3,4 @@ export interface VideoPlayerDto {
     isPlaying?: boolean;
     isPaused?: boolean;
     duration?: number;
-    currentVideoUrl?: string;
-    pendingVideos?: string[];
 }

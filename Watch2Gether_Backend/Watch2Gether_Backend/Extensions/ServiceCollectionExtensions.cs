@@ -33,7 +33,7 @@ namespace Watch2Gether_Backend.Extensions
             services.AddScoped<IRoomService, RoomService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IImageService, ImageService>();
-            services.AddScoped<RoomHub>();
+            services.AddScoped<IRoomHub, RoomHub>();
 
         }
         private static void SetJsonOption(JsonOptions options)
