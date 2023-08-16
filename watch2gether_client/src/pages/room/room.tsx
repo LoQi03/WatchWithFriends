@@ -121,7 +121,6 @@ export const RoomPage = (): JSX.Element => {
     };
 
     const onEnd = async (): Promise<void> => {
-        setCurrentVideo(null);
         if (currentRoom?.creatorId !== authContext?.currentUser?.id) {
             return;
         }
