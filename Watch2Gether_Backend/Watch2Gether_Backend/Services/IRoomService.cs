@@ -14,5 +14,7 @@ namespace Watch2Gether_Backend.Services
         Task<RoomDTO?> DisconnectRoom(string roomUserId);
         Task<List<UserDTO>?> GetRoomUsers(RoomDTO room);
         Task<RoomDTO> AddVideo(Guid roomId, Video video);
+        Task UpdateRoom(RoomDTO roomDTO);
+        Task<RoomDTO?> NextVideo(Guid roomId);
     }
 }

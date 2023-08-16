@@ -48,11 +48,17 @@ ${props => props.isFullScreen
         `
             display: flex;
             flex-direction: column;
-            height: 50%;
-            width: 60%;
+            height: 60%;
+            width: 100%;
             box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
         `
     }
+`;
+export const VideoPlayerAndPlayListContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    height: 100%;
 `;
 export const VideoPlayerActionBar = styled.div`
     display: flex;
@@ -145,7 +151,7 @@ export const VolumeActionBar = styled.div`
 
 export const ChatContainer = styled.div`
     box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
-    width: 40%;
+    width: 30%;
     display: flex;
     flex-direction: column;
     background-color: #3928C2;

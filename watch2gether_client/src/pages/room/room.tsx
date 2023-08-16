@@ -11,18 +11,31 @@ import * as Styles from './styles';
 import { RoomUsers } from '../../components/room-users/room-users';
 import ReactPlayer from 'react-player';
 import { VideoPlayerDto } from '../../models/videoPlayerDto';
-import { Slider } from '@mui/material';
-import { convertSecondsToTimeFormat } from '../../misc/convertSecondsToTimeFormat';
 import { toggleFullScreen } from '../../misc/toggleFullScreen';
 import * as CommonStyles from "../../commonStyles";
 import { VideoDto } from '../../models/videoDto';
 import { RoomDto } from '../../models/roomDto';
 import * as API from '../../api/roomManagmentAPI';
 import { getVideoDetails } from '../../misc/getVideoDetails';
-import { blobToBase64 } from '../../misc/blobToBase64';
+import { OnProgressProps } from 'react-player/base';
+import { VideoPlayer } from './video-player';
+import { PlayList } from '../../components/play-list/play-list';
 
 export interface RoomContextType {
     sendMessage: (messageText: string) => Promise<void>;
+    onProgress: (progress: OnProgressProps) => Promise<void>;
+    onStart: () => Promise<void>;
+    onPause: () => Promise<void>;
+    onSeek: (seconds: number) => Promise<void>;
+    onEnd: () => Promise<void>;
+    playerRef: React.RefObject<ReactPlayer>;
+    isPlaying: boolean;
+    position: number;
+    volume: number;
+    isFullScreen: boolean;
+    currentVideo: VideoDto | null;
+    onVolumeChange: (volume: number) => Promise<void>;
+    handleFullScreen: (isFullScreen: boolean) => void;
 }
 
 export const RoomContext = createContext<RoomContextType | null>(null);
@@ -79,6 +92,13 @@ export const RoomPage = (): JSX.Element => {
         setCurrentVideo(currentVideo);
     }, []);
 
+    const messageHandler = useCallback((message: ChatEntryDto) => {
+        if (message.roomId !== params.id) {
+            return;
+        }
+        setMessages((prevMessages) => [...prevMessages, message]);
+    }, [params.id]);
+
     const onStart = async (): Promise<void> => {
         await connection?.invoke("VideoPlayer", {
             roomId: params.id,
@@ -93,6 +113,18 @@ export const RoomPage = (): JSX.Element => {
         });
     };
 
+    const onEnd = async (): Promise<void> => {
+        setCurrentVideo(null);
+        if (currentRoom?.creatorId !== authContext?.currentUser?.id) {
+            return;
+        }
+        if (!params.id) {
+            return;
+        }
+        const { data } = await API.getNextVideo(params.id);
+        await connection?.invoke("UpdateRoom", data);
+    };
+
     const onSeek = async (seconds: number): Promise<void> => {
         console.log('seek:' + seconds);
         await connection?.invoke("VideoPlayer", {
@@ -101,19 +133,14 @@ export const RoomPage = (): JSX.Element => {
         });
     };
 
-    const onProgress = async (progress: { played: number; playedSeconds: number; loaded: number; loadedSeconds: number; }): Promise<void> => {
+    const onProgress = async (progress: OnProgressProps): Promise<void> => {
         if (Math.round(progress.playedSeconds) === position) {
             return;
         }
         setPosition(Math.round(progress.playedSeconds));
     };
 
-    const messageHandler = useCallback((message: ChatEntryDto) => {
-        if (message.roomId !== params.id) {
-            return;
-        }
-        setMessages((prevMessages) => [...prevMessages, message]);
-    }, [params.id]);
+
 
     useMemo(() => {
         if (currentRoom !== null) {
@@ -225,13 +252,10 @@ export const RoomPage = (): JSX.Element => {
         if (!videoDetails) {
             return;
         }
-        const response = await fetch(videoDetails.thumbnails.standard);
-        const imageBlob = await response.blob();
-        const imageBase64 = await blobToBase64(imageBlob);
 
         const video: VideoDto = {
             url: url,
-            image: imageBase64,
+            image: videoDetails.thumbnails.standard.url,
             title: videoDetails.title,
         };
 
@@ -248,7 +272,22 @@ export const RoomPage = (): JSX.Element => {
     };
 
     return (
-        <RoomContext.Provider value={{ sendMessage }}>
+        <RoomContext.Provider value={{
+            sendMessage,
+            onProgress,
+            onStart,
+            onPause,
+            onSeek,
+            onEnd,
+            playerRef,
+            isPlaying,
+            position,
+            volume,
+            isFullScreen,
+            currentVideo,
+            onVolumeChange,
+            handleFullScreen,
+        }}>
             <Styles.RoomHeader>
                 <CommonStyles.StyledTextField onChange={e => setNewUrl(e.target.value)} />
                 <CommonStyles.GenericButton onClick={() => handlePlayUrl(newUrl)}>Play</CommonStyles.GenericButton>
@@ -257,53 +296,12 @@ export const RoomPage = (): JSX.Element => {
                 {
                     connection &&
                     <>
-                        <Styles.VideoPlayerContainer isFullScreen={isFullScreen}>
-                            <ReactPlayer
-                                onProgress={(progress) => onProgress(progress)}
-                                width={'100%'}
-                                height={'100%'}
-                                ref={playerRef}
-                                controls={false}
-                                url={currentVideo?.url}
-                                onPlay={onStart}
-                                onPause={onPause}
-                                playing={isPlaying}
-                            />
-                            {
-                                currentVideo?.url &&
-                                <Styles.VideoPlayerActionBar>
-                                    <Styles.PlayAndSeekActionBar>
-                                        {
-                                            isPlaying ? <Styles.Pause onClick={onPause} /> : <Styles.Play onClick={onStart} />
-                                        }
-                                        <Slider
-                                            aria-label="time-indicator"
-                                            size="medium"
-                                            sx={Styles.VideoPlayerSlider}
-                                            min={0}
-                                            step={1}
-                                            value={position}
-                                            max={playerRef.current?.getDuration() ?? 0}
-                                            onChange={(_, value) => onSeek(value as number)}
-                                        />
-                                        <Styles.TimeIndicator>{convertSecondsToTimeFormat(position)}</Styles.TimeIndicator>
-                                    </Styles.PlayAndSeekActionBar>
-                                    <Styles.VolumeActionBar>
-                                        {volume > 0 ? <Styles.Volume onClick={() => onVolumeChange(0)} /> : <Styles.Mute onClick={() => onVolumeChange(50)} />}
-                                        <Slider
-                                            aria-label="volume-indicator"
-                                            size="medium"
-                                            sx={Styles.VolumeActionBarSlider}
-                                            min={0}
-                                            step={10}
-                                            value={volume}
-                                            max={100}
-                                            onChange={(_, value) => onVolumeChange(value as number)}
-                                        />
-                                    </Styles.VolumeActionBar>
-                                    {isFullScreen ? <Styles.ExitFullScreen onClick={() => handleFullScreen(false)} /> : <Styles.FullScreen onClick={() => handleFullScreen(true)} />}
-                                </Styles.VideoPlayerActionBar>}
-                        </Styles.VideoPlayerContainer>
+                        <Styles.VideoPlayerAndPlayListContainer>
+                            <Styles.VideoPlayerContainer isFullScreen={isFullScreen}>
+                                <VideoPlayer />
+                            </Styles.VideoPlayerContainer>
+                            <PlayList videos={currentRoom?.playList} />
+                        </Styles.VideoPlayerAndPlayListContainer>
                         <Styles.ChatContainer>
                             <RoomUsers users={users ?? []} />
                             <ChatField messages={messages} />

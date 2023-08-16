@@ -11,11 +11,9 @@ namespace Watch2Gether_Backend.Controllers
     public class RoomsController : ControllerBase
     {
         private readonly IRoomService _roomService;
-        private readonly IRoomHub _roomHub;
         public RoomsController(IRoomService roomService,IRoomHub roomHub)
         {
             _roomService = roomService;
-            _roomHub = roomHub;
         }
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RoomDTO>?>> GetRooms()
@@ -54,10 +52,16 @@ namespace Watch2Gether_Backend.Controllers
             return Ok(result);
         }
         [HttpPost("{id}/Videos"), Authorize]
-        public async Task<ActionResult<RoomDTO>> AddVideoToRoom(Guid id ,Video video)
+        public async Task<ActionResult<RoomDTO>> AddVideoToRoom(Guid id , Video video)
         {
             video.Id = Guid.NewGuid();
             var result = await _roomService.AddVideo(id, video);
+            return Ok(result);
+        }
+        [HttpPost("{id}/NextVideo"), Authorize]
+        public async Task<ActionResult<RoomDTO>> NextVideoForRoom(Guid id)
+        {
+            var result = await _roomService.NextVideo(id);
             return Ok(result);
         }
     }

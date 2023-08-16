@@ -49,26 +49,21 @@ namespace Watch2Gether_Data.Repositories.Core
             return room;
         }
 
-        public async Task<Room?> UpdateRoomAsync(Room room)
+        public async Task UpdateRoomAsync(Room room)
         {
-            var entity = await _context.Rooms.Include(r => r.RoomUsers).Include(v=>v.PlayList).FirstOrDefaultAsync(x => x.Id == room.Id);
+            var entity = await _context.Rooms.FirstOrDefaultAsync(x => x.Id == room.Id);
 
             if (entity is null)
             {
-                return null;
+                return;
             }
 
             entity.Name = room.Name;
             entity.CurrentVideo = room.CurrentVideo;
-            entity.PlayList = room.PlayList;
-            entity.PasswordHash = room.PasswordHash;
-            entity.Salt = room.Salt;
             entity.CreatorId = room.CreatorId;
-            entity.RoomUsers = room.RoomUsers;
 
             _context.Update(entity);
             await SaveAsync();
-            return entity;
         }
 
         public async Task SaveAsync()

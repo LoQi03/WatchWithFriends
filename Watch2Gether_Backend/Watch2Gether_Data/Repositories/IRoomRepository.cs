@@ -8,7 +8,7 @@ namespace Watch2Gether_Data.Repositories
         Task<Room?> GetRoomByIdAsync(Guid RoomId);
         Task InsertRoomAsync(Room Room);
         Task<Room?> DeleteRoomAsync(Guid RoomID);
-        Task<Room?> UpdateRoomAsync(Room room);
+        Task UpdateRoomAsync(Room room);
         Task SaveAsync();
     }
 }

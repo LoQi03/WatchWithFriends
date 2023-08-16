@@ -1,0 +1,63 @@
+import React, { useContext } from "react";
+import { RoomContext } from "./room";
+import ReactPlayer from 'react-player';
+import { Slider } from "@mui/material";
+import * as Styles from "./styles";
+import { convertSecondsToTimeFormat } from "../../misc/convertSecondsToTimeFormat";
+
+export const VideoPlayer = (): JSX.Element => {
+    const roomContext = useContext(RoomContext);
+
+    return (
+        <>
+            <ReactPlayer
+                onProgress={(progress) => roomContext?.onProgress(progress)}
+                width={'100%'}
+                height={'100%'}
+                ref={roomContext?.playerRef}
+                controls={false}
+                url={roomContext?.currentVideo?.url}
+                onPlay={roomContext?.onStart}
+                onPause={roomContext?.onPause}
+                onEnded={roomContext?.onEnd}
+                playing={roomContext?.isPlaying}
+                pip={false}
+            />
+            {
+                roomContext?.currentVideo?.url &&
+                <Styles.VideoPlayerActionBar>
+                    <Styles.PlayAndSeekActionBar>
+                        {
+                            roomContext?.isPlaying ? <Styles.Pause onClick={roomContext?.onPause} /> : <Styles.Play onClick={roomContext?.onStart} />
+                        }
+                        <Slider
+                            aria-label="time-indicator"
+                            size="medium"
+                            sx={Styles.VideoPlayerSlider}
+                            min={0}
+                            step={1}
+                            value={roomContext?.position}
+                            max={roomContext?.playerRef.current?.getDuration() ?? 0}
+                            onChange={(_, value) => roomContext?.onSeek(value as number)}
+                        />
+                        <Styles.TimeIndicator>{convertSecondsToTimeFormat(roomContext?.position)}</Styles.TimeIndicator>
+                    </Styles.PlayAndSeekActionBar>
+                    <Styles.VolumeActionBar>
+                        {roomContext?.volume > 0 ? <Styles.Volume onClick={() => roomContext?.onVolumeChange(0)} /> : <Styles.Mute onClick={() => roomContext?.onVolumeChange(50)} />}
+                        <Slider
+                            aria-label="volume-indicator"
+                            size="medium"
+                            sx={Styles.VolumeActionBarSlider}
+                            min={0}
+                            step={10}
+                            value={roomContext?.volume}
+                            max={100}
+                            onChange={(_, value) => roomContext?.onVolumeChange(value as number)}
+                        />
+                    </Styles.VolumeActionBar>
+                    {roomContext?.isFullScreen ? <Styles.ExitFullScreen onClick={() => roomContext?.handleFullScreen(false)} /> : <Styles.FullScreen onClick={() => roomContext?.handleFullScreen(true)} />}
+                </Styles.VideoPlayerActionBar>
+            }
+        </>
+    )
+};

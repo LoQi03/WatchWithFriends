@@ -19,3 +19,7 @@ export const addVideoToRoom = async (id: string, video: VideoDto): Promise<Axios
     const response = await httpClient.post<RoomDto>(`Rooms/${id}/Videos`, video);
     return response;
 }
+export const getNextVideo = async (id: string): Promise<AxiosResponse<RoomDto, any>> => {
+    const response = await httpClient.post<RoomDto>(`Rooms/${id}/NextVideo`, {});
+    return response;
+}

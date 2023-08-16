@@ -18,20 +18,24 @@ namespace Watch2Gether_Data.Repositories.Core
             return await _context.Videos.ToListAsync();
         }
 
-        public async Task<Video?> GetVideoByIdAsync(string id)
+        public async Task<Video?> GetVideoByIdAsync(Guid id)
         {
             return await _context.Videos.FindAsync(id);
         }
 
-        public async Task InsertVideoAsync(Video Video)
+        public async Task InsertVideoAsync(Video video)
         {
-            _context.Videos.Add(Video);
+            _context.Videos.Add(video);
             await SaveAsync();
         }
 
-        public async Task<Video?> DeleteVideoAsync(string VideoId)
+        public async Task<Video?> DeleteVideoAsync(Guid? videoId)
         {
-            var Video = await _context.Videos.FindAsync(VideoId);
+            if(videoId == null)
+            {
+                return null;
+            }
+            var Video = await _context.Videos.FindAsync(videoId);
 
             if (Video is null) 
             {
@@ -43,17 +47,17 @@ namespace Watch2Gether_Data.Repositories.Core
             return Video;
         }
 
-        public async Task UpdateVideoAsync(Video Video)
+        public async Task UpdateVideoAsync(Video video)
         {
-            var entity = await _context.Videos.FirstOrDefaultAsync(x => x.Id == Video.Id);
+            var entity = await _context.Videos.FirstOrDefaultAsync(x => x.Id == video.Id);
 
             if (entity is null) 
             {
                 return;
             } 
 
-            entity.Id = Video.Id;
-            entity.Title = Video.Title;
+            entity.Id = video.Id;
+            entity.Title = video.Title;
 
             _context.Update(entity);
             await SaveAsync();
