@@ -47,7 +47,7 @@ export const RoomPage = (): JSX.Element => {
     const [users, setUsers] = useState<UserDto[]>();
     const params = useParams();
     const playerRef = useRef<ReactPlayer>(null);
-    const [isPlaying, setIsPlaying] = useState(false);
+    const [isPlaying, setIsPlaying] = useState(true);
     const [position, setPosition] = useState<number>(0);
     const [volume, setVolume] = useState<number>(50);
     const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
@@ -106,6 +106,13 @@ export const RoomPage = (): JSX.Element => {
         });
     };
     const onPause = async (): Promise<void> => {
+        if (currentRoom?.creatorId !== authContext?.currentUser?.id) {
+            await connection?.invoke("VideoPlayer", {
+                roomId: params.id,
+                isPaused: true
+            });
+            return;
+        }
         await connection?.invoke("VideoPlayer", {
             roomId: params.id,
             duration: position,
@@ -140,6 +147,19 @@ export const RoomPage = (): JSX.Element => {
         setPosition(Math.round(progress.playedSeconds));
     };
 
+    useEffect(() => {
+        const handleKeyPress = (event: any) => {
+            if (event.keyCode === 27) {
+                setIsFullScreen(false);
+            }
+        };
+
+        document.addEventListener('keydown', handleKeyPress);
+
+        return () => {
+            document.removeEventListener('keydown', handleKeyPress);
+        };
+    }, []);
 
 
     useMemo(() => {
@@ -152,7 +172,7 @@ export const RoomPage = (): JSX.Element => {
             }
             const { data } = await API.getRoomById(params.id);
             setCurrentRoom(data);
-            if (!data.currentVideo || !data || !data.playList) {
+            if (!data || !data.currentVideo || !data.playList) {
                 return;
             }
             var currentVideo = data.playList?.find(x => x.id === data.currentVideo);
@@ -240,7 +260,7 @@ export const RoomPage = (): JSX.Element => {
     };
 
     const handleFullScreen = (isFullScreen: boolean): void => {
-        setIsFullScreen(isFullScreen);
+        setIsFullScreen(isFullScreen)
         toggleFullScreen(isFullScreen);
     };
 
