@@ -10,7 +10,7 @@ export const PlayListContainer = styled.div`
     flex-direction: column;
     align-items: center;
     margin-top: 20px;
-    background-color: #3928C2;
+    background-color: #4F5D75;
     color: white;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
 `;
@@ -37,7 +37,7 @@ export const PlayListItem = styled.div`
     align-items: center;
     justify-content: space-between;
     margin-top: 10px;
-    background-color: #271B85;
+    background-color:#2D3142;
     gap: 20px;
 `;
 export const PlayListItemTitle = styled.div`

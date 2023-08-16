@@ -7,7 +7,7 @@ export const Header = styled.div`
     align-items: center;
     display : flex;
     padding-x : 10px;
-    background-color: #3928C2;
+    background-color: #4F5D75;
     position: fixed;
     top: 0;
     width: 100%;
@@ -26,7 +26,7 @@ export const StyledList = styled(List)`
 export const StyledListItem = styled(ListItem)`
     margin-bottom:5px;
     background-color: white;
-    color: #3928C2;
+    color: #EF8354;
 `;
 
 export const StyledBox = styled(Box)`
@@ -43,7 +43,7 @@ export const StyledImage = styled.img`
 export const StyledListItemForImage = styled(ListItem)`
     margin-bottom: 20px;
     padding: 10px;
-    background-color: #3928C2;
+    background-color: #4F5D75;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -63,7 +63,7 @@ export const StyledMenuItem = styled(MenuItem)`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    color: #3928C2;
+    color: #EF8354;
 `;
 export const StyledMenuItemButton = styled.div`
     display: flex;

@@ -37,11 +37,11 @@ export const RoomList = styled.div`
         ::-webkit-scrollbar-thumb {
         border-radius: 5px;
         width: 10px;
-        background-color:  #3928C2;
+        background-color:  #EF8354;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-        background: #3928C2;
+        background: #EF8354;
         }
 `;
 

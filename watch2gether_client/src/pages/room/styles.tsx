@@ -65,7 +65,7 @@ export const VideoPlayerActionBar = styled.div`
     justify-content: space-between;
     width: 100%;
     height: 50px;
-    background-color: #3928C2;
+    background-color: #EF8354;
     align-items: center;
 `;
 export const Play = styled(PlayArrowIcon)`
@@ -130,7 +130,7 @@ export const PlayAndSeekActionBar = styled.div`
     justify-content: start;
     width: 100%;
     height: 50px;
-    background-color: #3928C2;
+    background-color: #EF8354;
     align-items: center;
     gap: 15px;
 `;
@@ -154,7 +154,7 @@ export const ChatContainer = styled.div`
     width: 30%;
     display: flex;
     flex-direction: column;
-    background-color: #3928C2;
+    background-color: #4F5D75;
     padding-left: 10px;
     padding-right: 10px;
 `;
@@ -162,7 +162,7 @@ export const ChatContainer = styled.div`
 export const QueueContainer = styled.div`
     display: flex;
     flex-direction: column;
-    background-color: #3928C2;
+    background-color: #EF8354;
     height: 100%;
 `;
 

@@ -37,7 +37,7 @@ export const ChatField = (props: ChatFieldParams): JSX.Element => {
                             width: "100%",
                             marginRight: "10px",
                             borderRadius: "5px",
-                            backgroundColor: "#271B85",
+                            backgroundColor: "#2D3142",
                             "& .MuiInputBase-input": {
                                 color: "white",
                             },

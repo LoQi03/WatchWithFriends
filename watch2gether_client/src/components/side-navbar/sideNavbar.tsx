@@ -97,20 +97,20 @@ export default function SideNavbar() {
                 {navigationArrayTop.map((navigation, index) => (
                     <Style.StyledListItem key={index} disablePadding onClick={() => { navigate(navigation.navigationURL) }} >
                         <ListItemButton>
-                            <ListItemIcon sx={{ color: "#3928C2" }}>
+                            <ListItemIcon sx={{ color: "#2D3142" }}>
                                 {navigation.icon}
                             </ListItemIcon>
-                            <ListItemText sx={{ color: "#3928C2" }} primary={navigation.title} />
+                            <ListItemText sx={{ color: "#2D3142" }} primary={navigation.title} />
                         </ListItemButton>
                     </Style.StyledListItem>
                 ))}
             </Style.StyledList>
             <Style.StyledListItem>
                 <ListItemButton onClick={logout} sx={{ position: 'absolute', bottom: '30px', left: '0px', width: '100%' }} >
-                    <ListItemIcon sx={{ color: "#3928C2", padding: '0px' }}>
+                    <ListItemIcon sx={{ color: "#2D3142", padding: '0px' }}>
                         {<LogoutIcon />}
                     </ListItemIcon>
-                    <ListItemText sx={{ color: "#3928C2" }} primary={'Logout'} />
+                    <ListItemText sx={{ color: "#2D3142" }} primary={'Logout'} />
                 </ListItemButton>
             </Style.StyledListItem>
         </Style.StyledBox>

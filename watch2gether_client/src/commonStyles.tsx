@@ -3,7 +3,7 @@ import { Button, ButtonProps, TextField } from "@mui/material";
 
 export const PageContainer = styled.div<{ backgroundImage?: string }>`
     padding-top: 80px;
-    background-color: #271B85;
+    background-color: #2D3142;
     align-items: center;
     width: 100%;
     display: flex;
@@ -45,8 +45,8 @@ export const StyledTextField = styled(TextField)({
     },
     input: {
         '&:-webkit-autofill': {
-            WebkitBoxShadow: '0 0 0 1000px #271B85 inset',
-            backgroundColor: '#271B85 !important',
+            WebkitBoxShadow: '0 0 0 1000px #2D3142 inset',
+            backgroundColor: '#2D3142 !important',
             WebkitTextFillColor: "white",
             caretColor: "white",
         },
@@ -60,7 +60,7 @@ export const GenericButton = (props: ButtonProps): JSX.Element => <Button
     variant="contained"
     style={{
         color: "white",
-        backgroundColor: "#3928C2",
+        backgroundColor: "#EF8354",
     }}
     {...props} />;
 

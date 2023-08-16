@@ -5,7 +5,7 @@ export const RoomListItemContainer = styled.div`
     width: 100%;
     margin-top: 10px;
     margin-bottom: 10px;
-    background-color: #3928C2;
+    background-color: #EF8354
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 `;

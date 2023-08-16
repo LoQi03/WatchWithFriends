@@ -10,7 +10,7 @@ export const RoomUsersContainer = styled.div`
     background-color: white;
     justify-content: start;
     align-items: center;
-    background-color: #3928C2;
+    background-color: #4F5D75;
     gap: 10px;
 `;
 
