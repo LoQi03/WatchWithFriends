@@ -1,5 +1,5 @@
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { AuthContext } from '../../services/authenticationContext';
 import * as signalR from '@microsoft/signalr';
 import * as AppConfig from '../../AppConfig';
@@ -45,6 +45,7 @@ export const RoomPage = (): JSX.Element => {
     const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
     const [messages, setMessages] = useState<ChatEntryDto[]>([]);
     const [users, setUsers] = useState<UserDto[]>();
+    const navigate = useNavigate();
     const params = useParams();
     const playerRef = useRef<ReactPlayer>(null);
     const [isPlaying, setIsPlaying] = useState(true);
@@ -74,7 +75,7 @@ export const RoomPage = (): JSX.Element => {
             const position = player.getCurrentTime();
             const difference = Math.abs(videoPlayer.duration - position);
 
-            if (difference >= 15) {
+            if (difference >= 5) {
                 player.seekTo(videoPlayer.duration);
             }
         }
@@ -225,6 +226,7 @@ export const RoomPage = (): JSX.Element => {
         return () => {
             if (connection) {
                 connection.stop();
+                navigate('rooms');
             }
         };
     }, [connection, params.id,
@@ -232,7 +234,8 @@ export const RoomPage = (): JSX.Element => {
         authContext?.currentUser?.name,
         messageHandler,
         videoPlayerHandler,
-        updateRoomHandler]);
+        updateRoomHandler,
+        navigate]);
 
     const sendMessage = async (messageText: string): Promise<void> => {
         if (!authContext?.currentUser?.name || !authContext?.currentUser?.id || !params.id) {

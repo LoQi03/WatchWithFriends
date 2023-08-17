@@ -20,6 +20,7 @@ export const ChatEntryContent = styled.div<{ isCurrentUser: boolean }>`
     text-align: justify;
     font-weight: 550;
     font-size: 15px;
+    overflow-wrap: break-word;
 `;
 
 export const ChatEntryImage = styled.img`
