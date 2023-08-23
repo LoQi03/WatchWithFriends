@@ -36,11 +36,11 @@ export const VideoPlayer = (): JSX.Element => {
                             sx={Styles.VideoPlayerSlider}
                             min={0}
                             step={1}
-                            value={roomContext?.position}
+                            value={roomContext?.duration}
                             max={roomContext?.playerRef.current?.getDuration() ?? 0}
                             onChange={(_, value) => roomContext?.onSeek(value as number)}
                         />
-                        <Styles.TimeIndicator>{convertSecondsToTimeFormat(roomContext?.position)}</Styles.TimeIndicator>
+                        <Styles.TimeIndicator>{convertSecondsToTimeFormat(roomContext?.duration)}</Styles.TimeIndicator>
                     </Styles.PlayAndSeekActionBar>
                     <Styles.VolumeActionBar>
                         {roomContext?.volume > 0 ? <Styles.Volume onClick={() => roomContext?.onVolumeChange(0)} /> : <Styles.Mute onClick={() => roomContext?.onVolumeChange(50)} />}

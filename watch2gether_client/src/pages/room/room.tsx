@@ -30,7 +30,7 @@ export interface RoomContextType {
     onEnd: () => Promise<void>;
     playerRef: React.RefObject<ReactPlayer>;
     isPlaying: boolean;
-    position: number;
+    duration: number;
     volume: number;
     isFullScreen: boolean;
     currentRoom: RoomDto | null;
@@ -51,7 +51,7 @@ export const RoomPage = (): JSX.Element => {
     const params = useParams();
     const playerRef = useRef<ReactPlayer>(null);
     const [isPlaying, setIsPlaying] = useState(true);
-    const [position, setPosition] = useState<number>(0);
+    const [duration, setDuration] = useState<number>(0);
     const [volume, setVolume] = useState<number>(50);
     const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
     const [newUrl, setNewUrl] = useState<string>('');
@@ -86,7 +86,6 @@ export const RoomPage = (): JSX.Element => {
     const updateRoomHandler = useCallback((room: RoomDto) => {
         setCurrentRoom(room);
         var currentVideo = room.playList?.find(x => x.id === room.currentVideo);
-        console.log(currentVideo);
         if (!currentVideo) {
             return;
         }
@@ -107,16 +106,8 @@ export const RoomPage = (): JSX.Element => {
         });
     };
     const onPause = async (): Promise<void> => {
-        if (currentRoom?.creatorId !== authContext?.currentUser?.id) {
-            await connection?.invoke("VideoPlayer", {
-                roomId: params.id,
-                isPaused: true
-            });
-            return;
-        }
         await connection?.invoke("VideoPlayer", {
             roomId: params.id,
-            duration: position,
             isPaused: true
         });
     };
@@ -133,7 +124,6 @@ export const RoomPage = (): JSX.Element => {
     };
 
     const onSeek = async (seconds: number): Promise<void> => {
-        console.log('seek:' + seconds);
         await connection?.invoke("VideoPlayer", {
             roomId: params.id,
             duration: seconds
@@ -141,10 +131,10 @@ export const RoomPage = (): JSX.Element => {
     };
 
     const onProgress = async (progress: OnProgressProps): Promise<void> => {
-        if (Math.round(progress.playedSeconds) === position) {
+        if (Math.round(progress.playedSeconds) === duration) {
             return;
         }
-        setPosition(Math.round(progress.playedSeconds));
+        setDuration(Math.round(progress.playedSeconds));
     };
 
     useEffect(() => {
@@ -226,16 +216,38 @@ export const RoomPage = (): JSX.Element => {
         return () => {
             if (connection) {
                 connection.stop();
-                navigate('rooms');
+                navigate('/rooms');
             }
         };
-    }, [connection, params.id,
+    }, [
+        connection, params.id,
         authContext?.currentUser?.id,
         authContext?.currentUser?.name,
         messageHandler,
         videoPlayerHandler,
         updateRoomHandler,
-        navigate]);
+        navigate,
+    ]);
+
+    useMemo(() => {
+        if (authContext?.currentUser?.id !== currentRoom?.creatorId) {
+            return;
+        }
+        const sendCurrentDurration = async () => {
+            if (!params.id) {
+                return;
+            }
+            const player = playerRef.current?.getInternalPlayer();
+            if (player === undefined) {
+                return;
+            }
+            await connection?.invoke("VideoPlayer", {
+                roomId: params.id,
+                duration: duration
+            });
+        };
+        sendCurrentDurration();
+    }, [duration, params.id, authContext?.currentUser?.id, currentRoom?.creatorId, connection]);
 
     const sendMessage = async (messageText: string): Promise<void> => {
         if (!authContext?.currentUser?.name || !authContext?.currentUser?.id || !params.id) {
@@ -251,6 +263,7 @@ export const RoomPage = (): JSX.Element => {
         };
         connection?.invoke("SendMessage", message);
     };
+
 
     const onVolumeChange = async (volume: number): Promise<void> => {
         setVolume(volume);
@@ -273,6 +286,7 @@ export const RoomPage = (): JSX.Element => {
 
         connection.invoke("UpdateRoom", data);
     };
+
 
     const handleFullScreen = (isFullScreen: boolean): void => {
         setIsFullScreen(isFullScreen)
@@ -316,7 +330,7 @@ export const RoomPage = (): JSX.Element => {
             onEnd,
             playerRef,
             isPlaying,
-            position,
+            duration,
             volume,
             isFullScreen,
             currentRoom,
@@ -337,7 +351,9 @@ export const RoomPage = (): JSX.Element => {
                             <Styles.VideoPlayerContainer isFullScreen={isFullScreen}>
                                 <VideoPlayer />
                             </Styles.VideoPlayerContainer>
-                            {currentRoom?.playList && currentRoom?.playList?.length > 0 && <PlayList />}
+                            {
+                                currentRoom?.playList && currentRoom?.playList?.length > 0 && <PlayList />
+                            }
                         </Styles.VideoPlayerAndPlayListContainer>
                         <Styles.ChatContainer>
                             <RoomUsers users={users ?? []} />
