@@ -120,6 +120,9 @@ export const RoomPage = (): JSX.Element => {
             return;
         }
         const { data } = await API.getNextVideo(params.id);
+        if (!data) {
+            return;
+        }
         await connection?.invoke("UpdateRoom", data);
     };
 

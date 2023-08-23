@@ -25,7 +25,6 @@ export const ChatEntryContent = styled.div<{ isCurrentUser: boolean }>`
 
 export const ChatEntryImage = styled.img`
     cursor: pointer;
-    margin-right: 10px;
     height: 50px;
     width: 50px;
     border-radius: 50%;
