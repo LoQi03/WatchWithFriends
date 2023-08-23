@@ -204,6 +204,24 @@ namespace Watch2Gether_Backend.Services
             room = await _roomRepository.GetRoomByIdAsync(room.Id);
             return RoomDTO.FromModel(room);
         }
+        public async Task<RoomDTO> DeleteVideo(Guid roomId,Guid videoId)
+        {
+            var room = await _roomRepository.GetRoomByIdAsync(roomId);
+            RoomValidition (room);
+            if(videoId == room.CurrentVideo)
+            {
+                await _videoRepository.DeleteVideoAsync(videoId);
+                room.CurrentVideo = room.PlayList?.FirstOrDefault(v => v.Id != room.CurrentVideo)?.Id;
+            }
+            else
+            {
+                await _videoRepository.DeleteVideoAsync(videoId);
+            }
+            room = await _roomRepository.GetRoomByIdAsync(roomId);
+            await _roomRepository.UpdateRoomAsync(room);
+            return RoomDTO.FromModel(room);
+        }
+
         private void RoomValidition(Room room)
         {
             if (room != null)

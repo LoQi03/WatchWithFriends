@@ -1,25 +1,25 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import * as Styles from './styles';
 import { VideoDto } from '../../models/videoDto';
+import { AuthContext } from '../../services/authenticationContext';
+import { RoomContext } from '../../pages/room/room';
 
-interface PlayListProps {
-    videos: VideoDto[] | undefined;
-};
-
-export const PlayList = (props: PlayListProps): JSX.Element => {
-
-
+export const PlayList = (): JSX.Element => {
+    const authContext = useContext(AuthContext);
+    const roomContext = useContext(RoomContext);
     return (
         <>
             {
                 < Styles.PlayListContainer >
                     <Styles.PlayList>
-                        {props.videos?.map((video: VideoDto) => {
+                        {roomContext?.currentRoom?.playList?.map((video: VideoDto) => {
                             return (
                                 <Styles.PlayListItem key={video.id}>
                                     <Styles.PlayListItemImage src={video.image} alt={video.title} />
                                     <Styles.PlayListItemTitle>{video.title}</Styles.PlayListItemTitle>
-                                    <Styles.PlayListItemDelete />
+                                    {
+                                        authContext?.currentUser?.id === roomContext.currentRoom?.creatorId && <Styles.PlayListItemDelete onClick={() => roomContext.handleDeleteVideo(video.id!)} />
+                                    }
                                 </Styles.PlayListItem>
                             );
                         })}

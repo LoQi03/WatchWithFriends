@@ -23,3 +23,7 @@ export const getNextVideo = async (id: string): Promise<AxiosResponse<RoomDto, a
     const response = await httpClient.post<RoomDto>(`Rooms/${id}/NextVideo`, {});
     return response;
 }
+export const deleteVideo = async (id: string, videoId: string): Promise<AxiosResponse<RoomDto, any>> => {
+    const response = await httpClient.delete<RoomDto>(`Rooms/${id}/Videos/${videoId}`);
+    return response;
+}

@@ -63,9 +63,9 @@ export const ImageContainer = styled.div`
 export const ProfileButtonStyle: Theme =
 {
     paddingX: '30px',
-    backgroundColor: '#3928C2',
+    backgroundColor: '#EF8354',
     color: 'white',
-    '&:hover': { backgroundColor: '#3928C2' },
-    '&:active': { backgroundColor: '#3928C2' },
-    '&:focus': { backgroundColor: '#3928C2' }
+    '&:hover': { backgroundColor: '#EF8354' },
+    '&:active': { backgroundColor: '#EF8354' },
+    '&:focus': { backgroundColor: '#EF8354' }
 }

@@ -33,9 +33,11 @@ export interface RoomContextType {
     position: number;
     volume: number;
     isFullScreen: boolean;
+    currentRoom: RoomDto | null;
     currentVideo: VideoDto | null;
     onVolumeChange: (volume: number) => Promise<void>;
     handleFullScreen: (isFullScreen: boolean) => void;
+    handleDeleteVideo: (videoId: string) => Promise<void>;
 }
 
 export const RoomContext = createContext<RoomContextType | null>(null);
@@ -83,10 +85,8 @@ export const RoomPage = (): JSX.Element => {
 
     const updateRoomHandler = useCallback((room: RoomDto) => {
         setCurrentRoom(room);
-        if (!room.currentVideo) {
-            return;
-        }
         var currentVideo = room.playList?.find(x => x.id === room.currentVideo);
+        console.log(currentVideo);
         if (!currentVideo) {
             return;
         }
@@ -261,6 +261,19 @@ export const RoomPage = (): JSX.Element => {
         player.setVolume(volume);
     };
 
+    const handleDeleteVideo = async (videoId: string): Promise<void> => {
+        if (!params.id) {
+            return;
+        }
+        const { data } = await API.deleteVideo(params.id, videoId);
+
+        if (!data || !connection) {
+            return;
+        }
+
+        connection.invoke("UpdateRoom", data);
+    };
+
     const handleFullScreen = (isFullScreen: boolean): void => {
         setIsFullScreen(isFullScreen)
         toggleFullScreen(isFullScreen);
@@ -306,9 +319,11 @@ export const RoomPage = (): JSX.Element => {
             position,
             volume,
             isFullScreen,
+            currentRoom,
             currentVideo,
             onVolumeChange,
             handleFullScreen,
+            handleDeleteVideo
         }}>
             <Styles.RoomHeader>
                 <CommonStyles.StyledTextField onChange={e => setNewUrl(e.target.value)} />
@@ -322,7 +337,7 @@ export const RoomPage = (): JSX.Element => {
                             <Styles.VideoPlayerContainer isFullScreen={isFullScreen}>
                                 <VideoPlayer />
                             </Styles.VideoPlayerContainer>
-                            <PlayList videos={currentRoom?.playList} />
+                            {currentRoom?.playList && currentRoom?.playList?.length > 0 && <PlayList />}
                         </Styles.VideoPlayerAndPlayListContainer>
                         <Styles.ChatContainer>
                             <RoomUsers users={users ?? []} />

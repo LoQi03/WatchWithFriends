@@ -58,6 +58,12 @@ namespace Watch2Gether_Backend.Controllers
             var result = await _roomService.AddVideo(id, video);
             return Ok(result);
         }
+        [HttpDelete("{id}/Videos/{videoId}"), Authorize]
+        public async Task<ActionResult<RoomDTO>> DeleteVideoFromRoom(Guid id, Guid videoId)
+        {
+            var result = await _roomService.DeleteVideo(id, videoId);
+            return Ok(result);
+        }
         [HttpPost("{id}/NextVideo"), Authorize]
         public async Task<ActionResult<RoomDTO>> NextVideoForRoom(Guid id)
         {

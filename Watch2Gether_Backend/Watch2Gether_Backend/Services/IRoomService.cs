@@ -1,5 +1,4 @@
 ﻿using Watch2Gether_Backend.Model;
-using Watch2Gether_Data.Model;
 
 namespace Watch2Gether_Backend.Services
 {
@@ -15,6 +14,7 @@ namespace Watch2Gether_Backend.Services
         Task<List<UserDTO>?> GetRoomUsers(RoomDTO room);
         Task<RoomDTO> AddVideo(Guid roomId, Video video);
         Task UpdateRoom(RoomDTO roomDTO);
+        Task<RoomDTO> DeleteVideo(Guid roomId, Guid videoId);
         Task<RoomDTO?> NextVideo(Guid roomId);
     }
 }
