@@ -198,6 +198,13 @@ export const RoomPage = (): JSX.Element => {
                 });
 
                 roomConnection.on('GetRoomUsers', async (users: UserDto[]) => {
+                    try {
+                        const { data } = await API.getRoomById(params.id!);
+                        setCurrentRoom(data);
+                    }
+                    catch (error) {
+                        console.log(error);
+                    }
                     setUsers(users);
                 });
 
@@ -240,17 +247,15 @@ export const RoomPage = (): JSX.Element => {
             if (!params.id) {
                 return;
             }
-            const player = playerRef.current?.getInternalPlayer();
-            if (player === undefined) {
-                return;
-            }
             await connection?.invoke("VideoPlayer", {
                 roomId: params.id,
-                duration: duration
+                duration: duration,
+                isPlaying: isPlaying,
+                isPaused: !isPlaying
             });
         };
         sendCurrentDurration();
-    }, [duration, params.id, authContext?.currentUser?.id, currentRoom?.creatorId, connection]);
+    }, [duration, params.id, authContext?.currentUser?.id, currentRoom?.creatorId, connection, isPlaying]);
 
     const sendMessage = async (messageText: string): Promise<void> => {
         if (!authContext?.currentUser?.name || !authContext?.currentUser?.id || !params.id) {

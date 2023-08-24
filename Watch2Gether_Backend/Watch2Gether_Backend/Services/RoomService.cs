@@ -142,6 +142,17 @@ namespace Watch2Gether_Backend.Services
                 return null;
             }
 
+            if(room.CreatorId != deletedUser.UserId)
+            {
+                return RoomDTO.FromModel(room);
+            }
+            room.CreatorId = room?.RoomUsers?.FirstOrDefault(x => x.UserId != room.CreatorId)?.UserId ?? Guid.Empty;
+            if(room?.CreatorId != Guid.Empty)
+            {
+                await _roomRepository.UpdateRoomAsync(room);
+                return RoomDTO.FromModel(room);
+            }
+            await _roomRepository.DeleteRoomAsync(room.Id);
             return RoomDTO.FromModel(room);
         }
 
