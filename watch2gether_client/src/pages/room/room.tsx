@@ -348,8 +348,8 @@ export const RoomPage = (): JSX.Element => {
             handleDeleteVideo
         }}>
             <Styles.RoomHeader>
-                <CommonStyles.StyledTextField onChange={e => setNewUrl(e.target.value)} />
-                <CommonStyles.GenericButton onClick={() => handlePlayUrl(newUrl)}>Play</CommonStyles.GenericButton>
+                <Styles.InputTextField onChange={e => setNewUrl(e.target.value)} />
+                <Styles.PlayButton onClick={() => handlePlayUrl(newUrl)}>Play</Styles.PlayButton>
             </Styles.RoomHeader>
             <Styles.RoomContainer>
                 {
