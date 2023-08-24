@@ -8,6 +8,7 @@ import VolumeOffIcon from '@mui/icons-material/VolumeOff';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import { Theme } from "@emotion/react";
+import { Button, ButtonProps, TextField } from "@mui/material";
 
 export const RoomHeader = styled.div`
     display: flex;
@@ -15,7 +16,62 @@ export const RoomHeader = styled.div`
     justify-content: center;
     align-items: center;
     gap: 20px;
+    background-color: #4F5D75;
+    margin-top: 20px;
+    width: 40%;
+    padding: 10px;
 `;
+
+export const PlayButton = (props: ButtonProps): JSX.Element => <Button
+    variant="contained"
+    style={{
+        color: "white",
+        backgroundColor: "#EF8354",
+        height: "100%",
+        width: "15%",
+        fontSize: "20px",
+    }}
+    {...props} />;
+
+
+export const InputTextField = styled(TextField)({
+    backgroundColor: "#2D3142",
+    "& .MuiInputBase-input": {
+        color: "white",
+    },
+    "& .MuiInputLabel-root": {
+        color: "white",
+    },
+    "& .MuiInputLabel-root.Mui-focused": {
+        color: "white",
+    },
+    "& .MuiIconButton-root": {
+        color: "white",
+    },
+    "& .MuiOutlinedInput-notchedOutline": {
+        borderColor: "#2D3142",
+    },
+    "& .MuiOutlinedInput-root": {
+        "& fieldset": {
+            borderColor: "#2D3142",
+        },
+        "&:hover fieldset": {
+            borderColor: "#2D3142",
+        },
+        "&.Mui-focused fieldset": {
+            borderColor: "#2D3142",
+        },
+    },
+    input: {
+        '&:-webkit-autofill': {
+            WebkitBoxShadow: '0 0 0 1000px #2D3142 inset',
+            backgroundColor: '#2D3142 !important',
+            WebkitTextFillColor: "white",
+            caretColor: "#2D3142",
+        },
+    },
+    width: "100%"
+});
 
 export const RoomContainer = styled.div`
     margin-top: 20px;
