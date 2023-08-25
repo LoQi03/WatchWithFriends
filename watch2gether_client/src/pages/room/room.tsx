@@ -180,7 +180,7 @@ export const RoomPage = (): JSX.Element => {
             };
         };
         getRoom();
-    }, [params.id, currentRoom]);
+    }, [params.id, currentRoom, navigate]);
 
     useEffect(() => {
         const startConnection = async () => {

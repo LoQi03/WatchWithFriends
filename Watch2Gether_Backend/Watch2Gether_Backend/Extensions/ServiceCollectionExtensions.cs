@@ -46,10 +46,11 @@ namespace Watch2Gether_Backend.Extensions
             options.AddDefaultPolicy(
                 policy =>
                 {
-                    policy.WithOrigins("http://localhost:3000")
-                      .AllowAnyHeader()
-                      .AllowAnyMethod()
-                      .AllowCredentials();
+                    policy
+                        .WithOrigins("http://localhost:3000") // Add meg az eredeti oldal domainjét itt
+                        .AllowCredentials()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
                 });
 
         }
