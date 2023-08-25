@@ -80,7 +80,7 @@ export const RoomContainer = styled.div`
     flex-direction: row;
     justify-content: start;
     gap: 20px;
-    height: 90%;
+    max-height: 90%;
 `;
 export const UsersContainer = styled.div`
     display: flex;

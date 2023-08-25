@@ -110,7 +110,7 @@ namespace Watch2Gether_Backend.Services
             result.PasswordHash = hashed;
             result.Salt = Convert.ToBase64String(salt);
 
-            await _userRepository.UpdateUserAsync(result);
+            await _userRepository.InsertUserAsync(result);
             return UserDTO.FromModel(result);
         }
         public async Task<User?> GetUserByEmail(string email)

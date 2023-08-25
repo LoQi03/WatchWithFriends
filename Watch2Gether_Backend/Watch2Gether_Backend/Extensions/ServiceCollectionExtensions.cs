@@ -47,7 +47,11 @@ namespace Watch2Gether_Backend.Extensions
                 policy =>
                 {
                     policy
-                        .WithOrigins("http://localhost:3000") // Add meg az eredeti oldal domainjét itt
+                        .WithOrigins
+                        (
+                            "http://localhost:3000",
+                            "http://localhost:5001"
+                        ) 
                         .AllowCredentials()
                         .AllowAnyHeader()
                         .AllowAnyMethod();

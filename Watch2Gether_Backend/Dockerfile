@@ -1,6 +1,6 @@
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
-ENV ASPNETCORE_ENVIRONMENT=Development
+ENV ASPNETCORE_ENVIRONMENT=Production
 ENV ASPNETCORE_URLS http://*:5000
 EXPOSE 5000
 
@@ -22,4 +22,7 @@ RUN dotnet publish -c $Configuration -o /app
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
+
+COPY ["Watch2Gether_Backend/Assets", "Assets/"]
+
 ENTRYPOINT ["dotnet", "Watch2Gether_Backend.dll"]
