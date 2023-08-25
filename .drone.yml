@@ -1,21 +1,13 @@
 kind: pipeline
 name: run_apps
-#events:
-##trigger:
-##  event:
-##    - push
-##  branch:
-##    - main 
 
 steps:
   - name: Run Backend
-    image: docker/compose:1.29.2
     commands:
       - cd Watch2Gether_Backend
       - docker-compose up -d
 
   - name: Run Frontend
-    image: docker/compose:1.29.2
     commands:
       - cd watch2gether_client
       - docker-compose up -d
