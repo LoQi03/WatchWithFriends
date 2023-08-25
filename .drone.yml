@@ -4,13 +4,13 @@ name: run_apps
 
 steps:
   - name: Run Backend
-    image: docker/compose:2.20.2
+    image: docker/compose
     commands:
       - cd Watch2Gether_Backend
       - docker-compose up -d
 
   - name: Run Frontend
-    image: docker/compose:2.20.2
+    image: docker/compose
     commands:
       - cd watch2gether_client
       - docker-compose up -d
