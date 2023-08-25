@@ -12,7 +12,6 @@ import { RoomUsers } from '../../components/room-users/room-users';
 import ReactPlayer from 'react-player';
 import { VideoPlayerDto } from '../../models/videoPlayerDto';
 import { toggleFullScreen } from '../../misc/toggleFullScreen';
-import * as CommonStyles from "../../commonStyles";
 import { VideoDto } from '../../models/videoDto';
 import { RoomDto } from '../../models/roomDto';
 import * as API from '../../api/roomManagmentAPI';
@@ -140,6 +139,7 @@ export const RoomPage = (): JSX.Element => {
         setDuration(Math.round(progress.playedSeconds));
     };
 
+
     useEffect(() => {
         const handleKeyPress = (event: any) => {
             if (event.keyCode === 27) {
@@ -163,16 +163,21 @@ export const RoomPage = (): JSX.Element => {
             if (!params.id) {
                 return;
             }
-            const { data } = await API.getRoomById(params.id);
-            setCurrentRoom(data);
-            if (!data || !data.currentVideo || !data.playList) {
-                return;
-            }
-            var currentVideo = data.playList?.find(x => x.id === data.currentVideo);
-            if (!currentVideo) {
-                return;
-            }
-            setCurrentVideo(currentVideo);
+            try {
+                const { data } = await API.getRoomById(params.id);
+                setCurrentRoom(data);
+                if (!data || !data.currentVideo || !data.playList) {
+                    return;
+                }
+                var currentVideo = data.playList?.find(x => x.id === data.currentVideo);
+                if (!currentVideo) {
+                    return;
+                }
+                setCurrentVideo(currentVideo);
+            } catch (error) {
+                console.log(error);
+                navigate('/rooms');
+            };
         };
         getRoom();
     }, [params.id, currentRoom]);
@@ -305,27 +310,35 @@ export const RoomPage = (): JSX.Element => {
         if (!url) {
             return;
         }
-        const videoDetails = await getVideoDetails(url);
-        if (!videoDetails) {
+        try {
+            const videoDetails = await getVideoDetails(url);
+            if (!videoDetails) {
+                return;
+            }
+            const video: VideoDto = {
+                url: url,
+                image: videoDetails.thumbnails.standard.url,
+                title: videoDetails.title,
+            };
+
+            if (!params.id) {
+                return;
+            }
+            const { data } = await API.addVideoToRoom(params.id, video);
+
+            if (!data || !connection) {
+                return;
+            }
+
+            await connection.invoke("UpdateRoom", data);
+            setNewUrl('');
+        }
+        catch (error) {
+            setNewUrl('');
+            alert('Invalid url');
             return;
         }
 
-        const video: VideoDto = {
-            url: url,
-            image: videoDetails.thumbnails.standard.url,
-            title: videoDetails.title,
-        };
-
-        if (!params.id) {
-            return;
-        }
-        const { data } = await API.addVideoToRoom(params.id, video);
-
-        if (!data || !connection) {
-            return;
-        }
-
-        connection.invoke("UpdateRoom", data);
     };
 
     return (
@@ -348,7 +361,7 @@ export const RoomPage = (): JSX.Element => {
             handleDeleteVideo
         }}>
             <Styles.RoomHeader>
-                <Styles.InputTextField onChange={e => setNewUrl(e.target.value)} />
+                <Styles.InputTextField value={newUrl} onChange={e => setNewUrl(e.target.value)} />
                 <Styles.PlayButton onClick={() => handlePlayUrl(newUrl)}>Play</Styles.PlayButton>
             </Styles.RoomHeader>
             <Styles.RoomContainer>
