@@ -1,11 +1,11 @@
 kind: pipeline
 name: run_apps
 #events:
-trigger:
-  event:
-    - push
-  branch:
-    - main 
+##trigger:
+##  event:
+##    - push
+##  branch:
+##    - main 
 
 steps:
   - name: Run Backend
