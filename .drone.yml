@@ -1,0 +1,16 @@
+kind: pipeline
+type: docker
+name: run_docker_compose
+
+steps:
+  - name: Run Backend
+    image: docker/compose:1.29.2
+    commands:
+      - cd Watch2Gether_Backend
+      - docker-compose up -d
+
+  - name: Run Client
+    image: docker/compose:1.29.2
+    commands:
+      - cd watch2gether_client
+      - docker-compose up -d
