@@ -1,6 +1,12 @@
 kind: pipeline
 name: run_apps
 
+trigger:
+  event:
+    - push
+  branch:
+    - main 
+
 steps:
   - name: Run Backend
     image: docker/compose:1.29.2
