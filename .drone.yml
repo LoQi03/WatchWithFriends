@@ -1,6 +1,6 @@
 kind: pipeline
 name: run_apps
-
+#events:
 trigger:
   event:
     - push
