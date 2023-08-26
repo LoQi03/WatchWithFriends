@@ -14,7 +14,7 @@ steps:
 - name: build frontend
   image: docker
   commands:
-  - cd watch2gether_client
+  - cd watchwithfriends
   - docker-compose up -d
   volumes:
   - name: docker_sock

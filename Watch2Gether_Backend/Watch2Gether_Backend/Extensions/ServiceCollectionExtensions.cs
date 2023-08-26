@@ -50,7 +50,8 @@ namespace Watch2Gether_Backend.Extensions
                         .WithOrigins
                         (
                             "http://localhost:3000",
-                            "http://localhost:5001"
+                            "http://localhost:5001",
+                            "http://localhost:5173"
                         ) 
                         .AllowCredentials()
                         .AllowAnyHeader()
