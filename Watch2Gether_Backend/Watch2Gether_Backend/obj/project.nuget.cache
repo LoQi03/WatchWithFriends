@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "dBClc7wOYReRBtgfJJDYtdVtRi8WFumJbphjTGcjDhodhHG4eYzPrPWgfHT3UYJ1nTxV8Cq2pBGBQIv1SgbDEQ==",
+  "dgSpecHash": "oX57CRBe58+rxE5OFVsi9UCZB8cnqvkv6Bi1VSDCZ6KBrm0KMZ6BNBs13YdBLj3oYlBJwmE+/cS8t5ABU9qhdw==",
   "success": true,
   "projectFilePath": "C:\\Repos\\Watch2gether\\Watch2Gether_Backend\\Watch2Gether_Backend\\Watch2Gether_Backend.csproj",
   "expectedPackageFiles": [
@@ -56,6 +56,7 @@
     "C:\\Users\\mates\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
     "C:\\Users\\mates\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\mates\\.nuget\\packages\\scrutor\\3.3.0\\scrutor.3.3.0.nupkg.sha512",
+    "C:\\Users\\mates\\.nuget\\packages\\sixlabors.imagesharp\\3.0.1\\sixlabors.imagesharp.3.0.1.nupkg.sha512",
     "C:\\Users\\mates\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
     "C:\\Users\\mates\\.nuget\\packages\\swashbuckle.aspnetcore.filters\\7.0.6\\swashbuckle.aspnetcore.filters.7.0.6.nupkg.sha512",
     "C:\\Users\\mates\\.nuget\\packages\\swashbuckle.aspnetcore.filters.abstractions\\7.0.6\\swashbuckle.aspnetcore.filters.abstractions.7.0.6.nupkg.sha512",

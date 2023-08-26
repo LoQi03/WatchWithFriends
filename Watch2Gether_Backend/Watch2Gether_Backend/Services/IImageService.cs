@@ -1,4 +1,5 @@
 ﻿using Watch2Gether_Data.Model;
+using Image = Watch2Gether_Data.Model.Image;
 
 namespace Watch2Gether_Backend.Services
 {

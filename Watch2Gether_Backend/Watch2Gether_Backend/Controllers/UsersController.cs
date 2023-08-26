@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Watch2Gether_Backend.Model;
-using System.Drawing;
-using Image = Watch2Gether_Data.Model.Image;
+using ImageModel = Watch2Gether_Data.Model.Image;
 using Watch2Gether_Backend.Services;
 using Microsoft.AspNetCore.Authorization;
+using ImageSharpImage = Watch2Gether_Data.Model.Image;
 
 namespace Watch2Gether_Backend.Controllers
 {
@@ -121,12 +121,14 @@ namespace Watch2Gether_Backend.Controllers
                 return NotFound();
             }
         }
+
         [HttpPost("{userid}/image"), Authorize]
         public async Task<ActionResult<UserDTO>> AddImage(Guid userid)
         {
             var user = await _userService.GetUserById(userid);
             if (Request.Form.Files.Count == 0 || user is null) return BadRequest();
-            var img = new Image();
+
+            var img = new ImageModel(); // Saját Image modell
             var file = Request.Form.Files[0];
             var imgId = Guid.NewGuid();
 
@@ -136,14 +138,14 @@ namespace Watch2Gether_Backend.Controllers
             {
                 return BadRequest();
             }
-            var imgBitmap = new Bitmap(streamReadImgFile); //only windows supp
 
             byte[] data;
             using var streamReadDataFromImage = new MemoryStream();
 
             if (streamReadDataFromImage is null) return BadRequest();
 
-            imgBitmap?.Save(streamReadDataFromImage, System.Drawing.Imaging.ImageFormat.Jpeg); //only windows supp
+            await streamReadImgFile.CopyToAsync(streamReadDataFromImage); // Másoljuk át a kép adatokat
+
             data = streamReadDataFromImage.ToArray();
             await _imageService.RemoveImage(user.ImageId);
             user.ImageId = imgId;

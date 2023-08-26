@@ -1,5 +1,5 @@
-﻿using Watch2Gether_Data.Model;
-using Watch2Gether_Data.Repositories;
+﻿using Watch2Gether_Data.Repositories;
+using Image = Watch2Gether_Data.Model.Image;
 
 namespace Watch2Gether_Backend.Services
 {
