@@ -2,14 +2,25 @@ kind: pipeline
 name: default
 
 steps:
-- name: test
+- name: build backend
   image: docker
-  volumes:
-  - name: docker_sock
-    path: /var/run/docker.sock
   commands:
   - cd Watch2Gether_Backend
   - docker-compose up -d
+  volumes:
+  - name: docker_sock
+    path: /var/run/docker.sock
+
+- name: build frontend
+  image: docker
+  commands:
+  - cd watch2gether_client
+  - docker-compose up -d
+  volumes:
+  - name: docker_sock
+    path: /var/run/docker.sock
+
+
 volumes:
   - name: docker_sock
     host:
