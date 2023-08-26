@@ -19,14 +19,6 @@ FROM builder AS publish
 ARG Configuration=Release
 RUN dotnet publish -c $Configuration -o /app
 
-# Install libgdiplus
-RUN apt-get update && \
-    apt-get install -y libgdiplus && \
-    ln -s /usr/lib/libgdiplus.so /usr/lib/gdiplus.dll
-
-# Set DOTNET_SYSTEM_DRAWING_COMMON to enable System.Drawing.Common on Linux
-ENV DOTNET_SYSTEM_DRAWING_COMMON=true
-
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
