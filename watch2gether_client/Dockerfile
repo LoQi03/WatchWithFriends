@@ -1,5 +1,5 @@
 # pull official base image
-FROM node:18.16.1-buster as build
+FROM node:18.16.1-buster-slim as build
 
 # set working directory
 WORKDIR /app

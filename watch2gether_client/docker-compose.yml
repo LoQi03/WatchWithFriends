@@ -4,8 +4,7 @@ services:
     build: .
     volumes:
       - '.:/app'
-      - '/app/node_modules'
     ports:
       - "3000:80"
     environment:
-      - REACT_APP_WATCH_2_GETHER_BACKEND_ADDRESS=https://localhost:7165/
+      - REACT_APP_WATCH_2_GETHER_BACKEND_ADDRESS=https://localhost:5000/
