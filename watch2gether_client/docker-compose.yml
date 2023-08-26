@@ -5,6 +5,6 @@ services:
     volumes:
       - '.:/app'
     ports:
-      - "3000:3000"
+      - "3000:80"
     environment:
       - REACT_APP_WATCH_2_GETHER_BACKEND_ADDRESS=https://localhost:5000/
