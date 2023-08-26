@@ -26,6 +26,8 @@ volumes:
     host:
       path: /var/run/docker.sock
 
-trigger:
+when:
+  branch:
+  - main
   event:
   - push
