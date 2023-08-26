@@ -2,6 +2,7 @@ FROM node:18.12.1-buster-slim AS builder
 
 WORKDIR /app
 COPY package.json package-lock.json ./
+COPY tsconfig.json ./
 RUN npm ci
 COPY public/ public/
 COPY src/ src/

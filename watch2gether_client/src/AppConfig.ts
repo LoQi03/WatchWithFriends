@@ -5,7 +5,7 @@ interface AppConfig {
 }
 
 export const config: AppConfig = {
-    apiUrl: process.env.REACT_APP_WATCH_2_GETHER_BACKEND_ADDRESS ?? "http://localhost:5000",
+    apiUrl: process.env.REACT_APP_WATCH_2_GETHER_BACKEND_ADDRESS ?? "",
 }
 
 const schema = joi.object({
