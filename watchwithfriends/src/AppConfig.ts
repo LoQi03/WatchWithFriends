@@ -5,7 +5,7 @@ interface AppConfig {
 }
 
 export const config: AppConfig = {
-    apiUrl: import.meta.env.VITE_WATCH_2_GETHER_BACKEND_ADDRESS ?? "http://localhost:5000",
+    apiUrl: import.meta.env.VITE_WATCH_2_GETHER_BACKEND_ADDRESS ?? "https://wwf-backend.nagymate-loqi.com/",
 }
 
 const schema = joi.object({
