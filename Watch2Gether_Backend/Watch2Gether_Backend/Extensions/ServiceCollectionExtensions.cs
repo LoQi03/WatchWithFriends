@@ -49,7 +49,7 @@ namespace Watch2Gether_Backend.Extensions
                     policy
                         .WithOrigins
                         (
-                            "http://localhost:3000",
+                            "http://192.168.0.200:5173",
                             "https://wwf.nagymate-loqi.com",
                             "http://localhost:5173"
                         ) 
