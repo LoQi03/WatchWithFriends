@@ -29,5 +29,3 @@ volumes:
 trigger:
   event:
   - push
-  branch:
-  - main
