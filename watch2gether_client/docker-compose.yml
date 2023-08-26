@@ -3,6 +3,6 @@ services:
   web:
     build: .
     ports:
-      - "11080:11080"
+      - "3000:3000"
     environment:
-      REACT_APP_WATCH_2_GETHER_BACKEND_ADDRESS: "http://localhost:11081/"
+      REACT_APP_WATCH_2_GETHER_BACKEND_ADDRESS: "http://localhost:5000/"
