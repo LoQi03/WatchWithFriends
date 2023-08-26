@@ -6,4 +6,4 @@ services:
     ports:
       - "4173:4173"
     environment:
-      - VITE_WATCH_2_GETHER_BACKEND_ADDRESS=https://wwf.nagymate-loqi.com/
+      - VITE_WATCH_2_GETHER_BACKEND_ADDRESS=https://wwf-backend.nagymate-loqi.com/
