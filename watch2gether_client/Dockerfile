@@ -13,11 +13,9 @@ COPY . .
 RUN npm install --save-dev @babel/plugin-proposal-private-property-in-object
 RUN npm run build
 
-# nginx Web Server
-FROM nginx:1.21.3-alpine
-
-COPY --from=build /app/build /usr/share/nginx/html
+# Use serve to serve the build output
+RUN npm install -g serve
 
 EXPOSE 80
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["serve", "-s", "build", "-l", "80"]
