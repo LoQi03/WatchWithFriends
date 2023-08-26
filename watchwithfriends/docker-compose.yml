@@ -5,3 +5,5 @@ services:
     restart: always
     ports:
       - "4173:4173"
+    environment:
+      - VITE_WATCH_2_GETHER_BACKEND_ADDRESS=https://wwf.nagymate-loqi.com/
