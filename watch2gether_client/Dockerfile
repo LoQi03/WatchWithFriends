@@ -1,18 +1,12 @@
-FROM node:18.12.1-buster-slim AS builder
-
+FROM node:alpine AS builder
 WORKDIR /app
-COPY package.json package-lock.json ./
-COPY tsconfig.json ./
-RUN npm ci
-COPY public/ public/
-COPY src/ src/
+RUN npm install
+COPY . .
 RUN npm run build
 
-FROM nginx:1.23.2-alpine
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY --from=builder /app/build /usr/share/nginx/html
-RUN touch /var/run/nginx.pid
-RUN chown -R nginx:nginx /var/run/nginx.pid /usr/share/nginx/html /var/cache/nginx /var/log/nginx /etc/nginx/conf.d
-USER nginx
-EXPOSE 3000
-CMD ["nginx", "-g", "daemon off;"]
+FROM node:alpine
+WORKDIR /app
+COPY --from=builder /app/build /app/build
+RUN npm install -g serve
+EXPOSE 80
+CMD serve -p 80 -s build
