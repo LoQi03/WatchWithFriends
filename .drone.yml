@@ -4,13 +4,17 @@ name: run_apps
 
 steps:
   - name: Run Backend
-    image: docker
+    image: docker:dind
     commands:
       - cd Watch2Gether_Backend
+      - sudo chmod 666 /var/run/docker.sock
+      - sleep 10
       - docker-compose up -d
 
   - name: Run Frontend
-    image: docker
+    image: docker:dind
     commands:
       - cd watch2gether_client
+      - sudo chmod 666 /var/run/docker.sock
+      - sleep 10
       - docker-compose up -d
