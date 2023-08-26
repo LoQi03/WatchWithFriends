@@ -6,7 +6,7 @@ steps:
   image: docker
   commands:
   - cd Watch2Gether_Backend
-  - docker-compose up -d
+  - docker-compose up --build -d
   volumes:
   - name: docker_sock
     path: /var/run/docker.sock
@@ -15,7 +15,7 @@ steps:
   image: docker
   commands:
   - cd watchwithfriends
-  - docker-compose up -d
+  - docker-compose up --build -d
   volumes:
   - name: docker_sock
     path: /var/run/docker.sock
