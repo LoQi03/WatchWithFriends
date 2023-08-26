@@ -1,4 +1,5 @@
-﻿using Watch2Gether_Data.Repositories;
+﻿using Microsoft.AspNetCore.Http;
+using Watch2Gether_Data.Repositories;
 using Image = Watch2Gether_Data.Model.Image;
 
 namespace Watch2Gether_Backend.Services
@@ -26,6 +27,23 @@ namespace Watch2Gether_Backend.Services
             {
                 await _imageRepository.DeleteImageAsync(imgid.Value);
             }
+        }
+        public async Task<byte[]?> ConvertImageToByte(IFormFile file)
+        {
+            using var streamReadImgFile = file.OpenReadStream();
+
+            if (streamReadImgFile is null)
+            {
+                return null;
+            }
+
+            using var streamReadDataFromImage = new MemoryStream();
+
+            if (streamReadDataFromImage is null) return null;
+
+            await streamReadImgFile.CopyToAsync(streamReadDataFromImage); 
+
+            return streamReadDataFromImage.ToArray();
         }
         private bool ImageIdValidition(Guid? imgid) 
         { 

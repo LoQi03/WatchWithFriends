@@ -8,5 +8,6 @@ namespace Watch2Gether_Backend.Services
         Task<Image?> GetImageById(Guid id);
         Task InsertImage(Image image);
         Task RemoveImage(Guid? imgid);
+        Task<byte[]?> ConvertImageToByte(IFormFile file);
     }
 }

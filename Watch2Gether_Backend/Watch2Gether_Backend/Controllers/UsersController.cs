@@ -126,33 +126,25 @@ namespace Watch2Gether_Backend.Controllers
         public async Task<ActionResult<UserDTO>> AddImage(Guid userid)
         {
             var user = await _userService.GetUserById(userid);
-            if (Request.Form.Files.Count == 0 || user is null) return BadRequest();
 
-            var img = new ImageModel(); // Saját Image modell
+            if (Request.Form.Files.Count == 0 || user is null) 
+            {
+                return BadRequest();
+            } 
+
+            var img = new ImageModel();
             var file = Request.Form.Files[0];
             var imgId = Guid.NewGuid();
 
-            using var streamReadImgFile = file.OpenReadStream();
-
-            if (streamReadImgFile is null)
-            {
-                return BadRequest();
-            }
-
-            byte[] data;
-            using var streamReadDataFromImage = new MemoryStream();
-
-            if (streamReadDataFromImage is null) return BadRequest();
-
-            await streamReadImgFile.CopyToAsync(streamReadDataFromImage); // Másoljuk át a kép adatokat
-
-            data = streamReadDataFromImage.ToArray();
             await _imageService.RemoveImage(user.ImageId);
+
             user.ImageId = imgId;
             img.Id = imgId;
-            img.Data = data;
+            img.Data = await _imageService.ConvertImageToByte(file);
+
             await _userService.UpdateUser(user);
             await _imageService.InsertImage(img);
+
             return Ok(user);
         }
 
