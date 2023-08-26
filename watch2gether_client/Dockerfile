@@ -1,15 +1,17 @@
-# pull official base image
-FROM node:18.16.1-buster-slim as build
+FROM node:18.12.1-buster-slim AS builder
 
-# set working directory
 WORKDIR /app
-COPY . .
-RUN npm install
-RUN npm install --save-dev @babel/plugin-proposal-private-property-in-object
+COPY package.json package-lock.json ./
+RUN npm ci
+COPY public/ public/
+COPY src/ src/
 RUN npm run build
-RUN npm install -g serve
 
+FROM nginx:1.23.2-alpine
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=builder /app/build /usr/share/nginx/html
+RUN touch /var/run/nginx.pid
+RUN chown -R nginx:nginx /var/run/nginx.pid /usr/share/nginx/html /var/cache/nginx /var/log/nginx /etc/nginx/conf.d
+USER nginx
 EXPOSE 3000
-
-# start app
-CMD ["serve", "-s", "build", "-l", "3000"]
+CMD ["nginx", "-g", "daemon off;"]
