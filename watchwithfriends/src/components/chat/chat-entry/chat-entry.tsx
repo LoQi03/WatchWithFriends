@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { AuthContext } from '../../../services/authenticationContext';
 import * as Styles from './styles';
 import * as AppConfig from '../../../AppConfig';

@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { TextField, TextFieldProps } from "@mui/material";
+import { TextField } from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
 
 export const ChatFieldContainer = styled.div`
@@ -23,7 +23,7 @@ export const ChatFieldActionBar = styled.div`
     align-items:center;
     background-color:#4F5D75;
 `;
-export const RichTextField = (props: TextFieldProps): JSX.Element => <TextField
+export const RichTextField = (): JSX.Element => <TextField
     id="outlined-multiline-static"
     multiline
     rows={1}

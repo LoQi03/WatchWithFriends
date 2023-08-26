@@ -1,14 +1,14 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import SideNavbar from './components/side-navbar/sideNavbar';
-import { HomePage } from './pages/home/home';
-import { RoomsPage } from './pages/rooms/rooms';
-import { ProfilePage } from './pages/profile/profile';
-import { FriendsPage } from './pages/friends/friends';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import * as CommonSrtyles from './commonStyles';
-import { AuthProvider, VerifyTokenHandler } from './services/authenticationContext';
+import SideNavbar from './components/side-navbar/sideNavbar';
 import { AuthenticationPage } from './pages/authentication/authentication';
+import { FriendsPage } from './pages/friends/friends';
+import { HomePage } from './pages/home/home';
+import { ProfilePage } from './pages/profile/profile';
 import { RoomPage } from './pages/room/room';
+import { RoomsPage } from './pages/rooms/rooms';
+import { AuthProvider, VerifyTokenHandler } from './services/authenticationContext';
 
 function App(): JSX.Element {
   const [isUserAlreadyLoggedIn, setIsUserAlreadyLoggedIn] = React.useState(false);

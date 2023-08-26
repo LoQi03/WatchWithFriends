@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import * as Styles from './styles';
 import { VideoDto } from '../../models/videoDto';
 import { AuthContext } from '../../services/authenticationContext';

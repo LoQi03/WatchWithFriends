@@ -1,11 +1,11 @@
 import React, { createContext, useCallback, useMemo, useState } from 'react';
-import * as Styles from './styles';
+import * as API from '../../api/roomManagmentAPI';
 import * as CommonStyles from '../../commonStyles';
 import { CreateRoom } from '../../components/create-room/create-room';
-import { RoomDto } from '../../models/roomDto';
-import * as API from '../../api/roomManagmentAPI'
 import { RoomListItem } from '../../components/room-list-item/room-list-item';
+import { RoomDto } from '../../models/roomDto';
 import { AuthContext } from '../../services/authenticationContext';
+import * as Styles from './styles';
 
 export interface CreateRoomContextType {
     open: boolean;

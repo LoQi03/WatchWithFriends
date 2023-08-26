@@ -17,7 +17,7 @@ export const RoomUsers = (props: RoomUsersProps): JSX.Element => {
             </Styles.CurrentUserContainer>
             {
                 props.users && props.users.filter(x => x.id !== authContext?.currentUser?.id).map((user, index) =>
-                    <Styles.UserImage key={user.id} src={`${AppConfig.GetConfig().apiUrl}Users/${user.id}/image`} />
+                    <Styles.UserImage key={index} src={`${AppConfig.GetConfig().apiUrl}Users/${user.id}/image`} />
                 )
             }
         </Styles.RoomUsersContainer>

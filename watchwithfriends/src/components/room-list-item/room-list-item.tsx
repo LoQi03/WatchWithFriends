@@ -1,4 +1,3 @@
-import React from 'react';
 import * as Styles from './styles';
 import * as AppConfig from '../../AppConfig';
 import Person2Icon from '@mui/icons-material/Person2';
