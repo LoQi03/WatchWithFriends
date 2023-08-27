@@ -27,14 +27,6 @@ namespace Watch2Gether_Backend.Hubs
                 await Clients.Clients(roomUser.Id).SendAsync("UpdateRoomHandler", room);
             }
         }
-        public async Task CallCreator()
-        {
-            await Clients.Clients(Context.ConnectionId).SendAsync("GetCurrentVideoStatus", Context.ConnectionId);
-        }
-        public async Task CurrentVideoStatus(VideoPlayer videoPlayer, string id)
-        {
-            await Clients.Clients(id).SendAsync("CurrentVideoPlayerStatusHandler", videoPlayer);
-        }
         public async Task VideoPlayer(VideoPlayer videoPlayer)
         {
             var room = await _roomService.GetRoom(videoPlayer.RoomId);
