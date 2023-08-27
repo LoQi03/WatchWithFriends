@@ -1,20 +1,17 @@
 import React from 'react';
-import { BrowserRouter, Route, Routes, useParams } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import * as CommonSrtyles from './commonStyles';
 import SideNavbar from './components/side-navbar/sideNavbar';
 import { AuthenticationPage } from './pages/authentication/authentication';
 import { FriendsPage } from './pages/friends/friends';
 import { HomePage } from './pages/home/home';
 import { ProfilePage } from './pages/profile/profile';
-import { RoomPage } from './pages/room/room';
 import { RoomsPage } from './pages/rooms/rooms';
 import { AuthProvider, VerifyTokenHandler } from './services/authenticationContext';
-import { RoomProvider } from './services/roomContext';
 import { RoomPageWithProvider } from './pages/room/room-with-provider';
 
 const App: React.FC = () => {
   const [isUserAlreadyLoggedIn, setIsUserAlreadyLoggedIn] = React.useState(false);
-  const params = useParams();
 
   const isUserAlreadyLoggedInChangeHandler = () => {
     setIsUserAlreadyLoggedIn(prev => !prev);

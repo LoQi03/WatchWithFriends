@@ -1,7 +1,7 @@
 import React, { ReactNode, createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import ReactPlayer from 'react-player';
 import { OnProgressProps } from 'react-player/base';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { RoomDto } from '../models/roomDto';
 import { VideoDto } from '../models/videoDto';
 import { AuthContext } from './authenticationContext';

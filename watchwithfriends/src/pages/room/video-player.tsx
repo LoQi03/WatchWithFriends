@@ -1,5 +1,5 @@
 import { Slider } from "@mui/material";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import ReactPlayer from 'react-player';
 import { convertSecondsToTimeFormat } from "../../misc/convertSecondsToTimeFormat";
 import * as Styles from "./styles";
