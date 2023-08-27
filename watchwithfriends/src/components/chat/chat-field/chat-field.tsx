@@ -2,14 +2,14 @@ import { useContext, useState } from "react";
 import * as Styles from './styles'
 import { ChatEntry } from "../chat-entry/chat-entry";
 import { ChatEntryDto } from "../../../models/chatEntryDto";
-import { RoomContext } from "../../../pages/room/room";
 import { TextField } from "@mui/material";
+import { RoomContext } from "../../../services/roomContext";
 
 interface ChatFieldParams {
     messages: ChatEntryDto[]
 }
 
-export const ChatField = (props: ChatFieldParams): JSX.Element => {
+export const ChatField: React.FC<ChatFieldParams> = (props: ChatFieldParams) => {
     const roomContext = useContext(RoomContext);
     const [messageText, setMessageText] = useState<string>('');
 

@@ -2,9 +2,9 @@ import { useContext } from 'react';
 import * as Styles from './styles';
 import { VideoDto } from '../../models/videoDto';
 import { AuthContext } from '../../services/authenticationContext';
-import { RoomContext } from '../../pages/room/room';
+import { RoomContext } from '../../services/roomContext';
 
-export const PlayList = (): JSX.Element => {
+export const PlayList: React.FC = () => {
     const authContext = useContext(AuthContext);
     const roomContext = useContext(RoomContext);
     return (

@@ -27,10 +27,7 @@ interface AuthProviderProps {
 
 export const AuthContext = createContext<AuthContextType | null>(null);
 
-export const AuthProvider: React.FC<AuthProviderProps> = ({
-    isUserAlreadyLoggedInChangeHandler,
-    children
-}: AuthProviderProps) => {
+export const AuthProvider: React.FC<AuthProviderProps> = ({ isUserAlreadyLoggedInChangeHandler, children }: AuthProviderProps) => {
     const [currentUser, setCurrentUser] = useState<UserDto | null>(null);
     const [token, setToken] = useState<string | null>(null);
     const [isUserAlreadyLoggedIn, setIsUserAlreadyLoggedIn] = useState(false);
@@ -124,6 +121,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
         </AuthContext.Provider>
     );
 };
+
+
 export interface VerifyTokenHandlerProps {
     verifyTokenHandler: () => void;
     isUserAlreadyLoggedIn: boolean;

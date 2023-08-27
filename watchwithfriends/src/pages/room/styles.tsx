@@ -86,7 +86,7 @@ export const UsersContainer = styled.div`
     display: flex;
     flex-direction: column;
 `;
-export const VideoPlayerContainer = styled.div<{ isFullScreen: boolean }>`
+export const VideoPlayerContainer = styled.div<{ isFullScreen: boolean | undefined }>`
 ${props => props.isFullScreen
         ?
         `
