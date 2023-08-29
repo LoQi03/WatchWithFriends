@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import * as CommonStyle from "../../commonStyles";
-import { SxProps, Theme } from "@mui/material";
+import { SxProps, Theme, createTheme } from "@mui/material";
 import type { } from '@mui/x-date-pickers/themeAugmentation';
 
 export const InputContainer = styled.div`
@@ -16,6 +16,7 @@ export const InputContainer = styled.div`
         text-decoration: none;
     }
     `;
+
 export const SignUpButton = styled(CommonStyle.GenericButton)({
     width: "100%",
 });
@@ -25,7 +26,7 @@ export const SignUpTextField = styled(CommonStyle.StyledTextField)({
 });
 
 export const DataPickerTheme: SxProps<Theme> = {
-    colorScheme: 'light',
+    colorScheme: 'dark',
     "& .MuiInputBase-input": {
         color: "white",
     },
@@ -54,3 +55,12 @@ export const DataPickerTheme: SxProps<Theme> = {
     },
     width: "100%",
 };
+
+export const datePickerTheme = createTheme({
+    palette: {
+        mode: 'dark',
+        primary: {
+            main: '#EF8354',
+        },
+    },
+});

@@ -42,12 +42,11 @@ export const LoginForm = (props: LoginFormProps): JSX.Element => {
         <>
             <h1>Sign In</h1>
             <Style.InputContainer>
-                <Style.SignInTextField onKeyDown={handleKeyDown} value={credentials.email} onChange={handleCredentialsChange} name='email' label='E-mail' type="text" placeholder="E-mail" />
+                <Style.SignInTextField onKeyDown={handleKeyDown} value={credentials.email} onChange={handleCredentialsChange} name='email' type="text" placeholder="E-mail" />
                 <Style.SignInTextField
                     value={credentials.password}
                     onChange={handleCredentialsChange}
                     name='password'
-                    label="Password"
                     type={showPassword ? 'text' : 'password'}
                     onKeyDown={handleKeyDown}
                     InputProps={{

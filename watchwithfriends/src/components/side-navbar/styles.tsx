@@ -36,7 +36,7 @@ export const StyledBox = styled(Box)`
 `;
 
 export const StyledImage = styled.img`
-    height: 30px;
+    height: 35px;
     object-fit: cover;
     cursor:'pointer' 
  `;

@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from 'react';
 import * as Style from './styles';
-import { IconButton, InputAdornment } from '@mui/material';
+import { IconButton, InputAdornment, ThemeProvider } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { RegisterUserDto } from '../../models/registerUserDto';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
@@ -63,13 +63,15 @@ export const RegistrationForm = (props: RegistrationFormProps): JSX.Element => {
             <Style.InputContainer>
                 <Style.SignUpTextField value={registerCredentials.email} name='email' onChange={handleRegisterCredentialsChange} label='E-mail' type="text" placeholder="E-mail" />
                 <Style.SignUpTextField value={registerCredentials.name} name='name' onChange={handleRegisterCredentialsChange} label='Username' type="text" placeholder="Username" />
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DatePicker label='Birth Date'
-                        value={dayjs(registerCredentials.birthDate)}
-                        sx={Style.DataPickerTheme}
-                        onChange={(date) => setRegisterCredentials({ ...registerCredentials, birthDate: date?.toISOString() ?? '' })}
-                        slotProps={{ textField: { size: 'medium', variant: 'outlined' } }} />
-                </LocalizationProvider>
+                <ThemeProvider theme={Style.datePickerTheme}>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker label='Birth Date'
+                            value={dayjs(registerCredentials.birthDate)}
+                            sx={Style.DataPickerTheme}
+                            onChange={(date) => setRegisterCredentials({ ...registerCredentials, birthDate: date?.toISOString() ?? '' })}
+                            slotProps={{ textField: { size: 'medium', variant: 'outlined' } }} />
+                    </LocalizationProvider>
+                </ThemeProvider>
                 <Style.SignUpTextField
                     value={registerCredentials.password}
                     onChange={handleRegisterCredentialsChange}
