@@ -44,6 +44,8 @@ export const RoomsPage = (): JSX.Element => {
         getRoomsAsync();
     }, [rooms, getRoomsAsync]);
 
+    //TODO change room item
+
     return (
         <Styles.RoomsPageContainer>
             <Styles.HeaderBar>
