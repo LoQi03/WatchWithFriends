@@ -36,38 +36,52 @@ export const StyledBox = styled(Box)`
 `;
 
 export const StyledImage = styled.img`
-    width: 100%;
+    height: 30px;
     object-fit: cover;
     cursor:'pointer' 
  `;
+
 export const StyledListItemForImage = styled(ListItem)`
-    margin-bottom: 20px;
-    padding: 10px;
+    padding:40px;
+    width: 100%;
     background-color: #4F5D75;
     display: flex;
     justify-content: center;
     align-items: center;
 `;
+
 export const ProfileImage = styled.img`
     width: 50px;
     height: 50px;
     border-radius: 50%;
 `;
+
 export const HeaderContainer = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
     `;
+
 export const StyledMenuItem = styled(MenuItem)`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    color: #EF8354;
+    color: #2D3142;
 `;
+
 export const StyledMenuItemButton = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
     min-width: 100px;
+`;
+
+export const StyledNavbar = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width:100%;
+    height: 100%;
 `;

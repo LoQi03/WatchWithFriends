@@ -64,10 +64,10 @@ export const LoginForm = (props: LoginFormProps): JSX.Element => {
                         ),
                     }}
                 />
-                <CommonStyles.SignSwitchButton onClick={props.formChangeHandler}>Sign Up</CommonStyles.SignSwitchButton>
                 {errorMessage && <CommonStyles.ErrorMassage>{errorMessage}</CommonStyles.ErrorMassage>}
                 <Style.SignInButton onClick={login} size='large' startIcon={<LoginIcon />}>Sign In</Style.SignInButton>
             </Style.InputContainer>
+            <CommonStyles.SignSwitchButton onClick={props.formChangeHandler}>Need an account?</CommonStyles.SignSwitchButton>
         </>
     )
 }

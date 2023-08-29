@@ -4,23 +4,24 @@ import { SxProps, Theme } from "@mui/material";
 import type { } from '@mui/x-date-pickers/themeAugmentation';
 
 export const InputContainer = styled.div`
+    width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: start;
     justify-content: center;
+    gap: 20px;
     & a{
-        margin-top: 20px;
         color: white;
         font-size: 15px;
         text-decoration: none;
     }
     `;
 export const SignUpButton = styled(CommonStyle.GenericButton)({
-    marginTop: "20px"
+    width: "100%",
 });
 
 export const SignUpTextField = styled(CommonStyle.StyledTextField)({
-    marginTop: "20px",
+
 });
 
 export const DataPickerTheme: SxProps<Theme> = {
@@ -51,6 +52,5 @@ export const DataPickerTheme: SxProps<Theme> = {
             borderColor: "white",
         },
     },
-    marginTop: "10px",
-    width: "300px"
+    width: "100%",
 };

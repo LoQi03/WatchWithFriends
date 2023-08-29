@@ -120,9 +120,11 @@ export default function SideNavbar() {
         <Style.Header>
             <React.Fragment key={'left'}>
                 <Style.HeaderContainer>
-                    <div style={{ alignItems: "center", display: 'flex' }}>
+                    <div style={{ alignItems: "center", display: 'flex', width: '100%' }}>
                         <Button onClick={toggleDrawer('left', true)}><MenuIcon fontSize='large' sx={{ color: 'white' }}></MenuIcon></Button>
-                        <img onClick={() => navigate('/')} style={{ height: "70px", cursor: 'pointer' }} src={WatchWithFriendsLogo} alt="WatchWithFriends" />
+                        <Style.StyledNavbar>
+                            <img onClick={() => navigate('/')} style={{ height: "50px", cursor: 'pointer' }} src={WatchWithFriendsLogo} alt="WatchWithFriends" />
+                        </Style.StyledNavbar>
                     </div>
                     <Button
                         id="basic-button"

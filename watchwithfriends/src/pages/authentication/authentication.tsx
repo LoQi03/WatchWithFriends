@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as CommonStyle from '../../commonStyles';
 import * as Style from './styles';
-import backGroundImg from '../../assets/images/background.jpg';
 import { LoginForm } from '../../components/login/login';
 import { RegistrationForm } from '../../components/register/register';
+import backgroundImg from '../../assets/images/background.jpg';
 
 
 export const AuthenticationPage = (): JSX.Element => {
@@ -14,7 +14,7 @@ export const AuthenticationPage = (): JSX.Element => {
     };
 
     return (
-        <CommonStyle.PageContainer backgroundImage={backGroundImg} >
+        <CommonStyle.PageContainer backgroundImage={backgroundImg}>
             <Style.AuthenticationModalContainer>
                 <Style.AuthenticationModal>
                     {isLogin ? <LoginForm formChangeHandler={formChangeHandler} ></LoginForm>

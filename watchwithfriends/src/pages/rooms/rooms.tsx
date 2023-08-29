@@ -47,13 +47,12 @@ export const RoomsPage = (): JSX.Element => {
     return (
         <Styles.RoomsPageContainer>
             <Styles.HeaderBar>
-                <h1>Rooms</h1>
                 <CommonStyles.StyledTextField placeholder="Search" />
             </Styles.HeaderBar>
             <Styles.RoomListContainer>
                 <Styles.RoomList>
                     {
-                        rooms && rooms.map((room: RoomDto) => <RoomListItem key={room.id} id={room.id!} name={room.name!} creatorId={room.creatorId} userCount={room.userIds?.length ?? 0} />)
+                        rooms && rooms.map((room: RoomDto) => <RoomListItem key={room.id} id={room.id!} name={room.name!} creatorId={room.creatorId} userCount={room.roomUsers?.length ?? 0} />)
                     }
                 </Styles.RoomList>
             </Styles.RoomListContainer>

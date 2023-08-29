@@ -68,7 +68,7 @@ export const RegistrationForm = (props: RegistrationFormProps): JSX.Element => {
                         value={dayjs(registerCredentials.birthDate)}
                         sx={Style.DataPickerTheme}
                         onChange={(date) => setRegisterCredentials({ ...registerCredentials, birthDate: date?.toISOString() ?? '' })}
-                        slotProps={{ textField: { size: 'medium', variant: 'outlined', style: { marginTop: '20px' } } }} />
+                        slotProps={{ textField: { size: 'medium', variant: 'outlined' } }} />
                 </LocalizationProvider>
                 <Style.SignUpTextField
                     value={registerCredentials.password}
@@ -109,10 +109,10 @@ export const RegistrationForm = (props: RegistrationFormProps): JSX.Element => {
                         ),
                     }}
                 />
-                <CommonStyles.SignSwitchButton onClick={props.formChangeHandler}>Sign In</CommonStyles.SignSwitchButton>
                 {errorMessage && <CommonStyles.ErrorMassage >{errorMessage}</CommonStyles.ErrorMassage>}
                 <Style.SignUpButton onClick={register} size='large' >Sign Up</Style.SignUpButton>
             </Style.InputContainer>
+            <CommonStyles.SignSwitchButton onClick={props.formChangeHandler}>Already have an account?</CommonStyles.SignSwitchButton>
         </>
     )
 }

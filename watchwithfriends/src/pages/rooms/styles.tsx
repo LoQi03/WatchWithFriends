@@ -10,15 +10,15 @@ export const RoomsPageContainer = styled.div`
     padding-bottom: 20px;
 `;
 export const HeaderBar = styled.div`
+    margin-top: 20px;
     display: flex;
-    justify-content: space-between;
-    width: 100%;
+    width: 70%;
 `;
 export const RoomList = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 75%;
+    width: 70%;
     margin-top: 15px;
     margin-bottom: 15px;
     overflow-y: auto;

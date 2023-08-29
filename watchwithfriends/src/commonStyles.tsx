@@ -51,9 +51,7 @@ export const StyledTextField = styled(TextField)({
             caretColor: "white",
         },
     },
-
-    marginTop: "10px",
-    width: "300px"
+    width: "100%"
 });
 
 export const GenericButton = (props: ButtonProps): JSX.Element => <Button
@@ -70,4 +68,7 @@ export const ErrorMassage = styled.p`
     `;
 export const SignSwitchButton = styled.p`
     cursor: pointer;
+    color:#EF8354;
+    text-decoration: underline;
+    font-size: 17px;
 `;

@@ -5,7 +5,7 @@ export interface RoomDto {
     id?: string;
     name?: string;
     creatorId: string;
-    userIds?: RoomUser[];
+    roomUsers?: RoomUser[];
     password?: string;
     currentVideo?: string;
     playList?: VideoDto[];
