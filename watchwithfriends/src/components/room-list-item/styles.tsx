@@ -7,7 +7,7 @@ export const RoomListItemHeader = styled.div`
     margin-left: 15px;
     margin-top: 10px;
 `;
-
+//TODO
 export const RoomListItemContainer = styled.div`
     cursor: pointer;
     width: 80%;
