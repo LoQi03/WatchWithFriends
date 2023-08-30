@@ -43,7 +43,7 @@ export const RoomListItem = (props: RoomListItemProps): JSX.Element => {
                 <Styles.RoomListItemHeader>{props.name}</Styles.RoomListItemHeader>
                 <Styles.RoomListItemInfo>
                     <div>Creator: {creator?.name}</div>
-                    <div><Person2Icon /> {" " + props.userCount} </div>
+                    <Styles.RomListItemMembers><Person2Icon /> {" " + props.userCount} </Styles.RomListItemMembers>
                 </Styles.RoomListItemInfo>
             </Styles.RoomListItemContentContainer>
         </Styles.RoomListItemContainer>

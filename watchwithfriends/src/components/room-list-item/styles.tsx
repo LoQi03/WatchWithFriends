@@ -14,6 +14,7 @@ export const RoomListItemContainer = styled.div`
     padding : 10px;
     background-color: #4F5D75;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    transition: background-color 0.2s ease-in-out;
     &:hover {
         background-color: #EF8354;
     };
@@ -42,4 +43,12 @@ export const RoomListItemInfo = styled.div`
     font-size: 20px;
     gap: 5px;
     width: 80%;
+`;
+
+export const RomListItemMembers = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+    font-size: 20px;
 `;
