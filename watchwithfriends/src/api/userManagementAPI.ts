@@ -9,19 +9,28 @@ import { httpClient } from "../HttpClient";
 export const login = async (loginUserDto: LoginCredentialsDto): Promise<LoggedInUserDto> => {
     const { data } = await httpClient.post<LoggedInUserDto>(`Users/login`, loginUserDto);
     return data;
-}
+};
+
 export const register = async (registerUserDto: RegisterUserDto): Promise<number> => {
     const { status } = await httpClient.post<UserDto>(`Users/register`, registerUserDto);
     return status;
-}
+};
+
+export const getUserById = async (id: string): Promise<AxiosResponse<UserDto>> => {
+    const response = await httpClient.get<UserDto>(`Users/${id}`);
+    return response;
+};
+
 export const getUserByToken = async (token: string): Promise<UserDto> => {
     const { data } = await httpClient.get<UserDto>(`Users/token/${token}`);
     return data;
-}
+};
+
 export const updateUser = async (user: UpdateUserDto): Promise<AxiosResponse> => {
     const response = await httpClient.put<UserDto>(`Users`, user);
     return response;
-}
+};
+
 export const uploadProfilePicture = async (file: File, userid: string): Promise<AxiosResponse> => {
     const formData = new FormData();
     formData.append("file", file);
@@ -30,3 +39,4 @@ export const uploadProfilePicture = async (file: File, userid: string): Promise<
     });
     return response;
 }
+

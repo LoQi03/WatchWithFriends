@@ -12,6 +12,7 @@ export const RoomsPageContainer = styled.div`
 export const HeaderBar = styled.div`
     margin-top: 20px;
     display: flex;
+    gap: 20px;
     width: 70%;
 `;
 export const RoomList = styled.div`
@@ -45,11 +46,6 @@ export const RoomList = styled.div`
         }
 `;
 
-export const ActionBar = styled.div`
-    display: flex;
-    justify-content:end;
-    width: 100%;
-`;
 export const RoomListContainer = styled.div`
     display: flex;
     width: 100%;

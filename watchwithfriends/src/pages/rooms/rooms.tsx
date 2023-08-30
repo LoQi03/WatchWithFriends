@@ -6,6 +6,7 @@ import { RoomListItem } from '../../components/room-list-item/room-list-item';
 import { RoomDto } from '../../models/roomDto';
 import { AuthContext } from '../../services/authenticationContext';
 import * as Styles from './styles';
+import AddIcon from '@mui/icons-material/Add';
 
 export interface CreateRoomContextType {
     open: boolean;
@@ -44,12 +45,11 @@ export const RoomsPage = (): JSX.Element => {
         getRoomsAsync();
     }, [rooms, getRoomsAsync]);
 
-    //TODO change room item
-
     return (
         <Styles.RoomsPageContainer>
             <Styles.HeaderBar>
                 <CommonStyles.StyledTextField placeholder="Search" />
+                <CommonStyles.GenericButton startIcon={<AddIcon />} onClick={handleOpen} >Create</CommonStyles.GenericButton>
             </Styles.HeaderBar>
             <Styles.RoomListContainer>
                 <Styles.RoomList>
@@ -58,9 +58,6 @@ export const RoomsPage = (): JSX.Element => {
                     }
                 </Styles.RoomList>
             </Styles.RoomListContainer>
-            <Styles.ActionBar>
-                <CommonStyles.GenericButton onClick={handleOpen}>Create Room</CommonStyles.GenericButton>
-            </Styles.ActionBar>
             <RoomsContext.Provider value={{ open, handleonClose, handleOpen, getRoomsAsync }}>
                 <CreateRoom />
             </RoomsContext.Provider>
