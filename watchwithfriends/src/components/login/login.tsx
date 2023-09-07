@@ -47,6 +47,7 @@ export const LoginForm = (props: LoginFormProps): JSX.Element => {
                     value={credentials.password}
                     onChange={handleCredentialsChange}
                     name='password'
+                    placeholder="Password"
                     type={showPassword ? 'text' : 'password'}
                     onKeyDown={handleKeyDown}
                     InputProps={{
