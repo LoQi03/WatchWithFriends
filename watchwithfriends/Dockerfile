@@ -8,6 +8,8 @@ RUN npm i
 
 COPY . .
 
+RUN npm install @babel/core @babel/preset-env @babel/cli --save-dev
+
 RUN npm run build
 
 EXPOSE 4173
