@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 import { Button, ButtonProps, TextField } from "@mui/material";
 
 export const PageContainer = styled.div<{ backgroundImage?: string }>`
-    padding-top: 80px;
     background-color: #2D3142;
     align-items: center;
     width: 100%;

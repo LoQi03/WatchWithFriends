@@ -14,11 +14,11 @@ export const AuthenticationModal = styled.div`
     padding: 20px 40px;
 
     @media screen and (max-width: 800px) {
-        position: absolute;
+        padding:0;
+        align-items: center;
+        overflow:hidden;
         height: 100%;
         width: 100%;
-        top: 0;
-        left: 0;
         margin: 0;
         border-radius: 0;
     }
