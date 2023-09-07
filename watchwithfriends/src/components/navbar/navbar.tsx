@@ -1,10 +1,5 @@
 import * as React from 'react';
-import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import MenuIcon from '@mui/icons-material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
 import * as Styles from './styles';
 import { useNavigate } from 'react-router-dom';
@@ -13,7 +8,7 @@ import Person2Icon from '@mui/icons-material/Person2';
 import GroupIcon from '@mui/icons-material/Group';
 import TvIcon from '@mui/icons-material/Tv';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { BottomNavigation, BottomNavigationAction, Menu } from '@mui/material';
+import { Menu } from '@mui/material';
 import * as AppConfig from '../../AppConfig';
 import { AuthContext } from '../../services/authenticationContext';
 
@@ -103,7 +98,7 @@ export const Navbar: React.FC = () => {
             <Styles.NavbarButton
                 showLabels
                 value={navState}
-                onChange={(event, newValue) => {
+                onChange={(_, newValue) => {
                     setNaveState(newValue);
                 }}
             >
