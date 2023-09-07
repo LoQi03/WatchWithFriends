@@ -5,10 +5,7 @@ WORKDIR /app
 COPY package.json .
 RUN npm i
 
-
 COPY . .
-
-RUN npm install @babel/core @babel/preset-env @babel/cli --save-dev
 
 RUN npm run build
 
