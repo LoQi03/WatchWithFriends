@@ -16,7 +16,7 @@ export const InputContainer = styled.div`
         text-decoration: none;
     }
      @media screen and (max-width: 800px) {
-        width: 70%;
+        width: 90%;
     }
     `;
 export const SignInButton = styled(CommonStyle.GenericButton)({
