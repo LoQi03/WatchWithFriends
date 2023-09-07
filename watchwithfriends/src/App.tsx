@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import * as CommonSrtyles from './commonStyles';
-import SideNavbar from './components/side-navbar/sideNavbar';
+import { Navbar } from './components/navbar/navbar';
 import { AuthenticationPage } from './pages/authentication/authentication';
 import { FriendsPage } from './pages/friends/friends';
 import { HomePage } from './pages/home/home';
@@ -27,7 +27,7 @@ const App: React.FC = () => {
       {
         isUserAlreadyLoggedIn ?
           <BrowserRouter>
-            <SideNavbar />
+            <Navbar />
             <CommonSrtyles.PageContainer>
               <Routes>
                 <Route path="/" element={<HomePage />} />
