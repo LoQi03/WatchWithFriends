@@ -7,7 +7,7 @@ export const ProfilePageContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
     border-radius: 10px;
     overflow-x: hidden;
     overflow-y: auto;
@@ -15,7 +15,8 @@ export const ProfilePageContainer = styled.div`
     @media (max-width: 800px) {
         width: 99%;
         border-radius: 0;
-        height: 90vh;
+        gap:5px;
+        height: 100%;
     }
 `;
 export const ProfilePageContent = styled.div`
@@ -28,8 +29,7 @@ export const ProfilePageContent = styled.div`
     height: 100%;
     @media (max-width: 800px) {
         flex-direction: column;
-        zoom: 0.75;
-        gap:5px;
+        gap:15px;
         padding-bottom: 20px;
     }
 `;
@@ -40,6 +40,9 @@ export const ProfilePageInputContainer = styled.div`
     align-items: center;
     justify-content: center;
     gap: 20px;
+    @media (max-width: 800px) {
+        gap:10px;
+    }
 `;
 
 export const StyledImage = styled.img`
@@ -48,12 +51,12 @@ export const StyledImage = styled.img`
     border-radius: 50%;
 
     @media (max-width: 800px) {
-    zoom: 0.8;
+        height: 150px;
+        width: 150px;
     }
  `;
 
 export const ChangePasswordLink = styled.a`
-    margin-top: 20px;
     color: white;
     font-size: 20px;
     text-decoration: none;
@@ -113,6 +116,7 @@ export const ProfileName = styled.div`
 `;
 
 export const SaveButton = styled(CommonStyle.GenericButton)`
+    margin-top: 5px;
     width: 100%;
 `;
 

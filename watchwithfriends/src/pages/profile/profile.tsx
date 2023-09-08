@@ -108,13 +108,13 @@ export const ProfilePage = (): JSX.Element => {
                     </Button>
                 </Style.ImageContainer>
                 <Style.ProfilePageInputContainer>
-                    <CommonStyle.StyledTextField onChange={handleUserDetailsChange} value={userDetails.name ?? ''} name='name' label='Username' type='text' placeholder="Username" />
-                    <CommonStyle.StyledTextField onChange={handleUserDetailsChange} value={userDetails.email ?? ''} name='email' label='E-mail' type='text' placeholder="E-mail" />
+                    <CommonStyle.StyledTextField onChange={handleUserDetailsChange} value={userDetails.name ?? ''} name='name' type='text' placeholder="Username" />
+                    <CommonStyle.StyledTextField onChange={handleUserDetailsChange} value={userDetails.email ?? ''} name='email' type='text' placeholder="E-mail" />
                     <CommonStyle.StyledTextField
                         value={userDetails.password ?? ''}
                         onChange={handleUserDetailsChange}
                         name='password'
-                        label="Password"
+                        placeholder='Password'
                         type={showPassword ? 'text' : 'password'}
                         InputProps={{
                             endAdornment: (
@@ -135,8 +135,8 @@ export const ProfilePage = (): JSX.Element => {
                             <CommonStyle.StyledTextField
                                 value={newPassword}
                                 onChange={(e) => setNewPassword(e.target.value)}
-                                label="New Password"
                                 type={showNewPassword ? 'text' : 'password'}
+                                placeholder='New Password'
                                 InputProps={{
                                     endAdornment: (
                                         <InputAdornment position="end">
@@ -154,7 +154,7 @@ export const ProfilePage = (): JSX.Element => {
                             <CommonStyle.StyledTextField
                                 value={confrimNewPassword}
                                 onChange={(e) => setConfrimNewPassword(e.target.value)}
-                                label="Confrim Password"
+                                placeholder='Confirm Password'
                                 type={showConfrimNewPassword ? 'text' : 'password'}
                                 InputProps={{
                                     endAdornment: (

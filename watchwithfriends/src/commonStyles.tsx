@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { Button, ButtonProps, TextField } from "@mui/material";
 
 export const PageContainer = styled.div<{ backgroundImage?: string, isLogin?: boolean }>`
-    padding-top: 70px;
+    margin-top: 60px;
     background-color: #2D3142;
     align-items: center;
     width: 100%;
@@ -17,7 +17,8 @@ export const PageContainer = styled.div<{ backgroundImage?: string, isLogin?: bo
     height: 100%;
     @media screen and (max-width: 800px) {
         padding-top: 0px;
-        ${props => !props.isLogin && "height: 90vh;"}
+        margin-top: 0px;
+        ${props => !props.isLogin && "margin-bottom: 65px;"}
     }
 `;
 
