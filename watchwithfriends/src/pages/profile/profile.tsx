@@ -17,7 +17,6 @@ export const ProfilePage = (): JSX.Element => {
     const [showConfrimNewPassword, setshowConfrimNewPassword] = useState(false);
     const [showNewPassword, setshowNewPassword] = useState(false);
     const [showChangePassword, setShowChangePassword] = useState(false);
-    const [errorMassage, setErrorMassage] = useState('');
     const [imageSrc, setImageSrc] = useState('');
     const [imgFile, setImgFile] = useState<File | undefined>(undefined);
     const [userDetails, setUserDetails] = useState<UserDto>(
@@ -65,7 +64,6 @@ export const ProfilePage = (): JSX.Element => {
     };
 
     const save = async () => {
-        setErrorMassage('');
         if (newPassword !== confrimNewPassword) return;
         let updateUserDto: UpdateUserDto = {
             userDetails: userDetails,
@@ -86,7 +84,7 @@ export const ProfilePage = (): JSX.Element => {
                 setConfrimNewPassword('');
             }
         } catch (error) {
-            setErrorMassage('Wrong credentials or user already exists');
+            console.log('Wrong credentials or user already exists');
         };
     };
 
