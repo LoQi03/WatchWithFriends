@@ -15,6 +15,7 @@ border-radius: 10px;
     height: 100%;
     padding: 10px;
     border-radius: 0;
+    padding-bottom: 140px;
 }
 `;
 export const ProfilePageContent = styled.div`
