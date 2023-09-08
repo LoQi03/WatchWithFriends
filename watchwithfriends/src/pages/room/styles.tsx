@@ -17,6 +17,9 @@ export const RoomAddLink = styled.div`
     align-items: center;
     gap: 20px;
     width: 100%;
+    @media screen and (max-width: 800px) {
+        zoom: 0.65;
+    }
 `;
 
 export const PlayButton = (props: ButtonProps): JSX.Element => <Button
@@ -98,6 +101,7 @@ export const VideoPlayerActionBar = styled.div`
     display: flex;
     justify-content: space-between;
     width: 100%;
+    min-height: 50px;
     height: 50px;
     background-color: #EF8354;
     align-items: center;
@@ -137,7 +141,6 @@ export const Volume = styled(VolumeUpIcon)`
     height: 30px;
 `
 export const Mute = styled(VolumeOffIcon)`
-    margin-left: 20px;
     color: white;
     cursor: pointer;
     width: 30px;
@@ -180,6 +183,7 @@ export const VolumeActionBar = styled.div`
     width: 20%;
     gap: 15px;
     padding-right: 20px;
+    align-items: center;
     max-width: 200px;
 `;
 
