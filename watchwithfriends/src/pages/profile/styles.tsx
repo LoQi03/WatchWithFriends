@@ -15,7 +15,7 @@ border-radius: 10px;
     height: 100%;
     padding: 10px;
     border-radius: 0;
-    padding-bottom: 140px;
+    zoom: 0.80;
 }
 `;
 export const ProfilePageContent = styled.div`
