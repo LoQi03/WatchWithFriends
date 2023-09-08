@@ -21,14 +21,15 @@ export const ProfilePageContainer = styled.div`
 export const ProfilePageContent = styled.div`
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: start;
     align-items: center;
-    gap: 15px;
+    gap: 30px;
     width: 100%;
     height: 100%;
     @media (max-width: 800px) {
         flex-direction: column;
         zoom: 0.70;
+        gap:5px;
         padding-bottom: 20px;
     }
 `;
