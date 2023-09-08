@@ -94,6 +94,10 @@ export const ProfileButtonStyle: Theme =
     justifyContent: 'center',
     alignItems: 'center',
     padding: '0',
+    '@media (max-width: 800px)': {
+        heigth: '150px',
+        width: '150px',
+    },
     '&:hover': {
         backgroundColor: 'transparent',
         opacity: '0.8',
