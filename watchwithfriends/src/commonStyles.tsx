@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { Button, ButtonProps, TextField } from "@mui/material";
 
 export const PageContainer = styled.div<{ backgroundImage?: string, isLogin?: boolean }>`
-    margin-top: 60px;
+     ${props => !props.isLogin && "margin-top: 60px;"}
     background-color: #2D3142;
     align-items: center;
     width: 100%;
@@ -77,4 +77,4 @@ export const SignSwitchButton = styled.p`
     color:#EF8354;
     text-decoration: underline;
     font-size: 17px;
-`;
+    `;

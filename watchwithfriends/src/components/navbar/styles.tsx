@@ -65,6 +65,17 @@ export const Link = styled.a`
     &:hover {
         color: #EF8354;
     }
+    @media screen and (max-width: 800px) {
+        background-color: #EF8354;
+        padding: 10px;
+        width: 70%;
+        align-items: center;
+        justify-content: center;
+        box-shadow: rgba(0, 0, 0, 0.3) 5px 5px 5px, rgba(0, 0, 0, 0.22) 5px 5px 5px;
+        &:hover {
+            color: #2D3142;
+        }
+    }
  `;
 
 export const StyledMenuItem = styled(MenuItem)`

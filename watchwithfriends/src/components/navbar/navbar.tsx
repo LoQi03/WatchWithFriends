@@ -57,6 +57,7 @@ export const Navbar: React.FC = () => {
 
     const logout = async () => {
         authContext?.logout();
+        navigate('/');
     };
 
 
@@ -107,6 +108,7 @@ export const Navbar: React.FC = () => {
                         <Styles.BottomNavigationLink onClick={() => navigate(navigation.navigationURL)} key={navigation.title} label={navigation.title} icon={navigation.icon} />
                     ))
                 }
+                <Styles.BottomNavigationLink onClick={logout} label={'Logout'} icon={<LogoutIcon sx={{ fontSize: '30px' }} />} />
             </Styles.NavbarButtons>
         </>
     );
