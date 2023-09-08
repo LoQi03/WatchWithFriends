@@ -6,7 +6,6 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import * as CommonStyle from "../../commonStyles";
 import * as API from '../../api/userManagementAPI';
 import { UpdateUserDto } from '../../models/updateUserDto';
-import UploadFileTwoToneIcon from '@mui/icons-material/UploadFileTwoTone';
 import * as AppConfig from '../../AppConfig';
 import { AuthContext } from '../../services/authenticationContext';
 
@@ -90,29 +89,19 @@ export const ProfilePage = (): JSX.Element => {
             setErrorMassage('Wrong credentials or user already exists');
         };
     };
-    const discard = () => {
-        setUserDetails(authContext?.currentUser ?? {
-            id: '',
-            name: '',
-            email: '',
-            password: ''
-        });
-        setShowChangePassword(false);
-    }
 
     return (
         <Style.ProfilePageContainer>
-            <h1>Profile</h1>
+            <Style.ProfileName>{authContext?.currentUser?.name}</Style.ProfileName>
             <Style.ProfilePageContent>
                 <Style.ImageContainer>
-                    <Style.StyledImage src={imageSrc} alt="Avatar" />
+
                     <Button
-                        startIcon={<UploadFileTwoToneIcon />}
                         sx={Style.ProfileButtonStyle}
                         component="label"
                         variant="contained"
-                    >
-                        Change
+                    >   < Style.UploadIcon />
+                        <Style.StyledImage src={imageSrc} alt="Avatar" />
                         <input
                             type="file"
                             hidden
@@ -121,9 +110,9 @@ export const ProfilePage = (): JSX.Element => {
                     </Button>
                 </Style.ImageContainer>
                 <Style.ProfilePageInputContainer>
-                    <Style.ProfilePageTextField onChange={handleUserDetailsChange} value={userDetails.name ?? ''} name='name' label='Username' type='text' placeholder="Username" />
-                    <Style.ProfilePageTextField onChange={handleUserDetailsChange} value={userDetails.email ?? ''} name='email' label='E-mail' type='text' placeholder="E-mail" />
-                    <Style.ProfilePageTextField
+                    <CommonStyle.StyledTextField onChange={handleUserDetailsChange} value={userDetails.name ?? ''} name='name' label='Username' type='text' placeholder="Username" />
+                    <CommonStyle.StyledTextField onChange={handleUserDetailsChange} value={userDetails.email ?? ''} name='email' label='E-mail' type='text' placeholder="E-mail" />
+                    <CommonStyle.StyledTextField
                         value={userDetails.password ?? ''}
                         onChange={handleUserDetailsChange}
                         name='password'
@@ -145,7 +134,7 @@ export const ProfilePage = (): JSX.Element => {
                     />
                     {showChangePassword ?
                         <>
-                            <Style.ProfilePageTextField
+                            <CommonStyle.StyledTextField
                                 value={newPassword}
                                 onChange={(e) => setNewPassword(e.target.value)}
                                 label="New Password"
@@ -164,7 +153,7 @@ export const ProfilePage = (): JSX.Element => {
                                     ),
                                 }}
                             />
-                            <Style.ProfilePageTextField
+                            <CommonStyle.StyledTextField
                                 value={confrimNewPassword}
                                 onChange={(e) => setConfrimNewPassword(e.target.value)}
                                 label="Confrim Password"
@@ -185,10 +174,7 @@ export const ProfilePage = (): JSX.Element => {
                             />
                         </> : <Style.ChangePasswordLink onClick={() => setShowChangePassword(true)}>Change Password</Style.ChangePasswordLink>}
                     {errorMassage !== '' ? <CommonStyle.ErrorMassage>{errorMassage}</CommonStyle.ErrorMassage> : null}
-                    <Style.ButtonContainer>
-                        <Button variant="contained" sx={{ marginRight: '10px' }} onClick={discard} color="error">Discard</Button>
-                        <Button sx={Style.ProfileButtonStyle} onClick={save} title='Save' >Save</Button>
-                    </Style.ButtonContainer>
+                    <Style.SaveButton onClick={save} title='Save' >Save</Style.SaveButton>
                 </Style.ProfilePageInputContainer>
             </Style.ProfilePageContent>
         </Style.ProfilePageContainer>

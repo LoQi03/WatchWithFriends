@@ -235,7 +235,6 @@ export const RoomProvider: React.FC<{ children: ReactNode, id: string }> = ({ ch
         return () => {
             if (connection) {
                 connection.stop();
-                navigate('/rooms');
             }
         };
     }, [

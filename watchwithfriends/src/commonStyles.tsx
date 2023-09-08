@@ -2,11 +2,12 @@ import styled from "@emotion/styled";
 import { Button, ButtonProps, TextField } from "@mui/material";
 
 export const PageContainer = styled.div<{ backgroundImage?: string, isLogin?: boolean }>`
-    padding-top: 60px;
+    padding-top: 70px;
     background-color: #2D3142;
     align-items: center;
     width: 100%;
     display: flex;
+    overflow-y: auto;
     flex-direction: column;
     justify-content: start;
     background-image: url(${props => props.backgroundImage});
@@ -16,7 +17,7 @@ export const PageContainer = styled.div<{ backgroundImage?: string, isLogin?: bo
     height: 100%;
     @media screen and (max-width: 800px) {
         padding-top: 0;
-        ${props => !props.isLogin && "padding-bottom: 60px;"}
+        ${props => !props.isLogin && "padding-bottom: 100px;"}
     }
 `;
 

@@ -12,6 +12,7 @@ export const Navbar = styled.div`
     position: fixed;
     top: 0;
     min-height: 60px;
+    max-height: 60px;
     width: 100%;
     @media screen and (max-width: 800px) {
         display: none;
@@ -58,6 +59,7 @@ export const Link = styled.a`
     gap: 10px;
     color: white;
     font-size: 22px;
+    font-weight: bold;
     cursor: pointer;
     transition: 0.3s;
     &:hover {
@@ -79,7 +81,8 @@ export const StyledMenuItemButton = styled.div`
     min-width: 100px;
 `;
 
-export const NavbarButton = styled(BottomNavigation)`
+export const NavbarButtons = styled(BottomNavigation)`
+    z-index: 100;
     display: flex;
     width: 100%;
     background-color: #4F5D75;

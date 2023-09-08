@@ -1,36 +1,47 @@
 import styled from "@emotion/styled";
-import * as CommonStyle from "../../commonStyles";
 import { Theme } from "@emotion/react";
+import * as CommonStyle from "../../commonStyles";
+import UploadFileTwoToneIcon from '@mui/icons-material/UploadFileTwoTone';
 
 export const ProfilePageContainer = styled.div`
+padding: 20px;
 display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: center;
-padding: 20px;
 border-radius: 10px;
-@media (max-width: 768px) {
-    zoom: 0.65;
+@media (max-width: 800px) {
+    width: 90%;
+    height: 100%;
+    padding: 10px;
+    border-radius: 0;
 }
 `;
 export const ProfilePageContent = styled.div`
 display: flex;
-justify-content: space-between;
-align-items: start;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+gap: 60px;
+width: 100%;
+height: 100%;
+@media (max-width: 800px) {
+    padding: 10px;
+    flex-direction: column;
+}
 `;
 export const ProfilePageInputContainer = styled.div`
-margin-left: 40px;
 display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: center;
+gap: 20px;
 `;
 
 export const StyledImage = styled.img`
     height: 230px;
     width: 230px;
     border-radius: 50%;
-    margin-bottom: 20px;
  `;
 
 export const ChangePasswordLink = styled.a`
@@ -41,13 +52,9 @@ export const ChangePasswordLink = styled.a`
     cursor: pointer;
 `;
 
-export const ProfilePageTextField = styled(CommonStyle.StyledTextField)({
-    marginTop: "20px",
-});
 export const ButtonContainer = styled.div`
     display: flex;
-    justify-content: end;
-    margin-top: 20px;
+    justify-content: space-between;
     width: 100%;
 `;
 
@@ -62,10 +69,51 @@ export const ImageContainer = styled.div`
 `;
 export const ProfileButtonStyle: Theme =
 {
-    paddingX: '30px',
-    backgroundColor: '#EF8354',
+    backgroundColor: 'transparent',
     color: 'white',
-    '&:hover': { backgroundColor: '#EF8354' },
-    '&:active': { backgroundColor: '#EF8354' },
-    '&:focus': { backgroundColor: '#EF8354' }
+    border: 'none',
+    boxShadow: 'none',
+    borderRadius: '50%',
+    heigth: '230px',
+    width: '230px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '0',
+    '&:hover': {
+        backgroundColor: 'transparent',
+        opacity: '0.8',
+        boxShadow: 'none'
+    },
+    '&:active': {
+        backgroundColor: 'transparent',
+        boxShadow: 'none'
+    },
+    '&:focus': {
+        backgroundColor: 'transparent',
+        boxShadow: 'none'
+    }
 }
+export const ProfileName = styled.div`
+    width: 100%;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 30px;
+`;
+
+export const SaveButton = styled(CommonStyle.GenericButton)`
+    width: 100%;
+`;
+
+export const UploadIcon = styled(UploadFileTwoToneIcon)`
+    position: absolute;
+    top: 1%;
+    right:1%;
+    color: white;
+    background-color: #EF8354;
+    font-size: 40px;
+    padding: 10px;
+    border-radius: 50%;
+`;

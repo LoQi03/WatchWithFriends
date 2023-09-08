@@ -8,12 +8,15 @@ export const RoomsPageContainer = styled.div`
     align-items: center;
     justify-content: space-between;
     padding-bottom: 20px;
+    @media screen and (max-width: 800px) {
+        width: 95%;
+    }
 `;
 export const HeaderBar = styled.div`
     margin-top: 20px;
     display: flex;
     gap: 20px;
-    width: 70%;
+    width: 95%;
 `;
 export const RoomList = styled.div`
     display: flex;

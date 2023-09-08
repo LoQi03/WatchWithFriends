@@ -95,7 +95,7 @@ export const Navbar: React.FC = () => {
                     </Menu>
                 </Styles.NavbarContainer>
             </Styles.Navbar>
-            <Styles.NavbarButton
+            <Styles.NavbarButtons
                 showLabels
                 value={navState}
                 onChange={(_, newValue) => {
@@ -107,7 +107,7 @@ export const Navbar: React.FC = () => {
                         <Styles.BottomNavigationLink onClick={() => navigate(navigation.navigationURL)} key={navigation.title} label={navigation.title} icon={navigation.icon} />
                     ))
                 }
-            </Styles.NavbarButton>
+            </Styles.NavbarButtons>
         </>
     );
 }

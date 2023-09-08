@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, useContext, useState } from 'react';
 import * as Style from './styles';
 import { IconButton, InputAdornment, ThemeProvider } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
@@ -14,16 +14,16 @@ interface RegistrationFormProps {
 }
 
 export const RegistrationForm = (props: RegistrationFormProps): JSX.Element => {
-    const authContext = React.useContext(AuthContext);
+    const authContext = useContext(AuthContext);
     const [showPassword, setShowPassword] = React.useState(false);
     const [showConfrimPassword, setshowConfrimPassword] = React.useState(false);
     const [errorMessage, setErrorMessage] = React.useState<string>();
-    const [registerCredentials, setRegisterCredentials] = React.useState<RegisterUserDto>({ email: '', password: '', name: '', birthDate: '1998-07-03' });
-    const [confrimPassword, setConfrimPassword] = React.useState<string>('');
+    const [registerCredentials, setRegisterCredentials] = useState<RegisterUserDto>({ email: '', password: '', name: '', birthDate: '1998-07-03' });
+    const [confrimPassword, setConfrimPassword] = useState<string>('');
 
     const schema = joi.object({
         email: joi.string().required().email({ tlds: { allow: false } }),
-        password: joi.string().regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{6,}$/).required(),
+        password: joi.string().max(7).required(),
         name: joi.string().min(1).max(20).required(),
         birthDate: joi.string().required(),
     });
