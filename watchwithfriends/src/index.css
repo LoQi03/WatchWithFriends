@@ -26,7 +26,7 @@ html {
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
 }
 
 input::-ms-reveal,

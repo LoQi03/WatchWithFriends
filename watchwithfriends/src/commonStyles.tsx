@@ -16,8 +16,8 @@ export const PageContainer = styled.div<{ backgroundImage?: string, isLogin?: bo
     background-repeat: no-repeat;
     height: 100%;
     @media screen and (max-width: 800px) {
-        padding-top: 0;
-        ${props => !props.isLogin && "padding-bottom: 100px;"}
+        padding-top: 0px;
+        ${props => !props.isLogin && "height: 90vh;"}
     }
 `;
 

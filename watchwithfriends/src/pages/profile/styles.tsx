@@ -10,12 +10,12 @@ flex-direction: column;
 align-items: center;
 justify-content: center;
 border-radius: 10px;
+gap:5%;
 @media (max-width: 800px) {
     width: 95%;
     height: 100%;
-    padding: 10px;
+    padding:5px;
     border-radius: 0;
-    zoom: 0.80;
 }
 `;
 export const ProfilePageContent = styled.div`
@@ -23,7 +23,7 @@ display: flex;
 flex-direction: row;
 justify-content: center;
 align-items: center;
-gap: 30px;
+gap: 20px;
 width: 100%;
 height: 100%;
 @media (max-width: 800px) {

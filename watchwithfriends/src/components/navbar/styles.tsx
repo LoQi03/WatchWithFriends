@@ -88,6 +88,7 @@ export const NavbarButtons = styled(BottomNavigation)`
     background-color: #4F5D75;
     position: fixed;
     bottom: 0;
+    height: 10vh;
     @media screen and (min-width: 800px) {
         display: none;
     }
