@@ -6,6 +6,8 @@ export const RoomsPageContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow-x: hidden;
+    overflow-y: auto;
     justify-content: space-between;
     padding-bottom: 20px;
     @media screen and (max-width: 800px) {

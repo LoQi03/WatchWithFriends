@@ -4,44 +4,51 @@ import * as CommonStyle from "../../commonStyles";
 import UploadFileTwoToneIcon from '@mui/icons-material/UploadFileTwoTone';
 
 export const ProfilePageContainer = styled.div`
-padding: 20px;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-border-radius: 10px;
-gap:5%;
-@media (max-width: 800px) {
-    width: 95%;
-    height: 100%;
-    padding:5px;
-    border-radius: 0;
-}
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    gap:15px;
+    @media (max-width: 800px) {
+        width: 99%;
+        border-radius: 0;
+        height: 90vh;
+    }
 `;
 export const ProfilePageContent = styled.div`
-display: flex;
-flex-direction: row;
-justify-content: center;
-align-items: center;
-gap: 20px;
-width: 100%;
-height: 100%;
-@media (max-width: 800px) {
-    flex-direction: column;
-}
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    height: 100%;
+    @media (max-width: 800px) {
+        flex-direction: column;
+        zoom: 0.70;
+        padding-bottom: 20px;
+    }
 `;
 export const ProfilePageInputContainer = styled.div`
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-gap: 20px;
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
 `;
 
 export const StyledImage = styled.img`
     height: 230px;
     width: 230px;
     border-radius: 50%;
+
+    @media (max-width: 800px) {
+    zoom: 0.8;
+    }
  `;
 
 export const ChangePasswordLink = styled.a`
@@ -95,6 +102,8 @@ export const ProfileButtonStyle: Theme =
     }
 }
 export const ProfileName = styled.div`
+    padding-top: 10px;
+    padding-bottom: 10px;
     width: 100%;
     text-align: center;
     font-size: 30px;
