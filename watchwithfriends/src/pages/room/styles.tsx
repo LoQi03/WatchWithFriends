@@ -39,7 +39,8 @@ export const RoomContainer = styled.div`
     flex-direction: row;
     justify-content: start;
     gap: 20px;
-    max-height: 90%;
+    height: 90dvh;
+    max-height: 90dvh;
     margin-bottom: 20px;
     @media screen and (max-width: 800px) {
         width: 95%;
@@ -184,7 +185,7 @@ export const ChatContainer = styled.div`
     box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
     width: 30%;
     display: flex;
-    height: 90dvh;
+    height: 100%;
     max-height: 90dvh;
     flex-direction: column;
     background-color: #4F5D75;
