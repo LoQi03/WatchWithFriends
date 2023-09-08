@@ -5,7 +5,6 @@ import * as Styles from './styles';
 import { useNavigate } from 'react-router-dom';
 import WatchWithFriendsLogo from '../../assets/images/logo.png';
 import Person2Icon from '@mui/icons-material/Person2';
-import GroupIcon from '@mui/icons-material/Group';
 import TvIcon from '@mui/icons-material/Tv';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { Menu } from '@mui/material';
@@ -27,11 +26,6 @@ const navigationArrayTop: NavigationProps[] = [
         title: "Rooms",
         navigationURL: "/rooms",
         icon: <TvIcon sx={{ fontSize: '30px' }} />
-    },
-    {
-        title: "Friends",
-        navigationURL: "/friends",
-        icon: <GroupIcon sx={{ fontSize: '30px' }} />
     },
     {
         title: "Profile",

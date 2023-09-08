@@ -57,18 +57,76 @@ export const StyledTextField = styled(TextField)({
             caretColor: "white",
         },
     },
+    '@media (max-width: 800px)': {
+        "& .MuiInputBase-input": {
+            border: "none",
+            borderBottom: "1px solid white",
+            borderRadius: "0",
+            color: "white",
+        },
+        "& .MuiInputLabel-root": {
+            border: "none",
+            borderBottom: "1px solid white",
+            borderRadius: "0",
+            color: "white",
+        },
+        "& .MuiInputLabel-root.Mui-focused": {
+            border: "none",
+            borderBottom: "1px solid white",
+            borderRadius: "0",
+            color: "white",
+        },
+        "& .MuiIconButton-root": {
+            border: "none",
+            borderRadius: "0",
+            color: "white",
+        },
+        "& .MuiOutlinedInput-notchedOutline": {
+            borderColor: "white",
+            border: "none",
+            borderBottom: "1px solid white",
+            borderRadius: "0",
+            padding: "0",
+        },
+        "& .MuiOutlinedInput-root": {
+            "& fieldset": {
+                borderColor: "white",
+            },
+            "&:hover fieldset": {
+                borderColor: "white",
+            },
+            "&.Mui-focused fieldset": {
+                borderColor: "white",
+            },
+        },
+        input: {
+            '&:-webkit-autofill': {
+                WebkitBoxShadow: '0 0 0 1000px #2D3142 inset',
+                backgroundColor: '#2D3142 !important',
+                WebkitTextFillColor: "white",
+                caretColor: "white",
+                borderRadius: "0",
+            },
+        },
+    },
     width: "100%"
 });
 
 export const GenericButton = (props: ButtonProps): JSX.Element => <Button
     variant="contained"
-    style={{
+    sx={{
         color: "white",
         backgroundColor: "#EF8354",
         width: "100%",
         height: "55px",
         fontSize: "20px",
         fontWeight: "bold",
+        '@media (max-width: 800px)': {
+            height: "40px",
+        },
+        '&:hover': {
+            backgroundColor: "#C76D46",
+        },
     }}
     {...props} />;
 

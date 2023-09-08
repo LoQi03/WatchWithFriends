@@ -17,8 +17,11 @@ export const RoomsPageContainer = styled.div`
 export const HeaderBar = styled.div`
     margin-top: 20px;
     display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     gap: 20px;
-    width: 95%;
+    width: 70%;
 `;
 export const RoomList = styled.div`
     display: flex;
@@ -60,4 +63,7 @@ export const RoomListContainer = styled.div`
 export const RoomHeaderButtonContainer = styled.div`
         height: 100%;
         width: 10%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 `;
