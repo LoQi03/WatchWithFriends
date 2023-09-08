@@ -11,7 +11,7 @@ align-items: center;
 justify-content: center;
 border-radius: 10px;
 @media (max-width: 800px) {
-    width: 90%;
+    width: 95%;
     height: 100%;
     padding: 10px;
     border-radius: 0;
@@ -27,7 +27,6 @@ gap: 60px;
 width: 100%;
 height: 100%;
 @media (max-width: 800px) {
-    padding: 10px;
     flex-direction: column;
 }
 `;
