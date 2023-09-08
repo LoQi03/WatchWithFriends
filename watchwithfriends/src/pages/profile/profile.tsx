@@ -173,7 +173,6 @@ export const ProfilePage = (): JSX.Element => {
                                 }}
                             />
                         </> : <Style.ChangePasswordLink onClick={() => setShowChangePassword(true)}>Change Password</Style.ChangePasswordLink>}
-                    {errorMassage !== '' ? <CommonStyle.ErrorMassage>{errorMassage}</CommonStyle.ErrorMassage> : null}
                     <Style.SaveButton onClick={save} title='Save' >Save</Style.SaveButton>
                 </Style.ProfilePageInputContainer>
             </Style.ProfilePageContent>
