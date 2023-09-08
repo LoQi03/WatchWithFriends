@@ -32,6 +32,7 @@ export const ProfilePageContent = styled.div`
         gap:1%;
         padding-bottom: 10px;
         padding-top: 10px;
+        margin-bottom: 65px;
     }
 `;
 export const ProfilePageInputContainer = styled.div`
