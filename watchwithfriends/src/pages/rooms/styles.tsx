@@ -20,8 +20,8 @@ export const HeaderBar = styled.div`
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 20px;
-    width: 70%;
+    gap: 30px;
+    width: 75%;
 `;
 export const RoomList = styled.div`
     display: flex;

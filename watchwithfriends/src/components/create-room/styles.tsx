@@ -65,7 +65,7 @@ export const CloceLink = styled.a`
     top: 55px;
     right: 70px;
     color: white;
-    font-size: 30px;
+    font-size: 20px;
     cursor: pointer;
     transition: .3s;
     &:hover{
