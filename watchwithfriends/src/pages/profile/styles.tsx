@@ -28,7 +28,7 @@ export const ProfilePageContent = styled.div`
     height: 100%;
     @media (max-width: 800px) {
         flex-direction: column;
-        zoom: 0.70;
+        zoom: 0.75;
         gap:5px;
         padding-bottom: 20px;
     }
