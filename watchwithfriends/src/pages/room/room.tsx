@@ -3,7 +3,7 @@ import * as Styles from './styles';
 import { RoomUsers } from '../../components/room-users/room-users';
 import { VideoPlayer } from './video-player';
 import { PlayList } from '../../components/play-list/play-list';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { RoomContext } from '../../services/roomContext';
 import * as CommonStyles from '../../commonStyles';
 
