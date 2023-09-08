@@ -29,8 +29,9 @@ export const ProfilePageContent = styled.div`
     height: 100%;
     @media (max-width: 800px) {
         flex-direction: column;
-        gap:15px;
-        padding-bottom: 20px;
+        gap:1%;
+        padding-bottom: 10px;
+        padding-top: 10px;
     }
 `;
 export const ProfilePageInputContainer = styled.div`
@@ -38,10 +39,11 @@ export const ProfilePageInputContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    height: 100%;
     gap: 20px;
+    justify-content: start;
     @media (max-width: 800px) {
-        gap:10px;
+       justify-content: space-between;
     }
 `;
 
@@ -129,4 +131,9 @@ export const UploadIcon = styled(UploadFileTwoToneIcon)`
     font-size: 40px;
     padding: 10px;
     border-radius: 50%;
+    @media (max-width: 800px) {
+        font-size: 25px;
+        top: 2%;
+        right:15%;
+    }
 `;
