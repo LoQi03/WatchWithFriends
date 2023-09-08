@@ -62,8 +62,8 @@ export const CreateRoomModal = styled.div`
 export const CloceLink = styled.a`
     display: none;
     position: absolute;
-    top: 10%;
-    right: 10%;
+    top: 8%;
+    right: 11%;
     color: white;
     font-size: 25px;
     cursor: pointer;
