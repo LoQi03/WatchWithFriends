@@ -7,7 +7,7 @@ export const ChatFieldContainer = styled.div`
     flex-direction:column;
     justify-content:space-between;
     background-color: #BFC0C0;
-    height:77vh;
+    height:77dvh;
     max-height:100%;
     width:100%;
 `;

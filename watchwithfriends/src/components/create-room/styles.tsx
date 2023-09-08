@@ -53,8 +53,8 @@ export const CreateRoomModal = styled.div`
     @media screen and (max-width: 800px) {
         align-items: center;
         overflow:hidden;
-        height: 100vh;
-        width: 100vw;
+        height: 100dvh;
+        width: 100dvw;
         margin: 0;
         border-radius: 0;
     }
@@ -62,10 +62,10 @@ export const CreateRoomModal = styled.div`
 export const CloceLink = styled.a`
     display: none;
     position: absolute;
-    top: 55px;
-    right: 70px;
+    top: 10%;
+    right: 10%;
     color: white;
-    font-size: 20px;
+    font-size: 25px;
     cursor: pointer;
     transition: .3s;
     &:hover{
