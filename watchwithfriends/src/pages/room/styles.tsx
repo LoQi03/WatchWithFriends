@@ -83,12 +83,14 @@ ${props => props.isFullScreen
 export const VideoPlayerAndPlayListContainer = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 2.4dvh;
     width: 70%;
-    max-height: 100dvh;
+    height: 90dvh;
+    max-height: 90dvh;
+    gap: 20px;
+    justify-content: space-between;
     @media screen and (max-width: 800px) {
         width: 100%;
-        gap: 25px;
+        justify-content: space-between;
         margin-bottom: 20px;
     };
 `;
@@ -186,11 +188,13 @@ export const ChatContainer = styled.div`
     width: 30%;
     display: flex;
     height: 100%;
-    max-height: 90dvh;
+    max-height: 100%;
     flex-direction: column;
     background-color: #4F5D75;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    align-items: center;
+    justify-content: space-between;
     @media screen and (max-width: 800px) {
         display: none;
     }

@@ -9,7 +9,6 @@ import * as CommonStyles from '../../commonStyles';
 
 export const RoomPage: React.FC = () => {
     const roomContext = useContext(RoomContext);
-    const [isPlayListOpen, setIsPlayListOpen] = useState(false);
 
     return (
         <>

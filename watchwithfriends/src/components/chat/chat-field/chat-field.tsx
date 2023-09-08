@@ -34,6 +34,8 @@ export const ChatField: React.FC<ChatFieldParams> = (props: ChatFieldParams) => 
                     placeholder="Type something....."
                     sx={
                         {
+                            padding: "0px",
+                            margin: "0px",
                             width: "100%",
                             marginRight: "10px",
                             borderRadius: "5px",

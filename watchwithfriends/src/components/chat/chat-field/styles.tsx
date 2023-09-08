@@ -10,6 +10,7 @@ export const ChatFieldContainer = styled.div`
     height:80dvh;
     max-height:80dvh;
     max-width:100%;
+    gap:10px;
     width:100%;
 `;
 export const ChatFieldContent = styled.div`
@@ -20,8 +21,8 @@ export const ChatFieldContent = styled.div`
  `;
 export const ChatFieldActionBar = styled.div`
     display:flex;
-    padding:10px;
     align-items:center;
+    padding:10px;
     background-color:#4F5D75;
 `;
 export const RichTextField = (): JSX.Element => <TextField
