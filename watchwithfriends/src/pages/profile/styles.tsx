@@ -101,7 +101,6 @@ export const ProfileName = styled.div`
     font-size: 30px;
     font-weight: bold;
     color: white;
-    margin-bottom: 30px;
 `;
 
 export const SaveButton = styled(CommonStyle.GenericButton)`
