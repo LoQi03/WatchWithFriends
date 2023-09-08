@@ -8,18 +8,15 @@ import VolumeOffIcon from '@mui/icons-material/VolumeOff';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import { Theme } from "@emotion/react";
-import { Button, ButtonProps, TextField } from "@mui/material";
+import { Button, ButtonProps } from "@mui/material";
 
-export const RoomHeader = styled.div`
+export const RoomAddLink = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     gap: 20px;
-    background-color: #4F5D75;
-    margin-top: 20px;
-    width: 40%;
-    padding: 10px;
+    width: 100%;
 `;
 
 export const PlayButton = (props: ButtonProps): JSX.Element => <Button
@@ -34,44 +31,6 @@ export const PlayButton = (props: ButtonProps): JSX.Element => <Button
     {...props} />;
 
 
-export const InputTextField = styled(TextField)({
-    backgroundColor: "#2D3142",
-    "& .MuiInputBase-input": {
-        color: "white",
-    },
-    "& .MuiInputLabel-root": {
-        color: "white",
-    },
-    "& .MuiInputLabel-root.Mui-focused": {
-        color: "white",
-    },
-    "& .MuiIconButton-root": {
-        color: "white",
-    },
-    "& .MuiOutlinedInput-notchedOutline": {
-        borderColor: "#2D3142",
-    },
-    "& .MuiOutlinedInput-root": {
-        "& fieldset": {
-            borderColor: "#2D3142",
-        },
-        "&:hover fieldset": {
-            borderColor: "#2D3142",
-        },
-        "&.Mui-focused fieldset": {
-            borderColor: "#2D3142",
-        },
-    },
-    input: {
-        '&:-webkit-autofill': {
-            WebkitBoxShadow: '0 0 0 1000px #2D3142 inset',
-            backgroundColor: '#2D3142 !important',
-            WebkitTextFillColor: "white",
-            caretColor: "#2D3142",
-        },
-    },
-    width: "100%"
-});
 
 export const RoomContainer = styled.div`
     margin-top: 20px;
@@ -81,6 +40,14 @@ export const RoomContainer = styled.div`
     justify-content: start;
     gap: 20px;
     max-height: 90%;
+    margin-bottom: 20px;
+    @media screen and (max-width: 800px) {
+        width: 95%;
+        align-items: center;
+        flex-direction: column;
+        gap: 10px;
+        min-height: 100%;
+    }
 `;
 export const UsersContainer = styled.div`
     display: flex;
@@ -104,7 +71,9 @@ ${props => props.isFullScreen
         `
             display: flex;
             flex-direction: column;
-            height: 60%;
+            height: 50dvh;
+            min-height: 50dvh;
+            max-height: 50dvh;
             width: 100%;
             box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
         `
@@ -113,8 +82,14 @@ ${props => props.isFullScreen
 export const VideoPlayerAndPlayListContainer = styled.div`
     display: flex;
     flex-direction: column;
+    gap: 2.4dvh;
     width: 70%;
-    height: 100%;
+    max-height: 100dvh;
+    @media screen and (max-width: 800px) {
+        width: 100%;
+        gap: 25px;
+        margin-bottom: 20px;
+    };
 `;
 export const VideoPlayerActionBar = styled.div`
     display: flex;
@@ -209,10 +184,15 @@ export const ChatContainer = styled.div`
     box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
     width: 30%;
     display: flex;
+    height: 90dvh;
+    max-height: 90dvh;
     flex-direction: column;
     background-color: #4F5D75;
     padding-left: 10px;
     padding-right: 10px;
+    @media screen and (max-width: 800px) {
+        display: none;
+    }
 `;
 
 export const QueueContainer = styled.div`

@@ -4,15 +4,15 @@ import DeleteIcon from '@mui/icons-material/Delete';
 export const PlayListContainer = styled.div`
     width: 100%;
     max-width: 100%;
-    height: 40%;
-    max-height: 40%;
+    height: 30dvh;
+    max-height: 30dvh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 20px;
     background-color: #4F5D75;
     color: white;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+    margin-bottom: 20px;
 `;
 export const PlayList = styled.div`
     width: 100%;
@@ -22,7 +22,7 @@ export const PlayList = styled.div`
     align-items: center;
     overflow-y: auto;
     overflow-x: hidden;
-    padding-bottom: 20px;
+    padding: 10px;
 `;
 
 export const PlayListItemImage = styled.img`
@@ -48,6 +48,7 @@ export const PlayListItemTitle = styled.div`
     display: flex;
     align-items: start;
     justify-content: start;
+    text-overflow: ellipsis;
     padding-top: 20px;
     padding-left: 20px;
 `;

@@ -10,7 +10,7 @@ export const ChatEntryContainer = styled.div<{ isCurrentUser: boolean }>`
 `;
 
 export const ChatEntryContent = styled.div<{ isCurrentUser: boolean }>`
-    max-width: 80%;
+    max-width: 70%;
     border-radius: 10px;
     background-color: ${props => props.isCurrentUser ? "#EF8354" : "#2D3142"};
     padding: 20px;
@@ -28,6 +28,8 @@ export const ChatEntryImage = styled.img`
     height: 50px;
     width: 50px;
     border-radius: 50%;
+    min-width: 50px;
+    min-height: 50px;
  `;
 
 export const CurrentUserChatEntryName = styled.p`
