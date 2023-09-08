@@ -57,3 +57,7 @@ export const RoomListContainer = styled.div`
     justify-content: center;
     height: 100%;
 `;
+export const RoomHeaderButtonContainer = styled.div`
+        height: 100%;
+        width: 10%;
+`;

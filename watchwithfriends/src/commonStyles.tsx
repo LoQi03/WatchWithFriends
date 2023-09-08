@@ -65,6 +65,10 @@ export const GenericButton = (props: ButtonProps): JSX.Element => <Button
     style={{
         color: "white",
         backgroundColor: "#EF8354",
+        width: "100%",
+        height: "55px",
+        fontSize: "20px",
+        fontWeight: "bold",
     }}
     {...props} />;
 

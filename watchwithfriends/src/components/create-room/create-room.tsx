@@ -44,11 +44,10 @@ export const CreateRoom = (): JSX.Element => {
                         <Styles.CreateRoomInputFieldContainer>
                             <CommonStyles.StyledTextField value={roomName} onChange={e => setRoomName(e.target.value)} placeholder="Name" />
                             <CommonStyles.StyledTextField value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" type="password" />
-                        </Styles.CreateRoomInputFieldContainer>
-                        <Styles.CreateRoomActionBar>
                             <CommonStyles.GenericButton onClick={create}>Create</CommonStyles.GenericButton>
-                        </Styles.CreateRoomActionBar>
+                        </Styles.CreateRoomInputFieldContainer>
                     </Styles.CreateRoomModal>
+                    <Styles.CloceLink onClick={close}>Close</Styles.CloceLink>
                 </Styles.CreateRoomModalContainer>
             </Box>
         </Modal>

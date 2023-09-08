@@ -49,7 +49,9 @@ export const RoomsPage = (): JSX.Element => {
         <Styles.RoomsPageContainer>
             <Styles.HeaderBar>
                 <CommonStyles.StyledTextField placeholder="Search" />
-                <CommonStyles.GenericButton onClick={handleOpen} ><AddIcon /></CommonStyles.GenericButton>
+                <Styles.RoomHeaderButtonContainer>
+                    <CommonStyles.GenericButton onClick={handleOpen} ><AddIcon /></CommonStyles.GenericButton>
+                </Styles.RoomHeaderButtonContainer>
             </Styles.HeaderBar>
             <Styles.RoomListContainer>
                 <Styles.RoomList>
