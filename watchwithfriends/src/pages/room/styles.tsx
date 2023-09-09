@@ -45,13 +45,13 @@ export const RoomContainer = styled.div`
     gap: 20px;
     min-height: 500px;
     height: 90dvh;
-    margin-bottom: 20px;
     @media screen and (max-width: 800px) {
         width: 95%;
         align-items: center;
         flex-direction: column;
         gap: 10px;
         min-height: 100%;
+        padding-bottom: 70px;
     }
 `;
 export const UsersContainer = styled.div`
