@@ -61,11 +61,11 @@ export const RegistrationForm = (props: RegistrationFormProps): JSX.Element => {
         <>
             <h1>Sign Up</h1>
             <Style.InputContainer>
-                <Style.SignUpTextField value={registerCredentials.email} name='email' onChange={handleRegisterCredentialsChange} label='E-mail' type="text" placeholder="E-mail" />
-                <Style.SignUpTextField value={registerCredentials.name} name='name' onChange={handleRegisterCredentialsChange} label='Username' type="text" placeholder="Username" />
+                <Style.SignUpTextField value={registerCredentials.email} name='email' onChange={handleRegisterCredentialsChange} type="text" placeholder="E-mail" />
+                <Style.SignUpTextField value={registerCredentials.name} name='name' onChange={handleRegisterCredentialsChange} type="text" placeholder="Username" />
                 <ThemeProvider theme={Style.datePickerTheme}>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker label='Birth Date'
+                        <DatePicker
                             value={dayjs(registerCredentials.birthDate)}
                             sx={Style.DataPickerTheme}
                             onChange={(date) => setRegisterCredentials({ ...registerCredentials, birthDate: date?.toISOString() ?? '' })}
@@ -76,7 +76,6 @@ export const RegistrationForm = (props: RegistrationFormProps): JSX.Element => {
                     value={registerCredentials.password}
                     onChange={handleRegisterCredentialsChange}
                     name='password'
-                    label="Password"
                     type={showPassword ? 'text' : 'password'}
                     InputProps={{
                         endAdornment: (
@@ -93,7 +92,6 @@ export const RegistrationForm = (props: RegistrationFormProps): JSX.Element => {
                     }}
                 />
                 <Style.SignUpTextField
-                    label="Confrim Password"
                     type={showConfrimPassword ? 'text' : 'password'}
                     value={confrimPassword}
                     onChange={(e) => setConfrimPassword(e.target.value)}
