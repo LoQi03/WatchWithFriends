@@ -39,7 +39,7 @@ export const CreateRoomModal = styled.div`
     box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
     animation: show 1s forwards;
     animation-delay: .6s;
-    transition: .5s;
+    transition: .2s;
     @keyframes show{
         0%{
             transform: translateY(100px);

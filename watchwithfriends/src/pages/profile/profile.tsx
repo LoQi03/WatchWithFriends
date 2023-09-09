@@ -8,6 +8,7 @@ import * as API from '../../api/userManagementAPI';
 import { UpdateUserDto } from '../../models/updateUserDto';
 import * as AppConfig from '../../AppConfig';
 import { AuthContext } from '../../services/authenticationContext';
+import toast from 'react-hot-toast';
 
 export const ProfilePage = (): JSX.Element => {
     const authContext = useContext(AuthContext);
@@ -82,9 +83,10 @@ export const ProfilePage = (): JSX.Element => {
                 }
                 setNewPassword('');
                 setConfrimNewPassword('');
+                toast.success('User updated successfully');
             }
         } catch (error) {
-            console.log('Wrong credentials or user already exists');
+            toast.error('Wrong credentials or user already exists');
         };
     };
 
