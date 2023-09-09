@@ -14,6 +14,7 @@ import { getVideoDetails } from '../misc/getVideoDetails';
 import * as AppConfig from '../AppConfig';
 import { toggleFullScreen } from '../misc/toggleFullScreen';
 import * as signalR from '@microsoft/signalr';
+import toast from 'react-hot-toast';
 
 export interface RoomContextType {
     sendMessage: (messageText: string) => Promise<void>;
@@ -349,6 +350,7 @@ export const RoomProvider: React.FC<{ children: ReactNode, id: string }> = ({ ch
             }
 
             await connection.invoke("UpdateRoom", data);
+            toast.success("Video added to playlist!");
             setNewUrl('');
         }
         catch (error) {

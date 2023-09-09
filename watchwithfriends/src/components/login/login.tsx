@@ -6,6 +6,7 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { LoginCredentialsDto } from '../../models/loginCredentialsDto';
 import * as CommonStyles from '../../commonStyles';
 import { AuthContext } from '../../services/authenticationContext';
+import toast from 'react-hot-toast';
 
 interface LoginFormProps {
     formChangeHandler: () => void;
@@ -15,7 +16,6 @@ export const LoginForm = (props: LoginFormProps): JSX.Element => {
     const authContext = React.useContext(AuthContext);
     const [showPassword, setShowPassword] = React.useState(false);
     const [credentials, setCredentials] = useState<LoginCredentialsDto>({ email: '', password: '' });
-    const [errorMessage, setErrorMessage] = useState<string>();
     const handleTogglePassword = () => {
         setShowPassword((prevShowPassword) => !prevShowPassword);
     };
@@ -32,10 +32,10 @@ export const LoginForm = (props: LoginFormProps): JSX.Element => {
     const login = async () => {
         try {
             await authContext?.login(credentials);
+            toast.success("You have successfully logged in!");
         }
         catch (error) {
-            setErrorMessage("Invalid credentials");
-            console.log(error);
+            toast.error("Wrong credentials!");
         }
     };
     return (
@@ -64,7 +64,6 @@ export const LoginForm = (props: LoginFormProps): JSX.Element => {
                         ),
                     }}
                 />
-                {errorMessage && <CommonStyles.ErrorMassage>{errorMessage}</CommonStyles.ErrorMassage>}
                 <Style.SignInButton onClick={login} size='large' startIcon={<LoginIcon />}>Sign In</Style.SignInButton>
             </Style.InputContainer>
             <CommonStyles.SignSwitchButton onClick={props.formChangeHandler}>Need an account?</CommonStyles.SignSwitchButton>

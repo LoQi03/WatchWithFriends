@@ -7,6 +7,7 @@ import * as API from '../../api/roomManagmentAPI';
 import { RoomDto } from "../../models/roomDto";
 import { AuthContext } from "../../services/authenticationContext";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export const CreateRoom = (): JSX.Element => {
     const navigate = useNavigate();
@@ -28,6 +29,7 @@ export const CreateRoom = (): JSX.Element => {
         };
         const { data } = await API.createRoom(room);
         await createRoomContext?.getRoomsAsync();
+        toast.success("You have successfully created a room!");
         navigate(`/room/${data.id}`);
     };
     return (

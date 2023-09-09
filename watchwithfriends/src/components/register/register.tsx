@@ -9,6 +9,7 @@ import dayjs from 'dayjs';
 import joi from 'joi';
 import * as CommonStyles from '../../commonStyles';
 import { AuthContext } from '../../services/authenticationContext';
+import toast from 'react-hot-toast';
 interface RegistrationFormProps {
     formChangeHandler: () => void;
 }
@@ -17,7 +18,6 @@ export const RegistrationForm = (props: RegistrationFormProps): JSX.Element => {
     const authContext = useContext(AuthContext);
     const [showPassword, setShowPassword] = React.useState(false);
     const [showConfrimPassword, setshowConfrimPassword] = React.useState(false);
-    const [errorMessage, setErrorMessage] = React.useState<string>();
     const [registerCredentials, setRegisterCredentials] = useState<RegisterUserDto>({ email: '', password: '', name: '', birthDate: '1998-07-03' });
     const [confrimPassword, setConfrimPassword] = useState<string>('');
 
@@ -40,19 +40,20 @@ export const RegistrationForm = (props: RegistrationFormProps): JSX.Element => {
     const register = async () => {
         try {
             if (registerCredentials.password !== confrimPassword) {
-                setErrorMessage("Passwords don't match");
+                toast.error("The passwords don't match");
                 return;
             }
             const { error } = schema.validate(registerCredentials);
             if (error) {
-                setErrorMessage("The password must contain small and capital letters, symbols and numbers!");
+                toast.error("The password must contain small and capital letters, symbols and numbers!");
                 return;
             }
             await authContext?.register(registerCredentials);
+            toast.success("You have successfully registered!");
             props.formChangeHandler();
         }
         catch (error) {
-            setErrorMessage("Wrong credentials or user already exists");
+            toast.error("Wrong credentials or user already exists!");
             console.log(error);
         }
     };
@@ -111,7 +112,6 @@ export const RegistrationForm = (props: RegistrationFormProps): JSX.Element => {
                         ),
                     }}
                 />
-                {errorMessage && <CommonStyles.ErrorMassage >{errorMessage}</CommonStyles.ErrorMassage>}
                 <Style.SignUpButton onClick={register} size='large' >Sign Up</Style.SignUpButton>
             </Style.InputContainer>
             <CommonStyles.SignSwitchButton onClick={props.formChangeHandler}>Already have an account?</CommonStyles.SignSwitchButton>

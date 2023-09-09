@@ -7,9 +7,11 @@ namespace Watch2Gether_Backend.Hubs
     public class RoomHub : Hub, IRoomHub
     {
         private readonly IRoomService _roomService;
-        public RoomHub(IRoomService roomService)
+        private readonly IHubContext<RoomHub> _roomContext;
+        public RoomHub(IRoomService roomService, IHubContext<RoomHub> roomContext)
         {
             _roomService = roomService;
+            _roomContext = roomContext;
         }
         public override Task OnConnectedAsync()
         {
@@ -24,7 +26,7 @@ namespace Watch2Gether_Backend.Hubs
             }
             foreach (var roomUser in room?.RoomUsers)
             {
-                await Clients.Clients(roomUser.Id).SendAsync("UpdateRoomHandler", room);
+                await _roomContext.Clients.Clients(roomUser.Id).SendAsync("UpdateRoomHandler", room);
             }
         }
         public async Task VideoPlayer(VideoPlayer videoPlayer)
@@ -36,7 +38,7 @@ namespace Watch2Gether_Backend.Hubs
             }
             foreach (var roomUser in room?.RoomUsers)
             {
-                await Clients.Clients(roomUser.Id).SendAsync("VideoPlayerHandler", videoPlayer);
+                await _roomContext.Clients.Clients(roomUser.Id).SendAsync("VideoPlayerHandler", videoPlayer);
             }
         }
         public override async Task OnDisconnectedAsync(Exception? exception)
@@ -53,7 +55,7 @@ namespace Watch2Gether_Backend.Hubs
             }
             foreach (var roomUser in room?.RoomUsers)
             {
-                await Clients.Clients(roomUser.Id).SendAsync("GetRoomUsers", users);
+                await _roomContext.Clients.Clients(roomUser.Id).SendAsync("GetRoomUsers", users);
             }
         }
         public async Task SendMessage(ChatEntryDTO chatEntry)
@@ -69,7 +71,7 @@ namespace Watch2Gether_Backend.Hubs
             }
             foreach (var roomUser in room?.RoomUsers)
             {
-                await Clients.Clients(roomUser.Id).SendAsync("ReciveMessage", chatEntry);
+                await _roomContext.Clients.Clients(roomUser.Id).SendAsync("ReciveMessage", chatEntry);
             }
         }
         public async Task JoinRoom(Guid roomId, Guid userId, string name)
@@ -87,7 +89,7 @@ namespace Watch2Gether_Backend.Hubs
             }
             foreach (var roomUser in room?.RoomUsers)
             {
-                await Clients.Clients(roomUser.Id).SendAsync("GetRoomUsers", users);
+                await _roomContext.Clients.Clients(roomUser.Id).SendAsync("GetRoomUsers", users);
             }
         }
     }

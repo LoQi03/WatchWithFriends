@@ -9,6 +9,7 @@ import { ProfilePage } from './pages/profile/profile';
 import { RoomsPage } from './pages/rooms/rooms';
 import { AuthProvider, VerifyTokenHandler } from './services/authenticationContext';
 import { RoomPageWithProvider } from './pages/room/room-with-provider';
+import { Toaster } from 'react-hot-toast';
 
 const App: React.FC = () => {
   const [isUserAlreadyLoggedIn, setIsUserAlreadyLoggedIn] = React.useState(false);
@@ -23,6 +24,10 @@ const App: React.FC = () => {
 
   return (
     <AuthProvider isUserAlreadyLoggedInChangeHandler={isUserAlreadyLoggedInChangeHandler}>
+      <Toaster
+        position="bottom-right"
+        reverseOrder={false}
+      />
       <VerifyTokenHandler isUserAlreadyLoggedIn={isUserAlreadyLoggedIn} verifyTokenHandler={verifyTokenHandler} />
       {
         isUserAlreadyLoggedIn ?
