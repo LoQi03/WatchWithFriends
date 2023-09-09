@@ -13,7 +13,7 @@ export const ChatEntryContent = styled.div<{ isCurrentUser: boolean }>`
     max-width: 70%;
     border-radius: 10px;
     background-color: ${props => props.isCurrentUser ? "#EF8354" : "#4F5D75"};
-    padding: 20px;
+    padding: 15px;
     white-space: auto;
     word-spacing: 5px;
     line-height: 1.4;

@@ -231,8 +231,11 @@ export const StyledChatIconContainer = styled.div`
     padding:15px;
     background-color: #EF8354;
     bottom: 5rem;
-    right: 1rem;
+    right: 1.5rem;
     border-radius: 100%;
+    @media screen and (min-width: 800px) {
+        display: none;
+    }
 `;
 export const StyledChatIconCounter = styled.div`
     position: absolute;
@@ -252,11 +255,11 @@ export const PhoneChatContainer = styled.div`
     display: none;
     @media screen and (max-width: 800px) {
         position:absolute;
-        bottom: 11rem;
+        bottom: 10rem;
         display: flex;
         width: 80%;
         max-width: 80%;
-        height: 60dvh;
+        height: 70dvh;
         max-height: 70dvh;
         justify-content: center;
         align-items: center;

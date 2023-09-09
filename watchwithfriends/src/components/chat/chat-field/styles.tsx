@@ -3,7 +3,6 @@ import { TextField } from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
 
 export const ChatFieldContainer = styled.div`
-    margin-top: 5px;
     display:flex;
     flex-direction:column;
     justify-content:space-between;

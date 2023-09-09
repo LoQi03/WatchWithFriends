@@ -206,7 +206,9 @@ export const RoomProvider: React.FC<{ children: ReactNode, id: string }> = ({ ch
                 });
 
                 roomConnection.on('ReciveMessage', (message: ChatEntryDto) => {
-                    setNotSeeingMessages((prev) => prev + 1);
+                    if (authContext?.currentUser?.id !== message.userId) {
+                        setNotSeeingMessages(prev => prev + 1);
+                    }
                     messageHandler(message);
                 });
 
