@@ -24,12 +24,12 @@ export const RoomPage: React.FC = () => {
                             <Styles.VideoPlayerContainer isFullScreen={roomContext?.isFullScreen}>
                                 <VideoPlayer />
                             </Styles.VideoPlayerContainer>
+                            <RoomUsers users={roomContext?.users ?? []} />
                             <PlayList />
                         </Styles.VideoPlayerAndPlayListContainer>
                         <Styles.ChatContainer>
                             {
                                 <>
-                                    <RoomUsers users={roomContext?.users ?? []} />
                                     <ChatField messages={roomContext?.messages} />
                                 </>
                             }

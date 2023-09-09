@@ -12,7 +12,6 @@ export const PlayListContainer = styled.div`
     background-color: #4F5D75;
     color: white;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
-    margin-bottom: 20px;
     @media screen and (max-width: 800px) {
         zoom: 0.8;
     };

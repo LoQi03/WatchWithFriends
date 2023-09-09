@@ -25,7 +25,6 @@ export const VideoPlayer: React.FC = () => {
                         onPause={roomContext?.onPause}
                         onEnded={roomContext?.onEnd}
                         playing={roomContext?.isPlaying}
-                        pip={false}
                     />
                     <Styles.VideoPlayerActionBar>
                         <Styles.PlayAndSeekActionBar>

@@ -11,7 +11,11 @@ export const RoomUsersContainer = styled.div`
     justify-content: start;
     align-items: center;
     background-color: #4F5D75;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
     gap: 10px;
+    @media (max-width: 800px) {
+        height: 50px;
+    }
 `;
 
 export const UserImage = styled.img`
@@ -19,6 +23,10 @@ export const UserImage = styled.img`
     height: 50px;
     width: 50px;
     border-radius: 100%;
+    @media (max-width: 800px) {
+        height: 30px;
+        width: 30px;
+    }
  `;
 export const UserImageContainer = styled.div`
     margin:0px;
@@ -43,6 +51,12 @@ export const CurrentUserContainer = styled.div`
     height: 50px;
     width: 50px;
     border-right: 2px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding-left: 10px;
     padding-right: 10px;
+    @media (max-width: 800px) {
+        height: 30px;
+    }
 `;

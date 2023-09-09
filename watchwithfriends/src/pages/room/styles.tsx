@@ -42,8 +42,8 @@ export const RoomContainer = styled.div`
     flex-direction: row;
     justify-content: start;
     gap: 20px;
+    min-height: 500px;
     height: 90dvh;
-    max-height: 90dvh;
     margin-bottom: 20px;
     @media screen and (max-width: 800px) {
         width: 95%;
@@ -101,10 +101,13 @@ export const VideoPlayerActionBar = styled.div`
     display: flex;
     justify-content: space-between;
     width: 100%;
-    min-height: 50px;
     height: 50px;
     background-color: #EF8354;
     align-items: center;
+    gap:10px;
+    @media screen and (max-width: 800px) {
+        height: 30px;
+    };
 `;
 export const Play = styled(PlayArrowIcon)`
     color: white;
@@ -134,7 +137,6 @@ export const Forward = styled(Forward10Icon)`
 `;
 
 export const Volume = styled(VolumeUpIcon)`
-    margin-left: 20px;
     color: white;
     cursor: pointer;
     width: 30px;
@@ -170,6 +172,9 @@ export const PlayAndSeekActionBar = styled.div`
     background-color: #EF8354;
     align-items: center;
     gap: 15px;
+    @media screen and (max-width: 800px) {
+        height: 30px;
+    };
 `;
 export const TimeIndicator = styled.p`
     color: white;
@@ -190,9 +195,11 @@ export const VolumeActionBar = styled.div`
 export const ChatContainer = styled.div`
     box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
     width: 30%;
+    max-width: 30%;
     display: flex;
     height: 100%;
     max-height: 100%;
+    align-items: center;
     flex-direction: column;
     background-color: #4F5D75;
     padding-left: 5px;

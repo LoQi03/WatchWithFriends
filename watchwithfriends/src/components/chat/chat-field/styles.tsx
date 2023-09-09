@@ -3,13 +3,13 @@ import { TextField } from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
 
 export const ChatFieldContainer = styled.div`
+    margin-top: 5px;
     display:flex;
     flex-direction:column;
     justify-content:space-between;
     background-color: #2D3142;
-    height:80dvh;
-    max-height:80dvh;
-    max-width:100%;
+    height:100%;
+    max-height:100%;
     gap:10px;
     width:100%;
 `;
@@ -18,11 +18,12 @@ export const ChatFieldContent = styled.div`
     overflow-y:auto;
     height:100%;
     padding:20px;
+    border-top: 5px solid #4F5D75;
  `;
 export const ChatFieldActionBar = styled.div`
     display:flex;
     align-items:center;
-    padding:10px;
+    padding:5px;
     background-color:#4F5D75;
 `;
 export const RichTextField = (): JSX.Element => <TextField
