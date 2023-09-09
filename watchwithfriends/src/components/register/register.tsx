@@ -76,6 +76,7 @@ export const RegistrationForm = (props: RegistrationFormProps): JSX.Element => {
                     value={registerCredentials.password}
                     onChange={handleRegisterCredentialsChange}
                     name='password'
+                    placeholder="Password"
                     type={showPassword ? 'text' : 'password'}
                     InputProps={{
                         endAdornment: (
@@ -94,6 +95,7 @@ export const RegistrationForm = (props: RegistrationFormProps): JSX.Element => {
                 <Style.SignUpTextField
                     type={showConfrimPassword ? 'text' : 'password'}
                     value={confrimPassword}
+                    placeholder="Confirm Password"
                     onChange={(e) => setConfrimPassword(e.target.value)}
                     InputProps={{
                         endAdornment: (
