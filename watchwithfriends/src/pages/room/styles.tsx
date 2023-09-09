@@ -230,8 +230,8 @@ export const StyledChatIconContainer = styled.div`
     position: fixed;
     padding:15px;
     background-color: #EF8354;
-    bottom: 6rem;
-    right: 2rem;
+    bottom: 5rem;
+    right: 1rem;
     border-radius: 100%;
 `;
 export const StyledChatIconCounter = styled.div`
