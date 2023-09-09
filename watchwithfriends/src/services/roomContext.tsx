@@ -33,11 +33,13 @@ export interface RoomContextType {
     currentRoom: RoomDto | null;
     currentVideo: VideoDto | null;
     connection: signalR.HubConnection | null;
+    notSeeingMessages: number;
     onVolumeChange: (volume: number) => Promise<void>;
     handleFullScreen: (isFullScreen: boolean) => void;
     handleDeleteVideo: (videoId: string) => Promise<void>;
     handlePlayUrl: (url: string) => Promise<void>;
     handleSetNewUrl: (url: string) => void;
+    updateNotSeeingMessages: (count: number) => void;
 }
 
 export const RoomContext = createContext<RoomContextType | null>(null);
@@ -57,6 +59,7 @@ export const RoomProvider: React.FC<{ children: ReactNode, id: string }> = ({ ch
     const [newUrl, setNewUrl] = useState<string>('');
     const [currentRoom, setCurrentRoom] = useState<RoomDto | null>(null);
     const [currentVideo, setCurrentVideo] = useState<VideoDto | null>(null);
+    const [notSeeingMessages, setNotSeeingMessages] = useState<number>(0);
 
     const videoPlayerHandler = useCallback((videoPlayer: VideoPlayerDto) => {
         if (videoPlayer.roomId !== id) {
@@ -82,6 +85,10 @@ export const RoomProvider: React.FC<{ children: ReactNode, id: string }> = ({ ch
             }
         }
     }, [id]);
+
+    const updateNotSeeingMessages = (count: number) => {
+        setNotSeeingMessages(count);
+    }
 
     const updateRoomHandler = useCallback((room: RoomDto) => {
         setCurrentRoom(room);
@@ -199,6 +206,7 @@ export const RoomProvider: React.FC<{ children: ReactNode, id: string }> = ({ ch
                 });
 
                 roomConnection.on('ReciveMessage', (message: ChatEntryDto) => {
+                    setNotSeeingMessages((prev) => prev + 1);
                     messageHandler(message);
                 });
 
@@ -368,11 +376,13 @@ export const RoomProvider: React.FC<{ children: ReactNode, id: string }> = ({ ch
             currentRoom,
             currentVideo,
             connection,
+            notSeeingMessages,
             onVolumeChange,
             handleFullScreen,
             handleDeleteVideo,
             handlePlayUrl,
             handleSetNewUrl,
+            updateNotSeeingMessages
         }}>
             {children}
         </RoomContext.Provider>

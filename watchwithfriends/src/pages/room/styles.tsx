@@ -9,6 +9,7 @@ import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import { Theme } from "@emotion/react";
 import { Button, ButtonProps } from "@mui/material";
+import ChatIcon from '@mui/icons-material/Chat';
 
 export const RoomAddLink = styled.div`
     display: flex;
@@ -216,6 +217,55 @@ export const QueueContainer = styled.div`
     flex-direction: column;
     background-color: #EF8354;
     height: 100%;
+`;
+
+export const StyledChatIcon = styled(ChatIcon)`
+    color: white;
+    font-size: 35px;
+`;
+export const StyledChatIconContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    padding:15px;
+    background-color: #EF8354;
+    bottom: 6rem;
+    right: 2rem;
+    border-radius: 100%;
+`;
+export const StyledChatIconCounter = styled.div`
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2px;
+    width: 15px;
+    border-radius: 100%;
+    background-color: #EA3C53;
+`;
+
+export const PhoneChatContainer = styled.div`
+    display: none;
+    @media screen and (max-width: 800px) {
+        position:absolute;
+        bottom: 11rem;
+        display: flex;
+        width: 80%;
+        max-width: 80%;
+        height: 60dvh;
+        max-height: 70dvh;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        border-radius: 10px;
+        background-color: #4F5D75;
+        padding: 10px;
+        border: 2px solid #EF8354;
+    }
 `;
 
 export const VolumeActionBarSlider: Theme = { color: 'white', width: '100%' };

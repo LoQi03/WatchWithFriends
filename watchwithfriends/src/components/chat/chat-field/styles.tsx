@@ -12,6 +12,9 @@ export const ChatFieldContainer = styled.div`
     max-height:100%;
     gap:10px;
     width:100%;
+    @media (max-width: 800px) {
+        zoom: 0.8;
+    }
 `;
 export const ChatFieldContent = styled.div`
     overflow-x:hidden;
