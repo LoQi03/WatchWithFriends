@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import * as CommonSrtyles from './commonStyles';
 import { Navbar } from './components/navbar/navbar';
@@ -13,7 +13,7 @@ import { Toaster } from 'react-hot-toast';
 
 const App: React.FC = () => {
   const [isUserAlreadyLoggedIn, setIsUserAlreadyLoggedIn] = React.useState(false);
-
+  const windowSize = useRef([window.innerWidth, window.innerHeight]);
   const isUserAlreadyLoggedInChangeHandler = () => {
     setIsUserAlreadyLoggedIn(prev => !prev);
   };
@@ -25,7 +25,8 @@ const App: React.FC = () => {
   return (
     <AuthProvider isUserAlreadyLoggedInChangeHandler={isUserAlreadyLoggedInChangeHandler}>
       <Toaster
-        position="bottom-right"
+        position={windowSize.current[0] < 800 ? 'top-center' : 'bottom-right'}
+        containerStyle={{ zIndex: 9999 }}
         reverseOrder={false}
       />
       <VerifyTokenHandler isUserAlreadyLoggedIn={isUserAlreadyLoggedIn} verifyTokenHandler={verifyTokenHandler} />

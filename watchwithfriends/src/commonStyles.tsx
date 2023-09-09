@@ -133,10 +133,10 @@ export const GenericButton = (props: ButtonProps): JSX.Element => <Button
 export const ErrorMassage = styled.p`
     color: red;
     font-size: 15px;
-    `;
+ `;
 export const SignSwitchButton = styled.p`
     cursor: pointer;
     color:#EF8354;
     text-decoration: underline;
     font-size: 17px;
-    `;
+`;

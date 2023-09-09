@@ -45,7 +45,7 @@ export const RegistrationForm = (props: RegistrationFormProps): JSX.Element => {
             }
             const { error } = schema.validate(registerCredentials);
             if (error) {
-                toast.error("The password must contain small and capital letters, symbols and numbers!");
+                toast.error("Wrong credentials!");
                 return;
             }
             await authContext?.register(registerCredentials);
