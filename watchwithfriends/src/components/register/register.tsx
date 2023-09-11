@@ -23,7 +23,7 @@ export const RegistrationForm = (props: RegistrationFormProps): JSX.Element => {
 
     const schema = joi.object({
         email: joi.string().required().email({ tlds: { allow: false } }),
-        password: joi.string().max(7).required(),
+        password: joi.string().min(7).required(),
         name: joi.string().min(1).max(20).required(),
         birthDate: joi.string().required(),
     });
@@ -46,6 +46,7 @@ export const RegistrationForm = (props: RegistrationFormProps): JSX.Element => {
             const { error } = schema.validate(registerCredentials);
             if (error) {
                 toast.error("Wrong credentials!");
+                console.log(error);
                 return;
             }
             await authContext?.register(registerCredentials);
