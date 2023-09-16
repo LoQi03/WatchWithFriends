@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "Watch2Gether_Backend": {
+    "WatchWithFriends_Backend": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",

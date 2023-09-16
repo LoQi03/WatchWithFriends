@@ -1,6 +1,6 @@
-﻿using Watch2Gether_Data.Model;
+﻿using WatchWithFriends_Data.Model;
 
-namespace Watch2Gether_Data.Repositories
+namespace WatchWithFriends_Data.Repositories
 {
     public interface IUserRepository : IDisposable
     {

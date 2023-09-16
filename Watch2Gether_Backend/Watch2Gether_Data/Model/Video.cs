@@ -1,4 +1,4 @@
-﻿using Watch2Gether_Data.Model;
+﻿using WatchWithFriends_Data.Model;
 
 public class Video
 {

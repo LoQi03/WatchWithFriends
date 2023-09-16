@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using JsonIgnore = System.Text.Json.Serialization;
 
-namespace Watch2Gether_Backend.Misc
+namespace WatchWithFriends.Misc
 {
     public class JwtConfig
     {

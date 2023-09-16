@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using System.Security.Cryptography;
 using Watch2Gether_Backend.Model;
-using Watch2Gether_Data.Model;
-using Watch2Gether_Data.Repositories;
+using WatchWithFriends.Model;
+using WatchWithFriends_Data.Model;
+using WatchWithFriends_Data.Repositories;
 
-namespace Watch2Gether_Backend.Services
+namespace WatchWithFriends.Services
 {
     internal sealed class RoomService : IRoomService
     {

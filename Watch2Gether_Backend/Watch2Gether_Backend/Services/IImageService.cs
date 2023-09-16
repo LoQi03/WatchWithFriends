@@ -1,7 +1,7 @@
-﻿using Watch2Gether_Data.Model;
-using Image = Watch2Gether_Data.Model.Image;
+﻿using WatchWithFriends_Data.Model;
+using Image = WatchWithFriends_Data.Model.Image;
 
-namespace Watch2Gether_Backend.Services
+namespace WatchWithFriends.Services
 {
     public interface IImageService
     {

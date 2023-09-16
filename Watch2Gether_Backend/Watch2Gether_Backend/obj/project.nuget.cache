@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "oX57CRBe58+rxE5OFVsi9UCZB8cnqvkv6Bi1VSDCZ6KBrm0KMZ6BNBs13YdBLj3oYlBJwmE+/cS8t5ABU9qhdw==",
+  "dgSpecHash": "4B2Me72HM0mPtMut0pvn5WFd4THvRCOUyScAmUjiJWaFupyG3RApjb9JagHNlEIUNqUBhJh3NrAyWIJrbNTxDg==",
   "success": true,
-  "projectFilePath": "C:\\Repos\\Watch2gether\\Watch2Gether_Backend\\Watch2Gether_Backend\\Watch2Gether_Backend.csproj",
+  "projectFilePath": "C:\\Repos\\Watch2gether\\Watch2Gether_Backend\\Watch2Gether_Backend\\WatchWithFriends.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mates\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\mates\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",

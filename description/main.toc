@@ -1,5 +1,5 @@
-\select@language {magyar} \contentsline {chapter}{\numberline {1}Bevezet\'es}{1}{}%
-\select@language {magyar} \contentsline {chapter}{\numberline {2}Tervez\'es}{2}{}%
-\select@language {magyar} \contentsline {section}{\numberline {2.1}Felhasználói felület tervezése}{2}{}%
-\select@language {magyar} \contentsline {section}{\numberline {2.2}Szerveroldali Logika és API-k}{5}{}%
-\select@language {magyar} \contentsline {chapter}{Programk\'odok jegyz\'eke}{iii}{}%
+\select@language {magyar} \contentsline {chapter}{\numberline {1}Bevezet\'es}{1}{chapter.1}%
+\select@language {magyar} \contentsline {chapter}{\numberline {2}Tervez\'es}{2}{chapter.2}%
+\select@language {magyar} \contentsline {section}{\numberline {2.1}Felhasználói felület tervezése}{2}{section.2.1}%
+\select@language {magyar} \contentsline {section}{\numberline {2.2}Szerveroldali Logika és API-k}{6}{section.2.2}%
+\select@language {magyar} \contentsline {chapter}{Programk\'odok jegyz\'eke}{iii}{chapter*.8}%

@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Watch2Gether_Data.Repositories;
-using Image = Watch2Gether_Data.Model.Image;
+using WatchWithFriends_Data.Repositories;
+using Image = WatchWithFriends_Data.Model.Image;
 
-namespace Watch2Gether_Backend.Services
+namespace WatchWithFriends.Services
 {
     internal sealed class ImageService : IImageService
     {

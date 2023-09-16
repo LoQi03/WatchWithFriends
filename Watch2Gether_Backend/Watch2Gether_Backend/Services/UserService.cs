@@ -4,12 +4,12 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using Watch2Gether_Backend.Misc;
-using Watch2Gether_Backend.Model;
-using Watch2Gether_Data.Model;
-using Watch2Gether_Data.Repositories;
+using WatchWithFriends.Misc;
+using WatchWithFriends.Model;
+using WatchWithFriends_Data.Model;
+using WatchWithFriends_Data.Repositories;
 
-namespace Watch2Gether_Backend.Services
+namespace WatchWithFriends.Services
 {
     internal sealed class UserService : IUserService
     {

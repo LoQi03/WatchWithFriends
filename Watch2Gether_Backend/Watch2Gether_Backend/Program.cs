@@ -1,8 +1,7 @@
-using Microsoft.AspNetCore.SignalR;
-using Watch2Gether_Backend.Extensions;
-using Watch2Gether_Backend.Hubs;
-using Watch2Gether_Backend.Misc;
-using Watch2Gether_Data.Extensions;
+using WatchWithFriends.Extensions;
+using WatchWithFriends.Hubs;
+using WatchWithFriends.Misc;
+using WatchWithFriends_Data.Extensions;
 
 namespace Watch2Gether_Backend
 {

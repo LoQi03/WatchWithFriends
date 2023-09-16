@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Watch2Gether_Backend.Model;
-using ImageModel = Watch2Gether_Data.Model.Image;
-using Watch2Gether_Backend.Services;
+using ImageModel = WatchWithFriends_Data.Model.Image;
+using WatchWithFriends.Services;
 using Microsoft.AspNetCore.Authorization;
-using ImageSharpImage = Watch2Gether_Data.Model.Image;
+using WatchWithFriends.Model;
 
-namespace Watch2Gether_Backend.Controllers
+namespace WatchWithFriends.Controllers
 {
     [ApiController]
     [Route("[controller]")]

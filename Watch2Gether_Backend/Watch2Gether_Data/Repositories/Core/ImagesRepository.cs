@@ -1,14 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Watch2Gether_Data.Data;
-using Watch2Gether_Data.Model;
+using WatchWithFriends_Data.Data;
+using WatchWithFriends_Data.Model;
 
-namespace Watch2Gether_Data.Repositories.Core
+namespace WatchWithFriends_Data.Repositories.Core
 {
     internal class ImageRepository : IImageRepository
     {
-        private readonly Watch2GetherDBContext context;
+        private readonly WatchWithFriendsDBContext context;
 
-        public ImageRepository(Watch2GetherDBContext context)
+        public ImageRepository(WatchWithFriendsDBContext context)
         {
             this.context = context;
         }

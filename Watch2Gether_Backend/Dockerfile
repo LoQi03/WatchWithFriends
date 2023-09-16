@@ -8,8 +8,8 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 AS builder
 ARG Configuration=Release
 WORKDIR /src
 COPY *.sln ./
-COPY ["/Watch2Gether_Backend/Watch2Gether_Backend.csproj", "Watch2Gether_Backend/"]
-COPY ["/Watch2Gether_Data/Watch2Gether_Data.csproj", "Watch2Gether_Data/"]
+COPY ["/Watch2Gether_Backend/WatchWithFriends.csproj", "Watch2Gether_Backend/"]
+COPY ["/Watch2Gether_Data/WatchWithFriends_Data.csproj", "Watch2Gether_Data/"]
 RUN dotnet restore
 COPY . .
 WORKDIR /src/Watch2Gether_Backend
@@ -25,4 +25,4 @@ COPY --from=publish /app .
 
 COPY ["Watch2Gether_Backend/Assets", "Assets/"]
 
-ENTRYPOINT ["dotnet", "Watch2Gether_Backend.dll"]
+ENTRYPOINT ["dotnet", "WatchWithFriends.dll"]

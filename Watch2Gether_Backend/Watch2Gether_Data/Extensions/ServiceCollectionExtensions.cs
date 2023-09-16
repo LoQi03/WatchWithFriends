@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Watch2Gether_Data.Data;
-using Watch2Gether_Data.Repositories;
-using Watch2Gether_Data.Repositories.Core;
+using WatchWithFriends_Data.Data;
+using WatchWithFriends_Data.Repositories;
+using WatchWithFriends_Data.Repositories.Core;
 
-namespace Watch2Gether_Data.Extensions
+namespace WatchWithFriends_Data.Extensions
 {
     public enum DataBaseType
     {
@@ -19,16 +19,16 @@ namespace Watch2Gether_Data.Extensions
             switch (dataBaseType)
             {
                 case DataBaseType.InMemory:
-                    services.AddDbContext<Watch2GetherDBContext>(options =>
+                    services.AddDbContext<WatchWithFriendsDBContext>(options =>
                     {
-                        options.UseInMemoryDatabase(databaseName: "Watch2Gether");
+                        options.UseInMemoryDatabase(databaseName: "watchwithfriendsRooms");
                         options.EnableSensitiveDataLogging(true);
                     });
                     break;
                 case DataBaseType.SQLServer:
                     var IConfigugration = services.BuildServiceProvider().GetRequiredService<IConfiguration>();
-                    var connstring = IConfigugration.GetConnectionString("watch2gether");
-                    services.AddDbContext<Watch2GetherDBContext>(options =>
+                    var connstring = IConfigugration.GetConnectionString("watchwithfriends");
+                    services.AddDbContext<WatchWithFriendsDBContext>(options =>
                     {
                         options.UseSqlServer(connstring);
                     });

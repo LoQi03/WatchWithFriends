@@ -4,13 +4,13 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Text;
-using Watch2Gether_Backend.Misc;
-using Watch2Gether_Backend.Services;
+using WatchWithFriends.Misc;
+using WatchWithFriends.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json.Serialization;
-using Watch2Gether_Backend.Hubs;
+using WatchWithFriends.Hubs;
 
-namespace Watch2Gether_Backend.Extensions
+namespace WatchWithFriends.Extensions
 {
     public static class ServiceCollectionExtensions
     {

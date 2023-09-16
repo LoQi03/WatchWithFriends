@@ -1,2 +1,7 @@
 \select@language {magyar} \addvspace {10\p@ }
 \select@language {magyar} \addvspace {10\p@ }
+\select@language {magyar} \contentsline {figure}{\numberline {2.1.}{\ignorespaces Backend Architektúra}}{6}{figure.caption.2}%
+\select@language {magyar} \contentsline {figure}{\numberline {2.2.}{\ignorespaces Entity Framework Core}}{7}{figure.caption.3}%
+\select@language {magyar} \contentsline {figure}{\numberline {2.3.}{\ignorespaces RESTful API}}{9}{figure.caption.4}%
+\select@language {magyar} \contentsline {figure}{\numberline {2.4.}{\ignorespaces SignalR}}{9}{figure.caption.5}%
+\select@language {magyar} \contentsline {figure}{\numberline {2.5.}{\ignorespaces Visual Studio 2022}}{10}{figure.caption.6}%

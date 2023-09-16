@@ -1,6 +1,7 @@
 ﻿using Watch2Gether_Backend.Model;
+using WatchWithFriends.Model;
 
-namespace Watch2Gether_Backend.Services
+namespace WatchWithFriends.Services
 {
     public interface IRoomService
     {

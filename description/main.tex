@@ -5,19 +5,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage{listings}
 \usepackage{styles/dolgozat}
-\lstdefinelanguage{JavaScript}{
-  keywords={break, case, catch, continue, debugger, default, delete, do, else, finally, for, function, if, in, instanceof, new, return, switch, this, throw, try, typeof, var, void, while, with},
-  morecomment=[s]{/*}{*/},
-  morecomment=[l]//,
-  morestring=[b]",
-  morestring=[b]'
-}
-
-\lstset{
-  basicstyle=\ttfamily\small,
-  breaklines=true,
-  language=JavaScript
-}
+\usepackage{styles/javascript}
+\usepackage{hyperref}
 
 \makeatletter
 \renewcommand{\ALG@name}{Algoritmus}

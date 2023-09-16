@@ -3,20 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Watch2Gether_Data.Data;
+using WatchWithFriends_Data.Data;
 
 #nullable disable
 
-namespace Watch2Gether_Data.Migrations
+namespace WatchWithFriends_Data.Migrations
 {
-    [DbContext(typeof(Watch2GetherDBContext))]
-    [Migration("20230724175358_Init")]
-    partial class Init
+    [DbContext(typeof(WatchWithFriendsDBContext))]
+    partial class WatchWithFriendsDBContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,7 +22,7 @@ namespace Watch2Gether_Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Watch2Gether_Data.Model.Image", b =>
+            modelBuilder.Entity("WatchWithFriends_Data.Model.Image", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -40,7 +37,7 @@ namespace Watch2Gether_Data.Migrations
                     b.ToTable("Images");
                 });
 
-            modelBuilder.Entity("Watch2Gether_Data.Model.User", b =>
+            modelBuilder.Entity("WatchWithFriends_Data.Model.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()

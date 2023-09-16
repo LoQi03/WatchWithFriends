@@ -1511,7 +1511,7 @@
           }
         }
       },
-      "Watch2Gether_Data/1.0.0": {
+      "WatchWithFriends_Data/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
@@ -1523,10 +1523,10 @@
           "Microsoft.Extensions.DependencyInjection.Abstractions": "7.0.0"
         },
         "compile": {
-          "bin/placeholder/Watch2Gether_Data.dll": {}
+          "bin/placeholder/WatchWithFriends_Data.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Watch2Gether_Data.dll": {}
+          "bin/placeholder/WatchWithFriends_Data.dll": {}
         }
       }
     }
@@ -4387,10 +4387,10 @@
         "version.txt"
       ]
     },
-    "Watch2Gether_Data/1.0.0": {
+    "WatchWithFriends_Data/1.0.0": {
       "type": "project",
-      "path": "../Watch2Gether_Data/Watch2Gether_Data.csproj",
-      "msbuildProject": "../Watch2Gether_Data/Watch2Gether_Data.csproj"
+      "path": "../Watch2Gether_Data/WatchWithFriends_Data.csproj",
+      "msbuildProject": "../Watch2Gether_Data/WatchWithFriends_Data.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -4404,7 +4404,7 @@
       "Swashbuckle.AspNetCore >= 6.2.3",
       "Swashbuckle.AspNetCore.Filters >= 7.0.6",
       "System.Drawing.Common >= 7.0.0",
-      "Watch2Gether_Data >= 1.0.0"
+      "WatchWithFriends_Data >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -4414,9 +4414,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Repos\\Watch2gether\\Watch2Gether_Backend\\Watch2Gether_Backend\\Watch2Gether_Backend.csproj",
-      "projectName": "Watch2Gether_Backend",
-      "projectPath": "C:\\Repos\\Watch2gether\\Watch2Gether_Backend\\Watch2Gether_Backend\\Watch2Gether_Backend.csproj",
+      "projectUniqueName": "C:\\Repos\\Watch2gether\\Watch2Gether_Backend\\Watch2Gether_Backend\\WatchWithFriends.csproj",
+      "projectName": "WatchWithFriends",
+      "projectPath": "C:\\Repos\\Watch2gether\\Watch2Gether_Backend\\Watch2Gether_Backend\\WatchWithFriends.csproj",
       "packagesPath": "C:\\Users\\mates\\.nuget\\packages\\",
       "outputPath": "C:\\Repos\\Watch2gether\\Watch2Gether_Backend\\Watch2Gether_Backend\\obj\\",
       "projectStyle": "PackageReference",
@@ -4440,8 +4440,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Repos\\Watch2gether\\Watch2Gether_Backend\\Watch2Gether_Data\\Watch2Gether_Data.csproj": {
-              "projectPath": "C:\\Repos\\Watch2gether\\Watch2Gether_Backend\\Watch2Gether_Data\\Watch2Gether_Data.csproj"
+            "C:\\Repos\\Watch2gether\\Watch2Gether_Backend\\Watch2Gether_Data\\WatchWithFriends_Data.csproj": {
+              "projectPath": "C:\\Repos\\Watch2gether\\Watch2Gether_Backend\\Watch2Gether_Data\\WatchWithFriends_Data.csproj"
             }
           }
         }

@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Watch2Gether_Data.Data;
-using Watch2Gether_Data.Model;
+using WatchWithFriends_Data.Data;
+using WatchWithFriends_Data.Model;
 
-namespace Watch2Gether_Data.Repositories.Core
+namespace WatchWithFriends_Data.Repositories.Core
 {
     internal class VideoRepository : IVideoRepository
     {

@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Watch2Gether_Data.Migrations
+namespace WatchWithFriends_Data.Migrations
 {
     /// <inheritdoc />
     public partial class Init : Migration

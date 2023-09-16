@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using Watch2Gether_Backend.Model;
-using Watch2Gether_Backend.Services;
+using WatchWithFriends.Model;
+using WatchWithFriends.Services;
 
-namespace Watch2Gether_Backend.Hubs
+namespace WatchWithFriends.Hubs
 {
     public class RoomHub : Hub, IRoomHub
     {
@@ -92,5 +93,6 @@ namespace Watch2Gether_Backend.Hubs
                 await _roomContext.Clients.Clients(roomUser.Id).SendAsync("GetRoomUsers", users);
             }
         }
+
     }
 }

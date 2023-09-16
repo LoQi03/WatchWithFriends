@@ -1,7 +1,7 @@
 ﻿using Watch2Gether_Backend.Model;
-using Watch2Gether_Data.Model;
+using WatchWithFriends.Model;
 
-namespace Watch2Gether_Backend.Hubs
+namespace WatchWithFriends.Hubs
 {
     public interface IRoomHub
     {

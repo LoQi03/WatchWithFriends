@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Watch2Gether_Backend.Hubs;
+using WatchWithFriends.Hubs;
 using Watch2Gether_Backend.Model;
-using Watch2Gether_Backend.Services;
+using WatchWithFriends.Services;
 
-namespace Watch2Gether_Backend.Controllers
+namespace WatchWithFriends.Controllers
 {
     [ApiController]
     [Route("[controller]")]

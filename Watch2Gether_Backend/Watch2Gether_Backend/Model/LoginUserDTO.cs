@@ -1,4 +1,4 @@
-﻿namespace Watch2Gether_Backend.Model
+﻿namespace WatchWithFriends.Model
 {
     public class LoginUserDTO
     {
