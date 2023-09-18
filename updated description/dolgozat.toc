@@ -1,0 +1,6 @@
+\select@language {magyar} \contentsline {chapter}{\numberline {1}Bevezetés}{1}{chapter.1}%
+\select@language {magyar} \contentsline {chapter}{\numberline {2}Tervez\'es}{2}{chapter.2}%
+\select@language {magyar} \contentsline {chapter}{\numberline {3}Techn\'ol\'ogia}{5}{chapter.3}%
+\select@language {magyar} \contentsline {section}{\numberline {3.1}Felhasználói felület }{5}{section.3.1}%
+\select@language {magyar} \contentsline {section}{\numberline {3.2}Szerveroldali Logika és API-k}{8}{section.3.2}%
+\select@language {magyar} \contentsline {chapter}{Források}{12}{chapter*.13}%
