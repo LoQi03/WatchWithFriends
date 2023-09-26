@@ -83,7 +83,7 @@
       <file>dolgozat-blx.bib</file>
     </requires>
     <requires type="editable">
-      <file>dolgozat.bib</file>
+      <file>sources.bib</file>
     </requires>
     <requires type="static">
       <file>biblatex.bst</file>

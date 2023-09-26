@@ -25,6 +25,9 @@
     \verb{url}
     \verb https://www.interserver.net/
     \endverb
+    \field{urlday}{18}
+    \field{urlmonth}{09}
+    \field{urlyear}{2023}
   \endentry
 
   \entry{signalR}{online}{}
@@ -35,6 +38,9 @@
     \verb{url}
     \verb https://learn.microsoft.com/
     \endverb
+    \field{urlday}{18}
+    \field{urlmonth}{09}
+    \field{urlyear}{2023}
   \endentry
 \enddatalist
 \endinput

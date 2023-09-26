@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "4B2Me72HM0mPtMut0pvn5WFd4THvRCOUyScAmUjiJWaFupyG3RApjb9JagHNlEIUNqUBhJh3NrAyWIJrbNTxDg==",
+  "dgSpecHash": "1p0K9VvKsafQJce5Qu8Rix3ewX8AZFvY7x52bIM2ADyGFByeg06yuNuANqTVzaRVTVKMrk0zDiY5Ofh6kcuoig==",
   "success": true,
   "projectFilePath": "C:\\Repos\\Watch2gether\\Watch2Gether_Backend\\Watch2Gether_Backend\\WatchWithFriends.csproj",
   "expectedPackageFiles": [
@@ -94,7 +94,11 @@
     "C:\\Users\\mates\\.nuget\\packages\\system.threading.channels\\7.0.0\\system.threading.channels.7.0.0.nupkg.sha512",
     "C:\\Users\\mates\\.nuget\\packages\\system.threading.tasks\\4.3.0\\system.threading.tasks.4.3.0.nupkg.sha512",
     "C:\\Users\\mates\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512",
-    "C:\\Users\\mates\\.nuget\\packages\\system.windows.extensions\\5.0.0\\system.windows.extensions.5.0.0.nupkg.sha512"
+    "C:\\Users\\mates\\.nuget\\packages\\system.windows.extensions\\5.0.0\\system.windows.extensions.5.0.0.nupkg.sha512",
+    "C:\\Users\\mates\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.22\\microsoft.windowsdesktop.app.ref.6.0.22.nupkg.sha512",
+    "C:\\Users\\mates\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.22\\microsoft.netcore.app.ref.6.0.22.nupkg.sha512",
+    "C:\\Users\\mates\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.22\\microsoft.aspnetcore.app.ref.6.0.22.nupkg.sha512",
+    "C:\\Users\\mates\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.22\\microsoft.netcore.app.host.win-x64.6.0.22.nupkg.sha512"
   ],
   "logs": []
 }

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.5) (preloaded format=pdflatex 2023.9.14)  18 SEP 2023 18:29
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.5) (preloaded format=pdflatex 2023.9.14)  26 SEP 2023 16:20
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -564,7 +564,7 @@ LaTeX Font Info:    Trying to load font information for T1+txtt on input line 2.
 File: t1txtt.fd 2000/12/15 v3.1
 )) (styles/python.sty) (styles/javascript.sty (C:\Users\mates\AppData\Local\Programs\MiKTeX\tex/latex/base\textcomp.sty
 Package: textcomp 2020/02/02 v2.0n Standard LaTeX package
-)) (C:\Users\mates\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyperref.sty
+)) (styles/sharp.sty) (C:\Users\mates\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyperref.sty
 Package: hyperref 2023-07-08 v7.01b Hypertext links for LaTeX
  (C:\Users\mates\AppData\Local\Programs\MiKTeX\tex/generic/kvdefinekeys\kvdefinekeys.sty
 Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
@@ -679,27 +679,27 @@ Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
 Package csquotes Info: Adjusting default style.
 Package csquotes Info: Redefining alias 'default' -> 'magyar'.
- (dolgozat.aux (cover/cimlap.aux) (cover/feladatkiiras.aux) (chapters/1_introduction.aux) (chapters/2_planing.aux) (chapters/3_technologies.aux) (cover/hasznalati.aux))
+ (dolgozat.aux (cover/cimlap.aux) (cover/feladatkiiras.aux) (chapters/1_introduction.aux) (chapters/2_planing.aux) (chapters/3_technologies.aux) (chapters/4_implementation.aux) (cover/hasznalati.aux))
 \openout1 = `dolgozat.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -771,10 +771,10 @@ Package biblatex Info: Data encoding 'utf8' specified.
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'dolgozat.bbl' found.
  (dolgozat.bbl)
-Package biblatex Info: Reference section=0 on input line 27.
-Package biblatex Info: Reference segment=0 on input line 27.
+Package biblatex Info: Reference section=0 on input line 28.
+Package biblatex Info: Reference segment=0 on input line 28.
 \c@lstlisting=\count448
-Package hyperref Info: Link coloring OFF on input line 27.
+Package hyperref Info: Link coloring OFF on input line 28.
  (dolgozat.out) (dolgozat.out)
 \@outlinefile=\write4
 \openout4 = `dolgozat.out'.
@@ -786,7 +786,7 @@ LaTeX Info: Redefining \mit on input line 578.
 \openout2 = `cover/cimlap.aux'.
 
  (cover/cimlap.tex
-<images/me_logo.png, id=27, 1204.5pt x 1148.29pt>
+<images/me_logo.png, id=31, 1204.5pt x 1148.29pt>
 File: images/me_logo.png Graphic file (type png)
 <use images/me_logo.png>
 Package pdftex.def Info: images/me_logo.png  used on input line 9.
@@ -831,7 +831,7 @@ l.89 \clearpage
 pdfTeX warning (ext4): destination with the same identifier (name{page.}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.33 \include{cover/feladatkiiras}
+l.34 \include{cover/feladatkiiras}
                                    [4
 
 ] (dolgozat.toc)
@@ -842,7 +842,7 @@ l.33 \include{cover/feladatkiiras}
 pdfTeX warning (ext4): destination with the same identifier (name{page.}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.37 \clearpage
+l.38 \clearpage
                 [5
 
 
@@ -861,32 +861,45 @@ l.37 \clearpage
 
  (chapters/2_planing.tex
 2. fejezet.
-<images/BackendArchitecture.png, id=78, 605.26125pt x 310.15875pt>
-File: images/BackendArchitecture.png Graphic file (type png)
-<use images/BackendArchitecture.png>
-Package pdftex.def Info: images/BackendArchitecture.png  used on input line 23.
-(pdftex.def)             Requested size: 398.33858pt x 204.12329pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 12--26
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 12--26
-
- []
-
 [2
 
 
 
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 40--46
+<images/er_modell.png, id=92, 1083.04625pt x 633.36626pt>
+File: images/er_modell.png Graphic file (type png)
+<use images/er_modell.png>
+Package pdftex.def Info: images/er_modell.png  used on input line 45.
+(pdftex.def)             Requested size: 426.79134pt x 249.58257pt.
+<images/relation_modell.png, id=93, 605.26125pt x 302.12875pt>
+File: images/relation_modell.png Graphic file (type png)
+<use images/relation_modell.png>
+Package pdftex.def Info: images/relation_modell.png  used on input line 63.
+(pdftex.def)             Requested size: 426.79134pt x 213.04228pt.
+ [3 <./images/er_modell.png>]
+<images/Backend_architecture.png, id=101, 584.1825pt x 311.1625pt>
+File: images/Backend_architecture.png Graphic file (type png)
+<use images/Backend_architecture.png>
+Package pdftex.def Info: images/Backend_architecture.png  used on input line 81.
+(pdftex.def)             Requested size: 398.33858pt x 212.1812pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 70--84
 
  []
 
-[3 <./images/BackendArchitecture.png>]) [4]
+
+Underfull \hbox (badness 10000) in paragraph at lines 70--84
+
+ []
+
+[4 <./images/relation_modell.png> <./images/Backend_architecture.png>]
+<images/UML_Diagram.png, id=112, 1426.32875pt x 858.20625pt>
+File: images/UML_Diagram.png Graphic file (type png)
+<use images/UML_Diagram.png>
+Package pdftex.def Info: images/UML_Diagram.png  used on input line 105.
+(pdftex.def)             Requested size: 398.33858pt x 239.66754pt.
+ [5]) [6 <./images/UML_Diagram.png>]
 \openout2 = `chapters/3_technologies.aux'.
 
  (chapters/3_technologies.tex
@@ -902,80 +915,105 @@ Underfull \hbox (badness 10000) in paragraph at lines 3--19
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 31--37
+Underfull \hbox (badness 10000) in paragraph at lines 31--35
 
  []
 
-[5
+[7
 
 
 
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 69--77
+Underfull \hbox (badness 10000) in paragraph at lines 67--75
 
  []
 
-[6]
-LaTeX Font Info:    Trying to load font information for TS1+cmtt on input line 105.
+[8]
+LaTeX Font Info:    Trying to load font information for TS1+cmtt on input line 103.
  (C:\Users\mates\AppData\Local\Programs\MiKTeX\tex/latex/base\ts1cmtt.fd
 File: ts1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
-) [7]
-<images/EntityFramework.png, id=138, 332.24126pt x 221.82875pt>
+) [9]
+<images/EntityFramework.png, id=165, 332.24126pt x 221.82875pt>
 File: images/EntityFramework.png Graphic file (type png)
 <use images/EntityFramework.png>
-Package pdftex.def Info: images/EntityFramework.png  used on input line 158.
+Package pdftex.def Info: images/EntityFramework.png  used on input line 156.
 (pdftex.def)             Requested size: 284.52756pt x 189.9837pt.
- [8]
-<images/Rest-API.png, id=147, 451.9284pt x 341.1144pt>
+ [10]
+<images/Rest-API.png, id=173, 451.9284pt x 341.1144pt>
 File: images/Rest-API.png Graphic file (type png)
 <use images/Rest-API.png>
-Package pdftex.def Info: images/Rest-API.png  used on input line 180.
+Package pdftex.def Info: images/Rest-API.png  used on input line 178.
 (pdftex.def)             Requested size: 256.0748pt x 193.29211pt.
- [9 <./images/EntityFramework.png>]
-<images/SignalR.png, id=156, 448.67625pt x 420.06938pt>
+ [11 <./images/EntityFramework.png>]
+<images/SignalR.png, id=182, 448.67625pt x 420.06938pt>
 File: images/SignalR.png Graphic file (type png)
 <use images/SignalR.png>
-Package pdftex.def Info: images/SignalR.png  used on input line 201.
+Package pdftex.def Info: images/SignalR.png  used on input line 199.
 (pdftex.def)             Requested size: 256.0748pt x 239.7561pt.
- [10 <./images/Rest-API.png> <./images/SignalR.png>]
-<images/VisualStuido2022.png, id=168, 1924.18875pt x 1049.42062pt>
+ [12 <./images/Rest-API.png> <./images/SignalR.png>]
+<images/VisualStuido2022.png, id=194, 1924.18875pt x 1049.42062pt>
 File: images/VisualStuido2022.png Graphic file (type png)
 <use images/VisualStuido2022.png>
-Package pdftex.def Info: images/VisualStuido2022.png  used on input line 218.
+Package pdftex.def Info: images/VisualStuido2022.png  used on input line 216.
 (pdftex.def)             Requested size: 341.43306pt x 186.21341pt.
-) [11 <./images/VisualStuido2022.png>] [12
+) [13 <./images/VisualStuido2022.png>]
+\openout2 = `chapters/4_implementation.aux'.
+
+ (chapters/4_implementation.tex
+4. fejezet.
+
+Underfull \hbox (badness 10000) in paragraph at lines 13--17
+
+ []
+
+[14
+
+
+
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 38--42
+
+ []
+
+[15]) [16]
+Overfull \hbox (6.84685pt too wide) in paragraph at lines 49--49
+[]\T1/cmr/m/it/12 RESTful API\T1/cmr/m/n/12 . \T1/cmr/m/sc/12 url\T1/cmr/m/n/12 : []$\T1/cmtt/m/n/12 https : / / www . interserver . net/$[] \T1/cmr/m/n/12 (el-érés dá-tu-ma 2023. 09. 18.). |
+ []
+
+[17
 
 
 
 ]
 \openout2 = `cover/hasznalati.aux'.
 
- (cover/hasznalati.tex) [13
+ (cover/hasznalati.tex) [18
 
-] (dolgozat.aux (cover/cimlap.aux) (cover/feladatkiiras.aux) (chapters/1_introduction.aux) (chapters/2_planing.aux) (chapters/3_technologies.aux) (cover/hasznalati.aux))
+] (dolgozat.aux (cover/cimlap.aux) (cover/feladatkiiras.aux) (chapters/1_introduction.aux) (chapters/2_planing.aux) (chapters/3_technologies.aux) (chapters/4_implementation.aux) (cover/hasznalati.aux))
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-08-29>
  ***********
 Package rerunfilecheck Info: File `dolgozat.out' has not changed.
-(rerunfilecheck)             Checksum: C1A7F6AA8D1BF68B04FCD7C2393E3DF5;754.
+(rerunfilecheck)             Checksum: 11EF1C00E0450393768F9F7DB1ED0095;857.
 Package logreq Info: Writing requests to 'dolgozat.run.xml'.
 \openout1 = `dolgozat.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 25897 strings out of 475248
- 456475 string characters out of 5757813
- 1945801 words of memory out of 5000000
- 46979 multiletter control sequences out of 15000+600000
+ 26211 strings out of 475248
+ 462071 string characters out of 5757813
+ 1959801 words of memory out of 5000000
+ 47201 multiletter control sequences out of 15000+600000
  579566 words of font info for 87 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 81i,12n,95p,1928b,1893s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 81i,12n,95p,1927b,2189s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/mates/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfbx1200.pfb><C:/Users/mates/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfbx1440.pfb><C:/Users/mates/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfbx1728.pfb><C:/Users/mates/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfbx2074.pfb><C:/Users/mates/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfbx2488.pfb><C:/Users/mates/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfcc1200.pfb><C:/Users/mates/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfrm1200.pfb><C:/Users/mates/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfrm1440.pfb><C:/Users/mates/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfsl1200.pfb><C:/Users/mates/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfti1200.pfb><C:/Users/mates/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sftt1200.pfb><C:/Users/mates/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfxc1200.pfb><C:/Users/mates/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfxc1440.pfb><C:/Users/mates/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfxc2488.pfb>
-Output written on dolgozat.pdf (18 pages, 607393 bytes).
+Output written on dolgozat.pdf (23 pages, 738897 bytes).
 PDF statistics:
- 269 PDF objects out of 1000 (max. 8388607)
- 72 named destinations out of 1000 (max. 500000)
- 79 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 395 PDF objects out of 1000 (max. 8388607)
+ 155 named destinations out of 1000 (max. 500000)
+ 102 words of extra memory for PDF output out of 10000 (max. 10000000)
 

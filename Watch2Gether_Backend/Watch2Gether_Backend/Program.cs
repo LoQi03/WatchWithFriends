@@ -15,13 +15,13 @@ namespace Watch2Gether_Backend
             switch (builder.Environment.EnvironmentName)
             {
                 case "Testing":
-                    builder.Services.UseWatch2GetherData(DataBaseType.InMemory);
+                    builder.Services.WatchWithFriendsData(DataBaseType.InMemory);
                     break;
                 case "Development":
-                    builder.Services.UseWatch2GetherData(DataBaseType.SQLServer);
+                    builder.Services.WatchWithFriendsData(DataBaseType.SQLServer);
                     break;
                 case "Production":
-                    builder.Services.UseWatch2GetherData(DataBaseType.SQLServer);
+                    builder.Services.WatchWithFriendsData(DataBaseType.SQLServer);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(builder.Environment.EnvironmentName),

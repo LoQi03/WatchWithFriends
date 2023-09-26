@@ -14,14 +14,14 @@ namespace WatchWithFriends_Data.Extensions
     }
     public static class ServiceCollectionExtensions
     {
-        public static void UseWatch2GetherData(this IServiceCollection services, DataBaseType dataBaseType)
+        public static void WatchWithFriendsData(this IServiceCollection services, DataBaseType dataBaseType)
         {
             switch (dataBaseType)
             {
                 case DataBaseType.InMemory:
                     services.AddDbContext<WatchWithFriendsDBContext>(options =>
                     {
-                        options.UseInMemoryDatabase(databaseName: "watchwithfriendsRooms");
+                        options.UseInMemoryDatabase(databaseName: "watchwithfriends");
                         options.EnableSensitiveDataLogging(true);
                     });
                     break;

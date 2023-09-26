@@ -1,0 +1,104 @@
+\chapter{Implement\'aci\'o}\label{chapter:implementation}
+Ebben a fejezetben a "WatchWithFriends" alkalmazás implementációs folyamatát mutatom be.
+\section*{Szerver oldali logika implementálása}
+\subsection*{Entity Framework és Data projekt}
+Az adatintegritás és az adatmanipuláció kezelésének centralizálása érdekében létrehoztam egy különálló projektcsoportot, amely specifikusan az adatkezelési logika implementációjáért felel. Ebben a dedikált modulban helyeztem el az adatbázis tábláinak sémáját, valamint az adathozzáférési réteget képviselő repository-kat.
+\\
+A modul architektúrája rugalmas és jól skálázható módon épül fel, köszönhetően az Entity Framework integrációjának. Az Entity Framework ORM (Object-Relational Mapping) képességeit kihasználva, egyszerűsítem és automatizálom az adatbázis műveleteket, csökkentve ezzel az ismétlődő kód és az esetleges hibák számát.
+\\
+A modell definíciók és az adatbázis kontextus is ebbe a projektcsoportba kerültek, így biztosítva, hogy az adatmodellek és az adatbázis-sémák közötti szoros kapcsolat koherens és könnyen kezelhető maradjon. Az egész rendszer így válik áttekinthetővé és könnyen karbantarthatóvá.
+\\
+Ezen architektúra alkalmazásával nem csak az adatkezelés egyszerűsödik, de a jövőbeli fejlesztések és bővítések is gördülékenyebben, valamint hatékonyabban valósíthatók meg.
+\subsection*{Modellek}
+A modellek az adatbázisban lévő táblákat reprezentálják, és a kontextus segítségével tudom őket kezelni.
+\\
+\\
+\underline{Péládul a User modell így néz ki:}
+\begin{lstlisting}[language=CSharp,style=CSharpBase]
+public class User
+{
+    public Guid Id { get; set; }
+    public string Name { get; set; }
+    public string Email { get; set; }
+    public string? PasswordHash { get; set; }
+    public string? Salt { get; set; }
+    public DateTime BirthDate { get; set; }
+    public Guid? ImageId { get; set; }
+}
+\end{lstlisting}
+A táblákat reprezentáló modelleknek minden tulajdonsága egy oszlop az adatbázisban.
+A modellekben találhatóak navigációs tulajdonságok is, amelyek segítségével a modellek közötti kapcsolatokat tudom megvalósítani.
+A táblákat a migrációk segítségével tudom létrehozni, amelyek a modellek alapján generálódnak, majd az update-database parancs kiadásával tudom őket alkalmazni az adatbázison.
+
+\subsection*{Kontextusok}
+A komplex adatkezelési igényeket kielégítendő, a szoftverarchitektúrámban két különálló adatbázis-kontextust implementáltam. Az első, a "WatchWithFriendsDBContext", főként a felhasználói információkat és a képmegosztás funkciókat kezeli. Ennek az adatállománynak az SQL Server adatbázisban való tárolása biztosítja az adatintegritást és a tranzakcionális biztonságot.
+
+A másik kontextus, a "RoomsDBContext", azonban egészen más jellegű adatokat adminisztrál: itt a szobák és a videók információit kezelem. Erre az adatrétegre egy InMemory adatbázist alkalmazok. Ezzel a megoldással két fontos célt érek el. Egyrészt, az InMemory adatbázis lehetővé teszi a gyors és rugalmas adatmanipulációt, optimális azokhoz a szobákhoz és videókhoz, amelyek volatilis jelleggel bírnak és nem szükségesek hosszútávú tárolásra. Másrészt, a szerver leállításával automatikusan törlődnek ezek az adatok, így nincs szükség manuális karbantartásra ezen a fronton.
+
+A két különböző kontextus párhuzamos működése lehetővé teszi az adatrétegek elkülönítését és a szoftver komponenseinek független skálázhatóságát, miközben az adatintegritás és a rendelkezésre állás is megmarad.
+\\
+\\
+\underline{Például a WatchWithFriendsDBContext így néz ki:}
+\begin{lstlisting}[language=CSharp,style=CSharpBase]
+public class WatchWithFriendsDBContext : DbContext
+{
+    public WatchWithFriendsDBContext
+    (DbContextOptions<WatchWithFriendsDBContext> options) 
+    : base(options)
+    { }
+
+    public DbSet<User> Users { get; set; }
+    public DbSet<Image> Images { get; set; }
+}
+\end{lstlisting}
+\subsection*{Repository-k}
+A repository-k segítségével tudom kezelni az adatbázist, és a modelleket.
+\\
+\underline{Például a UserRepository így néz ki:}
+\begin{lstlisting}[language=CSharp,style=CSharpBase]
+public class UserRepository : IUserRepository
+{
+    private readonly WatchWithFriendsDBContext _context;
+
+    public UserRepository(WatchWithFriendsDBContext context)
+    {
+        _context = context;
+    }
+
+    public async Task<User> GetUserById(Guid id)
+    {
+        return await _context.Users
+            .Include(u => u.Image)
+            .FirstOrDefaultAsync(u => u.Id == id);
+    }
+
+    //tobbi metodus
+}
+\end{lstlisting}
+Fontosnak tartottam az async műveletek használatát, mert így a szerver nem blokkolódik, és a kliensek is gyorsabban kapják meg a válaszokat.
+\subsection*{Extension metódus}
+Létrehoztam egy extension metódust, amely segítségével tudom a repository-kat a DI konténerbe regisztrálni, illetve a kontextusokat létrehozni.
+\begin{lstlisting}[language=CSharp,style=CSharpBase]
+public static void WatchWithFriendsData(
+    this IServiceCollection services,
+    DataBaseType dataBaseType)
+{
+    var IConfigugration = services
+                        .BuildServiceProvider()
+                        .GetRequiredService<IConfiguration>();
+    var connstring = IConfigugration
+                    .GetConnectionString("watchwithfriends");
+    services.AddDbContext<WatchWithFriendsDBContext>(
+    options =>
+    {
+        options.UseSqlServer(connstring);
+    });
+    services.AddDbContext<RoomsDBContext>(options =>
+    {
+        options.UseInMemoryDatabase("rooms")
+    });
+    services.AddScoped<IUserRepository, UserRepository>();
+    //tobbi repository
+}
+
+\end{lstlisting}
