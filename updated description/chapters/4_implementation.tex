@@ -14,7 +14,7 @@ A modellek az adatbázisban lévő táblákat reprezentálják, és a kontextus 
 \\
 \\
 \underline{Péládul a User modell így néz ki:}
-\begin{lstlisting}[language=CSharp,style=CSharpBase]
+\begin{lstlisting}[language=CSharp,style=CSharpBase,caption={User modell}]
 public class User
 {
     public Guid Id { get; set; }
@@ -26,6 +26,7 @@ public class User
     public Guid? ImageId { get; set; }
 }
 \end{lstlisting}
+\vspace{1em}
 A táblákat reprezentáló modelleknek minden tulajdonsága egy oszlop az adatbázisban.
 A modellekben találhatóak navigációs tulajdonságok is, amelyek segítségével a modellek közötti kapcsolatokat tudom megvalósítani.
 A táblákat a migrációk segítségével tudom létrehozni, amelyek a modellek alapján generálódnak, majd az update-database parancs kiadásával tudom őket alkalmazni az adatbázison.
@@ -39,7 +40,7 @@ A két különböző kontextus párhuzamos működése lehetővé teszi az adatr
 \\
 \\
 \underline{Például a WatchWithFriendsDBContext így néz ki:}
-\begin{lstlisting}[language=CSharp,style=CSharpBase]
+\begin{lstlisting}[language=CSharp,style=CSharpBase,caption={WatchWithFriendsDBContext}]
 public class WatchWithFriendsDBContext : DbContext
 {
     public WatchWithFriendsDBContext
@@ -51,11 +52,12 @@ public class WatchWithFriendsDBContext : DbContext
     public DbSet<Image> Images { get; set; }
 }
 \end{lstlisting}
+\vspace{1em}
 \subsection*{Repository-k}
 A repository-k segítségével tudom kezelni az adatbázist, és a modelleket.
 \\
 \underline{Például a UserRepository így néz ki:}
-\begin{lstlisting}[language=CSharp,style=CSharpBase]
+\begin{lstlisting}[language=CSharp,style=CSharpBase,caption={User Repository}]
 public class UserRepository : IUserRepository
 {
     private readonly WatchWithFriendsDBContext _context;
@@ -75,6 +77,7 @@ public class UserRepository : IUserRepository
     //tobbi metodus
 }
 \end{lstlisting}
+\vspace{1em}
 Fontosnak tartottam az async műveletek használatát, mert így a szerver nem blokkolódik, és a kliensek is gyorsabban kapják meg a válaszokat.
 \subsection*{Extension metódus}
 Létrehoztam egy extension metódust, amely segítségével tudom a repository-kat a DI konténerbe regisztrálni, illetve a kontextusokat létrehozni.
@@ -102,3 +105,4 @@ public static void WatchWithFriendsData(
 }
 
 \end{lstlisting}
+\vspace{1em}

@@ -67,7 +67,7 @@ Mivel az alkalmazás kis méretű, ezért a Context API-ra esett a választás.
     \item \textbf{Kevesebb eszköz:} Kevesebb beépített eszköze van, mint a Redux-nak, de ez nem mindig hátrány, függ a projekt igényeitől.
 \end{itemize}
 \textbf{Példa a Context API állapotkezelésére:}
-\begin{lstlisting}[style=es6, morekeywords={document, P5, katex},caption={Context API állapotkezelés}]
+\begin{lstlisting}[style=es6, morekeywords={document, P5, katex},caption={Context API állapotkezelése}]
     // context
     const CounterContext = React.createContext();
     
@@ -89,7 +89,7 @@ Mivel az alkalmazás kis méretű, ezért a Context API-ra esett a választás.
     \item \textbf{Boilerplate Kód:} Több boilerplate kód szükséges, hogy elindítsunk egy Redux-alapú állapotkezelést.
 \end{itemize}
 \textbf{Példa a Redux állapotkezelésére:}
-\begin{lstlisting}[style=es6, morekeywords={document, P5, katex},caption={Redux állapotkezelés}]
+\begin{lstlisting}[style=es6, morekeywords={document, P5, katex},caption={Redux állapotkezelése}]
     // action
     const incrementAction = { type: 'INCREMENT' };
     
@@ -150,15 +150,14 @@ ami természetes módon illeszkedik a C\# és más .NET nyelvekhez.
 \end{figure}
 
 Skálázható és teljesítmény-optimalizált, ezért alkalmas mind kis,
-mind nagyobb vállalati projektekben. Az EF Core támogatja a többszörös adatbázis-motorokat, beleértve az SQL Server, PostgreSQL, SQLite és másokat is.
-Az adatmigrációk egyszerű kezelése és automatikus generálása az egyik előnye, ami könnyebbé teszi az adatbázisséma változásainak kezelését.
+mind nagyobb vállalati projektekben. Az EF Core támogatja a többszörös adatbázis-motorokat, beleértve az SQL Server-t, PostgreSQL-t, SQLite-ot és másokat is.
+Az adatmigrációk egyszerű kezelése és automatikus generálása az egyik előnye, ami könnyebbé teszi az adatbázis séma változásainak kezelését.
 A keretrendszer beépített támogatással rendelkezik a tranzakciókezelésre, így az ACID tulajdonságok biztosítottak. Az EF Core rugalmas konfigurációs lehetőségekkel rendelkezik,
 és jól integrálódik más .NET Core szolgáltatásokkal, mint például a Dependency Injection. Folyamatosan fejlődik és aktívan karbantartott,
 így a legújabb .NET technológiákhoz és az adatbázis-technológiákhoz is gyorsan alkalmazkodik.
 
 \subsection*{API}
-Az alkalmazásnál RESTful API-t használtam, mert a RESTful API-kat a leggyakrabban használják,
-és a legtöbb fejlesztő ismeri őket. A REST (Representational State Transfer) egy architektúrális stílus,
+A komponensek közötti kommunikáció megvalósítására RESTful API-t használtam, annak népszerűsége miatt. A REST (Representational State Transfer) egy architektúrális stílus,
 amelyet a webes alkalmazásokhoz használnak. A RESTful API-kat a REST architektúra alapelvei alapján tervezik.
 A RESTful API-kat a HTTP protokollra építik, és a HTTP metódusokat használják a kérések kezelésére.
 Ennek megvalósításához a \textit{ControllerBase} osztályt használtam a Controllerekben.
