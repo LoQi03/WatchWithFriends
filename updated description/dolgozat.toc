@@ -2,6 +2,6 @@
 \select@language {magyar} \contentsline {chapter}{\numberline {2}Tervez\'es}{2}{chapter.2}%
 \select@language {magyar} \contentsline {chapter}{\numberline {3}Technol\'ogia}{7}{chapter.3}%
 \select@language {magyar} \contentsline {section}{\numberline {3.1}Felhasználói felület}{7}{section.3.1}%
-\select@language {magyar} \contentsline {section}{\numberline {3.2}Szerveroldali Logika és API-k}{10}{section.3.2}%
+\select@language {magyar} \contentsline {section}{\numberline {3.2}Szerveroldali Logika és API-k}{9}{section.3.2}%
 \select@language {magyar} \contentsline {chapter}{\numberline {4}Implement\'aci\'o}{14}{chapter.4}%
 \select@language {magyar} \contentsline {chapter}{Források}{17}{chapter*.23}%

@@ -31,55 +31,43 @@ amely visszaadja a komponens felhasználói felületét.
 A front-end keretrendszer választása fontos lépése az implementáció előkészítésének. Két népszerű keretrendszer képezte a lehetőségek listáját: az Angular és a React.
 \\
 \\
-\textbf{Külömbség a React és az Angular között:}
-\begin{itemize}[noitemsep, nolistsep]
-    \item \textbf{Egyszerűség és Tanulási Görbe}
-          \begin{itemize}
-              \item React: Relatíve egyszerűbb és könnyebben tanulható.
-              \item Angular: Több beépített funkció, hosszabb tanulási idő.
-          \end{itemize}
-
-    \item \textbf{Flexibilitás és Testreszabhatóság}
-          \begin{itemize}
-              \item React: Nagyon rugalmas, lehetőség más könyvtárak és eszközök beillesztésére.
-              \item Angular: Teljes megoldás, kevesebb szabadság de nincs szükség külső könyvtárakra.
-          \end{itemize}
-
-    \item \textbf{Teljesítmény}
-          \begin{itemize}
-              \item React: Virtuális DOM, gyakran gyorsabb nagy listák esetén.
-              \item Angular: Real-time Two-Way Data Binding, néha lassabb.
-          \end{itemize}
-
-    \item \textbf{Közösség és Ökoszisztéma}
-          \begin{itemize}
-              \item React: Nagyobb közösség, több harmadik féltől származó könyvtár.
-              \item Angular: Kevesebb, de minőségibb beépített eszköz.
-          \end{itemize}
-
-    \item \textbf{Fejlesztői tapasztalat}
-          \begin{itemize}
-              \item React: JSX és modern JavaScript funkciók.
-              \item Angular: TypeScript alapú, előny vagy hátrány a preferenciától függően.
-          \end{itemize}
-\end{itemize}
+\textbf{Különbség a React és az Angular között:}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l|l|l|}
+        \hline
+                               & React           & Angular                 \\
+        \hline
+        Egyszerűség            & Könnyű tanulni. & Több beépített funkció. \\
+        \hline
+        Flexibilitás           & Rugalmas.       & Kevesebb szabadság.     \\
+        \hline
+        Teljesítmény           & Virtuális DOM.  & Two-Way Data Binding.   \\
+        \hline
+        Ökoszisztéma           & Nagy közösség.  & Minőségi eszközök.      \\
+        \hline
+        Fejlesztői tapasztalat & JSX.            & TypeScript.             \\
+        \hline
+    \end{tabular}
+    \caption[Különbségek React és Angular között]{Különbségek React és Angular között}
+\end{table}
 \subsection*{Redux vagy Context API}
-Felmerült bennem a kérdés, hogy a Redux vagy a Context API-t használjam az alkalmazás állapotának kezelésére.
+Az alkalmazás állapotainak kezelésére több lehetőség is felmerült, közöttük a Redux és a Context API.
 A Redux egy állapotkezelő könyvtár, amely lehetővé teszi az alkalmazás állapotának tárolását egy központi helyen.
 A Context API egy React API, amely lehetővé teszi az alkalmazás állapotának tárolását és megosztását a komponensek között.
-Nem láttam értelmét, hogy egy ilyen kis alkalmazásnál Redux-ot használjak, ezért a Context API-t választottam.
+Mivel az alkalmazás kis méretű, ezért a Context API-ra esett a választás.
 \\
 \\
-\textbf{Ismertetem a Context API főbb tulajdonságait:}
+\textbf{A Context API főbb tulajdonságai:}
 \begin{itemize}
-    \item \textbf{Beépített Megoldás:} A Context API része a React alapkönyvtárnak, nincs szükség külső függőségekre.
+    \item \textbf{Beépített megoldás:} A Context API része a React alapkönyvtárnak, nincs szükség külső függőségekre.
     \item \textbf{Egyszerűség:} A Context API egyszerűbb és könnyen megérthető, kevesebb boilerplate kóddal.
-    \item \textbf{Nincs Middleware:} Nem támogat middleware-eket alapból, így aszinkron állapotfrissítéseket manuálisan kell kezelni.
-    \item \textbf{Nem Optimalizált Nagy Alkalmazásokhoz:} Nagy alkalmazásokban hatékonytalan lehet, mert minden Context változásra újrarendereli az összes fogyasztót, hacsak nem optimalizáljuk manuálisan.
-    \item \textbf{Kevesebb Eszköz:} Kevesebb beépített eszköze van, mint a Redux-nak, de ez nem mindig hátrány, függ a projekt igényeitől.
+    \item \textbf{Nincs middleware:} Nem támogat middleware-eket alapból, így aszinkron állapotfrissítéseket manuálisan kell kezelni.
+    \item \textbf{Nem optimalizált nagy alkalmazásokhoz:} Nagy alkalmazásokban hatékonytalan lehet, mert minden Context változásra újrarendereli az összes fogyasztót, hacsak nem optimalizáljuk manuálisan.
+    \item \textbf{Kevesebb eszköz:} Kevesebb beépített eszköze van, mint a Redux-nak, de ez nem mindig hátrány, függ a projekt igényeitől.
 \end{itemize}
-\textbf{Példa a Context API állapotkezelésre:}
-\begin{lstlisting}[style=es6, morekeywords={document, P5, katex}]
+\textbf{Példa a Context API állapotkezelésére:}
+\begin{lstlisting}[style=es6, morekeywords={document, P5, katex},caption={Context API állapotkezelés}]
     // context
     const CounterContext = React.createContext();
     
@@ -89,7 +77,10 @@ Nem láttam értelmét, hogy egy ilyen kis alkalmazásnál Redux-ot használjak,
     // state refresh
     setCount(count + 1);
 \end{lstlisting}
-\textbf{Ismertetem a Redux főbb tulajdonságait:}
+
+\vspace{2em}
+
+\textbf{A Redux főbb tulajdonságai:}
 \begin{itemize}
     \item \textbf{Optimalizáció:} Redux kifejezetten optimalizált a nagyobb alkalmazások számára, és lehetővé teszi az állapot frissítéseinek finom szabályozását.
     \item \textbf{Middleware Támogatás:} Redux lehetőséget ad middleware-ek használatára, amelyek lehetővé teszik az aszinkron állapotfrissítések könnyebb kezelését.
@@ -97,8 +88,8 @@ Nem láttam értelmét, hogy egy ilyen kis alkalmazásnál Redux-ot használjak,
     \item \textbf{Eszközök és Közösség:} Redux-nak nagy közössége van, és sok kiegészítő eszköz, például a Redux DevTools.
     \item \textbf{Boilerplate Kód:} Több boilerplate kód szükséges, hogy elindítsunk egy Redux-alapú állapotkezelést.
 \end{itemize}
-\textbf{Példa a Redux állapotkezelésre:}
-\begin{lstlisting}[style=es6, morekeywords={document, P5, katex}]
+\textbf{Példa a Redux állapotkezelésére:}
+\begin{lstlisting}[style=es6, morekeywords={document, P5, katex},caption={Redux állapotkezelés}]
     // action
     const incrementAction = { type: 'INCREMENT' };
     
@@ -113,7 +104,7 @@ Nem láttam értelmét, hogy egy ilyen kis alkalmazásnál Redux-ot használjak,
     // dispatch
     dispatch(incrementAction);
 \end{lstlisting}
-
+\vspace{1em}
 \subsection*{TypeScript vagy JavaScript}
 A TypeScript egy nyílt forráskódú, szigorúan típusos programozási nyelv,
 amely a JavaScriptre épül, lehetővé teszi a statikus típusok használatát,
