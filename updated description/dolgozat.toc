@@ -4,4 +4,4 @@
 \select@language {magyar} \contentsline {section}{\numberline {3.1}Felhasználói felület}{8}{section.3.1}%
 \select@language {magyar} \contentsline {section}{\numberline {3.2}Szerveroldali Logika és API-k}{10}{section.3.2}%
 \select@language {magyar} \contentsline {chapter}{\numberline {4}Implement\'aci\'o}{15}{chapter.4}%
-\select@language {magyar} \contentsline {chapter}{Források}{20}{chapter*.29}%
+\select@language {magyar} \contentsline {chapter}{Források}{24}{chapter*.37}%

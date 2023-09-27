@@ -120,5 +120,44 @@
     \field{urlmonth}{09}
     \field{urlyear}{2023}
   \endentry
+
+  \entry{axios}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{0}
+    \field{sortinithash}{0}
+    \field{title}{Axios}
+    \verb{url}
+    \verb https://axios-http.com/
+    \endverb
+    \field{urlday}{27}
+    \field{urlmonth}{09}
+    \field{urlyear}{2023}
+  \endentry
+
+  \entry{joi}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{1}
+    \field{sortinithash}{1}
+    \field{title}{Joi}
+    \verb{url}
+    \verb https://joi.dev/
+    \endverb
+    \field{urlday}{27}
+    \field{urlmonth}{09}
+    \field{urlyear}{2023}
+  \endentry
+
+  \entry{styled-components}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{1}
+    \field{sortinithash}{1}
+    \field{title}{Styled Components}
+    \verb{url}
+    \verb https://styled-components.com/
+    \endverb
+    \field{urlday}{27}
+    \field{urlmonth}{09}
+    \field{urlyear}{2023}
+  \endentry
 \enddatalist
 \endinput

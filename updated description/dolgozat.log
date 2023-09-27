@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.5) (preloaded format=pdflatex 2023.9.14)  27 SEP 2023 19:17
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.5) (preloaded format=pdflatex 2023.9.14)  28 SEP 2023 00:19
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1002,19 +1002,89 @@ Underfull \hbox (badness 10000) in paragraph at lines 136--140
 
  []
 
-[18]) [19]
-Overfull \hbox (6.84685pt too wide) in paragraph at lines 49--49
+[18]
+Underfull \hbox (badness 10000) in paragraph at lines 169--176
+
+ []
+
+
+Overfull \hbox (3.47371pt too wide) in paragraph at lines 191--192
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] |
+ []
+
+[19]
+Underfull \hbox (badness 10000) in paragraph at lines 196--202
+
+ []
+
+
+Overfull \hbox (9.6472pt too wide) in paragraph at lines 221--222
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] |
+ []
+
+[20]
+Underfull \hbox (badness 10000) in paragraph at lines 251--255
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 274--285
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 274--285
+
+ []
+
+[21]
+Underfull \hbox (badness 10000) in paragraph at lines 286--293
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 305--309
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 305--309
+
+ []
+
+
+Overfull \hbox (3.47371pt too wide) in paragraph at lines 310--311
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] |
+ []
+
+
+Overfull \hbox (21.99419pt too wide) in paragraph at lines 317--318
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] |
+ []
+
+[22]
+Underfull \hbox (badness 10000) in paragraph at lines 336--341
+
+ []
+
+
+Overfull \hbox (21.99419pt too wide) in paragraph at lines 350--352
+[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] |
+ []
+
+) [23]
+Overfull \hbox (12.72041pt too wide) in paragraph at lines 49--49
 []\T1/cmr/m/it/12 RESTful API\T1/cmr/m/n/12 . \T1/cmr/m/sc/12 url\T1/cmr/m/n/12 : []$\T1/cmtt/m/n/12 https : / / www . interserver . net/$[] \T1/cmr/m/n/12 (el-érés dá-tu-ma 2023. 09. 18.). |
  []
 
-[20
+[24
 
 
 
 ]
 \openout2 = `cover/hasznalati.aux'.
 
- (cover/hasznalati.tex) [21
+ (cover/hasznalati.tex) [25
 
 ] (dolgozat.aux (cover/cimlap.aux) (cover/feladatkiiras.aux) (chapters/1_introduction.aux) (chapters/2_planing.aux) (chapters/3_technologies.aux) (chapters/4_implementation.aux) (cover/hasznalati.aux))
  ***********
@@ -1022,23 +1092,23 @@ LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-08-29>
  ***********
 Package rerunfilecheck Info: File `dolgozat.out' has not changed.
-(rerunfilecheck)             Checksum: 5E90CB5DA5E3A8F444D3FAD2A9FD62EE;857.
+(rerunfilecheck)             Checksum: 6B5C2A005EFF7973E83CE4FAE572A53C;857.
 Package logreq Info: Writing requests to 'dolgozat.run.xml'.
 \openout1 = `dolgozat.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 26345 strings out of 475248
- 464994 string characters out of 5757813
- 1961801 words of memory out of 5000000
- 47275 multiletter control sequences out of 15000+600000
+ 26657 strings out of 475248
+ 469910 string characters out of 5757813
+ 1964801 words of memory out of 5000000
+ 47443 multiletter control sequences out of 15000+600000
  579566 words of font info for 87 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  81i,12n,95p,1927b,2204s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/mates/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfbx1200.pfb><C:/Users/mates/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfbx1440.pfb><C:/Users/mates/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfbx1728.pfb><C:/Users/mates/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfbx2074.pfb><C:/Users/mates/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfbx2488.pfb><C:/Users/mates/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfcc1200.pfb><C:/Users/mates/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfrm1200.pfb><C:/Users/mates/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfrm1440.pfb><C:/Users/mates/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfsl1200.pfb><C:/Users/mates/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfti1200.pfb><C:/Users/mates/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sftt1200.pfb><C:/Users/mates/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfxc1200.pfb><C:/Users/mates/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfxc1440.pfb><C:/Users/mates/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfxc2488.pfb>
-Output written on dolgozat.pdf (26 pages, 885954 bytes).
+Output written on dolgozat.pdf (30 pages, 920624 bytes).
 PDF statistics:
- 494 PDF objects out of 1000 (max. 8388607)
- 215 named destinations out of 1000 (max. 500000)
+ 686 PDF objects out of 1000 (max. 8388607)
+ 359 named destinations out of 1000 (max. 500000)
  112 words of extra memory for PDF output out of 10000 (max. 10000000)
 

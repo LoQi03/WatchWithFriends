@@ -1,6 +1,6 @@
 \chapter{Implement\'aci\'o}\label{chapter:implementation}
 Ebben a fejezetben a "WatchWithFriends" alkalmazás implementációs folyamatát mutatom be.
-\section*{Szerver oldali logika implementálása}
+\section*{Szerver oldali logika}
 \subsection*{Entity Framework és Data projekt}
 Az adatintegritás és az adatmanipuláció kezelésének centralizálása érdekében létrehoztam egy különálló projektcsoportot, amely specifikusan az adatkezelési logika implementációjáért felel. Ebben a dedikált modulban helyeztem el az adatbázis tábláinak sémáját, valamint az adathozzáférési réteget képviselő repository-kat.
 \\
@@ -163,3 +163,209 @@ public async Task<IActionResult> GetUserById(Guid id)
 //tobbi vegpont
 }
 \end{lstlisting}
+
+\section*{Kliens oldali logika}
+\subsection*{React projekt}
+A kliens oldali logika a felhasználói felületet és a felhasználói interakciókat kezeli. A kliens oldali kód gyakran aszinkron módon kommunikál a szerverrel, hogy adatokat kérjen vagy küldjön.
+Ezen adatok küldésére API hívásokat használok. Az API hívásokat a React alkalmazásban egy axios nevű könyvtárral valósítottam meg.
+Az axios \cite[]{axios} egy HTTP kliens, amely lehetővé teszi a kérések küldését a szervernek, és a válaszok fogadását.
+Az axios beállításait egy külön fájlban tárolom, így könnyen tudom őket módosítani.
+\\
+\\
+\underline{Például a axios beállításai így néznek ki:}
+\begin{lstlisting}[style=es6,caption={Axios beállítások}]
+    import axios from 'axios';
+    import * as AppConfig from './AppConfig';
+
+    export const httpClient = axios.create({
+        baseURL: AppConfig.GetConfig().apiUrl,
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+        },
+    });
+
+    export const updateAuthorizationHeader = () => {
+        const newToken = localStorage.getItem('token');
+        httpClient.defaults.headers.common["Authorization"] = newToken ?
+         `Bearer ${newToken}` : "";
+    };
+\end{lstlisting}
+\vspace{1em}
+Itt látható, hogy a kéréseknek milyen fejlécei lesznek, illetve hogy milyen URL-re küldjük a kéréseket, ezt a httpClient-nek adom meg, majd ezt használom a kérések küldésére.
+Létrehoztam egy függvényt, amely segítségével tudom a kérésekhez hozzáadni a token-t, amely a felhasználó azonosítására szolgál.
+A külömböző env-ekhez különböző beállításokat tudok megadni, így a fejlesztés során a fejlesztői környezetben a localhost-ra küldöm a kéréseket, a tesztelés során a teszt szerverre, a production környezetben pedig a production szerverre.
+\\
+\\
+\underline{Konfigurációs fájl:}
+\begin{lstlisting}[style=es6,caption={Konfigurációs fájl}]
+    import joi from "joi";
+
+    interface AppConfig {
+        apiUrl: string;
+    }
+    
+    export const config: AppConfig = {
+        apiUrl: import.meta.env.VITE_WATCH_2_GETHER_BACKEND_ADDRESS ??
+        "https://localhost:7165/",
+    }
+    
+    const schema = joi.object({
+        apiUrl: joi.string().required(),
+    });
+    
+    export function GetConfig(): AppConfig {
+        const { error, value } = schema.validate(config);
+        if (error) {
+            throw new Error(`Config validation error: ${error.message}`);
+        }
+        else {
+            return value;
+        }
+    }
+\end{lstlisting}
+\vspace{1em}
+Az env változók validására a joi \cite[]{joi} nevű könyvtárat használom, amely segítségével tudom a változókat ellenőrizni, hogy megfelelnek-e a várt típusnak, illetve, hogy megvannak-e adva.
+
+\subsection*{API services}
+Az API services rétegben találhatóak meg a különböző API végpontokat kezelő függvények.
+\\
+\underline{Például a UserService így néz ki:}
+\begin{lstlisting}[style=es6,caption={User Service}]
+    import { httpClient } from "../HttpClient";
+    import { UserDto } from "../models/userDto";
+    
+    export const getUserById = async (id: string):
+    Promise<AxiosResponse<UserDto>> => {
+    const response = await httpClient.get<UserDto>(`Users/${id}`);
+    return response;
+};
+
+\end{lstlisting}
+\vspace{1em}
+Minden függvény egy API végpontot hív meg, és a választ visszaadja.
+A függvényeket a komponensekben használom, ahol a választ feldolgozom, és a megjelenítést végzem el.
+Csak a Pages mappában található komponensekben használok API hívásokat, a többi komponensben a Props-ok vagy Context API segítségével kapom meg az adatokat.
+\subsection*{Router}
+A Router segítségével tudom a különböző oldalakat megjeleníteni.
+\\
+\\
+\underline{Például a Router így néz ki:}
+\begin{lstlisting}[style=es6,caption={Router}]
+    <BrowserRouter>
+    <Navbar />
+    <CommonSrtyles.PageContainer>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/rooms" element={<RoomsPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/friends" element={<FriendsPage />} />
+        <Route path="/room/:id" element={<RoomPageWithProvider />} />
+      </Routes>
+    </CommonSrtyles.PageContainer>
+  </BrowserRouter>
+\end{lstlisting}
+\vspace{1em}
+A Routes és Route komponensek a React Router-ben használatosak, és alapvetően az alkalmazás útvonalainak (routes) menedzselésére szolgálnak. Itt egy kis áttekintés a fő komponensekről és tulajdonságokról:
+\subsubsection*{Routes komponense}
+Ez a komponens az a "konténer", amiben a különböző Route komponenseket helyezzük el. Gyakorlatilag ez kezeli azt, hogy melyik Route komponens aktív egy adott pillanatban.
+\subsubsection*{Route komponens}
+A Route komponensek felelnek a különböző útvonalakért. Két fő tulajdonságuk van:
+\\
+\\
+\underline{path:}
+\\
+Ez határozza meg, hogy milyen URL címnél aktíválódjon a Route. Például, ha a path="/about", akkor a /about URL-nél fog betöltődni az adott Route.
+\\
+\\
+\underline{element:}
+\\
+Ez a tulajdonság tartalmazza azt a komponenst, ami meg fog jelenni, amikor az adott Route aktív. Tehát ha a path="/about" és az element={<About />}, akkor az About komponens fog megjelenni, amikor az /about URL-re navigálunk.
+\subsection*{Komponensek}
+A React komponensek a UI logikájának egységei, és lehetnek függvények vagy osztályok alapúak. Függvényes komponensek egyszerűbbek és könnyebben kezelhetőek, míg az osztály alapúak sokkal több beépített metódust és ciklusfüggvényt kínálnak.
+A komponenseknek lehetnek tulajdonságai (props), amelyekkel tudom a komponensek közötti adatáramlást megvalósítani.
+A komponenseket próbáltam alkomponensekre bontani, hogy a kód minél jobban átlátható legyen, és a komponensek újra felhasználhatóak legyenek.
+Ehhez a styled-components \cite[]{styled-components} nevű könyvtárat használtam, amely segítségével tudom a komponensek stílusát megadni.
+\\
+\\
+\underline{Például a styled-components használatára:}
+\begin{lstlisting}[style=es6,caption={Styled-components}]
+import styled from "styled-components";
+
+export const RoomListItemHeader = styled.div`
+    font-size: 30px;
+    font-weight: bold;
+    margin-left: 15px;
+    margin-top: 10px;
+`;
+
+\end{lstlisting}
+\vspace{1em}
+Így egyszerűen tudtam a komponensek stílusát megadni, és a komponensek újra felhasználhatóak lettek.
+Illetve ezekből a komponensekből tudtam összeállítani a nagyobb komponenseket.
+\\
+\\
+\begin{lstlisting}[style=es6,caption={RoomListItem komponens}]
+export const RoomListItem = (props: RoomListItemProps): JSX.Element => {
+    //tobbi kod
+    return (
+    <Styles.RoomListItemContainer onClick={join}>
+        <Styles.RoomListItemContentContainer>
+            <Styles.RoomListItemImage
+            src={
+            `${AppConfig.GetConfig().apiUrl}Users/${props.creatorId}/image`
+                }
+                />
+            <Styles.RoomListItemHeader>
+                {props.name}
+            </Styles.RoomListItemHeader>
+            <Styles.RoomListItemInfo>
+                <div>Creator: {creator?.name}</div>
+                <Styles.RomListItemMembers><Person2Icon />
+                    {" " + props.userCount} 
+                </Styles.RomListItemMembers>
+            </Styles.RoomListItemInfo>
+        </Styles.RoomListItemContentContainer>
+    </Styles.RoomListItemContainer>
+    )
+};
+\end{lstlisting}
+\vspace{1em}
+\subsection*{Context API}
+A Context API segítségével tudom a komponensek közötti adatáramlást megvalósítani.
+Az alkalmazásban a felhasználói adatokat és a szobákkal kapcsolatos adatokat a Context API segítségével tudom megosztani a komponensek között.
+\\
+\\
+\underline{Például a Context API használatára:}
+\begin{lstlisting}[style=es6,caption={Context API}]
+    import { createContext, useState } from "react";
+
+    //Context API inicializalasa
+    
+    interface AuthContextType {
+        //adat es setter
+    }
+
+    export const AuthContext = createContext<AuthContextType | null>(null);
+
+    //Context API Provider
+
+    export const AuthProvider = ({ children }:
+     { children: React.ReactNode }) => {
+        //adat es setter
+        return (
+            <AuthContext.Provider
+                value={{
+                    //adat es setter
+                }}
+            >
+                {children}
+            </AuthContext.Provider>
+        );
+    };
+
+    //Context API hasznalata
+    const authContext = useContext(AuthContext);
+\end{lstlisting}
+\vspace{1em}
