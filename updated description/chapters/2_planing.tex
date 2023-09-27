@@ -3,18 +3,18 @@
 \section*{Átfogó struktúra}
 Az alkalmazásom két részből áll, a kliens oldali és a szerver oldali részből.
 A kliens oldali rész a felhasználói felületet valósítja meg, a szerver oldali rész pedig az üzleti logikát, és az adatbázis kezelést.
-\\
-\subsection*{Kliens-oldal}
-A kliens oldal felelős a felhasználói interakciókért és a felhasználói felület megjelenítéséért. Itt találhatók a gombok, formok, és egyéb elemek, amikkel a felhasználók közvetlenül érintkeznek. A kliens oldalon futó kód gyakran aszinkron módon kommunikál a szerverrel, hogy adatokat kérjen vagy küldjön.
-\\
-\subsection*{Szerver-oldal}
-A szerver oldal felelős a kliens oldal által küldött kérések feldolgozásáért, és a válaszok generálásáért. Itt található az üzleti logika, és az adatbázis kezelés. A szerver oldali kód futása általában szinkron módon történik, és a kliens oldali kérések feldolgozása után küldi a válaszokat.
 \begin{figure}[H]
     \centering
     \includegraphics[width=14.0truecm]{images/Client-server-model.png}
     \caption[Átfogó struktúra]{Átfogó struktúra \cite{architecture}}
     \label{fig:architecture}
 \end{figure}
+\subsection*{Kliens-oldal}
+A kliens oldal felelős a felhasználói interakciókért és a felhasználói felület megjelenítéséért. Itt találhatók a gombok, formok, és egyéb elemek, amikkel a felhasználók közvetlenül érintkeznek. A kliens oldalon futó kód gyakran aszinkron módon kommunikál a szerverrel, hogy adatokat kérjen vagy küldjön.
+\\
+\subsection*{Szerver-oldal}
+A szerver oldal felelős a kliens oldal által küldött kérések feldolgozásáért, és a válaszok generálásáért. Itt található az üzleti logika, és az adatbázis kezelés. A szerver oldali kód futása általában szinkron módon történik, és a kliens oldali kérések feldolgozása után küldi a válaszokat.
+
 
 \section*{Kliens oldali logika}
 A kliens oldali logikát a következő architektúra alapján terveztem meg.

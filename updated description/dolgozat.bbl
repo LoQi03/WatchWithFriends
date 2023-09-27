@@ -17,10 +17,75 @@
 \endgroup
 
 \datalist[entry]{nyt/global//global/global}
+  \entry{architecture}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{0}
+    \field{sortinithash}{0}
+    \field{title}{Átfogó architektúra}
+    \verb{url}
+    \verb https://en.wikipedia.org/wiki/Client%E2%80%93server_model
+    \endverb
+    \field{urlday}{27}
+    \field{urlmonth}{09}
+    \field{urlyear}{2023}
+  \endentry
+
+  \entry{react}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{0}
+    \field{sortinithash}{0}
+    \field{title}{React}
+    \verb{url}
+    \verb https://reactjs.org/
+    \endverb
+    \field{urlday}{27}
+    \field{urlmonth}{09}
+    \field{urlyear}{2023}
+  \endentry
+
+  \entry{angular}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{0}
+    \field{sortinithash}{0}
+    \field{title}{Angular}
+    \verb{url}
+    \verb https://angular.io/
+    \endverb
+    \field{urlday}{27}
+    \field{urlmonth}{09}
+    \field{urlyear}{2023}
+  \endentry
+
+  \entry{redux}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{0}
+    \field{sortinithash}{0}
+    \field{title}{Redux}
+    \verb{url}
+    \verb https://redux.js.org/
+    \endverb
+    \field{urlday}{27}
+    \field{urlmonth}{09}
+    \field{urlyear}{2023}
+  \endentry
+
+  \entry{efcore}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{0}
+    \field{sortinithash}{0}
+    \field{title}{Entity Framework Core}
+    \verb{url}
+    \verb https://docs.microsoft.com/en-us/ef/core/
+    \endverb
+    \field{urlday}{27}
+    \field{urlmonth}{09}
+    \field{urlyear}{2023}
+  \endentry
+
   \entry{restfulapi}{online}{}
     \field{labeltitlesource}{title}
-    \field{sortinit}{R}
-    \field{sortinithash}{R}
+    \field{sortinit}{0}
+    \field{sortinithash}{0}
     \field{title}{RESTful API}
     \verb{url}
     \verb https://www.interserver.net/
@@ -32,8 +97,8 @@
 
   \entry{signalR}{online}{}
     \field{labeltitlesource}{title}
-    \field{sortinit}{S}
-    \field{sortinithash}{S}
+    \field{sortinit}{0}
+    \field{sortinithash}{0}
     \field{title}{SignalR}
     \verb{url}
     \verb https://learn.microsoft.com/
@@ -43,15 +108,15 @@
     \field{urlyear}{2023}
   \endentry
 
-  \entry{architecture}{online}{}
+  \entry{vsstudio}{online}{}
     \field{labeltitlesource}{title}
-    \field{sortinit}{�}
-    \field{sortinithash}{�}
-    \field{title}{Átfogó architektúra}
+    \field{sortinit}{0}
+    \field{sortinithash}{0}
+    \field{title}{Visual Studio}
     \verb{url}
-    \verb https://en.wikipedia.org/wiki/Client%E2%80%93server_model
+    \verb https://visualstudio.microsoft.com/
     \endverb
-    \field{urlday}{27}
+    \field{urlday}{18}
     \field{urlmonth}{09}
     \field{urlyear}{2023}
   \endentry

@@ -9,7 +9,7 @@ A modul architektúrája rugalmas és jól skálázható módon épül fel, kös
 A modell definíciók és az adatbázis kontextus is ebbe a projektcsoportba kerültek, így biztosítva, hogy az adatmodellek és az adatbázis-sémák közötti szoros kapcsolat koherens és könnyen kezelhető maradjon. Az egész rendszer így válik áttekinthetővé és könnyen karbantarthatóvá.
 \\
 Ezen architektúra alkalmazásával nem csak az adatkezelés egyszerűsödik, de a jövőbeli fejlesztések és bővítések is gördülékenyebben, valamint hatékonyabban valósíthatók meg.
-\subsection*{Modellek}
+\subsubsection*{Modellek}
 A modellek az adatbázisban lévő táblákat reprezentálják, és a kontextus segítségével tudom őket kezelni.
 \\
 \\
@@ -31,7 +31,7 @@ A táblákat reprezentáló modelleknek minden tulajdonsága egy oszlop az adatb
 A modellekben találhatóak navigációs tulajdonságok is, amelyek segítségével a modellek közötti kapcsolatokat tudom megvalósítani.
 A táblákat a migrációk segítségével tudom létrehozni, amelyek a modellek alapján generálódnak, majd az update-database parancs kiadásával tudom őket alkalmazni az adatbázison.
 
-\subsection*{Kontextusok}
+\subsubsection*{Kontextusok}
 A komplex adatkezelési igényeket kielégítendő, a szoftverarchitektúrámban két különálló adatbázis-kontextust implementáltam. Az első, a "WatchWithFriendsDBContext", főként a felhasználói információkat és a képmegosztás funkciókat kezeli. Ennek az adatállománynak az SQL Server adatbázisban való tárolása biztosítja az adatintegritást és a tranzakcionális biztonságot.
 
 A másik kontextus, a "RoomsDBContext", azonban egészen más jellegű adatokat adminisztrál: itt a szobák és a videók információit kezelem. Erre az adatrétegre egy InMemory adatbázist alkalmazok. Ezzel a megoldással két fontos célt érek el. Egyrészt, az InMemory adatbázis lehetővé teszi a gyors és rugalmas adatmanipulációt, optimális azokhoz a szobákhoz és videókhoz, amelyek volatilis jelleggel bírnak és nem szükségesek hosszútávú tárolásra. Másrészt, a szerver leállításával automatikusan törlődnek ezek az adatok, így nincs szükség manuális karbantartásra ezen a fronton.
@@ -53,7 +53,7 @@ public class WatchWithFriendsDBContext : DbContext
 }
 \end{lstlisting}
 \vspace{1em}
-\subsection*{Repository-k}
+\subsubsection*{Repository réteg}
 A repository-k segítségével tudom kezelni az adatbázist, és a modelleket.
 \\
 \underline{Például a UserRepository így néz ki:}
@@ -79,7 +79,7 @@ public class UserRepository : IUserRepository
 \end{lstlisting}
 \vspace{1em}
 Fontosnak tartottam az async műveletek használatát, mert így a szerver nem blokkolódik, és a kliensek is gyorsabban kapják meg a válaszokat.
-\subsection*{Extension metódus}
+\subsubsection*{Extension metódus}
 Létrehoztam egy extension metódust, amely segítségével tudom a repository-kat a DI konténerbe regisztrálni, illetve a kontextusokat létrehozni.
 \begin{lstlisting}[language=CSharp,style=CSharpBase]
 public static void WatchWithFriendsData(
@@ -106,3 +106,60 @@ public static void WatchWithFriendsData(
 
 \end{lstlisting}
 \vspace{1em}
+\subsection*{Szerver oldali logika és végpontok}
+A szerver oldali logika az alkalmazás "háttere", itt történik minden, ami az adatok manipulációjával, az üzleti szabályok végrehajtásával és az erőforrások menedzsmentjével kapcsolatos. A végpontok (endpoints) a szerver oldali logika speciális részei, amelyek meghatározzák, hogy a kliens hogyan interakciózik a szerverrel.
+\subsubsection*{Service réteg}
+A service réteg általában az üzleti logikát tartalmazza egy alkalmazásban. Ebben a rétegben találhatóak meg azok a függvények és metódusok, amelyek nem közvetlenül kapcsolódnak az adatok eléréséhez vagy a felhasználói felülethez, hanem inkább az alkalmazás "logikáját" képezik.
+\\
+\\
+\underline{Például a UserService így néz ki:}
+\begin{lstlisting}[language=CSharp,style=CSharpBase,caption={User Service}]
+public class UserService : IUserService
+{
+    private readonly IUserRepository _userRepository;
+
+    public UserService(IUserRepository userRepository)
+    {
+        _userRepository = userRepository; // DI
+    }
+
+    public async Task<User> GetUserById(Guid id)
+    {
+        return await _userRepository.GetUserById(id);
+    }
+
+    //tobbi metodus
+}
+\end{lstlisting}
+\vspace{1em}
+\subsubsection*{Controller réteg}
+A controller réteg a végpontokat kezeli. A végpontok a kliens és a szerver közötti kommunikáció alapját képezik. A végpontok meghatározzák, hogy a kliens hogyan interakciózik a szerverrel. A végpontok a kliens kéréseit fogadják, és válaszokat generálnak.
+\\
+\\
+\underline{Például a UserController így néz ki:}
+\begin{lstlisting}[language=CSharp,style=CSharpBase,caption={User Controller}]
+[ApiController]
+[Route("[controller]")]
+public class UserController : ControllerBase
+{
+private readonly IUserService _userService;
+
+public UserController(IUserService userService)
+{
+_userService = userService; // DI
+}
+
+[HttpGet("{id}")]
+public async Task<IActionResult> GetUserById(Guid id)
+{
+        var user = await _userService.GetUserById(id);
+        if (user == null)
+        {
+                return NotFound();
+            }
+        return Ok(user);
+    }
+
+//tobbi vegpont
+}
+\end{lstlisting}
