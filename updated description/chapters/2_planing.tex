@@ -1,10 +1,65 @@
 \chapter{Tervez\'es}\label{chapter:tervezes}
-Ebben a fejezetben a "WatchWithFriends" alkalmazás tervezési folyamatát mutatom be.
-A fejezet első részében a felhasználói felület tervezését ismertetem,
-majd a szerver és a kliens közötti kommunikáció megvalósítását.
 
-\section*{Felhasználói felület tervezése}
-FELHASZNÁLÓI FELÜLET!!!
+\section*{Átfogó struktúra}
+Az alkalmazásom két részből áll, a kliens oldali és a szerver oldali részből.
+A kliens oldali rész a felhasználói felületet valósítja meg, a szerver oldali rész pedig az üzleti logikát, és az adatbázis kezelést.
+\\
+\subsection*{Kliens-oldal}
+A kliens oldal felelős a felhasználói interakciókért és a felhasználói felület megjelenítéséért. Itt találhatók a gombok, formok, és egyéb elemek, amikkel a felhasználók közvetlenül érintkeznek. A kliens oldalon futó kód gyakran aszinkron módon kommunikál a szerverrel, hogy adatokat kérjen vagy küldjön.
+\\
+\subsection*{Szerver-oldal}
+A szerver oldal felelős a kliens oldal által küldött kérések feldolgozásáért, és a válaszok generálásáért. Itt található az üzleti logika, és az adatbázis kezelés. A szerver oldali kód futása általában szinkron módon történik, és a kliens oldali kérések feldolgozása után küldi a válaszokat.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=14.0truecm]{images/Client-server-model.png}
+    \caption[Átfogó struktúra]{Átfogó struktúra \cite{architecture}}
+    \label{fig:architecture}
+\end{figure}
+
+\section*{Kliens oldali logika}
+A kliens oldali logikát a következő architektúra alapján terveztem meg.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=14.0truecm]{images/Frontend_architecture.png}
+    \caption{Frontend Architektúra}
+    \label{fig:frontend_architecture}
+\end{figure}
+A fejlesztés során törekedtem a komponensek újra felhasználhatóságára, és a kód minél jobb strukturáltságára.
+\\
+\textbf{Ismertetem a komponensek főbb tulajdonságait:}
+\begin{itemize}
+    \item \textbf{App:} Az alkalmazás gyökér komponense. Itt található a Router, amely a különböző útvonalakhoz rendeli a megfelelő komponenseket.
+    \item \textbf{Page:} Az alkalmazás View komponensei. A különböző oldalakat reprezentálják. Itt találhatóak a különböző komponensek, amelyek a megjelenítést végzik. Illetve itt használom az API hívásokat is.
+    \item \textbf{API services:} Itt találhatóak a különböző API végpontokat kezelő függvények.
+    \item \textbf{Component:} Az alkalmazás nagyobb komponensei. Ezek a komponensek több kisebb komponensből állnak össze.
+    \item \textbf{SubComponent:} Az alkalmazás kisebb komponensei. Ezek a komponensek csak egy adott feladatot látnak el.
+\end{itemize}
+
+
+\section*{Szerver oldali logika}
+\subsection*{Architektúra}
+Az alkalmazásnál MVC (Model-View-Controller) architektúrára építettem, illetve
+bővítettem a Repository és a Service rétegekkel. Az MVC architektúra egy
+architektúrális minta, amely a felhasználói felületet (View), az alkalmazás
+logikáját (Controller) és az adatokat (Model) három különálló részre osztja.
+A Repository réteg a Model réteghez tartozik, a Service réteg pedig a Controller réteghez.
+Azért bontottam tovább a rétegeket, mert így jobban elkülönülnek a felelősségi körök,
+és a kód is átláthatóbb lesz, illetve könnyebben bővíthető, és tesztelhető lesz.
+\\
+\\
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=14.0truecm]{images/Backend_architecture.png}
+    \caption{Backend Architektúra}
+    \label{fig:backend_architecture}
+\end{figure}
+\textbf{Ismertetem a rétegek főbb tulajdonságait:}
+\begin{itemize}
+    \item \textbf{Adatbázis}: Az alkalmazásom adattára. Itt tárolódnak a statikus és dinamikus adatok.
+    \item \textbf{Repositoryk}: Az adatbázis és az alkalmazás logikája közötti köztes réteg. CRUD műveletek, komplex lekérdezések.
+    \item \textbf{Servicek}: Az üzleti logika helye. Itt történnek a komplex számítások, validációk és egyéb logikai műveletek.
+    \item \textbf{Controllerek}: Az API végpontokat kezelő réteg. Fogadják a kliens kéréseit, és válaszokat generálnak.
+\end{itemize}
 
 \section*{Adatbázis}
 \subsection*{ER modell egyedei és tulajdonságai}
@@ -64,31 +119,6 @@ FELHASZNÁLÓI FELÜLET!!!
     \caption{Relációs modell}
     \label{fig:relation_modell}
 \end{figure}
-
-\section*{Szerver oldali logika}
-\subsection*{Architektúra}
-Az alkalmazásnál MVC (Model-View-Controller) architektúrára építettem, illetve
-bővítettem a Repository és a Service rétegekkel. Az MVC architektúra egy
-architektúrális minta, amely a felhasználói felületet (View), az alkalmazás
-logikáját (Controller) és az adatokat (Model) három különálló részre osztja.
-A Repository réteg a Model réteghez tartozik, a Service réteg pedig a Controller réteghez.
-Azért bontottam tovább a rétegeket, mert így jobban elkülönülnek a felelősségi körök,
-és a kód is átláthatóbb lesz, illetve könnyebben bővíthető, és tesztelhető lesz.
-\\
-\\
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=14.0truecm]{images/Backend_architecture.png}
-    \caption{Backend Architektúra}
-    \label{fig:backend_architecture}
-\end{figure}
-\textbf{Ismertetem a rétegek főbb tulajdonságait:}
-\begin{itemize}
-    \item \textbf{Adatbázis}: Az alkalmazásom adattára. Itt tárolódnak a statikus és dinamikus adatok.
-    \item \textbf{Repositoryk}: Az adatbázis és az alkalmazás logikája közötti köztes réteg. CRUD műveletek, komplex lekérdezések.
-    \item \textbf{Servicek}: Az üzleti logika helye. Itt történnek a komplex számítások, validációk és egyéb logikai műveletek.
-    \item \textbf{Controllerek}: Az API végpontokat kezelő réteg. Fogadják a kliens kéréseit, és válaszokat generálnak.
-\end{itemize}
 
 \subsection*{Szoftvertervezési elvek}
 A szoftvertervezési elvek alapvető útmutatások a kiváló kód fejlesztéséhez. Ezek az iránymutatások növelik a kód minőségét, gyorsítják a fejlesztési folyamatot és minimalizálják a hibalehetőségeket. Az ilyen elvek segítenek abban, hogy a kód könnyen újrafelhasználható és karbantartható legyen.

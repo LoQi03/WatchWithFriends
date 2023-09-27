@@ -42,5 +42,18 @@
     \field{urlmonth}{09}
     \field{urlyear}{2023}
   \endentry
+
+  \entry{architecture}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{√}
+    \field{sortinithash}{√}
+    \field{title}{√Åtfog√≥ architekt√∫ra}
+    \verb{url}
+    \verb https://en.wikipedia.org/wiki/Client%E2%80%93server_model
+    \endverb
+    \field{urlday}{27}
+    \field{urlmonth}{09}
+    \field{urlyear}{2023}
+  \endentry
 \enddatalist
 \endinput
