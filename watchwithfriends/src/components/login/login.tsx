@@ -14,7 +14,7 @@ interface LoginFormProps {
 
 export const LoginForm = (props: LoginFormProps): JSX.Element => {
     const authContext = React.useContext(AuthContext);
-    const [showPassword, setShowPassword] = React.useState(false);
+    const [showPassword, setShowPassword] = React.useState<boolean>(false);
     const [credentials, setCredentials] = useState<LoginCredentialsDto>({ email: '', password: '' });
     const handleTogglePassword = () => {
         setShowPassword((prevShowPassword) => !prevShowPassword);

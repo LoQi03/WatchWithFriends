@@ -144,7 +144,6 @@ export const VerifyTokenHandler = (props: VerifyTokenHandlerProps): null => {
 
 
     useMemo(() => {
-
         const verifyTokenAsync = async () => {
             var result = await checkTokenExpiration();
             if (result && !isTokenVerified) {
@@ -152,7 +151,6 @@ export const VerifyTokenHandler = (props: VerifyTokenHandlerProps): null => {
                 props.verifyTokenHandler();
             }
         };
-
         verifyTokenAsync();
     }, [props, isTokenVerified, checkTokenExpiration]);
 
