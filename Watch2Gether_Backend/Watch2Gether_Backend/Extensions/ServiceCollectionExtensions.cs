@@ -9,6 +9,7 @@ using WatchWithFriends.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json.Serialization;
 using WatchWithFriends.Hubs;
+using Microsoft.AspNetCore.SignalR;
 
 namespace WatchWithFriends.Extensions
 {
@@ -16,10 +17,7 @@ namespace WatchWithFriends.Extensions
     {
         public static void UseWatch2GetherBackend(this IServiceCollection services)
         {
-            services.AddSignalR().AddNewtonsoftJsonProtocol(options =>
-            {
-                options.PayloadSerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-            });
+            services.AddSignalR().AddNewtonsoftJsonProtocol(options => SetSignalRJsonProtocolOption(options));
             services.AddControllers()
                     .AddJsonOptions(options => SetJsonOption(options));
 
@@ -41,6 +39,10 @@ namespace WatchWithFriends.Extensions
         private static void SetJsonOption(JsonOptions options)
         {
             options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+        }
+        private static void SetSignalRJsonProtocolOption(NewtonsoftJsonHubProtocolOptions options)
+        {
+            options.PayloadSerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
         }
         private static void SetCorseOptions(CorsOptions options)
         {

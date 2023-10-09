@@ -107,6 +107,43 @@ export const RoomProvider: React.FC<{ children: ReactNode, id: string }> = ({ ch
         setMessages((prevMessages) => [...prevMessages, message]);
     }, [id]);
 
+    const subscribeHubEvents = useCallback((roomConnection: signalR.HubConnection) => {
+        roomConnection.onclose((error) => {
+            console.error('Connection closed:', error);
+        });
+
+        roomConnection.on('ReciveMessage', (message: ChatEntryDto) => {
+            if (authContext?.currentUser?.id !== message.userId) {
+                setNotSeeingMessages(prev => prev + 1);
+            }
+            messageHandler(message);
+        });
+
+        roomConnection.on('VideoPlayerHandler', (videoPlayer: VideoPlayerDto) => {
+            videoPlayerHandler(videoPlayer);
+        });
+        roomConnection.on('GetRoomUsers', async (users: UserDto[]) => {
+            try {
+                const { data } = await API.getRoomById(id!);
+                setCurrentRoom(data);
+            }
+            catch (error) {
+                console.log(error);
+            }
+            setUsers(users);
+        });
+
+        roomConnection.on('UpdateRoomHandler', async (room: RoomDto) => {
+            updateRoomHandler(room);
+        });
+    }, [
+        authContext?.currentUser?.id,
+        id,
+        messageHandler,
+        updateRoomHandler,
+        videoPlayerHandler
+    ]);
+
     const onStart = async (): Promise<void> => {
         await connection?.invoke("VideoPlayer", {
             roomId: id,
@@ -201,34 +238,7 @@ export const RoomProvider: React.FC<{ children: ReactNode, id: string }> = ({ ch
                     .withAutomaticReconnect()
                     .build();
 
-                roomConnection.onclose((error) => {
-                    console.error('Connection closed:', error);
-                });
-
-                roomConnection.on('ReciveMessage', (message: ChatEntryDto) => {
-                    if (authContext?.currentUser?.id !== message.userId) {
-                        setNotSeeingMessages(prev => prev + 1);
-                    }
-                    messageHandler(message);
-                });
-
-                roomConnection.on('VideoPlayerHandler', (videoPlayer: VideoPlayerDto) => {
-                    videoPlayerHandler(videoPlayer);
-                });
-                roomConnection.on('GetRoomUsers', async (users: UserDto[]) => {
-                    try {
-                        const { data } = await API.getRoomById(id!);
-                        setCurrentRoom(data);
-                    }
-                    catch (error) {
-                        console.log(error);
-                    }
-                    setUsers(users);
-                });
-
-                roomConnection.on('UpdateRoomHandler', async (room: RoomDto) => {
-                    updateRoomHandler(room);
-                });
+                subscribeHubEvents(roomConnection);
                 await roomConnection.start();
                 roomConnection.invoke("JoinRoom", id, authContext?.currentUser?.id, authContext?.currentUser?.name);
                 console.log('Connected to the hub.');
@@ -254,6 +264,7 @@ export const RoomProvider: React.FC<{ children: ReactNode, id: string }> = ({ ch
         videoPlayerHandler,
         updateRoomHandler,
         navigate,
+        subscribeHubEvents
     ]);
 
     useMemo(() => {

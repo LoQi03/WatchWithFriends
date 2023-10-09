@@ -20,11 +20,11 @@ namespace WatchWithFriends.Hubs
         }
         public async Task UpdateRoom(RoomDTO room)
         {
-            if (room.RoomUsers == null)
+            if (room?.RoomUsers == null)
             {
                 return;
             }
-            foreach (var roomUser in room?.RoomUsers)
+            foreach (var roomUser in room.RoomUsers)
             {
                 await _roomContext.Clients.Clients(roomUser.Id).SendAsync("UpdateRoomHandler", room);
             }
@@ -32,11 +32,11 @@ namespace WatchWithFriends.Hubs
         public async Task VideoPlayer(VideoPlayer videoPlayer)
         {
             var room = await _roomService.GetRoom(videoPlayer.RoomId);
-            if (room.RoomUsers == null)
+            if (room?.RoomUsers == null)
             {
                 return;
             }
-            foreach (var roomUser in room?.RoomUsers)
+            foreach (var roomUser in room.RoomUsers)
             {
                 await _roomContext.Clients.Clients(roomUser.Id).SendAsync("VideoPlayerHandler", videoPlayer);
             }
@@ -53,7 +53,7 @@ namespace WatchWithFriends.Hubs
             {
                 return;
             }
-            foreach (var roomUser in room?.RoomUsers)
+            foreach (var roomUser in room.RoomUsers)
             {
                 await _roomContext.Clients.Clients(roomUser.Id).SendAsync("GetRoomUsers", users);
             }
@@ -69,7 +69,7 @@ namespace WatchWithFriends.Hubs
             {
                 return;
             }
-            foreach (var roomUser in room?.RoomUsers)
+            foreach (var roomUser in room.RoomUsers)
             {
                 await _roomContext.Clients.Clients(roomUser.Id).SendAsync("ReciveMessage", chatEntry);
             }
@@ -87,7 +87,7 @@ namespace WatchWithFriends.Hubs
             {
                 return;
             }
-            foreach (var roomUser in room?.RoomUsers)
+            foreach (var roomUser in room.RoomUsers)
             {
                 await _roomContext.Clients.Clients(roomUser.Id).SendAsync("GetRoomUsers", users);
             }
