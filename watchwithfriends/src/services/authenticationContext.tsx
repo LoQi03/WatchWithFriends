@@ -34,19 +34,25 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ isUserAlreadyLoggedI
     const [isUserAlreadyLoggedIn, setIsUserAlreadyLoggedIn] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const login = async (credentials: LoginCredentialsDto): Promise<void> => {
-        setIsLoading(true);
-        const { userDetails, token } = await API.login(credentials);
-        if (!userDetails || !token) {
+        try {
+            setIsLoading(true);
+            const { userDetails, token } = await API.login(credentials);
             setIsLoading(false);
-            throw new Error("Invalid response from server");
+            if (!userDetails || !token) {
+                setIsLoading(false);
+                throw new Error("Invalid response from server");
+            }
+            setCurrentUser(userDetails);
+            setToken(token);
+            localStorage.setItem("token", token);
+            updateAuthorizationHeader();
+            setIsUserAlreadyLoggedIn(true);
+            isUserAlreadyLoggedInChangeHandler();
         }
-        setCurrentUser(userDetails);
-        setToken(token);
-        localStorage.setItem("token", token);
-        updateAuthorizationHeader();
-        setIsUserAlreadyLoggedIn(true);
-        isUserAlreadyLoggedInChangeHandler();
-        setIsLoading(false);
+        catch (error) {
+            setIsLoading(false);
+            throw error;
+        }
     };
 
     const register = async (user: RegisterUserDto): Promise<void> => {
