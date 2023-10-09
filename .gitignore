@@ -1,2 +1,5 @@
 *.vsidx
 .dtbcache.v2
+*.aux
+*.toc
+*.log
