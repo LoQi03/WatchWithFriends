@@ -16,7 +16,10 @@ namespace WatchWithFriends.Extensions
     {
         public static void UseWatch2GetherBackend(this IServiceCollection services)
         {
-            services.AddSignalR();
+            services.AddSignalR().AddNewtonsoftJsonProtocol(options =>
+            {
+                options.PayloadSerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });
             services.AddControllers()
                     .AddJsonOptions(options => SetJsonOption(options));
 
@@ -34,7 +37,6 @@ namespace WatchWithFriends.Extensions
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IImageService, ImageService>();
             services.AddScoped<IRoomHub, RoomHub>();
-
         }
         private static void SetJsonOption(JsonOptions options)
         {

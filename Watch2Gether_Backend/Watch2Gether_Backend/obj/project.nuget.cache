@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "1p0K9VvKsafQJce5Qu8Rix3ewX8AZFvY7x52bIM2ADyGFByeg06yuNuANqTVzaRVTVKMrk0zDiY5Ofh6kcuoig==",
+  "dgSpecHash": "3jgjcUhrXCNGHBiKhUn+a9ZpyBMySMdjMAZYpbnU4aXLEDuHZS3ZCbDDd0RNdnBHGo558h+fpHayEc/HTQSzUQ==",
   "success": true,
   "projectFilePath": "C:\\Repos\\Watch2gether\\Watch2Gether_Backend\\Watch2Gether_Backend\\WatchWithFriends.csproj",
   "expectedPackageFiles": [
@@ -15,6 +15,7 @@
     "C:\\Users\\mates\\.nuget\\packages\\microsoft.aspnetcore.signalr.client.core\\7.0.9\\microsoft.aspnetcore.signalr.client.core.7.0.9.nupkg.sha512",
     "C:\\Users\\mates\\.nuget\\packages\\microsoft.aspnetcore.signalr.common\\7.0.9\\microsoft.aspnetcore.signalr.common.7.0.9.nupkg.sha512",
     "C:\\Users\\mates\\.nuget\\packages\\microsoft.aspnetcore.signalr.protocols.json\\7.0.9\\microsoft.aspnetcore.signalr.protocols.json.7.0.9.nupkg.sha512",
+    "C:\\Users\\mates\\.nuget\\packages\\microsoft.aspnetcore.signalr.protocols.newtonsoftjson\\7.0.9\\microsoft.aspnetcore.signalr.protocols.newtonsoftjson.7.0.9.nupkg.sha512",
     "C:\\Users\\mates\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\mates\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\mates\\.nuget\\packages\\microsoft.data.sqlclient\\5.0.2\\microsoft.data.sqlclient.5.0.2.nupkg.sha512",

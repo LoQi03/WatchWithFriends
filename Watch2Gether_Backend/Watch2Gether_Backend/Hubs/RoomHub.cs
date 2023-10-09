@@ -18,7 +18,6 @@ namespace WatchWithFriends.Hubs
         {
             return base.OnConnectedAsync();
         }
-
         public async Task UpdateRoom(RoomDTO room)
         {
             if (room.RoomUsers == null)

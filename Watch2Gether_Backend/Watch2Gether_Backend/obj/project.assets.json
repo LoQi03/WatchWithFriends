@@ -201,6 +201,23 @@
           }
         }
       },
+      "Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson/7.0.9": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.SignalR.Common": "7.0.9",
+          "Newtonsoft.Json": "13.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Microsoft.Bcl.AsyncInterfaces/1.1.1": {
         "type": "package",
         "compile": {
@@ -1740,6 +1757,25 @@
         "lib/netstandard2.0/Microsoft.AspNetCore.SignalR.Protocols.Json.xml",
         "microsoft.aspnetcore.signalr.protocols.json.7.0.9.nupkg.sha512",
         "microsoft.aspnetcore.signalr.protocols.json.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson/7.0.9": {
+      "sha512": "KMihQwozybOWt+cTQdYT1XkkMSXXVFmbXGWFQfxPgYMcL07vPWaTUCUyVGBAGZsF7p8oG7DhFDDeFH1gHGkjPA==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.signalr.protocols.newtonsoftjson/7.0.9",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net462/Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson.dll",
+        "lib/net462/Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson.xml",
+        "lib/net7.0/Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson.dll",
+        "lib/net7.0/Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson.xml",
+        "lib/netstandard2.0/Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson.dll",
+        "lib/netstandard2.0/Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson.xml",
+        "microsoft.aspnetcore.signalr.protocols.newtonsoftjson.7.0.9.nupkg.sha512",
+        "microsoft.aspnetcore.signalr.protocols.newtonsoftjson.nuspec"
       ]
     },
     "Microsoft.Bcl.AsyncInterfaces/1.1.1": {
@@ -4397,6 +4433,7 @@
     "net6.0": [
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 6.0.18",
       "Microsoft.AspNetCore.SignalR.Client >= 7.0.9",
+      "Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson >= 7.0.9",
       "Microsoft.EntityFrameworkCore.Design >= 7.0.9",
       "Microsoft.VisualStudio.Azure.Containers.Tools.Targets >= 1.18.1",
       "Newtonsoft.Json >= 13.0.3",
@@ -4460,6 +4497,10 @@
             "version": "[6.0.18, )"
           },
           "Microsoft.AspNetCore.SignalR.Client": {
+            "target": "Package",
+            "version": "[7.0.9, )"
+          },
+          "Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson": {
             "target": "Package",
             "version": "[7.0.9, )"
           },

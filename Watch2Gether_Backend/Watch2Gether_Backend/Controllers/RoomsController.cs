@@ -11,8 +11,10 @@ namespace WatchWithFriends.Controllers
     public class RoomsController : ControllerBase
     {
         private readonly IRoomService _roomService;
+        private readonly IRoomHub _roomHub;
         public RoomsController(IRoomService roomService,IRoomHub roomHub)
         {
+            _roomHub = roomHub;
             _roomService = roomService;
         }
         [HttpGet]
@@ -56,18 +58,33 @@ namespace WatchWithFriends.Controllers
         {
             video.Id = Guid.NewGuid();
             var result = await _roomService.AddVideo(id, video);
-            return Ok(result);
+            if(result is null)
+            {
+                return BadRequest();
+            }
+            await _roomHub.UpdateRoom(result);
+            return Ok();
         }
         [HttpDelete("{id}/Videos/{videoId}"), Authorize]
         public async Task<ActionResult<RoomDTO>> DeleteVideoFromRoom(Guid id, Guid videoId)
         {
             var result = await _roomService.DeleteVideo(id, videoId);
+            if (result is null)
+            {
+                return BadRequest();
+            }
+            await _roomHub.UpdateRoom(result);
             return Ok(result);
         }
         [HttpPost("{id}/NextVideo"), Authorize]
         public async Task<ActionResult<RoomDTO>> NextVideoForRoom(Guid id)
         {
             var result = await _roomService.NextVideo(id);
+            if (result is null)
+            {
+                return BadRequest();
+            }
+            await _roomHub.UpdateRoom(result);
             return Ok(result);
         }
     }

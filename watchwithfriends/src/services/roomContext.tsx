@@ -131,7 +131,6 @@ export const RoomProvider: React.FC<{ children: ReactNode, id: string }> = ({ ch
         if (!data) {
             return;
         }
-        await connection?.invoke("UpdateRoom", data);
     };
 
     const onSeek = async (seconds: number): Promise<void> => {
@@ -216,7 +215,6 @@ export const RoomProvider: React.FC<{ children: ReactNode, id: string }> = ({ ch
                 roomConnection.on('VideoPlayerHandler', (videoPlayer: VideoPlayerDto) => {
                     videoPlayerHandler(videoPlayer);
                 });
-
                 roomConnection.on('GetRoomUsers', async (users: UserDto[]) => {
                     try {
                         const { data } = await API.getRoomById(id!);
@@ -310,8 +308,6 @@ export const RoomProvider: React.FC<{ children: ReactNode, id: string }> = ({ ch
         if (!data || !connection) {
             return;
         }
-
-        connection.invoke("UpdateRoom", data);
     };
 
 
@@ -321,7 +317,6 @@ export const RoomProvider: React.FC<{ children: ReactNode, id: string }> = ({ ch
     };
 
     const handleSetNewUrl = (url: string): void => {
-        console.log(url);
         setNewUrl(url);
     };
 
@@ -339,7 +334,6 @@ export const RoomProvider: React.FC<{ children: ReactNode, id: string }> = ({ ch
                 image: videoDetails.thumbnails.standard.url,
                 title: videoDetails.title,
             };
-
             if (!id) {
                 return;
             }
@@ -348,8 +342,6 @@ export const RoomProvider: React.FC<{ children: ReactNode, id: string }> = ({ ch
             if (!data || !connection) {
                 return;
             }
-
-            await connection.invoke("UpdateRoom", data);
             toast.success("Video added to playlist!");
             setNewUrl('');
         }
