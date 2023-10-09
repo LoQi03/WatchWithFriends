@@ -9,6 +9,7 @@ import { UpdateUserDto } from '../../models/updateUserDto';
 import * as AppConfig from '../../AppConfig';
 import { AuthContext } from '../../services/authenticationContext';
 import toast from 'react-hot-toast';
+import { Loader } from '../../components/loader/loader';
 
 export const ProfilePage = (): JSX.Element => {
     const authContext = useContext(AuthContext);
@@ -20,6 +21,7 @@ export const ProfilePage = (): JSX.Element => {
     const [showChangePassword, setShowChangePassword] = useState(false);
     const [imageSrc, setImageSrc] = useState('');
     const [imgFile, setImgFile] = useState<File | undefined>(undefined);
+    const [isLoading, setIsLoading] = useState(false);
     const [userDetails, setUserDetails] = useState<UserDto>(
         {
             id: '',
@@ -30,8 +32,10 @@ export const ProfilePage = (): JSX.Element => {
     );
     useMemo(() => {
         if (authContext && authContext.currentUser) {
+            setIsLoading(true);
             setUserDetails(authContext.currentUser);
             setImageSrc(`${AppConfig.GetConfig().apiUrl}Users/${authContext?.currentUser?.id}/image`);
+            setIsLoading(false);
         }
     }, [authContext])
 
@@ -72,6 +76,7 @@ export const ProfilePage = (): JSX.Element => {
         };
         if (authContext?.checkTokenExpiration() === false) authContext?.logout();
         try {
+            setIsLoading(true);
             const respone = await API.updateUser(updateUserDto);
             if (respone.status === 200) {
                 if (imgFile !== undefined && authContext?.currentUser?.id !== undefined)
@@ -84,14 +89,17 @@ export const ProfilePage = (): JSX.Element => {
                 setNewPassword('');
                 setConfrimNewPassword('');
                 toast.success('User updated successfully');
+                setIsLoading(false);
             }
         } catch (error) {
             toast.error('Wrong credentials or user already exists');
+            setIsLoading(false);
         };
     };
 
     return (
         <Style.ProfilePageContainer>
+            {isLoading && <Loader />}
             <Style.ProfileName>{authContext?.currentUser?.name}</Style.ProfileName>
             <Style.ProfilePageContent>
                 <Style.ImageContainer>
