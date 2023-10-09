@@ -6,6 +6,7 @@ import * as API from '../api/userManagementAPI';
 import { WebToken } from '../models/webToken';
 import jwtDecode from 'jwt-decode';
 import { updateAuthorizationHeader } from '../HttpClient';
+import { Loader } from '../components/loader/loader';
 
 interface AuthContextType {
     currentUser: UserDto | null;
@@ -31,11 +32,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ isUserAlreadyLoggedI
     const [currentUser, setCurrentUser] = useState<UserDto | null>(null);
     const [token, setToken] = useState<string | null>(null);
     const [isUserAlreadyLoggedIn, setIsUserAlreadyLoggedIn] = useState(false);
-
+    const [isLoading, setIsLoading] = useState(false);
     const login = async (credentials: LoginCredentialsDto): Promise<void> => {
-
+        setIsLoading(true);
         const { userDetails, token } = await API.login(credentials);
         if (!userDetails || !token) {
+            setIsLoading(false);
             throw new Error("Invalid response from server");
         }
         setCurrentUser(userDetails);
@@ -44,14 +46,17 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ isUserAlreadyLoggedI
         updateAuthorizationHeader();
         setIsUserAlreadyLoggedIn(true);
         isUserAlreadyLoggedInChangeHandler();
+        setIsLoading(false);
     };
 
     const register = async (user: RegisterUserDto): Promise<void> => {
-
+        setIsLoading(true);
         const status = await API.register(user);
         if (status !== 200) {
+            setIsLoading(false);
             throw new Error("Invalid response from server");
         }
+        setIsLoading(false);
     };
 
     const verifyToken = async (): Promise<boolean> => {
@@ -117,6 +122,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ isUserAlreadyLoggedI
                 changeUserIsAlreadyLoggedIn
             }}
         >
+            {isLoading && <Loader />}
             {children}
         </AuthContext.Provider>
     );
@@ -128,8 +134,9 @@ export interface VerifyTokenHandlerProps {
     isUserAlreadyLoggedIn: boolean;
 }
 
-export const VerifyTokenHandler = (props: VerifyTokenHandlerProps): null => {
+export const VerifyTokenHandler = (props: VerifyTokenHandlerProps): JSX.Element => {
     const [isTokenVerified, setIsTokenVerified] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const authContext = useContext(AuthContext);
 
 
@@ -145,15 +152,17 @@ export const VerifyTokenHandler = (props: VerifyTokenHandlerProps): null => {
 
     useMemo(() => {
         const verifyTokenAsync = async () => {
+            setIsLoading(true);
             var result = await checkTokenExpiration();
             if (result && !isTokenVerified) {
                 setIsTokenVerified(true);
                 props.verifyTokenHandler();
             }
+            setIsLoading(false);
         };
         verifyTokenAsync();
     }, [props, isTokenVerified, checkTokenExpiration]);
 
 
-    return null;
+    return (<>{isLoading && <Loader />}</>);
 };

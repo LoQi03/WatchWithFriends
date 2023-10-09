@@ -7,6 +7,7 @@ import { RoomDto } from '../../models/roomDto';
 import { AuthContext } from '../../services/authenticationContext';
 import * as Styles from './styles';
 import AddIcon from '@mui/icons-material/Add';
+import { Loader } from '../../components/loader/loader';
 
 export interface CreateRoomContextType {
     open: boolean;
@@ -24,12 +25,12 @@ export const RoomsPage = (): JSX.Element => {
     const handleonClose = (): void => setOpen(false);
     const [rooms, setRooms] = useState<RoomDto[]>();
     const aouthService = React.useContext(AuthContext);
+    const [isLoading, setIsLoading] = useState(false);
 
     const getRoomsAsync = useCallback(async (): Promise<void> => {
         try {
-            const response = await API.getRooms();
-            setRooms(response.data);
-
+            const { data } = await API.getRooms();
+            setRooms(data);
         }
         catch (error) {
             aouthService?.logout();
@@ -42,11 +43,16 @@ export const RoomsPage = (): JSX.Element => {
         if (rooms) {
             return;
         }
-        getRoomsAsync();
+        setIsLoading(true);
+        setTimeout(() => {
+            getRoomsAsync();
+            setIsLoading(false);
+        }, 1000);
     }, [rooms, getRoomsAsync]);
 
     return (
         <Styles.RoomsPageContainer>
+            {isLoading && <Loader />}
             <Styles.HeaderBar>
                 <CommonStyles.StyledTextField placeholder="Search" />
                 <Styles.RoomHeaderButtonContainer>

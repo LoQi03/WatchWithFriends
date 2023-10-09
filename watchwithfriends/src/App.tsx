@@ -47,7 +47,6 @@ const App: React.FC = () => {
           : <AuthenticationPage />
       }
     </AuthProvider>
-
   );
 }
 export default App;
