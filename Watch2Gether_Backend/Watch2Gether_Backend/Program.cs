@@ -1,5 +1,6 @@
 using WatchWithFriends.Extensions;
 using WatchWithFriends.Hubs;
+using WatchWithFriends.Middleware;
 using WatchWithFriends.Misc;
 using WatchWithFriends_Data.Extensions;
 
@@ -39,7 +40,7 @@ namespace Watch2Gether_Backend
             }
 
             app.UseHttpsRedirection();
-
+            app.UseMiddleware<ExceptionLoggingMiddleware>();
             app.UseAuthentication();
             app.UseRouting();
             app.UseAuthorization();

@@ -104,3 +104,4 @@ C:\Repos\Watch2gether\Watch2Gether_Backend\Watch2Gether_Backend\obj\Debug\net6.0
 C:\Repos\Watch2gether\Watch2Gether_Backend\Watch2Gether_Backend\obj\Debug\net6.0\WatchWithFriends.genruntimeconfig.cache
 C:\Repos\Watch2gether\Watch2Gether_Backend\Watch2Gether_Backend\obj\Debug\net6.0\ref\WatchWithFriends.dll
 C:\Repos\Watch2gether\Watch2Gether_Backend\Watch2Gether_Backend\bin\Debug\net6.0\Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson.dll
+C:\Repos\Watch2gether\Watch2Gether_Backend\Watch2Gether_Backend\bin\Debug\net6.0\exceptions.json
