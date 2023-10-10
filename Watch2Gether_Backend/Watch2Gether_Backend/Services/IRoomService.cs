@@ -17,5 +17,6 @@ namespace WatchWithFriends.Services
         Task UpdateRoom(RoomDTO roomDTO);
         Task<RoomDTO> DeleteVideo(Guid roomId, Guid videoId);
         Task<RoomDTO?> NextVideo(Guid roomId);
+        Task<bool> VerifyRoomConnection(RoomConnectionDTO roomConnectionDTO);
     }
 }

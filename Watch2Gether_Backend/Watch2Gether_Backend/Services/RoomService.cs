@@ -63,7 +63,7 @@ namespace WatchWithFriends.Services
             var users = new List<UserDTO>();
             var userIds = room?.RoomUsers?.Select(x => x.UserId);
 
-            if(userIds == null)
+            if (userIds == null)
             {
                 return null;
             }
@@ -136,19 +136,19 @@ namespace WatchWithFriends.Services
                 return null;
             }
 
-            var room = await  _roomRepository.GetRoomByIdAsync(deletedUser.RoomId);
-            
+            var room = await _roomRepository.GetRoomByIdAsync(deletedUser.RoomId);
+
             if (room == null)
             {
                 return null;
             }
 
-            if(room.CreatorId != deletedUser.UserId)
+            if (room.CreatorId != deletedUser.UserId)
             {
                 return RoomDTO.FromModel(room);
             }
             room.CreatorId = room?.RoomUsers?.FirstOrDefault(x => x.UserId != room.CreatorId)?.UserId ?? Guid.Empty;
-            if(room?.CreatorId != Guid.Empty)
+            if (room?.CreatorId != Guid.Empty)
             {
                 await _roomRepository.UpdateRoomAsync(room);
                 return RoomDTO.FromModel(room);
@@ -180,13 +180,13 @@ namespace WatchWithFriends.Services
         public async Task<RoomDTO?> NextVideo(Guid roomId)
         {
             var room = await _roomRepository.GetRoomByIdAsync(roomId);
-            if(room == null || room.CurrentVideo == null)
+            if (room == null || room.CurrentVideo == null)
             {
                 return null;
             }
             await _videoRepository.DeleteVideoAsync(room.CurrentVideo);
             room = await _roomRepository.GetRoomByIdAsync(roomId);
-            if(room.PlayList == null)
+            if (room.PlayList == null)
             {
                 return null;
             }
@@ -199,7 +199,10 @@ namespace WatchWithFriends.Services
         {
             var room = await _roomRepository.GetRoomByIdAsync(roomId);
 
-            RoomValidition(room);
+            if (room == null)
+            {
+                throw new Exception("Room is not exist!");
+            }
 
             video.RoomId = roomId;
             video.Room = room;
@@ -216,11 +219,14 @@ namespace WatchWithFriends.Services
             room = await _roomRepository.GetRoomByIdAsync(room.Id);
             return RoomDTO.FromModel(room);
         }
-        public async Task<RoomDTO> DeleteVideo(Guid roomId,Guid videoId)
+        public async Task<RoomDTO> DeleteVideo(Guid roomId, Guid videoId)
         {
             var room = await _roomRepository.GetRoomByIdAsync(roomId);
-            RoomValidition (room);
-            if(videoId == room.CurrentVideo)
+            if (room == null)
+            {
+                throw new Exception("Room is not exist!");
+            }
+            if (videoId == room.CurrentVideo)
             {
                 await _videoRepository.DeleteVideoAsync(videoId);
                 room.CurrentVideo = room.PlayList?.FirstOrDefault(v => v.Id != room.CurrentVideo)?.Id;
@@ -233,14 +239,35 @@ namespace WatchWithFriends.Services
             await _roomRepository.UpdateRoomAsync(room);
             return RoomDTO.FromModel(room);
         }
-
-        private void RoomValidition(Room room)
+        public async Task<bool> VerifyRoomConnection(RoomConnectionDTO roomConnectionDTO)
         {
-            if (room != null)
+            var room = await _roomRepository.GetRoomByIdAsync(roomConnectionDTO.RoomId);
+            if (room == null)
             {
-                return;
+                throw new Exception("Room is not exist!");
             }
-            throw new ArgumentException("Room is not exist!");
+            if (room.RoomUsers.First(x => x.UserId == roomConnectionDTO.UserId) != null)
+            {
+                return false;
+            }
+            if (roomConnectionDTO.UserId == room.CreatorId)
+            {
+                return true;
+            }
+            if (room.Salt == null || room.PasswordHash == null)
+            {
+                return true;
+            }
+            var salt = Convert.FromBase64String(room.Salt);
+            if (roomConnectionDTO.Password == null)
+            {
+                return false;
+            }
+            if (HashPassword(roomConnectionDTO.Password, salt) != room.PasswordHash)
+            {
+                return false;
+            }
+            return true;
         }
 
         private string HashPassword(string password, byte[] salt)

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using WatchWithFriends.Hubs;
 using Watch2Gether_Backend.Model;
 using WatchWithFriends.Services;
+using WatchWithFriends.Model;
 
 namespace WatchWithFriends.Controllers
 {
@@ -12,7 +13,7 @@ namespace WatchWithFriends.Controllers
     {
         private readonly IRoomService _roomService;
         private readonly IRoomHub _roomHub;
-        public RoomsController(IRoomService roomService,IRoomHub roomHub)
+        public RoomsController(IRoomService roomService, IRoomHub roomHub)
         {
             _roomHub = roomHub;
             _roomService = roomService;
@@ -54,11 +55,11 @@ namespace WatchWithFriends.Controllers
             return Ok(result);
         }
         [HttpPost("{id}/Videos"), Authorize]
-        public async Task<ActionResult<RoomDTO>> AddVideoToRoom(Guid id , Video video)
+        public async Task<ActionResult<RoomDTO>> AddVideoToRoom(Guid id, Video video)
         {
             video.Id = Guid.NewGuid();
             var result = await _roomService.AddVideo(id, video);
-            if(result is null)
+            if (result is null)
             {
                 return BadRequest();
             }
@@ -85,6 +86,12 @@ namespace WatchWithFriends.Controllers
                 return BadRequest();
             }
             await _roomHub.UpdateRoom(result);
+            return Ok(result);
+        }
+        [HttpPost("VerifyRoomConnection"), Authorize]
+        public async Task<ActionResult<bool>> VerifyRoomConnection(RoomConnectionDTO roomConnectionDTO)
+        {
+            var result = await _roomService.VerifyRoomConnection(roomConnectionDTO);
             return Ok(result);
         }
     }

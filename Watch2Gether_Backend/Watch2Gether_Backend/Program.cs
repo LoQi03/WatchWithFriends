@@ -19,7 +19,7 @@ namespace Watch2Gether_Backend
                     builder.Services.WatchWithFriendsData(DataBaseType.InMemory);
                     break;
                 case "Development":
-                    builder.Services.WatchWithFriendsData(DataBaseType.SQLServer);
+                    builder.Services.WatchWithFriendsData(DataBaseType.InMemory);
                     break;
                 case "Production":
                     builder.Services.WatchWithFriendsData(DataBaseType.SQLServer);
@@ -49,7 +49,7 @@ namespace Watch2Gether_Backend
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapHub<RoomHub>("roomHub"); 
+                endpoints.MapHub<RoomHub>("roomHub");
 
                 endpoints.MapControllers();
             });
