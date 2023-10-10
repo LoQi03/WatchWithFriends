@@ -57,10 +57,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ isUserAlreadyLoggedI
 
     const register = async (user: RegisterUserDto): Promise<void> => {
         setIsLoading(true);
-        const status = await API.register(user);
-        if (status !== 200) {
+        try {
+            const status = await API.register(user);
+            if (status !== 200) {
+                setIsLoading(false);
+                throw new Error("Invalid response from server");
+            }
+        } catch (error) {
             setIsLoading(false);
-            throw new Error("Invalid response from server");
+            throw error;
         }
         setIsLoading(false);
     };

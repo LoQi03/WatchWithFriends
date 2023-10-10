@@ -19,7 +19,7 @@ namespace Watch2Gether_Backend
                     builder.Services.WatchWithFriendsData(DataBaseType.InMemory);
                     break;
                 case "Development":
-                    builder.Services.WatchWithFriendsData(DataBaseType.InMemory);
+                    builder.Services.WatchWithFriendsData(DataBaseType.SQLServer);
                     break;
                 case "Production":
                     builder.Services.WatchWithFriendsData(DataBaseType.SQLServer);
