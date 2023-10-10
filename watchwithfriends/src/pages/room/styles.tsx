@@ -10,7 +10,7 @@ import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import { Theme } from "@emotion/react";
 import { Button, ButtonProps } from "@mui/material";
 import ChatIcon from '@mui/icons-material/Chat';
-
+import LockIcon from '@mui/icons-material/Lock';
 export const RoomAddLink = styled.div`
     display: flex;
     flex-direction: row;
@@ -275,13 +275,6 @@ export const VolumeActionBarSlider: Theme = { color: 'white', width: '100%' };
 
 export const VideoPlayerSlider: Theme = { color: 'white', width: '100%' };
 
-export const PasswordModalContainer = styled.div`
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%,-50%);
-    z-index: 100;
-`;
 
 export const PasswordRoomInputFieldContainer = styled.div`
     display: flex;
@@ -289,9 +282,8 @@ export const PasswordRoomInputFieldContainer = styled.div`
     align-items: center;
     justify-content: center;
     gap: 30px;
-    margin-top: 20px;
-    width: 100%;
-    margin-bottom: 20px;
+    width: 50%;
+    height: 100%;
     @media screen and (max-width: 800px) {
         width: 90%;
     }
@@ -329,4 +321,8 @@ export const PasswordRoomModal = styled.div`
         margin: 0;
         border-radius: 0;
     }
+`;
+export const LockIconStyled = styled(LockIcon)`
+    color: #EF8354;
+    font-size: 100px;
 `;

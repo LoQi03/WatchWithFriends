@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { RoomProvider } from "../../services/roomContext";
 import { RoomPage } from "./room";
 import * as API from "../../api/roomManagmentAPI";
-import { useCallback, useContext, useMemo, useState } from "react";
+import { KeyboardEventHandler, useCallback, useContext, useMemo, useState } from "react";
 import * as Styles from "./styles";
 import * as CommonStyles from "../../commonStyles";
 import { Loader } from "../../components/loader/loader";
@@ -20,6 +20,8 @@ export const RoomPageWithProvider: React.FC = () => {
     const params = useParams();
     const navigate = useNavigate();
 
+
+
     const getRoom = useCallback(async (): Promise<void> => {
         try {
             if (!params.id) {
@@ -27,20 +29,25 @@ export const RoomPageWithProvider: React.FC = () => {
             }
             try {
                 setIsLoading(true);
-                const { data } = await API.getRoomById(params.id);
-                setRoom(data);
-
-                if (!data.id || !authContext?.currentUser?.id) {
-                    console.log("No room id or user id");
-                    return;
-                }
-                if (data.roomUsers?.find(x => x.userId === authContext?.currentUser?.id)) {
-                    toast.error("You are already in this room!");
+                try {
+                    const { data } = await API.getRoomById(params.id);
+                    setRoom(data);
+                    if (!data.id || !authContext?.currentUser?.id) {
+                        console.log("No room id or user id");
+                        return;
+                    }
+                    if (data.roomUsers?.find(x => x.userId === authContext?.currentUser?.id)) {
+                        toast.error("You are already in this room!");
+                        navigate("/rooms");
+                    }
+                    const response = await API.verifyRoomConnection(data.id, authContext?.currentUser?.id, password);
+                    console.log(response);
+                    setIsAuthenticated(response.data);
+                } catch (error) {
+                    toast.error("Room doesn't exist!");
                     navigate("/rooms");
                 }
-                const response = await API.verifyRoomConnection(data.id, authContext?.currentUser?.id, password);
-                console.log(response);
-                setIsAuthenticated(response.data);
+
             } catch (error) {
                 console.log(error);
                 setIsLoading(false);
@@ -84,6 +91,11 @@ export const RoomPageWithProvider: React.FC = () => {
         }
         setIsLoading(false);
     };
+    const handleKeyDown: KeyboardEventHandler<HTMLDivElement> = (event) => {
+        if (event.key === 'Enter') {
+            handlePasswordSubmit();
+        }
+    };
     return (
         <>
             {isLoading && <Loader />}
@@ -93,12 +105,14 @@ export const RoomPageWithProvider: React.FC = () => {
                 <RoomProvider id={params.id}>
                     <RoomPage />
                 </RoomProvider>
-                    : <Styles.PasswordModalContainer>
+                    :
+                    <Styles.PasswordRoomInputFieldContainer>
                         <Styles.PasswordRoomInputFieldContainer>
-                            <CommonStyles.StyledTextField value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
+                            <Styles.LockIconStyled />
+                            <CommonStyles.StyledTextField onKeyDown={handleKeyDown} type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
                             <CommonStyles.GenericButton onClick={handlePasswordSubmit}>Submit</CommonStyles.GenericButton>
                         </Styles.PasswordRoomInputFieldContainer>
-                    </Styles.PasswordModalContainer>
+                    </Styles.PasswordRoomInputFieldContainer>
             }
         </>
     );
