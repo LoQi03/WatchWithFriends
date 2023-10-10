@@ -246,10 +246,6 @@ namespace WatchWithFriends.Services
             {
                 throw new Exception("Room is not exist!");
             }
-            if (room.RoomUsers.First(x => x.UserId == roomConnectionDTO.UserId) != null)
-            {
-                return false;
-            }
             if (roomConnectionDTO.UserId == room.CreatorId)
             {
                 return true;

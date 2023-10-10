@@ -28,7 +28,7 @@ export const deleteVideo = async (id: string, videoId: string): Promise<AxiosRes
     const response = await httpClient.delete<RoomDto>(`Rooms/${id}/Videos/${videoId}`);
     return response;
 }
-export const verifyRoomConnection = async (roomId: string, userId: string, password: string): Promise<AxiosResponse> => {
+export const verifyRoomConnection = async (roomId: string, userId: string, password?: string): Promise<AxiosResponse> => {
     const roomConnectionDTO: RoomConnectionDTO = {
         roomId: roomId,
         userId: userId,
