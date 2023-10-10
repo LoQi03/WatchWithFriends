@@ -1,4 +1,4 @@
-import React, { createContext, useCallback, useMemo, useState } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import * as API from '../../api/roomManagmentAPI';
 import * as CommonStyles from '../../commonStyles';
 import { CreateRoom } from '../../components/create-room/create-room';
@@ -24,8 +24,10 @@ export const RoomsPage = (): JSX.Element => {
     const handleOpen = (): void => setOpen(true);
     const handleonClose = (): void => setOpen(false);
     const [rooms, setRooms] = useState<RoomDto[]>();
-    const aouthService = React.useContext(AuthContext);
+    const aouthService = useContext(AuthContext);
     const [isLoading, setIsLoading] = useState(false);
+    const [search, setSearch] = useState<string>("");
+    const [filteredRooms, setFilteredRooms] = useState<RoomDto[] | null>(null);
 
     const getRoomsAsync = useCallback(async (): Promise<void> => {
         try {
@@ -50,11 +52,23 @@ export const RoomsPage = (): JSX.Element => {
         }, 1000);
     }, [rooms, getRoomsAsync]);
 
+    useEffect(() => {
+        if (!rooms) {
+            return;
+        }
+        if (search === "") {
+            setFilteredRooms(rooms);
+            return;
+        }
+        const filtered = rooms.filter(x => x.name?.toLowerCase().includes(search.toLowerCase()));
+        setFilteredRooms(filtered);
+    }, [search, rooms]);
+
     return (
         <Styles.RoomsPageContainer>
             {isLoading && <Loader />}
             <Styles.HeaderBar>
-                <CommonStyles.StyledTextField placeholder="Search" />
+                <CommonStyles.StyledTextField value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search" />
                 <Styles.RoomHeaderButtonContainer>
                     <CommonStyles.GenericButton onClick={handleOpen} ><AddIcon /></CommonStyles.GenericButton>
                 </Styles.RoomHeaderButtonContainer>
@@ -62,7 +76,8 @@ export const RoomsPage = (): JSX.Element => {
             <Styles.RoomListContainer>
                 <Styles.RoomList>
                     {
-                        rooms && rooms.map((room: RoomDto) => <RoomListItem key={room.id} id={room.id!} name={room.name!} creatorId={room.creatorId} userCount={room.roomUsers?.length ?? 0} />)
+                        filteredRooms && filteredRooms?.length > 0 ? filteredRooms.map((room: RoomDto) => <RoomListItem key={room.id} id={room.id!} name={room.name!} creatorId={room.creatorId} userCount={room.roomUsers?.length ?? 0} />)
+                            : <h1> No room available!</h1>
                     }
                 </Styles.RoomList>
             </Styles.RoomListContainer>

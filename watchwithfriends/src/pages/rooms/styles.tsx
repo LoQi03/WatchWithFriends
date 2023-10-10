@@ -34,6 +34,7 @@ export const RoomList = styled.div`
     overflow-y: auto;
     overflow-x: hidden;
     padding:20px;
+    gap: 20px;
     max-height:70vh;
 
         ::-webkit-scrollbar {
