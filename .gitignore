@@ -3,7 +3,8 @@
 *.aux
 *.toc
 *.log
-*.vs
+*.vs/
+.vs/
 *.suo
 *.bbl
 *.log
