@@ -5,6 +5,7 @@
 *.log
 *.vs/
 .vs/
+./Watch2Gether/.vs
 *.suo
 *.bbl
 *.log
