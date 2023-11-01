@@ -283,13 +283,13 @@ Ez határozza meg, hogy milyen URL címnél aktíválódjon a Route. Például, 
 \\
 Ez a tulajdonság tartalmazza azt a komponenst, ami meg fog jelenni, amikor az adott Route aktív. Tehát ha a path="/about" és az element={<About />}, akkor az About komponens fog megjelenni, amikor az /about URL-re navigálunk.
 \subsection*{Komponensek}
-A React komponensek a UI logikájának egységei, és lehetnek függvények vagy osztályok alapúak. Függvényes komponensek egyszerűbbek és könnyebben kezelhetőek, míg az osztály alapúak sokkal több beépített metódust és ciklusfüggvényt kínálnak.
-A komponenseknek lehetnek tulajdonságai (props), amelyekkel tudom a komponensek közötti adatáramlást megvalósítani.
-A komponenseket próbáltam alkomponensekre bontani, hogy a kód minél jobban átlátható legyen, és a komponensek újra felhasználhatóak legyenek.
-Ehhez a styled-components \cite[]{styled-components} nevű könyvtárat használtam, amely segítségével tudom a komponensek stílusát megadni.
+A React komponensek a UI logikájának egységei, és lehetnek függvény vagy osztály alapúak. Függvényes komponensek egyszerűbbek és könnyebben kezelhetőek, míg az osztály alapúak sokkal több beépített metódust és ciklusfüggvényt kínálnak.
+A komponenseknek tulajdonságai (props) amivel a komponensek közötti adatáramlást valósítottam meg.
+A komponenseket alkomponensekre bontottam, hogy a kód minél jobban átlátható legyen, és a komponensek újra felhasználhatóak legyenek.
+Ezt a  styled-components \cite[]{styled-components} könyvtár segítségével készítettem, amely lehetővé teszi a CSS kódok beágyazását a komponensekbe.
 \\
 \\
-\underline{Például a styled-components használatára:}
+\underline{Példa a styled-components használatára:}
 \begin{lstlisting}[style=es6,caption={Styled-components}]
 import styled from "styled-components";
 
@@ -302,8 +302,8 @@ export const RoomListItemHeader = styled.div`
 
 \end{lstlisting}
 \vspace{1em}
-Így egyszerűen tudtam a komponensek stílusát megadni, és a komponensek újra felhasználhatóak lettek.
-Illetve ezekből a komponensekből tudtam összeállítani a nagyobb komponenseket.
+Így egyszerűen adom meg a komponensek stílusát, és a komponensek újra felhasználhatóak lettek.
+Illetve ezekből a komponensekből összeállt egy nagyobb komponens.
 \\
 \\
 \begin{lstlisting}[style=es6,caption={RoomListItem komponens}]
@@ -333,11 +333,11 @@ export const RoomListItem = (props: RoomListItemProps): JSX.Element => {
 \end{lstlisting}
 \vspace{1em}
 \subsection*{Context API}
-A Context API segítségével tudom a komponensek közötti adatáramlást megvalósítani.
-Az alkalmazásban a felhasználói adatokat és a szobákkal kapcsolatos adatokat a Context API segítségével tudom megosztani a komponensek között.
+Azokat az adatokat amelyeket több komponensben is használok, a Context API-val valósítottam meg.
+Az alkalmazásban a felhasználói adatokat és a szobákkal kapcsolatos adatokat is a Context API-al valósítottam meg.
 \\
 \\
-\underline{Például a Context API használatára:}
+\underline{Példa a Context API használatára:}
 \begin{lstlisting}[style=es6,caption={Context API}]
     import { createContext, useState } from "react";
 

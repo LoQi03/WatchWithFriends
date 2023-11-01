@@ -1,7 +1,7 @@
 \select@language {magyar} \contentsline {chapter}{\numberline {1}Bevezetés}{1}{chapter.1}%
 \select@language {magyar} \contentsline {chapter}{\numberline {2}Tervez\'es}{2}{chapter.2}%
-\select@language {magyar} \contentsline {chapter}{\numberline {3}Technol\'ogia}{8}{chapter.3}%
-\select@language {magyar} \contentsline {section}{\numberline {3.1}Felhasználói felület}{8}{section.3.1}%
-\select@language {magyar} \contentsline {section}{\numberline {3.2}Szerveroldali Logika és API-k}{10}{section.3.2}%
-\select@language {magyar} \contentsline {chapter}{\numberline {4}Implement\'aci\'o}{15}{chapter.4}%
-\select@language {magyar} \contentsline {chapter}{Források}{24}{chapter*.37}%
+\select@language {magyar} \contentsline {chapter}{\numberline {3}Technol\'ogia}{9}{chapter.3}%
+\select@language {magyar} \contentsline {section}{\numberline {3.1}Felhasználói felület}{9}{section.3.1}%
+\select@language {magyar} \contentsline {section}{\numberline {3.2}Szerveroldali Logika és API-k}{11}{section.3.2}%
+\select@language {magyar} \contentsline {chapter}{\numberline {4}Implement\'aci\'o}{16}{chapter.4}%
+\select@language {magyar} \contentsline {chapter}{Források}{25}{chapter*.38}%

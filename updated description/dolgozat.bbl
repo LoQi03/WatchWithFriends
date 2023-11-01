@@ -17,19 +17,6 @@
 \endgroup
 
 \datalist[entry]{nyt/global//global/global}
-  \entry{architecture}{online}{}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{0}
-    \field{sortinithash}{0}
-    \field{title}{Átfogó architektúra}
-    \verb{url}
-    \verb https://en.wikipedia.org/wiki/Client%E2%80%93server_model
-    \endverb
-    \field{urlday}{27}
-    \field{urlmonth}{09}
-    \field{urlyear}{2023}
-  \endentry
-
   \entry{react}{online}{}
     \field{labeltitlesource}{title}
     \field{sortinit}{0}
@@ -134,19 +121,6 @@
     \field{urlyear}{2023}
   \endentry
 
-  \entry{joi}{online}{}
-    \field{labeltitlesource}{title}
-    \field{sortinit}{1}
-    \field{sortinithash}{1}
-    \field{title}{Joi}
-    \verb{url}
-    \verb https://joi.dev/
-    \endverb
-    \field{urlday}{27}
-    \field{urlmonth}{09}
-    \field{urlyear}{2023}
-  \endentry
-
   \entry{styled-components}{online}{}
     \field{labeltitlesource}{title}
     \field{sortinit}{1}
@@ -154,6 +128,19 @@
     \field{title}{Styled Components}
     \verb{url}
     \verb https://styled-components.com/
+    \endverb
+    \field{urlday}{27}
+    \field{urlmonth}{09}
+    \field{urlyear}{2023}
+  \endentry
+
+  \entry{joi}{online}{}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{9}
+    \field{sortinithash}{9}
+    \field{title}{Joi}
+    \verb{url}
+    \verb https://joi.dev/
     \endverb
     \field{urlday}{27}
     \field{urlmonth}{09}

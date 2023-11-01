@@ -1,32 +1,33 @@
 \chapter{Tervez\'es}\label{chapter:tervezes}
 
 \section*{Átfogó struktúra}
-Az alkalmazásom két részből áll, a kliens oldali és a szerver oldali részből.
-A kliens oldali rész a felhasználói felületet valósítja meg, a szerver oldali rész pedig az üzleti logikát, és az adatbázis kezelést.
+A kliens-szerver-adatbázis struktúrát 3 rétegű topológiának nevezzük. A 3-rétegű architektúra előnye, hogy modularizálja az alkalmazás kódját, ami megkönnyíti a karbantartást, a tesztelést és a skálázhatóságot.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=14.0truecm]{images/Client-server-model.png}
-    \caption[Átfogó struktúra]{Átfogó struktúra \cite{architecture}}
+    \includegraphics[width=14.0truecm]{images/Client-Server-DB.png}
+    \caption[Kliens-Szerver-Adatbázis struktúra]{Kliens-Szerver-Adatbázis struktúra}
     \label{fig:architecture}
 \end{figure}
-\subsection*{Kliens-oldal}
+\subsection*{Kliens réteg}
 A kliens oldal felelős a felhasználói interakciókért és a felhasználói felület megjelenítéséért. Itt találhatók a gombok, formok, és egyéb elemek, amikkel a felhasználók közvetlenül érintkeznek. A kliens oldalon futó kód gyakran aszinkron módon kommunikál a szerverrel, hogy adatokat kérjen vagy küldjön.
 \\
-\subsection*{Szerver-oldal}
+\subsection*{Szerver réteg}
 A szerver oldal felelős a kliens oldal által küldött kérések feldolgozásáért, és a válaszok generálásáért. Itt található az üzleti logika, és az adatbázis kezelés. A szerver oldali kód futása általában szinkron módon történik, és a kliens oldali kérések feldolgozása után küldi a válaszokat.
 
+\subsection*{Adatbázis réteg}
+Ez a réteg tárolja az alkalmazás állapotát és adatát. Gyakran SQL (pl. MySQL, PostgreSQL) vagy NoSQL (pl. MongoDB) adatbázisokat használnak itt.
 
 \section*{Kliens oldali logika}
-A kliens oldali logikát a következő architektúra alapján terveztem meg.
+A kliens oldali logika szigorú hierarchikus struktúra foglalja magába. Az alkalmazáson belüli komponensek mind horizontálisan, mind vertikálisan szerveződnek.
 \begin{figure}[H]
     \centering
     \includegraphics[width=14.0truecm]{images/Frontend_architecture.png}
     \caption{Frontend Architektúra}
     \label{fig:frontend_architecture}
 \end{figure}
-A fejlesztés során törekedtem a komponensek újra felhasználhatóságára, és a kód minél jobb strukturáltságára.
+A fejlesztés során az egyik fő szempont a komponensek újrafelhasználhatósága, kód strukturáltsága volt.
 \\
-\textbf{Ismertetem a komponensek főbb tulajdonságait:}
+\textbf{A komponensek főbb tulajdonságait:}
 \begin{itemize}
     \item \textbf{App:} Az alkalmazás gyökér komponense. Itt található a Router, amely a különböző útvonalakhoz rendeli a megfelelő komponenseket.
     \item \textbf{Page:} Az alkalmazás View komponensei. A különböző oldalakat reprezentálják. Itt találhatóak a különböző komponensek, amelyek a megjelenítést végzik. Illetve itt használom az API hívásokat is.
@@ -43,8 +44,7 @@ bővítettem a Repository és a Service rétegekkel. Az MVC architektúra egy
 architektúrális minta, amely a felhasználói felületet (View), az alkalmazás
 logikáját (Controller) és az adatokat (Model) három különálló részre osztja.
 A Repository réteg a Model réteghez tartozik, a Service réteg pedig a Controller réteghez.
-Azért bontottam tovább a rétegeket, mert így jobban elkülönülnek a felelősségi körök,
-és a kód is átláthatóbb lesz, illetve könnyebben bővíthető, és tesztelhető lesz.
+A további bontást a felelősségi körök elkülönítése, kód átláthatóságának növelése, a bővíthetőség és a tesztelhetőség indokolta.
 \\
 \\
 \begin{figure}[H]
@@ -53,9 +53,9 @@ Azért bontottam tovább a rétegeket, mert így jobban elkülönülnek a felel�
     \caption{Backend Architektúra}
     \label{fig:backend_architecture}
 \end{figure}
-\textbf{Ismertetem a rétegek főbb tulajdonságait:}
+\textbf{A rétegek főbb tulajdonságait:}
 \begin{itemize}
-    \item \textbf{Adatbázis}: Az alkalmazásom adattára. Itt tárolódnak a statikus és dinamikus adatok.
+    \item \textbf{Adatbázis}: Az alkalmazás adattára. Itt tárolódnak a statikus és dinamikus adatok.
     \item \textbf{Repositoryk}: Az adatbázis és az alkalmazás logikája közötti köztes réteg. CRUD műveletek, komplex lekérdezések.
     \item \textbf{Servicek}: Az üzleti logika helye. Itt történnek a komplex számítások, validációk és egyéb logikai műveletek.
     \item \textbf{Controllerek}: Az API végpontokat kezelő réteg. Fogadják a kliens kéréseit, és válaszokat generálnak.

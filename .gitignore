@@ -3,3 +3,10 @@
 *.aux
 *.toc
 *.log
+*.vs
+*.suo
+*.bbl
+*.log
+*.toc
+*.blg
+*.out
