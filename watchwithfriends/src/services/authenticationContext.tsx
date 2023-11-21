@@ -188,6 +188,3 @@ export const VerifyTokenHandler = (props: VerifyTokenHandlerProps): JSX.Element 
     return (<>{isLoading && <Loader />}</>);
 };
 
-function removeCookie(arg0: string, arg1: { path: string; }) {
-    throw new Error('Function not implemented.');
-}
