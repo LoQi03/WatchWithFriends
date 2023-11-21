@@ -4,7 +4,7 @@ import { LoginCredentialsDto } from '../models/loginCredentialsDto';
 import { RegisterUserDto } from '../models/registerUserDto';
 import * as API from '../api/userManagementAPI';
 import { WebToken } from '../models/webToken';
-import jwtDecode from 'jwt-decode';
+import { jwtDecode } from "jwt-decode";
 import { Loader } from '../components/loader/loader';
 import { useCookies } from 'react-cookie';
 import { httpClient } from '../HttpClient';
@@ -110,7 +110,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ isUserAlreadyLoggedI
         const token = cookie.token;
         if (!token) return false;
 
-        const decodedToken = jwtDecode.jwtDecode<WebToken>(token);
+        const decodedToken = jwtDecode<WebToken>(token);
         const expirationDate = new Date(decodedToken.exp * 1000);
 
         const currentDate = new Date();
