@@ -187,4 +187,3 @@ export const VerifyTokenHandler = (props: VerifyTokenHandlerProps): JSX.Element 
 
     return (<>{isLoading && <Loader />}</>);
 };
-
