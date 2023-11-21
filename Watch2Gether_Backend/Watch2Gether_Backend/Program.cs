@@ -44,7 +44,7 @@ namespace Watch2Gether_Backend
             app.UseMiddleware<ExceptionLoggingMiddleware>();
             app.UseRouting();
             app.UseAuthentication();
-            app.UseMiddleware<JwtCookieToHeaderMiddleware>();
+            //app.UseMiddleware<JwtCookieToHeaderMiddleware>();
             app.UseAuthorization();
 
             app.UseCors();
