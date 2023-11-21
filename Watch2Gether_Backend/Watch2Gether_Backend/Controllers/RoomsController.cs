@@ -21,6 +21,7 @@ namespace WatchWithFriends.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RoomDTO>?>> GetRooms()
         {
+            throw new NotImplementedException();
             var rooms = await _roomService.GetAllRooms();
             return Ok(rooms);
         }

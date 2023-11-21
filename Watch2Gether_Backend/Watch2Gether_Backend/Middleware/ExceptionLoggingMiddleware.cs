@@ -7,15 +7,13 @@ namespace WatchWithFriends.Middleware
     public class ExceptionLoggingMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly ILogRepository _logRepository;
 
-        public ExceptionLoggingMiddleware(RequestDelegate next,ILogRepository logRepository)
+        public ExceptionLoggingMiddleware(RequestDelegate next)
         {
             _next = next;
-            _logRepository = logRepository;
         }
 
-        public async Task InvokeAsync(HttpContext httpContext)
+        public async Task InvokeAsync(HttpContext httpContext, ILogRepository logRepository)
         {
             try
             {
@@ -23,12 +21,17 @@ namespace WatchWithFriends.Middleware
             }
             catch (Exception ex)
             {
-                await LogExceptionAsync(ex);
+                await LogExceptionAsync(ex, logRepository);
             }
         }
 
-        private async Task LogExceptionAsync(Exception exception)
+        private async Task LogExceptionAsync(Exception exception, ILogRepository logRepository)
         {
+            if (exception.StackTrace == null)
+            {
+                return;
+            }
+
             var logEntry = new Log
             {
                 Id = Guid.NewGuid(),
@@ -36,7 +39,7 @@ namespace WatchWithFriends.Middleware
                 Message = exception.Message,
                 StackTrace = exception.StackTrace
             };
-            await _logRepository.InsertLogAsync(logEntry);
+            await logRepository.InsertLogAsync(logEntry);
         }
     }
 }
