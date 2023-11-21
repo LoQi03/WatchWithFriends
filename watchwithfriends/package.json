@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@types/jwt-decode": "^3.1.0",
     "install": "^0.13.0",
     "react": "^18.2.0",
     "react-cookie": "^6.1.1",
@@ -31,7 +32,6 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
-    "@types/jwt-decode": "^3.1.0",
     "@types/node": "^16.18.36",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
