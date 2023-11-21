@@ -74,7 +74,6 @@ export const ProfilePage = (): JSX.Element => {
             userDetails: userDetails,
             newPassword: newPassword
         };
-        if (authContext?.checkTokenExpiration() === false) authContext?.logout();
         try {
             setIsLoading(true);
             const respone = await API.updateUser(updateUserDto);

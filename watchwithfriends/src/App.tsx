@@ -10,6 +10,7 @@ import { RoomsPage } from './pages/rooms/rooms';
 import { AuthProvider, VerifyTokenHandler } from './services/authenticationContext';
 import { RoomPageWithProvider } from './pages/room/room-with-provider';
 import { Toaster } from 'react-hot-toast';
+import { CookiesProvider } from 'react-cookie';
 
 const App: React.FC = () => {
   const [isUserAlreadyLoggedIn, setIsUserAlreadyLoggedIn] = React.useState(false);
@@ -23,30 +24,32 @@ const App: React.FC = () => {
   };
 
   return (
-    <AuthProvider isUserAlreadyLoggedInChangeHandler={isUserAlreadyLoggedInChangeHandler}>
-      <Toaster
-        position={windowSize.current[0] < 800 ? 'top-center' : 'bottom-right'}
-        containerStyle={{ zIndex: 9999 }}
-        reverseOrder={false}
-      />
-      <VerifyTokenHandler isUserAlreadyLoggedIn={isUserAlreadyLoggedIn} verifyTokenHandler={verifyTokenHandler} />
-      {
-        isUserAlreadyLoggedIn ?
-          <BrowserRouter>
-            <Navbar />
-            <CommonSrtyles.PageContainer>
-              <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/rooms" element={<RoomsPage />} />
-                <Route path="/profile" element={<ProfilePage />} />
-                <Route path="/friends" element={<FriendsPage />} />
-                <Route path="/room/:id" element={<RoomPageWithProvider />} />
-              </Routes>
-            </CommonSrtyles.PageContainer>
-          </BrowserRouter>
-          : <AuthenticationPage />
-      }
-    </AuthProvider>
+    <CookiesProvider>
+      <AuthProvider isUserAlreadyLoggedInChangeHandler={isUserAlreadyLoggedInChangeHandler}>
+        <Toaster
+          position={windowSize.current[0] < 800 ? 'top-center' : 'bottom-right'}
+          containerStyle={{ zIndex: 9999 }}
+          reverseOrder={false}
+        />
+        <VerifyTokenHandler isUserAlreadyLoggedIn={isUserAlreadyLoggedIn} verifyTokenHandler={verifyTokenHandler} />
+        {
+          isUserAlreadyLoggedIn ?
+            <BrowserRouter>
+              <Navbar />
+              <CommonSrtyles.PageContainer>
+                <Routes>
+                  <Route path="/" element={<HomePage />} />
+                  <Route path="/rooms" element={<RoomsPage />} />
+                  <Route path="/profile" element={<ProfilePage />} />
+                  <Route path="/friends" element={<FriendsPage />} />
+                  <Route path="/room/:id" element={<RoomPageWithProvider />} />
+                </Routes>
+              </CommonSrtyles.PageContainer>
+            </BrowserRouter>
+            : <AuthenticationPage />
+        }
+      </AuthProvider>
+    </CookiesProvider>
   );
 }
 export default App;

@@ -5,8 +5,9 @@ import { RegisterUserDto } from '../models/registerUserDto';
 import * as API from '../api/userManagementAPI';
 import { WebToken } from '../models/webToken';
 import jwtDecode from 'jwt-decode';
-import { updateAuthorizationHeader } from '../HttpClient';
 import { Loader } from '../components/loader/loader';
+import { useCookies } from 'react-cookie';
+import { httpClient } from '../HttpClient';
 
 interface AuthContextType {
     currentUser: UserDto | null;
@@ -29,6 +30,7 @@ interface AuthProviderProps {
 export const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ isUserAlreadyLoggedInChangeHandler, children }: AuthProviderProps) => {
+    const [cookie, setCookie, removeCookie] = useCookies(['token']);
     const [currentUser, setCurrentUser] = useState<UserDto | null>(null);
     const [token, setToken] = useState<string | null>(null);
     const [isUserAlreadyLoggedIn, setIsUserAlreadyLoggedIn] = useState(false);
@@ -45,7 +47,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ isUserAlreadyLoggedI
             }
             setCurrentUser(userDetails);
             setToken(token);
-            localStorage.setItem("token", token);
+            setCookie('token', token, { path: '/', maxAge: 3600 * 24 * 7 });
+            httpClient.defaults.headers['Cookie'] = cookie['token'];
             updateAuthorizationHeader();
             setIsUserAlreadyLoggedIn(true);
             isUserAlreadyLoggedInChangeHandler();
@@ -73,7 +76,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ isUserAlreadyLoggedI
 
     const verifyToken = async (): Promise<boolean> => {
         try {
-            const token = localStorage.getItem("token");
+            const token = cookie.token;
             if (!token) return false;
             const response = await API.getUserByToken(token);
             if (!response) {
@@ -91,14 +94,20 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ isUserAlreadyLoggedI
     const logout = async (): Promise<void> => {
         setCurrentUser(null);
         setToken(null);
-        localStorage.removeItem("token");
+        removeCookie('token', { path: '/' });
         updateAuthorizationHeader();
         setIsUserAlreadyLoggedIn(false);
         window.location.reload();
     };
 
+    const updateAuthorizationHeader = (): void => {
+        const token = cookie.token;
+        if (!token) return;
+        httpClient.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    };
+
     const checkTokenExpiration = (): boolean => {
-        const token = localStorage.getItem("token");
+        const token = cookie.token;
         if (!token) return false;
 
         const decodedToken = jwtDecode<WebToken>(token);
@@ -178,3 +187,7 @@ export const VerifyTokenHandler = (props: VerifyTokenHandlerProps): JSX.Element 
 
     return (<>{isLoading && <Loader />}</>);
 };
+
+function removeCookie(arg0: string, arg1: { path: string; }) {
+    throw new Error('Function not implemented.');
+}
