@@ -1,14 +1,18 @@
 ﻿using System.Text.Json;
+using WatchWithFriends_Data.Model;
+using WatchWithFriends_Data.Repositories;
 
 namespace WatchWithFriends.Middleware
 {
     public class ExceptionLoggingMiddleware
     {
         private readonly RequestDelegate _next;
+        private readonly ILogRepository _logRepository;
 
-        public ExceptionLoggingMiddleware(RequestDelegate next)
+        public ExceptionLoggingMiddleware(RequestDelegate next,ILogRepository logRepository)
         {
             _next = next;
+            _logRepository = logRepository;
         }
 
         public async Task InvokeAsync(HttpContext httpContext)
@@ -25,16 +29,14 @@ namespace WatchWithFriends.Middleware
 
         private async Task LogExceptionAsync(Exception exception)
         {
-            var logEntry = new
+            var logEntry = new Log
             {
-                Time = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss"),
+                Id = Guid.NewGuid(),
+                Time = DateTime.UtcNow,
                 Message = exception.Message,
                 StackTrace = exception.StackTrace
             };
-
-            var json = JsonSerializer.Serialize(logEntry);
-
-            await File.AppendAllTextAsync("exceptions.json", json+ "," + Environment.NewLine);
+            await _logRepository.InsertLogAsync(logEntry);
         }
     }
 }

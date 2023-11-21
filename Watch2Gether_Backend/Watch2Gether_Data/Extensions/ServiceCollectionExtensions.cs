@@ -28,10 +28,7 @@ namespace WatchWithFriends_Data.Extensions
                 case DataBaseType.SQLServer:
                     var IConfigugration = services.BuildServiceProvider().GetRequiredService<IConfiguration>();
                     var connstring = IConfigugration.GetConnectionString("watchwithfriends");
-                    services.AddDbContext<WatchWithFriendsDBContext>(options =>
-                    {
-                        options.UseSqlServer(connstring);
-                    });
+                    services.AddDbContext<WatchWithFriendsDBContext>(options => options.UseSqlServer(connstring));
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(dataBaseType), dataBaseType, null);
@@ -42,6 +39,7 @@ namespace WatchWithFriends_Data.Extensions
             services.AddScoped<IRoomRepository, RoomRepository>();
             services.AddScoped<IRoomUserRepository, RoomUserRepository>();
             services.AddScoped<IVideoRepository, VideoRepository>();
+            services.AddScoped<ILogRepository, LogRepository>();
         }
     }
 }

@@ -79,6 +79,10 @@ namespace WatchWithFriends.Services
         public async Task<UserDTO?> DeleteUser(Guid? id)
         {
             UserIdValidition(id);
+            if(id == null)
+            {
+                return null;
+            }
             var result = await _userRepository.DeleteUserAsync(id.Value);
             if (result == null)
             {

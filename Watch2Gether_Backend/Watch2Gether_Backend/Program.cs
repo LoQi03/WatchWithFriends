@@ -33,6 +33,7 @@ namespace Watch2Gether_Backend
 
             var app = builder.Build();
 
+
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();

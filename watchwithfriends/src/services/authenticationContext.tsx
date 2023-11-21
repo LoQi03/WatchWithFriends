@@ -33,6 +33,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ isUserAlreadyLoggedI
     const [token, setToken] = useState<string | null>(null);
     const [isUserAlreadyLoggedIn, setIsUserAlreadyLoggedIn] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+
     const login = async (credentials: LoginCredentialsDto): Promise<void> => {
         try {
             setIsLoading(true);

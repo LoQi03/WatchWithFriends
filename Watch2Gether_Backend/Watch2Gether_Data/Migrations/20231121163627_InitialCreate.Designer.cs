@@ -12,8 +12,8 @@ using WatchWithFriends_Data.Data;
 namespace WatchWithFriends_Data.Migrations
 {
     [DbContext(typeof(WatchWithFriendsDBContext))]
-    [Migration("20230916201626_Init")]
-    partial class Init
+    [Migration("20231121163627_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -38,6 +38,28 @@ namespace WatchWithFriends_Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Images");
+                });
+
+            modelBuilder.Entity("WatchWithFriends_Data.Model.Log", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StackTrace")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Time")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Logs");
                 });
 
             modelBuilder.Entity("WatchWithFriends_Data.Model.User", b =>

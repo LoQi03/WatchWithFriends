@@ -9,5 +9,6 @@ namespace WatchWithFriends_Data.Data
 
         public DbSet<User> Users { get; set; }
         public DbSet<Image> Images { get; set; }
+        public DbSet<Log> Logs { get; set; }
     }
 }

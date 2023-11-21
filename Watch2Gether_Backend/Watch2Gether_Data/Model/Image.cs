@@ -4,7 +4,7 @@ namespace WatchWithFriends_Data.Model
 {
     public class Image
     {
-        [Required] public Guid Id { get; set; }
-        [Required] public Byte[]? Data { get; set; }
+        public Guid Id { get; set; }
+        public Byte[] Data { get; set; }
     }
 }

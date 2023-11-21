@@ -37,6 +37,28 @@ namespace WatchWithFriends_Data.Migrations
                     b.ToTable("Images");
                 });
 
+            modelBuilder.Entity("WatchWithFriends_Data.Model.Log", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StackTrace")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Time")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Logs");
+                });
+
             modelBuilder.Entity("WatchWithFriends_Data.Model.User", b =>
                 {
                     b.Property<Guid>("Id")
