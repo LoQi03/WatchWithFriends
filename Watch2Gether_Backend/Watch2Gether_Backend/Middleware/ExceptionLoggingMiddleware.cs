@@ -1,5 +1,4 @@
-﻿using System.Text.Json;
-using WatchWithFriends_Data.Model;
+﻿using WatchWithFriends_Data.Model;
 using WatchWithFriends_Data.Repositories;
 
 namespace WatchWithFriends.Middleware
