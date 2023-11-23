@@ -81,7 +81,7 @@ export const RoomProvider: React.FC<{ children: ReactNode, id: string }> = ({ ch
             const position = player.getCurrentTime();
             const difference = Math.abs(videoPlayer.duration - position);
 
-            if (difference >= 5) {
+            if (difference >= 15) {
                 player.seekTo(videoPlayer.duration);
             }
         }
