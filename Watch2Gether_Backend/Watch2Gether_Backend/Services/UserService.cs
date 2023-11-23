@@ -144,16 +144,22 @@ namespace WatchWithFriends.Services
             var issuer = Config.Instance?.Jwt?.Issuer;
             var audience = Config.Instance?.Jwt?.Audience;
             var key = Encoding.UTF8.GetBytes(Config.Instance?.Jwt?.Key!);
+            var exp_day = Config.Instance?.ExpiresDay;
+            if (exp_day == null)
+            {
+                throw new ArgumentNullException(nameof(exp_day));
+            }
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[]
                 {
-                        new Claim(JwtRegisteredClaimNames.Sub, user?.Id.ToString() ?? string.Empty),
-                        new Claim(JwtRegisteredClaimNames.Email, user?.Email ?? string.Empty),
+                        new Claim(JwtRegisteredClaimNames.Sub, user?.Id.ToString()),
+                        new Claim(JwtRegisteredClaimNames.Email, user?.Email),
                         new Claim(JwtRegisteredClaimNames.Jti,
                         Guid.NewGuid().ToString())
                     }),
-                Expires = DateTime.UtcNow.AddDays(15),
+
+                Expires = DateTime.UtcNow.AddDays((double)exp_day),
                 Issuer = issuer,
                 Audience = audience,
                 SigningCredentials = new SigningCredentials

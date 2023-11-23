@@ -1,4 +1,4 @@
-import React, { useRef, useContext, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import * as CommonStyles from './commonStyles';
 import { Navbar } from './components/navbar/navbar';
@@ -21,6 +21,7 @@ const App: React.FC = () => {
         containerStyle={{ zIndex: 9999 }}
         reverseOrder={false}
       />
+      <VerifyTokenHandler />
       <BrowserRouter>
         <AuthContext.Consumer>
           {(context) => {
@@ -30,21 +31,20 @@ const App: React.FC = () => {
             const { isUserAlreadyLoggedIn } = context;
             return (
               <>
-                {isUserAlreadyLoggedIn ? <Navbar /> : null}
-                <CommonStyles.PageContainer>
-                  <VerifyTokenHandler />
-                  <Routes>
-                    <Route path="/" element={isUserAlreadyLoggedIn ? <HomePage /> : <AuthenticationPage />} />
-                    {isUserAlreadyLoggedIn ? (
-                      <>
+                {isUserAlreadyLoggedIn ?
+                  <>
+                    <Navbar />
+                    <CommonStyles.PageContainer>
+                      <Routes>
+                        <Route path="/" element={<HomePage />} />
+                        <Route path="/friends" element={<FriendsPage />} />
                         <Route path="/rooms" element={<RoomsPage />} />
                         <Route path="/profile" element={<ProfilePage />} />
-                        <Route path="/friends" element={<FriendsPage />} />
-                        <Route path="/room/:id" element={<RoomPageWithProvider />} />
-                      </>
-                    ) : null}
-                  </Routes>
-                </CommonStyles.PageContainer>
+                        <Route path="/room/:roomId" element={<RoomPageWithProvider />} />
+                      </Routes>
+                    </CommonStyles.PageContainer>
+                  </> : <AuthenticationPage />}
+
               </>
             );
           }}

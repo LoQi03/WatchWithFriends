@@ -1,4 +1,4 @@
-import React, { createContext, useState, ReactNode, useContext, useMemo, useCallback, useEffect } from 'react';
+import React, { createContext, useState, ReactNode, useContext, useEffect } from 'react';
 import { UserDto } from '../models/userDto';
 import { LoginCredentialsDto } from '../models/loginCredentialsDto';
 import { RegisterUserDto } from '../models/registerUserDto';
@@ -73,9 +73,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }: AuthProv
     };
 
     const logout = async (): Promise<void> => {
+        await API.logout();
         setCurrentUser(null);
         setIsUserAlreadyLoggedIn(false);
-        document.cookie = 'token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     };
     const changeUserDetails = (userDetails: UserDto): void => {
         setCurrentUser(userDetails);

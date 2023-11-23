@@ -10,6 +10,12 @@ export const login = async (loginUserDto: LoginCredentialsDto): Promise<AxiosRes
     return response;
 };
 
+export const logout = async (): Promise<AxiosResponse> => {
+    const response = await httpClient.post(`Users/logout`);
+    return response;
+};
+
+
 export const register = async (registerUserDto: RegisterUserDto): Promise<number> => {
     const { status } = await httpClient.post<UserDto>(`Users/register`, registerUserDto);
     return status;

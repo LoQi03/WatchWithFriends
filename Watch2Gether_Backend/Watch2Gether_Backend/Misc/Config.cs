@@ -16,6 +16,9 @@ namespace WatchWithFriends.Misc
         [JsonProperty("Jwt")]
         public JwtConfig? Jwt { get; set; }
 
+        [JsonProperty("ExpiresDay")]
+        public int ExpiresDay { get; set; }
+
         [JsonIgnore]
         public static Config? Instance { get; set; }
     }

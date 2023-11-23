@@ -3,6 +3,7 @@ using ImageModel = WatchWithFriends_Data.Model.Image;
 using WatchWithFriends.Services;
 using Microsoft.AspNetCore.Authorization;
 using WatchWithFriends.Model;
+using WatchWithFriends.Misc;
 
 namespace WatchWithFriends.Controllers
 {
@@ -117,20 +118,25 @@ namespace WatchWithFriends.Controllers
             {
                 return Unauthorized();
             }
-            var result = _userService.Login(user, userFromDB);
+            (var result, var token) = _userService.Login(user, userFromDB);
 
-            if (result.Item1 == null || result.Item2 == null)
+            if (result == null || token == null)
             {
                 return NotFound();
             }
-            CreateCookie(result.Item2);
-            return Ok(result.Item1);
+            CreateCookie(token,Config.Instance.ExpiresDay);
+            return Ok(result);
         }
-
-        private void CreateCookie(string? result)
+        [HttpPost("logout")]
+        public ActionResult Logout()
+        {
+            CreateCookie("",0);
+            return Ok();
+        }
+        private void CreateCookie(string result,int expDay)
         {
             CookieOptions options = new CookieOptions();
-            options.Expires = DateTime.Now.AddDays(7);
+            options.Expires = DateTime.Now.AddDays(expDay);
             options.Secure = true;
             options.HttpOnly = true;
             options.SameSite = SameSiteMode.None;
