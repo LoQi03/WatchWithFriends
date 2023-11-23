@@ -13,7 +13,7 @@ namespace WatchWithFriends.Services
         Task<UserDTO?> DeleteUser(Guid? id);
         Task<UserDTO?> Register(UserDTO user);
         Task<User?> GetUserByEmail(string email);
-        LoginUserDTO? Login(UserDTO user, User userFromDB);
+        (UserDTO?,string?) Login(UserDTO user, User userFromDB);
         Task<UserDTO?> GetUserByToken(string token);
     }
 }

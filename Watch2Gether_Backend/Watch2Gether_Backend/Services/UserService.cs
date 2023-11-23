@@ -123,21 +123,15 @@ namespace WatchWithFriends.Services
             return result;
         }
 
-        public LoginUserDTO? Login(UserDTO user, User userFromDB)
+        public (UserDTO?, string?) Login(UserDTO user, User userFromDB)
         {
             var salt = Convert.FromBase64String(userFromDB.Salt!);
             var password = HashPassword(user.Password!, salt);
             if (password != userFromDB.PasswordHash)
             {
-                return null;
+                return (null,null);
             }
-            var resultUserDto = UserDTO.FromModel(userFromDB);
-            var loginUserDTO = new LoginUserDTO
-            {
-                UserDetails = resultUserDto,
-                Token = CreateToken(user),
-            };
-            return loginUserDTO;
+            return (UserDTO.FromModel(userFromDB),CreateToken(user));
         }
 
         public Task UpdateUser(User userFromDB)

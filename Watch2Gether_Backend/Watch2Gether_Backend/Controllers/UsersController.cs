@@ -61,15 +61,24 @@ namespace WatchWithFriends.Controllers
             return Ok(UserDTO.FromModel(user));
         }
 
-        [HttpGet("token/{token}")]
-        public async Task<ActionResult<UserDTO>> GetUserByToken(string token)
+        [HttpGet("token")]
+        public async Task<ActionResult<UserDTO>> GetUserByToken()
         {
-            var user = await _userService.GetUserByToken(token);
-            if (user is null)
+            if (HttpContext.Request.Headers.TryGetValue("Authorization", out var authorizationHeader))
             {
-                return NotFound();
+                var token = authorizationHeader.ToString().Split(' ').LastOrDefault();
+                if (token != null)
+                {
+                    var user = await _userService.GetUserByToken(token);
+                    if (user is null)
+                    {
+                        return NotFound();
+                    }
+                    return Ok(user);
+                }
             }
-            return Ok(user);
+
+            return BadRequest("Token is missing or invalid.");
         }
 
         [HttpDelete("{id}"), Authorize]
@@ -110,15 +119,23 @@ namespace WatchWithFriends.Controllers
             }
             var result = _userService.Login(user, userFromDB);
 
-            if (result is not null)
-            {
-                return Ok(result);
-            }
-
-            else
+            if (result.Item1 == null || result.Item2 == null)
             {
                 return NotFound();
             }
+            CreateCookie(result.Item2);
+            return Ok(result.Item1);
+        }
+
+        private void CreateCookie(string? result)
+        {
+            CookieOptions options = new CookieOptions();
+            options.Expires = DateTime.Now.AddDays(7);
+            options.Secure = true;
+            options.HttpOnly = true;
+            options.SameSite = SameSiteMode.None;
+            options.Path = "/";
+            Response.Cookies.Append("token", result, options);
         }
 
         [HttpPost("{userid}/image"), Authorize]

@@ -35,7 +35,7 @@ export const RoomsPage = (): JSX.Element => {
             setRooms(data);
         }
         catch (error) {
-            aouthService?.logout();
+            await aouthService?.logout();
             console.log(error);
         };
     }, [aouthService]);

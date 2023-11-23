@@ -1,14 +1,13 @@
 import { LoginCredentialsDto } from "../models/loginCredentialsDto";
-import { LoggedInUserDto } from "../models/loggedInUserDto";
 import { RegisterUserDto } from "../models/registerUserDto";
 import { UserDto } from "../models/userDto";
 import { UpdateUserDto } from "../models/updateUserDto";
 import { AxiosResponse } from "axios";
 import { httpClient } from "../HttpClient";
 
-export const login = async (loginUserDto: LoginCredentialsDto): Promise<LoggedInUserDto> => {
-    const { data } = await httpClient.post<LoggedInUserDto>(`Users/login`, loginUserDto);
-    return data;
+export const login = async (loginUserDto: LoginCredentialsDto): Promise<AxiosResponse<UserDto>> => {
+    const response = await httpClient.post<UserDto>(`Users/login`, loginUserDto);
+    return response;
 };
 
 export const register = async (registerUserDto: RegisterUserDto): Promise<number> => {
@@ -21,9 +20,9 @@ export const getUserById = async (id: string): Promise<AxiosResponse<UserDto>> =
     return response;
 };
 
-export const getUserByToken = async (token: string): Promise<UserDto> => {
-    const { data } = await httpClient.get<UserDto>(`Users/token/${token}`);
-    return data;
+export const getUserByToken = async (): Promise<AxiosResponse<UserDto>> => {
+    const response = await httpClient.get<UserDto>(`Users/token`);
+    return response;
 };
 
 export const updateUser = async (user: UpdateUserDto): Promise<AxiosResponse> => {

@@ -14,7 +14,7 @@
             if (context.Request.Cookies.ContainsKey("token"))
             {
                 var token = context.Request.Cookies["token"];
-                context.Request.Headers.Append("Authorization", "Bearer " + token);
+                context.Request.Headers.Append("Authorization", $"Bearer {token}");
             }
 
             await _next(context);

@@ -1,57 +1,44 @@
-import React, { createContext, useState, ReactNode, useContext, useMemo, useCallback } from 'react';
+import React, { createContext, useState, ReactNode, useContext, useMemo, useCallback, useEffect } from 'react';
 import { UserDto } from '../models/userDto';
 import { LoginCredentialsDto } from '../models/loginCredentialsDto';
 import { RegisterUserDto } from '../models/registerUserDto';
 import * as API from '../api/userManagementAPI';
-import { WebToken } from '../models/webToken';
-import { jwtDecode } from "jwt-decode";
 import { Loader } from '../components/loader/loader';
-import { useCookies } from 'react-cookie';
-import { httpClient } from '../HttpClient';
+
 
 interface AuthContextType {
     currentUser: UserDto | null;
-    token: string | null;
     isUserAlreadyLoggedIn: boolean;
     login: (credentials: LoginCredentialsDto) => Promise<void>;
     register: (user: RegisterUserDto) => Promise<void>;
-    verifyToken: () => Promise<boolean>;
+    verifyToken: () => Promise<void>;
     logout: () => Promise<void>;
-    checkTokenExpiration: () => boolean;
     changeUserDetails: (userDetails: UserDto) => void;
     changeUserIsAlreadyLoggedIn: (isAlreadyLoggedIn: boolean) => void;
 }
 
 interface AuthProviderProps {
-    isUserAlreadyLoggedInChangeHandler: () => void;
     children: ReactNode;
 }
 
 export const AuthContext = createContext<AuthContextType | null>(null);
 
-export const AuthProvider: React.FC<AuthProviderProps> = ({ isUserAlreadyLoggedInChangeHandler, children }: AuthProviderProps) => {
-    const [cookie, setCookie, removeCookie] = useCookies(['token']);
+export const AuthProvider: React.FC<AuthProviderProps> = ({ children }: AuthProviderProps) => {
     const [currentUser, setCurrentUser] = useState<UserDto | null>(null);
-    const [token, setToken] = useState<string | null>(null);
     const [isUserAlreadyLoggedIn, setIsUserAlreadyLoggedIn] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
     const login = async (credentials: LoginCredentialsDto): Promise<void> => {
         try {
             setIsLoading(true);
-            const { userDetails, token } = await API.login(credentials);
-            setIsLoading(false);
-            if (!userDetails || !token) {
+            const { data, status } = await API.login(credentials)
+            if (status !== 200) {
                 setIsLoading(false);
                 throw new Error("Invalid response from server");
             }
-            setCurrentUser(userDetails);
-            setToken(token);
-            setCookie('token', token, { path: '/', maxAge: 3600 * 24 * 7 });
-            httpClient.defaults.headers['Cookie'] = cookie['token'];
-            updateAuthorizationHeader();
+            setCurrentUser(data);
+            setIsLoading(false);
             setIsUserAlreadyLoggedIn(true);
-            isUserAlreadyLoggedInChangeHandler();
         }
         catch (error) {
             setIsLoading(false);
@@ -74,53 +61,22 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ isUserAlreadyLoggedI
         setIsLoading(false);
     };
 
-    const verifyToken = async (): Promise<boolean> => {
+    const verifyToken = async (): Promise<void> => {
         try {
-            const token = cookie.token;
-            if (!token) return false;
-            const response = await API.getUserByToken(token);
-            if (!response) {
-                await logout();
-                throw new Error("Invalid response from server");
-            }
-            updateAuthorizationHeader();
-            setCurrentUser(response);
-            return true;
+            const { data } = await API.getUserByToken();
+            console.log(data);
+            setCurrentUser(data);
+            setIsUserAlreadyLoggedIn(true);
         } catch (error) {
-            return false;
+            await logout();
         }
     };
 
     const logout = async (): Promise<void> => {
         setCurrentUser(null);
-        setToken(null);
-        removeCookie('token', { path: '/' });
-        updateAuthorizationHeader();
         setIsUserAlreadyLoggedIn(false);
-        window.location.reload();
+        document.cookie = 'token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     };
-
-    const updateAuthorizationHeader = (): void => {
-        const token = cookie.token;
-        if (!token) return;
-        httpClient.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-    };
-
-    const checkTokenExpiration = (): boolean => {
-        const token = cookie.token;
-        if (!token) return false;
-
-        const decodedToken = jwtDecode<WebToken>(token);
-        const expirationDate = new Date(decodedToken.exp * 1000);
-
-        const currentDate = new Date();
-        if (expirationDate < currentDate) {
-            logout();
-            return false;
-        }
-        return true;
-    };
-
     const changeUserDetails = (userDetails: UserDto): void => {
         setCurrentUser(userDetails);
     }
@@ -132,13 +88,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ isUserAlreadyLoggedI
         <AuthContext.Provider
             value={{
                 currentUser,
-                token,
                 isUserAlreadyLoggedIn,
                 login,
                 register,
                 verifyToken,
                 logout,
-                checkTokenExpiration,
                 changeUserDetails,
                 changeUserIsAlreadyLoggedIn
             }}
@@ -150,40 +104,18 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ isUserAlreadyLoggedI
 };
 
 
-export interface VerifyTokenHandlerProps {
-    verifyTokenHandler: () => void;
-    isUserAlreadyLoggedIn: boolean;
-}
-
-export const VerifyTokenHandler = (props: VerifyTokenHandlerProps): JSX.Element => {
-    const [isTokenVerified, setIsTokenVerified] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
+export const VerifyTokenHandler: React.FC = () => {
     const authContext = useContext(AuthContext);
-
-
-    const checkTokenExpiration = useCallback(async (): Promise<boolean> => {
-        if (isTokenVerified) return true;
-        let result = await authContext?.verifyToken();
-        if (!result) {
-            return false;
-        }
-        return result;
-    }, [authContext, isTokenVerified]);
-
-
-    useMemo(() => {
-        const verifyTokenAsync = async () => {
+    const [isLoading, setIsLoading] = useState(false);
+    useEffect(() => {
+        const verifyTokenHandler = async () => {
             setIsLoading(true);
-            var result = await checkTokenExpiration();
-            if (result && !isTokenVerified) {
-                setIsTokenVerified(true);
-                props.verifyTokenHandler();
-            }
+            await authContext?.verifyToken();
             setIsLoading(false);
         };
-        verifyTokenAsync();
-    }, [props, isTokenVerified, checkTokenExpiration]);
-
-
-    return (<>{isLoading && <Loader />}</>);
+        if (authContext?.isUserAlreadyLoggedIn === false) {
+            verifyTokenHandler();
+        }
+    }, []);
+    return (isLoading && <Loader />);
 };

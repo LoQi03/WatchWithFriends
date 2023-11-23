@@ -59,6 +59,7 @@ namespace WatchWithFriends.Extensions
                         ) 
                         .AllowCredentials()
                         .AllowAnyHeader()
+                        .WithExposedHeaders("Set-Cookie","set-cookie")
                         .AllowAnyMethod();
                 });
 
