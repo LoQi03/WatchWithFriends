@@ -183,14 +183,14 @@ namespace WatchWithFriends.Services
 
             if (email == string.Empty) 
             {
-                return null;
+                throw new ArgumentException("Token is not contain the email!");
             } 
 
             var userFromDB = await GetUserByEmail(email);
 
             if (userFromDB is null) 
             {
-                return null;
+                throw new ArgumentException("The user is not found from the token!");
             } 
 
             var userDTO = UserDTO.FromModel(userFromDB);

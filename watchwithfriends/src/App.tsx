@@ -23,7 +23,6 @@ const App: React.FC = () => {
       />
       <VerifyTokenHandler />
       <AuthContext.Consumer>
-
         {(context) => {
           if (context === null) {
             return null;

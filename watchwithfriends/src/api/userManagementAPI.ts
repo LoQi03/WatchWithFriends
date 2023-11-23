@@ -15,7 +15,6 @@ export const logout = async (): Promise<AxiosResponse> => {
     return response;
 };
 
-
 export const register = async (registerUserDto: RegisterUserDto): Promise<number> => {
     const { status } = await httpClient.post<UserDto>(`Users/register`, registerUserDto);
     return status;
