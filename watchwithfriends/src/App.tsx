@@ -22,17 +22,18 @@ const App: React.FC = () => {
         reverseOrder={false}
       />
       <VerifyTokenHandler />
-      <BrowserRouter>
-        <AuthContext.Consumer>
-          {(context) => {
-            if (context === null) {
-              return null;
-            }
-            const { isUserAlreadyLoggedIn } = context;
-            return (
-              <>
-                {isUserAlreadyLoggedIn ?
-                  <>
+      <AuthContext.Consumer>
+
+        {(context) => {
+          if (context === null) {
+            return null;
+          }
+          const { isUserAlreadyLoggedIn } = context;
+          return (
+            <>
+              {isUserAlreadyLoggedIn ?
+                <>
+                  <BrowserRouter>
                     <Navbar />
                     <CommonStyles.PageContainer>
                       <Routes>
@@ -40,16 +41,15 @@ const App: React.FC = () => {
                         <Route path="/friends" element={<FriendsPage />} />
                         <Route path="/rooms" element={<RoomsPage />} />
                         <Route path="/profile" element={<ProfilePage />} />
-                        <Route path="/room/:roomId" element={<RoomPageWithProvider />} />
+                        <Route path="/room/:id" element={<RoomPageWithProvider />} />
                       </Routes>
                     </CommonStyles.PageContainer>
-                  </> : <AuthenticationPage />}
-
-              </>
-            );
-          }}
-        </AuthContext.Consumer>
-      </BrowserRouter>
+                  </BrowserRouter>
+                </> : <AuthenticationPage />}
+            </>
+          );
+        }}
+      </AuthContext.Consumer>
     </AuthProvider>
   );
 };
