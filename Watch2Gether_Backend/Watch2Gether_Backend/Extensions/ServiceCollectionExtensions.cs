@@ -54,7 +54,7 @@ namespace WatchWithFriends.Extensions
                         .WithOrigins
                         (
                             "http://192.168.0.200:5173",
-                            "https://wathcwithfriends.mt-dev.site",
+                            "https://watchwithfriends.mt-dev.site",
                             "http://localhost:5173"
                         ) 
                         .AllowCredentials()
