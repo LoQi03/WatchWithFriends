@@ -108,6 +108,7 @@ export const VerifyTokenHandler: React.FC = () => {
     const authContext = useContext(AuthContext);
     const [isLoading, setIsLoading] = useState(false);
     useEffect(() => {
+
         const verifyTokenHandler = async () => {
             setIsLoading(true);
             await authContext?.verifyToken();
@@ -116,6 +117,7 @@ export const VerifyTokenHandler: React.FC = () => {
         if (authContext?.isUserAlreadyLoggedIn === false) {
             verifyTokenHandler();
         }
+        
     }, []);
     return (isLoading && <Loader />);
 };
