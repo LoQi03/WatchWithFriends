@@ -28,7 +28,7 @@ namespace WatchWithFriends.Extensions
                     .AddJwtBearer(options => SetJwtBearerOptions(options));
             services.AddAuthorization();
 
-            services.AddCors(options => SetCorseOptions(options));
+            services.AddCors(options => SetCorsOptions(options));
 
             // Dependencies
             services.AddScoped<IRoomService, RoomService>();
@@ -44,7 +44,7 @@ namespace WatchWithFriends.Extensions
         {
             options.PayloadSerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
         }
-        private static void SetCorseOptions(CorsOptions options)
+        private static void SetCorsOptions(CorsOptions options)
         {
 
             options.AddDefaultPolicy(
