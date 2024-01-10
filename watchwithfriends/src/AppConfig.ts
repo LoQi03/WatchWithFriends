@@ -5,7 +5,7 @@ interface AppConfig {
 }
 
 export const config: AppConfig = {
-    apiUrl: import.meta.env.VITE_WATCH_2_GETHER_BACKEND_ADDRESS ?? "https://watchwithfriends-backend.mt-dev.com",
+    apiUrl: import.meta.env.VITE_WATCH_2_GETHER_BACKEND_ADDRESS ?? "https://watchwithfriends-backend.mt-dev.site/",
 }
 
 const schema = joi.object({
