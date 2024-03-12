@@ -5,21 +5,21 @@ namespace WatchWithFriends.Misc
 {
     public class JwtConfig
     {
-        public string? Issuer { get; set; }
-        public string? Audience { get; set; }
-        public string? Key { get; set; }
+        public required string Issuer { get; set; }
+        public required string Audience { get; set; }
+        public required string Key { get; set; }
     }
 
     public class Config
     {
 
         [JsonProperty("Jwt")]
-        public JwtConfig? Jwt { get; set; }
+        public JwtConfig Jwt { get; set; }
 
         [JsonProperty("ExpiresDay")]
         public int ExpiresDay { get; set; }
 
         [JsonIgnore]
-        public static Config? Instance { get; set; }
+        public static Config Instance { get; set; }
     }
 }

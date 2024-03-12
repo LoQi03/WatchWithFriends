@@ -141,9 +141,9 @@ namespace WatchWithFriends.Services
 
         private string CreateToken(UserDTO user)
         {
-            var issuer = Config.Instance?.Jwt?.Issuer;
-            var audience = Config.Instance?.Jwt?.Audience;
-            var key = Encoding.UTF8.GetBytes(Config.Instance?.Jwt?.Key!);
+            var issuer = Config.Instance.Jwt.Issuer;
+            var audience = Config.Instance.Jwt.Audience;
+            var key = Encoding.UTF8.GetBytes(Config.Instance.Jwt.Key);
             var exp_day = Config.Instance?.ExpiresDay;
             if (exp_day == null)
             {
