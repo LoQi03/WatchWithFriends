@@ -10,10 +10,11 @@ import { RoomsPage } from './pages/rooms/rooms';
 import { AuthContext, AuthProvider, VerifyTokenHandler } from './services/authenticationContext';
 import { RoomPageWithProvider } from './pages/room/room-with-provider';
 import { Toaster } from 'react-hot-toast';
-
+import { setAxiosConfig } from './AppConfig';
+import * as AppConfig from './AppConfig';
 const App: React.FC = () => {
   const windowSize = useRef([window.innerWidth, window.innerHeight]);
-
+  setAxiosConfig(AppConfig.getConfig().apiUrl);
   return (
     <AuthProvider>
       <Toaster

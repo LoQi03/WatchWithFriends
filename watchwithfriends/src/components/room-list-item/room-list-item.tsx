@@ -21,7 +21,7 @@ export const RoomListItem = (props: RoomListItemProps): JSX.Element => {
 
         <Styles.RoomListItemContainer onClick={join}>
             <Styles.RoomListItemContentContainer>
-                <Styles.RoomListItemImage src={`${AppConfig.GetConfig().apiUrl}Users/${props.creatorId}/image`} />
+                <Styles.RoomListItemImage src={`${AppConfig.getConfig().apiUrl}Users/get-image/${props.creatorId}`} />
                 <Styles.RoomListItemHeader>{props.name}</Styles.RoomListItemHeader>
                 <Styles.RoomListItemInfo>
                     <Styles.RomListItemMembers><Person2Icon /> {" " + props.userCount} </Styles.RomListItemMembers>

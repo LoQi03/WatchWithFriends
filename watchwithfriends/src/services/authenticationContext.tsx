@@ -1,19 +1,17 @@
 import React, { createContext, useState, ReactNode, useContext, useEffect } from 'react';
-import { UserDto } from '../models/userDto';
-import { LoginCredentialsDto } from '../models/loginCredentialsDto';
-import { RegisterUserDto } from '../models/registerUserDto';
-import * as API from '../api/userManagementAPI';
 import { Loader } from '../components/loader/loader';
+import { UsersApi } from '../api';
+import { UserDTO } from '../api';
 
 
 interface AuthContextType {
-    currentUser: UserDto | null;
+    currentUser: UserDTO | null;
     isUserAlreadyLoggedIn: boolean;
-    login: (credentials: LoginCredentialsDto) => Promise<void>;
-    register: (user: RegisterUserDto) => Promise<void>;
+    login: (credentials: UserDTO) => Promise<void>;
+    register: (user: UserDTO) => Promise<void>;
     verifyToken: () => Promise<void>;
     logout: () => Promise<void>;
-    changeUserDetails: (userDetails: UserDto) => void;
+    changeUserDetails: (userDetails: UserDTO) => void;
     changeUserIsAlreadyLoggedIn: (isAlreadyLoggedIn: boolean) => void;
 }
 
@@ -24,14 +22,14 @@ interface AuthProviderProps {
 export const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }: AuthProviderProps) => {
-    const [currentUser, setCurrentUser] = useState<UserDto | null>(null);
+    const [currentUser, setCurrentUser] = useState<UserDTO | null>(null);
     const [isUserAlreadyLoggedIn, setIsUserAlreadyLoggedIn] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-
-    const login = async (credentials: LoginCredentialsDto): Promise<void> => {
+    const userAPI = new UsersApi();
+    const login = async (credentials: UserDTO): Promise<void> => {
         try {
             setIsLoading(true);
-            const { data, status } = await API.login(credentials)
+            const { data, status } = await userAPI.login(credentials, { withCredentials: true });
             if (status !== 200) {
                 setIsLoading(false);
                 throw new Error("Invalid response from server");
@@ -46,10 +44,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }: AuthProv
         }
     };
 
-    const register = async (user: RegisterUserDto): Promise<void> => {
+    const register = async (user: UserDTO): Promise<void> => {
         setIsLoading(true);
         try {
-            const status = await API.register(user);
+            const {status} = await userAPI.register(user);
             if (status !== 200) {
                 setIsLoading(false);
                 throw new Error("Invalid response from server");
@@ -63,21 +61,22 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }: AuthProv
 
     const verifyToken = async (): Promise<void> => {
         try {
-            const { data } = await API.getUserByToken();
-            console.log(data);
+            const { status , data } = await userAPI.getUserByToken({ withCredentials: true });
+            if(status !== 200) throw new Error("Invalid response from server");
             setCurrentUser(data);
             setIsUserAlreadyLoggedIn(true);
         } catch (error) {
+            console.log(error);
             await logout();
         }
     };
 
     const logout = async (): Promise<void> => {
-        await API.logout();
+        await userAPI.logout();
         setCurrentUser(null);
         setIsUserAlreadyLoggedIn(false);
     };
-    const changeUserDetails = (userDetails: UserDto): void => {
+    const changeUserDetails = (userDetails: UserDTO): void => {
         setCurrentUser(userDetails);
     }
     const changeUserIsAlreadyLoggedIn = (isAlreadyLoggedIn: boolean): void => {

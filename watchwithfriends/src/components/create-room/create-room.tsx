@@ -3,13 +3,13 @@ import React, { useContext } from "react";
 import { RoomsContext } from "../../pages/rooms/rooms";
 import * as Styles from './styles';
 import * as CommonStyles from '../../commonStyles';
-import * as API from '../../api/roomManagmentAPI';
-import { RoomDto } from "../../models/roomDto";
 import { AuthContext } from "../../services/authenticationContext";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { RoomDTO, RoomsApi } from "../../api";
 
 export const CreateRoom = (): JSX.Element => {
+    const roomApi = new RoomsApi();
     const navigate = useNavigate();
     const authContext = useContext(AuthContext);
     const createRoomContext = useContext(RoomsContext);
@@ -22,12 +22,12 @@ export const CreateRoom = (): JSX.Element => {
         if (!authContext?.currentUser) {
             return;
         }
-        const room: RoomDto = {
+        const room: RoomDTO = {
             name: roomName,
             password: password,
-            creatorId: authContext?.currentUser.id,
+            creatorId: authContext?.currentUser.id??"",
         };
-        const { data } = await API.createRoom(room);
+        const { data } = await roomApi.createRoom(room);
         await createRoomContext?.getRoomsAsync();
         toast.success("You have successfully created a room!");
         navigate(`/room/${data.id}`);

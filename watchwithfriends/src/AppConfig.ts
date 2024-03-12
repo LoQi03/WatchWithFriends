@@ -1,4 +1,5 @@
 import joi from "joi";
+import axios from "axios";
 
 interface AppConfig {
     apiUrl: string;
@@ -12,7 +13,7 @@ const schema = joi.object({
     apiUrl: joi.string().required(),
 });
 
-export function GetConfig(): AppConfig {
+export const getConfig=(): AppConfig => {
     const { error, value } = schema.validate(config);
     if (error) {
         throw new Error(`Config validation error: ${error.message}`);
@@ -21,3 +22,7 @@ export function GetConfig(): AppConfig {
         return value;
     }
 }
+export const setAxiosConfig = (apiUrl: string) => {
+    axios.defaults.baseURL = apiUrl;
+    axios.defaults.withCredentials = true;
+};

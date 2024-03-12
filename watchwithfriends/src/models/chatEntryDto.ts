@@ -1,4 +1,4 @@
-export interface ChatEntryDto {
+export interface ChatEntryDTO {
     id: string;
     roomId: string;
     userId: string;

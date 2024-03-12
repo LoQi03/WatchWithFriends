@@ -79,7 +79,7 @@ namespace WatchWithFriends.Extensions
         }
         private static void SetSwaggerGenOptions(SwaggerGenOptions options)
         {
-            options.SwaggerDoc("v1", new OpenApiInfo { Title = "Watch2GetherAPI", Version = "v1" });
+            options.SwaggerDoc("v1", new OpenApiInfo { Title = "WatchWithFriendsAPI", Version = "v1" });
             options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {
                 In = ParameterLocation.Header,
@@ -89,6 +89,7 @@ namespace WatchWithFriends.Extensions
                 BearerFormat = "JWT",
                 Scheme = "Bearer"
             });
+            options.AddServer(new OpenApiServer { Url = "http://localhost:5000/" });
             options.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
                     {

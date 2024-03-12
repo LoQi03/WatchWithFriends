@@ -3,10 +3,9 @@ import { AuthContext } from '../../../services/authenticationContext';
 import * as Styles from './styles';
 import * as AppConfig from '../../../AppConfig';
 import { Tooltip } from '@mui/material';
-import { ChatEntryDto } from '../../../models/chatEntryDto';
-
+import { ChatEntryDTO } from '../../../models/chatEntryDTO';
 export interface ChatEntryProps {
-    chatEntry: ChatEntryDto
+    chatEntry: ChatEntryDTO
 };
 
 export const ChatEntry = (props: ChatEntryProps): JSX.Element => {
@@ -24,7 +23,7 @@ export const ChatEntry = (props: ChatEntryProps): JSX.Element => {
                                 {props.chatEntry.message}
                             </Styles.ChatEntryContent>
                             <Tooltip arrow={true} placement='right' title={props.chatEntry.name + ' | ' + props.chatEntry.messageTime}>
-                                <Styles.ChatEntryImage src={`${AppConfig.GetConfig().apiUrl}Users/${props.chatEntry.userId}/image`} />
+                                <Styles.ChatEntryImage src={`${AppConfig.getConfig().apiUrl}Users/get-image/${props.chatEntry.userId}`} />
                             </Tooltip>
                         </Styles.ChatEntryContainer>
                     </>
@@ -32,7 +31,7 @@ export const ChatEntry = (props: ChatEntryProps): JSX.Element => {
                     <>
                         <Styles.ChatEntryContainer isCurrentUser={isCurrentUser}>
                             <Tooltip arrow={true} placement='left' title={props.chatEntry.name + ' | ' + props.chatEntry.messageTime}>
-                                <Styles.ChatEntryImage src={`${AppConfig.GetConfig().apiUrl}Users/${props.chatEntry.userId}/image`} />
+                                <Styles.ChatEntryImage src={`${AppConfig.getConfig().apiUrl}Users/get-image/${props.chatEntry.userId}`} />
                             </Tooltip>
                             <Styles.ChatEntryContent isCurrentUser={isCurrentUser}>
                                 {props.chatEntry.message}

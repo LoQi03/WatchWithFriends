@@ -8,9 +8,8 @@ import Person2Icon from '@mui/icons-material/Person2';
 import TvIcon from '@mui/icons-material/Tv';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { Menu } from '@mui/material';
-import * as AppConfig from '../../AppConfig';
 import { AuthContext } from '../../services/authenticationContext';
-
+import * as AppConfig from '../../AppConfig';
 interface NavigationProps {
     title: string;
     navigationURL: string;
@@ -74,7 +73,7 @@ export const Navbar: React.FC = () => {
                         aria-expanded={open ? 'true' : undefined}
                         onClick={handleProfileClick}
                     >
-                        <Styles.ProfileImage src={`${AppConfig.GetConfig().apiUrl}Users/${authContext?.currentUser?.id}/image`} />
+                        <Styles.ProfileImage src={`${AppConfig.getConfig().apiUrl}Users/get-image/`+ authContext?.currentUser?.id} />
                     </Button>
                     <Menu
                         id="basic-menu"

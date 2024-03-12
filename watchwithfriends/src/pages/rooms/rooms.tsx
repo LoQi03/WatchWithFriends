@@ -1,13 +1,12 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import * as API from '../../api/roomManagmentAPI';
 import * as CommonStyles from '../../commonStyles';
 import { CreateRoom } from '../../components/create-room/create-room';
 import { RoomListItem } from '../../components/room-list-item/room-list-item';
-import { RoomDto } from '../../models/roomDto';
 import { AuthContext } from '../../services/authenticationContext';
 import * as Styles from './styles';
 import AddIcon from '@mui/icons-material/Add';
 import { Loader } from '../../components/loader/loader';
+import { RoomDTO, RoomsApi } from '../../api';
 
 export interface CreateRoomContextType {
     open: boolean;
@@ -21,17 +20,18 @@ export const RoomsContext = createContext<CreateRoomContextType | null>(null);
 
 export const RoomsPage = (): JSX.Element => {
     const [open, setOpen] = useState(false);
+    const roomApi = new RoomsApi();
     const handleOpen = (): void => setOpen(true);
     const handleonClose = (): void => setOpen(false);
-    const [rooms, setRooms] = useState<RoomDto[]>();
+    const [rooms, setRooms] = useState<RoomDTO[]>();
     const aouthService = useContext(AuthContext);
     const [isLoading, setIsLoading] = useState(false);
     const [search, setSearch] = useState<string>("");
-    const [filteredRooms, setFilteredRooms] = useState<RoomDto[] | null>(null);
+    const [filteredRooms, setFilteredRooms] = useState<RoomDTO[] | null>(null);
 
     const getRoomsAsync = useCallback(async (): Promise<void> => {
         try {
-            const { data } = await API.getRooms();
+            const { data } = await roomApi.getRooms();
             setRooms(data);
         }
         catch (error) {
@@ -76,7 +76,7 @@ export const RoomsPage = (): JSX.Element => {
             <Styles.RoomListContainer>
                 <Styles.RoomList>
                     {
-                        filteredRooms && filteredRooms?.length > 0 ? filteredRooms.map((room: RoomDto) => <RoomListItem key={room.id} id={room.id!} name={room.name!} creatorId={room.creatorId} userCount={room.roomUsers?.length ?? 0} />)
+                        filteredRooms && filteredRooms?.length > 0 ? filteredRooms.map((room: RoomDTO) => <RoomListItem key={room.id} id={room.id!} name={room.name!} creatorId={room.creatorId??""} userCount={room.roomUsers?.length ?? 0} />)
                             : <h1> No room available!</h1>
                     }
                 </Styles.RoomList>

@@ -1,23 +1,23 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { RoomProvider } from "../../services/roomContext";
 import { RoomPage } from "./room";
-import * as API from "../../api/roomManagmentAPI";
 import { KeyboardEventHandler, useCallback, useContext, useMemo, useState } from "react";
 import * as Styles from "./styles";
 import * as CommonStyles from "../../commonStyles";
 import { Loader } from "../../components/loader/loader";
-import { RoomDto } from "../../models/roomDto";
 import { AuthContext } from "../../services/authenticationContext";
 import toast from "react-hot-toast";
+import { RoomDTO, RoomsApi } from "../../api";
 
 
 export const RoomPageWithProvider: React.FC = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [room, setRoom] = useState<RoomDto | null>(null);
+    const [room, setRoom] = useState<RoomDTO | null>(null);
     const authContext = useContext(AuthContext);
     const [password, setPassword] = useState<string>("");
     const [isLoading, setIsLoading] = useState(false);
     const params = useParams();
+    const roomAPI = new RoomsApi();
     const navigate = useNavigate();
 
 
@@ -30,9 +30,12 @@ export const RoomPageWithProvider: React.FC = () => {
             try {
                 setIsLoading(true);
                 try {
-                    const { data } = await API.getRoomById(params.id);
+                    const { data } = await roomAPI.getRoom(params.id);
+                    if(data === undefined){
+                        return;
+                    }
                     setRoom(data);
-                    if (!data.id || !authContext?.currentUser?.id) {
+                    if (!data || !authContext?.currentUser?.id) {
                         console.log("No room id or user id");
                         return;
                     }
@@ -40,7 +43,7 @@ export const RoomPageWithProvider: React.FC = () => {
                         toast.error("You are already in this room!");
                         navigate("/rooms");
                     }
-                    const response = await API.verifyRoomConnection(data.id, authContext?.currentUser?.id, password);
+                    const response = await roomAPI.verifyRoomConnection({ roomId: params.id, userId: authContext?.currentUser?.id, password: password });
                     console.log(response);
                     setIsAuthenticated(response.data);
                 } catch (error) {
@@ -76,7 +79,7 @@ export const RoomPageWithProvider: React.FC = () => {
                 return;
             }
             setIsLoading(true);
-            const response = await API.verifyRoomConnection(params.id, authContext?.currentUser?.id, password);
+            const response = await roomAPI.verifyRoomConnection({ roomId: params.id, userId: authContext?.currentUser?.id, password: password });
             setIsAuthenticated(response.data);
             if (response.data == true) {
                 toast.success("You have successfully joined the room!");

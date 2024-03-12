@@ -54,6 +54,12 @@ namespace Watch2Gether_Backend
 
                 endpoints.MapControllers();
             });
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "wwf");
+            });
+
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller}/{action=Index}/{id?}");

@@ -18,20 +18,20 @@ namespace WatchWithFriends.Controllers
             _imageService = imageService;
             _userService = userService;
         }
-        [HttpGet, Authorize]
+        [HttpGet("get-all",Name =nameof(GetAll)), Authorize]
         public async Task<ActionResult<IEnumerable<UserDTO>>> GetAll()
         {
             var result = await _userService.GetUsers();
             return Ok(result);
         }
 
-        [HttpPost, Authorize]
+        [HttpPost("add-user",Name = nameof(AddUser)), Authorize]
         public async Task<ActionResult<UserDTO>> AddUser(UserDTO user)
         {
             var result = UserDTO.FromModel(await _userService.AddUser(user));
             return Ok(result);
         }
-        [HttpPut, Authorize]
+        [HttpPut("update-user",Name = nameof(UpdateUser)), Authorize]
         public async Task<ActionResult<UserDTO?>> UpdateUser(UpdateUserDTO user)
         {
             if (user.UserDetails?.Id == Guid.Empty) return BadRequest();
@@ -51,7 +51,7 @@ namespace WatchWithFriends.Controllers
             }
         }
 
-        [HttpGet("{id}"), Authorize]
+        [HttpGet("get-user/{id}",Name = nameof(GetUser)), Authorize]
         public async Task<ActionResult<UserDTO>> GetUser(Guid id)
         {
             var user = await _userService.GetUserById(id);
@@ -62,7 +62,7 @@ namespace WatchWithFriends.Controllers
             return Ok(UserDTO.FromModel(user));
         }
 
-        [HttpGet("token")]
+        [HttpGet("get-user-by-token",Name = nameof(GetUserByToken))]
         public async Task<ActionResult<UserDTO>> GetUserByToken()
         {
             if (HttpContext.Request.Headers.TryGetValue("Authorization", out var authorizationHeader))
@@ -82,7 +82,7 @@ namespace WatchWithFriends.Controllers
             return BadRequest("Token is missing or invalid.");
         }
 
-        [HttpDelete("{id}"), Authorize]
+        [HttpDelete("delete-user/{id}",Name = nameof(DeleteUser)), Authorize]
         public async Task<ActionResult> DeleteUser(Guid id)
         {
             var user = await _userService.DeleteUser(id);
@@ -92,7 +92,7 @@ namespace WatchWithFriends.Controllers
             }
             return Ok(user);
         }
-        [HttpPost("register")]
+        [HttpPost("register-user", Name = nameof(Register))]
         public async Task<ActionResult<UserDTO>> Register(UserDTO user)
         {
             if (string.IsNullOrWhiteSpace(user.Email))
@@ -106,8 +106,8 @@ namespace WatchWithFriends.Controllers
             } 
             return Ok(result);
         }
-        [HttpPost("login")]
-        public async Task<ActionResult<LoginUserDTO>> Login(UserDTO user)
+        [HttpPost("login-user", Name = nameof(Login))]
+        public async Task<ActionResult<UserDTO>> Login(UserDTO user)
         {
             if (user.Email is null || user.Email == string.Empty)
             {
@@ -127,7 +127,7 @@ namespace WatchWithFriends.Controllers
             CreateCookie(token,Config.Instance.ExpiresDay);
             return Ok(result);
         }
-        [HttpPost("logout")]
+        [HttpPost("logout-user",Name = nameof(Logout))]
         public ActionResult Logout()
         {
             CreateCookie("",0);
@@ -144,7 +144,7 @@ namespace WatchWithFriends.Controllers
             Response.Cookies.Append("token", result, options);
         }
 
-        [HttpPost("{userid}/image"), Authorize]
+        [HttpPost("add-image/{userid}",Name = nameof(AddImage)), Authorize]
         public async Task<ActionResult<UserDTO>> AddImage(Guid userid)
         {
             var user = await _userService.GetUserById(userid);
@@ -170,7 +170,7 @@ namespace WatchWithFriends.Controllers
             return Ok(user);
         }
 
-        [HttpGet("{userid}/image")]
+        [HttpGet("get-image/{userid}",Name = nameof(GetImage))]
         public async Task<ActionResult<IFormFile>> GetImage(Guid userid)
         {
             var user = await _userService.GetUserById(userid);

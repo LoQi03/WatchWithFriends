@@ -18,14 +18,14 @@ namespace WatchWithFriends.Controllers
             _roomHub = roomHub;
             _roomService = roomService;
         }
-        [HttpGet,Authorize]
+        [HttpGet("get-rooms",Name = nameof(GetRooms)),Authorize]
         public async Task<ActionResult<IEnumerable<RoomDTO>?>> GetRooms()
         {
             var rooms = await _roomService.GetAllRooms();
             return Ok(rooms);
         }
-        [HttpGet("{id}"), Authorize]
-        public async Task<ActionResult> GetRoom(Guid id)
+        [HttpGet("get-room/{id}",Name = nameof(GetRoom)), Authorize]
+        public async Task<ActionResult<RoomDTO>> GetRoom(Guid id)
         {
             var room = await _roomService.GetRoomById(id);
             if (room is null)
@@ -34,8 +34,8 @@ namespace WatchWithFriends.Controllers
             }
             return Ok(room);
         }
-        [HttpPost]
-        public async Task<ActionResult> CreateRoom(RoomDTO room)
+        [HttpPost("create-room",Name = nameof(CreateRoom)), Authorize]
+        public async Task<ActionResult<RoomDTO>> CreateRoom(RoomDTO room)
         {
             var result = await _roomService.CreateRoom(room);
             if (result is null)
@@ -44,8 +44,8 @@ namespace WatchWithFriends.Controllers
             }
             return Ok(result);
         }
-        [HttpDelete("{id}"), Authorize]
-        public async Task<ActionResult> DeleteRoom(Guid id)
+        [HttpDelete("delete-room/{id}",Name = nameof(DeleteRoom)), Authorize]
+        public async Task<ActionResult<RoomDTO>> DeleteRoom(Guid id)
         {
             var result = await _roomService.DeleteRoom(id);
             if (result is null)
@@ -54,7 +54,7 @@ namespace WatchWithFriends.Controllers
             }
             return Ok(result);
         }
-        [HttpPost("{id}/Videos"), Authorize]
+        [HttpPost("add-video/{id}",Name = nameof(AddVideoToRoom)), Authorize]
         public async Task<ActionResult<RoomDTO>> AddVideoToRoom(Guid id, Video video)
         {
             video.Id = Guid.NewGuid();
@@ -66,7 +66,7 @@ namespace WatchWithFriends.Controllers
             await _roomHub.UpdateRoom(result);
             return Ok();
         }
-        [HttpDelete("{id}/Videos/{videoId}"), Authorize]
+        [HttpDelete("delete-video/{id}/videos/{videoId}",Name = nameof(DeleteVideoFromRoom)), Authorize]
         public async Task<ActionResult<RoomDTO>> DeleteVideoFromRoom(Guid id, Guid videoId)
         {
             var result = await _roomService.DeleteVideo(id, videoId);
@@ -77,7 +77,7 @@ namespace WatchWithFriends.Controllers
             await _roomHub.UpdateRoom(result);
             return Ok(result);
         }
-        [HttpPost("{id}/NextVideo"), Authorize]
+        [HttpPost("next-video/{id}",Name = nameof(NextVideoForRoom)), Authorize]
         public async Task<ActionResult<RoomDTO>> NextVideoForRoom(Guid id)
         {
             var result = await _roomService.NextVideo(id);
@@ -88,7 +88,7 @@ namespace WatchWithFriends.Controllers
             await _roomHub.UpdateRoom(result);
             return Ok(result);
         }
-        [HttpPost("VerifyRoomConnection"), Authorize]
+        [HttpPost("verify-room",Name = nameof(VerifyRoomConnection)), Authorize]
         public async Task<ActionResult<bool>> VerifyRoomConnection(RoomConnectionDTO roomConnectionDTO)
         {
             var result = await _roomService.VerifyRoomConnection(roomConnectionDTO);

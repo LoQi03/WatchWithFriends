@@ -1,18 +1,16 @@
 import React, { ChangeEvent, useContext, useMemo, useState } from 'react';
 import * as Style from './styles'
-import { UserDto } from '../../models/userDto';
 import { Button, IconButton, InputAdornment } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import * as CommonStyle from "../../commonStyles";
-import * as API from '../../api/userManagementAPI';
-import { UpdateUserDto } from '../../models/updateUserDto';
-import * as AppConfig from '../../AppConfig';
 import { AuthContext } from '../../services/authenticationContext';
 import toast from 'react-hot-toast';
 import { Loader } from '../../components/loader/loader';
-
+import { UpdateUserDTO, UserDTO, UsersApi } from '../../api';
+import * as AppConfig from '../../AppConfig';
 export const ProfilePage = (): JSX.Element => {
     const authContext = useContext(AuthContext);
+    const userAPI = new UsersApi();
     const [newPassword, setNewPassword] = useState('');
     const [confrimNewPassword, setConfrimNewPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
@@ -22,7 +20,7 @@ export const ProfilePage = (): JSX.Element => {
     const [imageSrc, setImageSrc] = useState('');
     const [imgFile, setImgFile] = useState<File | undefined>(undefined);
     const [isLoading, setIsLoading] = useState(false);
-    const [userDetails, setUserDetails] = useState<UserDto>(
+    const [userDetails, setUserDetails] = useState<UserDTO>(
         {
             id: '',
             name: '',
@@ -34,7 +32,7 @@ export const ProfilePage = (): JSX.Element => {
         if (authContext && authContext.currentUser) {
             setIsLoading(true);
             setUserDetails(authContext.currentUser);
-            setImageSrc(`${AppConfig.GetConfig().apiUrl}Users/${authContext?.currentUser?.id}/image`);
+            setImageSrc(`${AppConfig.getConfig().apiUrl}Users/get-image/`+ authContext.currentUser.id);
             setIsLoading(false);
         }
     }, [authContext])
@@ -70,17 +68,23 @@ export const ProfilePage = (): JSX.Element => {
 
     const save = async () => {
         if (newPassword !== confrimNewPassword) return;
-        let updateUserDto: UpdateUserDto = {
+        let updateUserDto: UpdateUserDTO = {
             userDetails: userDetails,
             newPassword: newPassword
         };
         try {
             setIsLoading(true);
-            const respone = await API.updateUser(updateUserDto);
+            const respone = await userAPI.updateUser(updateUserDto);
             if (respone.status === 200) {
-                if (imgFile !== undefined && authContext?.currentUser?.id !== undefined)
-                    await API.uploadProfilePicture(imgFile, authContext?.currentUser?.id);
-                updateUserDto.userDetails.password = "";
+                if (imgFile !== undefined && authContext?.currentUser?.id){
+                    const formData = new FormData();
+                    formData.append("file", imgFile);
+                    await userAPI.addImage(authContext?.currentUser?.id,{data:formData,headers: {'Content-Type': 'multipart/form-data'}});
+                }
+                if(!updateUserDto.userDetails){
+                    return;
+                }
+                updateUserDto.userDetails.password = '';
                 setUserDetails(updateUserDto.userDetails);
                 if (authContext?.currentUser?.id !== undefined) {
                     setUserDetails(authContext?.currentUser);
