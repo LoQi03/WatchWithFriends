@@ -9,6 +9,7 @@ import joi from 'joi';
 import * as CommonStyles from '../../commonStyles';
 import { AuthContext } from '../../services/authenticationContext';
 import toast from 'react-hot-toast';
+import { theme } from '../../theme';
 interface RegistrationFormProps {
     formChangeHandler: () => void;
 }
@@ -60,20 +61,28 @@ export const RegistrationForm = (props: RegistrationFormProps): JSX.Element => {
 
     return (
         <>
-            <h1>Sign Up</h1>
-            <Style.InputContainer>
-                <Style.SignUpTextField value={registerCredentials.email} name='email' onChange={handleRegisterCredentialsChange} type="text" placeholder="E-mail" />
-                <Style.SignUpTextField value={registerCredentials.name} name='name' onChange={handleRegisterCredentialsChange} type="text" placeholder="Username" />
-                <ThemeProvider theme={Style.datePickerTheme}>
+            <CommonStyles.Title theme={theme}>Sign Up</CommonStyles.Title>
+            <Style.InputContainer theme={theme}>
+                <CommonStyles.StyledTextField theme={theme} value={registerCredentials.email} name='email' onChange={handleRegisterCredentialsChange} type="text" placeholder="E-mail" />
+                <CommonStyles.StyledTextField theme={theme} value={registerCredentials.name} name='name' onChange={handleRegisterCredentialsChange} type="text" placeholder="Username" />
+                <ThemeProvider theme={theme}>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker
                             value={dayjs(registerCredentials.birthDate)}
-                            sx={Style.DataPickerTheme}
-                            onChange={(date) => setRegisterCredentials({ ...registerCredentials, birthDate: date?.toISOString() ?? '' })}
+                            components={{
+                                    TextField: (props) => (
+                                        <CommonStyles.StyledTextField theme={theme}
+                                        {...props}
+                                        size="medium"
+                                        variant="outlined"
+                                        />
+                                    )
+                                    }}
+                                    onChange={(date) => setRegisterCredentials({ ...registerCredentials, birthDate: date?.toISOString() ?? '' })}
                             slotProps={{ textField: { size: 'medium', variant: 'outlined' } }} />
                     </LocalizationProvider>
                 </ThemeProvider>
-                <Style.SignUpTextField
+                <CommonStyles.StyledTextField theme={theme}
                     value={registerCredentials.password}
                     onChange={handleRegisterCredentialsChange}
                     name='password'
@@ -93,7 +102,7 @@ export const RegistrationForm = (props: RegistrationFormProps): JSX.Element => {
                         ),
                     }}
                 />
-                <Style.SignUpTextField
+                <CommonStyles.StyledTextField theme={theme}
                     type={showConfrimPassword ? 'text' : 'password'}
                     value={confrimPassword}
                     placeholder="Confirm Password"
@@ -101,7 +110,7 @@ export const RegistrationForm = (props: RegistrationFormProps): JSX.Element => {
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position="end">
-                                <IconButton
+                                <IconButton  
                                     onClick={handleToggleConfrimPassword}
                                     edge="end"
                                     aria-label="toggle password visibility"
@@ -112,9 +121,9 @@ export const RegistrationForm = (props: RegistrationFormProps): JSX.Element => {
                         ),
                     }}
                 />
-                <Style.SignUpButton onClick={register} size='large' >Sign Up</Style.SignUpButton>
+                <CommonStyles.GenericButton theme={theme} onClick={register} size='large' >Sign Up</CommonStyles.GenericButton>
             </Style.InputContainer>
-            <CommonStyles.SignSwitchButton onClick={props.formChangeHandler}>Already have an account?</CommonStyles.SignSwitchButton>
+            <CommonStyles.SignSwitchButton theme={theme} onClick={props.formChangeHandler}>Already have an account?</CommonStyles.SignSwitchButton>
         </>
     )
 }

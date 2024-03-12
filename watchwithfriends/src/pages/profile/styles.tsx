@@ -112,20 +112,6 @@ export const ProfileButtonStyle: Theme =
         boxShadow: 'none'
     }
 }
-export const ProfileName = styled.div`
-    padding-top: 10px;
-    padding-bottom: 10px;
-    width: 100%;
-    text-align: center;
-    font-size: 30px;
-    font-weight: bold;
-    color: white;
-`;
-
-export const SaveButton = styled(CommonStyle.GenericButton)`
-    margin-top: 5px;
-    width: 100%;
-`;
 
 export const UploadIcon = styled(UploadFileTwoToneIcon)`
     position: absolute;

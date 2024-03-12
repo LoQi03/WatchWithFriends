@@ -12,6 +12,8 @@ import { RoomPageWithProvider } from './pages/room/room-with-provider';
 import { Toaster } from 'react-hot-toast';
 import { setAxiosConfig } from './AppConfig';
 import * as AppConfig from './AppConfig';
+import { theme } from './theme';
+import { ThemeProvider } from '@mui/material';
 const App: React.FC = () => {
   const windowSize = useRef([window.innerWidth, window.innerHeight]);
   setAxiosConfig(AppConfig.getConfig().apiUrl);
@@ -34,8 +36,9 @@ const App: React.FC = () => {
               {isUserAlreadyLoggedIn ?
                 <>
                   <BrowserRouter>
+                  <ThemeProvider theme={theme}>
                     <Navbar />
-                    <CommonStyles.PageContainer>
+                    <CommonStyles.PageContainer theme={theme}>
                       <Routes>
                         <Route path="/" element={<HomePage />} />
                         <Route path="/friends" element={<FriendsPage />} />
@@ -44,6 +47,7 @@ const App: React.FC = () => {
                         <Route path="/room/:id" element={<RoomPageWithProvider />} />
                       </Routes>
                     </CommonStyles.PageContainer>
+                    </ThemeProvider>
                   </BrowserRouter>
                 </> : <AuthenticationPage />}
             </>

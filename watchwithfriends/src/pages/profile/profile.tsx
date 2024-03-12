@@ -8,6 +8,7 @@ import toast from 'react-hot-toast';
 import { Loader } from '../../components/loader/loader';
 import { UpdateUserDTO, UserDTO, UsersApi } from '../../api';
 import * as AppConfig from '../../AppConfig';
+import * as CommonStyles from '../../commonStyles';
 export const ProfilePage = (): JSX.Element => {
     const authContext = useContext(AuthContext);
     const userAPI = new UsersApi();
@@ -103,7 +104,7 @@ export const ProfilePage = (): JSX.Element => {
     return (
         <Style.ProfilePageContainer>
             {isLoading && <Loader />}
-            <Style.ProfileName>{authContext?.currentUser?.name}</Style.ProfileName>
+            <CommonStyles.Title>{authContext?.currentUser?.name}</CommonStyles.Title>
             <Style.ProfilePageContent>
                 <Style.ImageContainer>
 
@@ -183,8 +184,8 @@ export const ProfilePage = (): JSX.Element => {
                                     ),
                                 }}
                             />
-                        </> : <Style.ChangePasswordLink onClick={() => setShowChangePassword(true)}>Change Password</Style.ChangePasswordLink>}
-                    <Style.SaveButton onClick={save} title='Save' >Save</Style.SaveButton>
+                        </> : <CommonStyle.SignSwitchButton onClick={() => setShowChangePassword(true)}>Change Password</CommonStyle.SignSwitchButton >}
+                    <CommonStyle.GenericButton onClick={save} title='Save' >Save</CommonStyle.GenericButton >
                 </Style.ProfilePageInputContainer>
             </Style.ProfilePageContent>
         </Style.ProfilePageContainer>

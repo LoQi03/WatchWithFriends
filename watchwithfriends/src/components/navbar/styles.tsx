@@ -1,112 +1,109 @@
-import styled from "@emotion/styled";
-import { BottomNavigation, BottomNavigationAction, MenuItem } from "@mui/material";
+import { BottomNavigation, BottomNavigationAction, MenuItem } from '@mui/material';
+import { styled } from '@mui/system';import { theme } from '../../theme';
 
+export const Navbar = styled('div')(() => ({
+  display: 'flex',
+  alignItems: 'center',
+  paddingX: '10px',
+  backgroundColor: theme.palette.secondary.main,
+  position: 'fixed',
+  top: 0,
+  minHeight: '60px',
+  maxHeight: '60px',
+  width: '100%',
+  '@media screen and (max-width: 800px)': {
+    display: 'none',
+  }
+}));
 
+export const NavbarContainer = styled('div')({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  width: '100%',
+  paddingX: '10px',
+  paddingY: '10px',
+});
 
-export const Navbar = styled.div`
-    display: flex;
-    align-items: center;
-    display : flex;
-    padding-x : 10px;
-    background-color: #4F5D75;
-    position: fixed;
-    top: 0;
-    min-height: 60px;
-    max-height: 60px;
-    width: 100%;
-    @media screen and (max-width: 800px) {
-        display: none;
-    }
-`;
+export const StyledImage = styled('img')({
+  height: '35px',
+  objectFit: 'cover',
+  cursor: 'pointer',
+});
 
-export const NavbarContainer = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    padding-left: 10px;
-    padding-right: 10px;
-`;
+export const ProfileImage = styled('img')({
+  height: '50px',
+  width: '50px',
+  borderRadius: '50%',
+  cursor: 'pointer',
+  objectFit: 'auto',
+});
 
-export const StyledImage = styled.img`
-    height: 35px;
-    object-fit: cover;
-    cursor:pointer;
- `;
+export const LinkContainer = styled('div')({
+  width: '100%',
+  display: 'flex',
+  justifyContent: 'start',
+  alignItems: 'center',
+  gap: '20px',
+  padding: '10px 30px',
+});
 
+export const Link = styled('a')({
+  textDecoration: 'none',
+  display: 'flex',
+  alignItems: 'center',
+  gap: '10px',
+  color: theme.palette.text.primary,
+  fontSize: '22px',
+  fontWeight: 'bold',
+  cursor: 'pointer',
+  transition: '0.3s',
+  '&:hover': {
+    color: theme.palette.primary.main,
+  },
+  '@media screen and (max-width: 800px)': {
+    backgroundColor: theme.palette.primary.main,
+    padding: '10px',
+    width: '70%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    boxShadow: 'rgba(0, 0, 0, 0.3) 5px 5px 5px, rgba(0, 0, 0, 0.22) 5px 5px 5px',
+    '&:hover': {
+      color: theme.palette.secondary.main,
+    },
+  },
+});
 
-export const ProfileImage = styled.img`
-    height: 50px;
-    width: 50px;
-    border-radius: 50%;
-    cursor: pointer;
-    object-fit: auto;
-`;
+export const StyledMenuItem = styled(MenuItem)({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  color: theme.palette.text.primary,
+});
 
-export const LinkContainer = styled.div`
-    width: 100%;
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    gap: 20px;
-    padding: 10px 30px;
-`;
+export const StyledMenuItemButton = styled('div')({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  minWidth: '100px',
+});
 
-export const Link = styled.a`
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: white;
-    font-size: 22px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-    &:hover {
-        color: #EF8354;
-    }
-    @media screen and (max-width: 800px) {
-        background-color: #EF8354;
-        padding: 10px;
-        width: 70%;
-        align-items: center;
-        justify-content: center;
-        box-shadow: rgba(0, 0, 0, 0.3) 5px 5px 5px, rgba(0, 0, 0, 0.22) 5px 5px 5px;
-        &:hover {
-            color: #2D3142;
-        }
-    }
- `;
+export const NavbarButtons = styled(BottomNavigation)({
+  zIndex: 100,
+  display: 'flex',
+  width: '100%',
+  backgroundColor: theme.palette.secondary.dark,
+  position: 'fixed',
+  bottom: 0,
+  height: '65px',
+  '@media screen and (min-width: 800px)': {
+    display: 'none',
+  },
+});
 
-export const StyledMenuItem = styled(MenuItem)`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    color: #2D3142;
-`;
-
-export const StyledMenuItemButton = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    min-width: 100px;
-`;
-
-export const NavbarButtons = styled(BottomNavigation)`
-    z-index: 100;
-    display: flex;
-    width: 100%;
-    background-color: #4F5D75;
-    position: fixed;
-    bottom: 0;
-    height: 65px;
-    @media screen and (min-width: 800px) {
-        display: none;
-    }
-`;
-export const BottomNavigationLink = styled(BottomNavigationAction)`
-    color: white;
-    &.Mui-selected {
-        color: #EF8354;
-    }
-`;
+export const BottomNavigationLink = styled(BottomNavigationAction)({
+  color: 'white',
+  '&.Mui-selected': {
+    color: theme.palette.secondary.light,
+  },
+});

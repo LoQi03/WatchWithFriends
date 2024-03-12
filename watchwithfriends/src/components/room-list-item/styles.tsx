@@ -1,54 +1,54 @@
-import styled from "@emotion/styled";
+import { styled } from '@mui/system';
+import { theme } from '../../theme';
 
+export const RoomListItemHeader = styled('div')({
+  fontSize: '30px',
+  fontWeight: 'bold',
+  marginLeft: '15px',
+  marginTop: '10px',
+});
 
-export const RoomListItemHeader = styled.div`
-    font-size: 30px;
-    font-weight: bold;
-    margin-left: 15px;
-    margin-top: 10px;
-`;
+export const RoomListItemContainer = styled('div')({
+  cursor: 'pointer',
+  width: '80%',
+  padding: '10px',
+  backgroundColor: theme.palette.primary.main,
+  boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
+  transition: 'background-color 0.2s ease-in-out',
+  '&:hover': {
+    backgroundColor: theme.palette.secondary.main,
+  },
+});
 
-export const RoomListItemContainer = styled.div`
-    cursor: pointer;
-    width: 80%;
-    padding : 10px;
-    background-color: #4F5D75;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    transition: background-color 0.2s ease-in-out;
-    &:hover {
-        background-color: #EF8354;
-    };
-`;
+export const RoomListItemContentContainer = styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  width: '100%',
+  height: '100%',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+});
 
-export const RoomListItemContentContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    height: 100%;
-    justify-content: space-between;
-    align-items: space-between;
-`;
+export const RoomListItemImage = styled('img')({
+  width: '100px',
+  height: '100px',
+});
 
-export const RoomListItemImage = styled.img`
-    width: 100px;
-    height: 100px;
-`;
+export const RoomListItemInfo = styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  height: '100%',
+  justifyContent: 'space-between',
+  alignItems: 'flex-end',
+  fontSize: '20px',
+  gap: '5px',
+  width: '80%',
+});
 
-export const RoomListItemInfo = styled.div`
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    justify-content: space-between;
-    align-items: end;
-    font-size: 20px;
-    gap: 5px;
-    width: 80%;
-`;
-
-export const RomListItemMembers = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 5px;
-    font-size: 20px;
-`;
+export const RomListItemMembers = styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  gap: '5px',
+  fontSize: '20px',
+});

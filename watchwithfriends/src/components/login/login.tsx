@@ -6,6 +6,7 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import * as CommonStyles from '../../commonStyles';
 import { AuthContext } from '../../services/authenticationContext';
 import toast from 'react-hot-toast';
+import { theme } from '../../theme';
 
 interface LoginFormProps {
     formChangeHandler: () => void;
@@ -39,10 +40,10 @@ export const LoginForm = (props: LoginFormProps): JSX.Element => {
     };
     return (
         <>
-            <h1>Sign In</h1>
+            <CommonStyles.Title>Sign In</CommonStyles.Title>
             <Style.InputContainer>
-                <Style.SignInTextField onKeyDown={handleKeyDown} value={credentials.email} onChange={handleCredentialsChange} name='email' type="text" placeholder="E-mail" />
-                <Style.SignInTextField
+                <CommonStyles.StyledTextField onKeyDown={handleKeyDown} value={credentials.email} onChange={handleCredentialsChange} name='email' type="text" placeholder="E-mail" />
+                <CommonStyles.StyledTextField
                     value={credentials.password}
                     onChange={handleCredentialsChange}
                     name='password'
@@ -63,9 +64,9 @@ export const LoginForm = (props: LoginFormProps): JSX.Element => {
                         ),
                     }}
                 />
-                <Style.SignInButton onClick={login} size='large' startIcon={<LoginIcon />}>Sign In</Style.SignInButton>
+                <CommonStyles.GenericButton onClick={login} size='large' startIcon={<LoginIcon />}>Sign In</CommonStyles.GenericButton>
             </Style.InputContainer>
-            <CommonStyles.SignSwitchButton onClick={props.formChangeHandler}>Need an account?</CommonStyles.SignSwitchButton>
+            <CommonStyles.SignSwitchButton  onClick={props.formChangeHandler}>Need an account?</CommonStyles.SignSwitchButton>
         </>
     )
 }

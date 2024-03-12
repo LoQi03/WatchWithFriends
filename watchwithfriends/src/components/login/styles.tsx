@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import * as CommonStyle from "../../commonStyles";
 
 export const InputContainer = styled.div`
     padding-top: 5px;
@@ -19,10 +18,3 @@ export const InputContainer = styled.div`
         width: 90%;
     }
     `;
-export const SignInButton = styled(CommonStyle.GenericButton)({
-    width: "100%",
-});
-
-export const SignInTextField = styled(CommonStyle.StyledTextField)({
-    color: "white",
-});
