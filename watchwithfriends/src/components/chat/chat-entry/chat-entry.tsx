@@ -3,7 +3,7 @@ import { AuthContext } from '../../../services/authenticationContext';
 import * as Styles from './styles';
 import * as AppConfig from '../../../AppConfig';
 import { Tooltip } from '@mui/material';
-import { ChatEntryDTO } from '../../../models/chatEntryDTO';
+import { ChatEntryDTO } from '../../../api/models/chatEntryDto';
 export interface ChatEntryProps {
     chatEntry: ChatEntryDTO
 };

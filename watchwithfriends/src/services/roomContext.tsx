@@ -10,8 +10,8 @@ import { toggleFullScreen } from '../misc/toggleFullScreen';
 import * as signalR from '@microsoft/signalr';
 import toast from 'react-hot-toast';
 import { RoomDTO, RoomsApi, UserDTO, Video } from '../api';
-import { VideoPlayerDTO } from '../models/videoPlayerDTO';
-import { ChatEntryDTO } from '../models/chatEntryDTO';
+import { ChatEntryDTO } from '../api/models/chatEntryDto';
+import { VideoPlayerDTO } from '../api/models/videoPlayerDto';
 
 export interface RoomContextType {
     sendMessage: (messageText: string) => Promise<void>;

@@ -3,7 +3,7 @@ import * as Styles from './styles'
 import { ChatEntry } from "../chat-entry/chat-entry";
 import { TextField } from "@mui/material";
 import { RoomContext } from "../../../services/roomContext";
-import { ChatEntryDTO } from "../../../models/chatEntryDTO";
+import { ChatEntryDTO } from "../../../api/models/chatEntryDto";
 
 interface ChatFieldParams {
     messages: ChatEntryDTO[]
