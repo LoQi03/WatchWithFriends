@@ -2,7 +2,6 @@ import React, { ChangeEvent, useContext, useState } from 'react';
 import * as Style from './styles';
 import { IconButton, InputAdornment, ThemeProvider } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { RegisterUserDto } from '../../models/registerUserDto';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import dayjs from 'dayjs';
@@ -18,7 +17,7 @@ export const RegistrationForm = (props: RegistrationFormProps): JSX.Element => {
     const authContext = useContext(AuthContext);
     const [showPassword, setShowPassword] = React.useState(false);
     const [showConfrimPassword, setshowConfrimPassword] = React.useState(false);
-    const [registerCredentials, setRegisterCredentials] = useState<RegisterUserDto>({ email: '', password: '', name: '', birthDate: '1998-07-03' });
+    const [registerCredentials, setRegisterCredentials] = useState<{ email: string, password: string, name: string, birthDate: string }>({ email: '', password: '', name: '', birthDate: '1998-07-03' });
     const [confrimPassword, setConfrimPassword] = useState<string>('');
 
     const schema = joi.object({

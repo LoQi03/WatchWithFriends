@@ -1,12 +1,12 @@
 import { useContext, useState } from "react";
 import * as Styles from './styles'
 import { ChatEntry } from "../chat-entry/chat-entry";
-import { ChatEntryDto } from "../../../models/chatEntryDto";
 import { TextField } from "@mui/material";
 import { RoomContext } from "../../../services/roomContext";
+import { ChatEntryDTO } from "../../../models/chatEntryDTO";
 
 interface ChatFieldParams {
-    messages: ChatEntryDto[]
+    messages: ChatEntryDTO[]
 }
 
 export const ChatField: React.FC<ChatFieldParams> = (props: ChatFieldParams) => {

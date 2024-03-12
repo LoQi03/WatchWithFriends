@@ -3,7 +3,6 @@ import * as Style from './styles';
 import LoginIcon from '@mui/icons-material/Login';
 import { IconButton, InputAdornment } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { LoginCredentialsDto } from '../../models/loginCredentialsDto';
 import * as CommonStyles from '../../commonStyles';
 import { AuthContext } from '../../services/authenticationContext';
 import toast from 'react-hot-toast';
@@ -15,7 +14,7 @@ interface LoginFormProps {
 export const LoginForm = (props: LoginFormProps): JSX.Element => {
     const authContext = React.useContext(AuthContext);
     const [showPassword, setShowPassword] = React.useState<boolean>(false);
-    const [credentials, setCredentials] = useState<LoginCredentialsDto>({ email: '', password: '' });
+    const [credentials, setCredentials] = useState<{email:string,password:string}>({ email: '', password: '' });
     const handleTogglePassword = () => {
         setShowPassword((prevShowPassword) => !prevShowPassword);
     };

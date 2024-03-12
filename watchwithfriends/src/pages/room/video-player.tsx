@@ -20,7 +20,7 @@ export const VideoPlayer: React.FC = () => {
                         height={'100%'}
                         ref={roomContext?.playerRef}
                         controls={false}
-                        url={roomContext?.currentVideo?.url}
+                        url={roomContext?.currentVideo?.url??""}
                         onPlay={roomContext?.onStart}
                         onPause={roomContext?.onPause}
                         onEnded={roomContext?.onEnd}

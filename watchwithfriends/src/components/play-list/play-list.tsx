@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 import * as Styles from './styles';
-import { VideoDto } from '../../models/videoDto';
 import { AuthContext } from '../../services/authenticationContext';
 import { RoomContext } from '../../services/roomContext';
+import { Video } from '../../api';
 
 export const PlayList: React.FC = () => {
     const authContext = useContext(AuthContext);
@@ -12,10 +12,10 @@ export const PlayList: React.FC = () => {
             {
                 < Styles.PlayListContainer >
                     <Styles.PlayList>
-                        {roomContext?.currentRoom?.playList?.map((video: VideoDto) => {
+                        {roomContext?.currentRoom?.playList?.map((video: Video) => {
                             return (
                                 <Styles.PlayListItem key={video.id}>
-                                    <Styles.PlayListItemImage src={video.image} alt={video.title} />
+                                    <Styles.PlayListItemImage src={video.image??""} alt={video.title??""} />
                                     <Styles.PlayListItemTitle>{video.title}</Styles.PlayListItemTitle>
                                     {
                                         authContext?.currentUser?.id === roomContext.currentRoom?.creatorId && <Styles.PlayListItemDelete onClick={() => roomContext.handleDeleteVideo(video.id!)} />
