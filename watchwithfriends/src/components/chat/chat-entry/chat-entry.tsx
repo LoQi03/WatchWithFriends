@@ -12,7 +12,6 @@ export const ChatEntry = (props: ChatEntryProps): JSX.Element => {
     const authContext = useContext(AuthContext);
     const isCurrentUser = authContext?.currentUser?.id === props.chatEntry.userId;
 
-
     return (
         <>
             {
@@ -38,7 +37,6 @@ export const ChatEntry = (props: ChatEntryProps): JSX.Element => {
                             </Styles.ChatEntryContent>
                         </Styles.ChatEntryContainer>
                     </>
-
             }
         </>
     )
