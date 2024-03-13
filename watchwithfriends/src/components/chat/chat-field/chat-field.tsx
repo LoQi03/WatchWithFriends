@@ -4,6 +4,8 @@ import { ChatEntry } from "../chat-entry/chat-entry";
 import { TextField } from "@mui/material";
 import { RoomContext } from "../../../services/roomContext";
 import { ChatEntryDTO } from "../../../api/models/chatEntryDto";
+import { theme } from "../../../theme";
+import { RoomUsers } from "../../room-users/room-users";
 
 interface ChatFieldParams {
     messages: ChatEntryDTO[]
@@ -22,6 +24,7 @@ export const ChatField: React.FC<ChatFieldParams> = (props: ChatFieldParams) => 
 
     return (
         <Styles.ChatFieldContainer>
+            <RoomUsers users={roomContext?.users ?? []} />
             <Styles.ChatFieldContent>
                 {
                     props.messages && props.messages.map((message, index) => <ChatEntry key={index} chatEntry={message} ></ChatEntry>)
@@ -39,7 +42,7 @@ export const ChatField: React.FC<ChatFieldParams> = (props: ChatFieldParams) => 
                             width: "100%",
                             marginRight: "10px",
                             borderRadius: "5px",
-                            backgroundColor: "#2D3142",
+                            backgroundColor: theme.palette.primary.main,
                             "& .MuiInputBase-input": {
                                 color: "white",
                             },

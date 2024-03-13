@@ -25,16 +25,25 @@ export const AuthenticationModal = styled('div')(() => ({
   },
 }));
 
-export const AuthenticationModalContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-`;
-export const StyledImage = styled.img`
-    width: 100%;
-    object-fit: cover;
-    cursor:'pointer' 
- `;
+export const AuthenticationModalContainer = styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'start',
+  justifyContent: 'center',
+  width: '100%',
+  height: '100%',
+});
+
+export const StyledImage = styled('img')({
+  width: '100%',
+  objectFit: 'cover',
+  cursor: 'pointer',
+});
+
+export const AppTitle = styled('h1')({
+  color: theme.palette.secondary.main,
+  fontSize: '70px',
+  fontWeight: 'bold',
+  margin: '0',
+  padding: '10px',
+});

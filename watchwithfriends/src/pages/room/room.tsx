@@ -33,13 +33,12 @@ export const RoomPage: React.FC = () => {
                     <Styles.RoomContainer>
                         <Styles.VideoPlayerAndPlayListContainer>
                             <Styles.RoomAddLink>
-                                <CommonStyles.StyledTextField value={roomContext?.newUrl} onChange={e => roomContext?.handleSetNewUrl(e.target.value)} />
+                                <CommonStyles.GenericTextField value={roomContext?.newUrl} onChange={e => roomContext?.handleSetNewUrl(e.target.value)} />
                                 <Styles.PlayButton onClick={() => roomContext?.handlePlayUrl(roomContext?.newUrl)}>Play</Styles.PlayButton>
                             </Styles.RoomAddLink>
                             <Styles.VideoPlayerContainer isFullScreen={roomContext?.isFullScreen}>
                                 <VideoPlayer />
                             </Styles.VideoPlayerContainer>
-                            <RoomUsers users={roomContext?.users ?? []} />
                             <PlayList />
                         </Styles.VideoPlayerAndPlayListContainer>
                         <Styles.ChatContainer>

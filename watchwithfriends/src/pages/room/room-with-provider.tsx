@@ -112,7 +112,7 @@ export const RoomPageWithProvider: React.FC = () => {
                     <Styles.PasswordRoomInputFieldContainer>
                         <Styles.PasswordRoomInputFieldContainer>
                             <Styles.LockIconStyled />
-                            <CommonStyles.StyledTextField onKeyDown={handleKeyDown} type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
+                            <CommonStyles.GenericTextField onKeyDown={handleKeyDown} type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
                             <CommonStyles.GenericButton onClick={handlePasswordSubmit}>Submit</CommonStyles.GenericButton>
                         </Styles.PasswordRoomInputFieldContainer>
                     </Styles.PasswordRoomInputFieldContainer>

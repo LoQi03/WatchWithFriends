@@ -61,28 +61,65 @@ export const RegistrationForm = (props: RegistrationFormProps): JSX.Element => {
 
     return (
         <>
-            <CommonStyles.Title theme={theme}>Sign Up</CommonStyles.Title>
-            <Style.InputContainer theme={theme}>
-                <CommonStyles.StyledTextField theme={theme} value={registerCredentials.email} name='email' onChange={handleRegisterCredentialsChange} type="text" placeholder="E-mail" />
-                <CommonStyles.StyledTextField theme={theme} value={registerCredentials.name} name='name' onChange={handleRegisterCredentialsChange} type="text" placeholder="Username" />
+            <CommonStyles.Title>Sign Up</CommonStyles.Title>
+            <Style.InputContainer >
+                <CommonStyles.GenericTextField value={registerCredentials.email} name='email' onChange={handleRegisterCredentialsChange} type="text" placeholder="E-mail" />
+                <CommonStyles.GenericTextField value={registerCredentials.name} name='name' onChange={handleRegisterCredentialsChange} type="text" placeholder="Username" />
                 <ThemeProvider theme={theme}>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker
+                            sx={{position: 'relative', zIndex: 1}}
                             value={dayjs(registerCredentials.birthDate)}
-                            components={{
-                                    TextField: (props) => (
-                                        <CommonStyles.StyledTextField theme={theme}
-                                        {...props}
-                                        size="medium"
-                                        variant="outlined"
-                                        />
-                                    )
-                                    }}
-                                    onChange={(date) => setRegisterCredentials({ ...registerCredentials, birthDate: date?.toISOString() ?? '' })}
-                            slotProps={{ textField: { size: 'medium', variant: 'outlined' } }} />
+                            onChange={(date) => setRegisterCredentials({ ...registerCredentials, birthDate: date?.toISOString() ?? '' })}
+                            slotProps={{ textField: { sx: {
+                                 "& .MuiInputBase-input": {
+                                    border: 'none',
+                                    color: theme.palette.primary.main,
+                                },
+                                "& .MuiInputLabel-root": {
+                                    color: theme.palette.primary.main,
+                                },
+                                "& .MuiInputLabel-root.Mui-focused": {
+                                    color: theme.palette.primary.main,
+                                },
+                                "& .MuiIconButton-root": {
+                                    color: theme.palette.primary.main,
+                                },
+                                "& .MuiOutlinedInput-notchedOutline": {
+                                    border: 'none',
+                                    borderBottom: '1px solid ' + theme.palette.primary.main,
+                                    borderRadius: '0',
+                                },
+                                "& .MuiOutlinedInput-root": {
+                                    "& fieldset": {
+                                    color: theme.palette.primary.main,
+                                    border: 'none',
+                                    borderBottom: '1px solid ' + theme.palette.primary.main,
+                                    },
+                                    "&:hover fieldset": {
+                                    color: theme.palette.primary.main,
+                                    border: 'none',
+                                    borderBottom: '1px solid ' + theme.palette.primary.main,
+                                    },
+                                    "&.Mui-focused fieldset": {
+                                    color: theme.palette.primary.main,
+                                    border: 'none',
+                                    borderBottom: '1px solid ' + theme.palette.primary.light,
+                                    },
+                                },
+                                input: {
+                                    '&:-webkit-autofill': {
+                                    WebkitBoxShadow: `0 0 0 1000px ${theme.palette.background.default} inset`,
+                                    backgroundColor: theme.palette.primary.main,
+                                    WebkitTextFillColor: theme.palette.primary.main,
+                                    caretColor: theme.palette.primary.main,
+                                    },
+                                },
+                                width: '100%',
+                             } }}} />
                     </LocalizationProvider>
                 </ThemeProvider>
-                <CommonStyles.StyledTextField theme={theme}
+                <CommonStyles.GenericTextField 
                     value={registerCredentials.password}
                     onChange={handleRegisterCredentialsChange}
                     name='password'
@@ -102,7 +139,7 @@ export const RegistrationForm = (props: RegistrationFormProps): JSX.Element => {
                         ),
                     }}
                 />
-                <CommonStyles.StyledTextField theme={theme}
+                <CommonStyles.GenericTextField theme={theme}
                     type={showConfrimPassword ? 'text' : 'password'}
                     value={confrimPassword}
                     placeholder="Confirm Password"

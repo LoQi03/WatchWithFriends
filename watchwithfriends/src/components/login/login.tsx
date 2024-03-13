@@ -42,8 +42,8 @@ export const LoginForm = (props: LoginFormProps): JSX.Element => {
         <>
             <CommonStyles.Title>Sign In</CommonStyles.Title>
             <Style.InputContainer>
-                <CommonStyles.StyledTextField onKeyDown={handleKeyDown} value={credentials.email} onChange={handleCredentialsChange} name='email' type="text" placeholder="E-mail" />
-                <CommonStyles.StyledTextField
+                <CommonStyles.GenericTextField onKeyDown={handleKeyDown} value={credentials.email} onChange={handleCredentialsChange} name='email' type="text" placeholder="E-mail" />
+                <CommonStyles.GenericTextField
                     value={credentials.password}
                     onChange={handleCredentialsChange}
                     name='password'

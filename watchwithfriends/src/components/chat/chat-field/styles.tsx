@@ -1,49 +1,59 @@
-import styled from "@emotion/styled";
-import { TextField } from "@mui/material";
+import { styled } from '@mui/system';
 import SendIcon from '@mui/icons-material/Send';
+import { theme } from '../../../theme';
 
-export const ChatFieldContainer = styled.div`
-    display:flex;
-    flex-direction:column;
-    justify-content:space-between;
-    background-color: #2D3142;
-    height:100%;
-    max-height:100%;
-    gap:10px;
-    width:100%;
-    @media (max-width: 800px) {
-        zoom: 0.8;
+export const ChatFieldContainer = styled('div')({
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    backgroundColor: theme.palette.primary.dark,
+    height: '100%',
+    maxHeight: '100%',
+    gap: '10px',
+    width: '100%',
+    '@media (max-width: 800px)': {
+        zoom: 0.8,
     }
-`;
-export const ChatFieldContent = styled.div`
-    overflow-x:hidden;
-    overflow-y:auto;
-    height:100%;
-    padding:20px;
-    border-top: 5px solid #4F5D75;
- `;
-export const ChatFieldActionBar = styled.div`
-    display:flex;
-    align-items:center;
-    padding:5px;
-    background-color:#4F5D75;
-`;
-export const RichTextField = (): JSX.Element => <TextField
-    id="outlined-multiline-static"
-    multiline
-    rows={1}
-    placeholder="Type something....."
-    sx={
-        {
-            width: "100%",
-            marginRight: "10px"
-        }
-    }
-/>
+});
 
-export const SendButton = styled(SendIcon)`
-    color: white;
-    cursor: pointer;
-    width: 30px;
-    height: 30px;
-`;
+export const ChatFieldContent = styled('div')({
+    overflowX: 'hidden',
+    overflowY: 'auto',
+    height: '100%',
+    padding: '10px',
+
+    /* Egyedi görgetősáv stílus */
+    '&::-webkit-scrollbar': {
+        width: '10px',
+    },
+
+    /* Egyedi görgetősáv háttere */
+    '&::-webkit-scrollbar-track': {
+        background: theme.palette.secondary.light,
+    },
+
+    /* Egyedi görgetősáv csúcsa */
+    '&::-webkit-scrollbar-thumb': {
+        background: theme.palette.primary.main,
+        borderRadius: '5px',
+    },
+
+    /* Egyedi görgetősáv csúcsa hover állapotban */
+    '&::-webkit-scrollbar-thumb:hover': {
+        background: theme.palette.primary.dark,
+    }
+});
+
+export const ChatFieldActionBar = styled('div')({
+    display: 'flex',
+    alignItems: 'center',
+    padding: '5px',
+    backgroundColor: theme.palette.primary.dark,
+});
+
+export const SendButton = styled(SendIcon)({
+    color: 'white',
+    cursor: 'pointer',
+    width: '30px',
+    height: '30px',
+});

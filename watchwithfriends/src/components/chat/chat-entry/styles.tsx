@@ -1,57 +1,64 @@
-import styled from "@emotion/styled";
+import { styled } from '@mui/system';
+import { theme } from '../../../theme';
 
-export const ChatEntryContainer = styled.div<{ isCurrentUser: boolean }>`
-    margin-top: 10px;
-    display: flex;
-    gap: 10px;
-    align-items: end;
-    justify-content: ${props => props.isCurrentUser ? "end" : "start"};
-    width: 100%;
-`;
+export const ChatEntryContainer = styled('div')<{ isCurrentUser: boolean }>(
+  ({ isCurrentUser}) => ({
+    marginTop: '10px',
+    display: 'flex',
+    gap: '10px',
+    alignItems: 'end',
+    justifyContent: isCurrentUser ? 'flex-end' : 'flex-start',
+    width: '100%',
+  })
+);
 
-export const ChatEntryContent = styled.div<{ isCurrentUser: boolean }>`
-    max-width: 70%;
-    border-radius: 10px;
-    background-color: ${props => props.isCurrentUser ? "#EF8354" : "#4F5D75"};
-    padding: 15px;
-    white-space: auto;
-    word-spacing: 5px;
-    line-height: 1.4;
-    text-align: justify;
-    font-weight: 550;
-    font-size: 15px;
-    overflow-wrap: break-word;
-`;
+export const ChatEntryContent = styled('div')<{ isCurrentUser: boolean }>(
+    ({ isCurrentUser}) => ({
+    maxWidth: '70%',
+    borderRadius: '10px',
+    backgroundColor: isCurrentUser ? theme.palette.primary.main : theme.palette.secondary.main,
+    padding: '15px',
+    whiteSpace: 'pre-wrap',
+    wordSpacing: '5px',
+    lineHeight: '1.4',
+    textAlign: 'justify',
+    fontWeight: '550',
+    fontSize: '15px',
+    overflowWrap: 'break-word',
+    })
+);
 
-export const ChatEntryImage = styled.img`
-    cursor: pointer;
-    height: 50px;
-    width: 50px;
-    border-radius: 50%;
-    min-width: 50px;
-    min-height: 50px;
- `;
 
-export const CurrentUserChatEntryName = styled.p`
-    margin-left: 70px;
-    margin-right: 0px;
-    margin-bottom: 10px;
-    margin-top: 20px;
-    color: black;
-    font-weight: 500;
-    font-size: 16px;
-`;
+export const ChatEntryImage = styled('img')({
+  cursor: 'pointer',
+  height: '50px',
+  width: '50px',
+  borderRadius: '50%',
+  minWidth: '50px',
+  minHeight: '50px',
+});
 
-export const OtherUserChatEntryName = styled.p`
-    margin-left: 0px;
-    margin-right: 70px;
-    margin-bottom: 10px;
-    margin-top: 20px;
-    color: black;
-    font-weight: 500;
-    font-size: 16px;
-`;
-export const OtherUserChatEntryNameContainer = styled.div`
-    display: flex;
-    justify-content: end;
-`;
+export const CurrentUserChatEntryName = styled('p')({
+  marginLeft: '70px',
+  marginRight: '0px',
+  marginBottom: '10px',
+  marginTop: '20px',
+  color: 'black',
+  fontWeight: '500',
+  fontSize: '16px',
+});
+
+export const OtherUserChatEntryName = styled('p')({
+  marginLeft: '0px',
+  marginRight: '70px',
+  marginBottom: '10px',
+  marginTop: '20px',
+  color: 'black',
+  fontWeight: '500',
+  fontSize: '16px',
+});
+
+export const OtherUserChatEntryNameContainer = styled('div')({
+  display: 'flex',
+  justifyContent: 'flex-end',
+});

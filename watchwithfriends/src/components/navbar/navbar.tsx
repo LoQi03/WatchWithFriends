@@ -58,7 +58,7 @@ export const Navbar: React.FC = () => {
         <>
             <Styles.Navbar>
                 <Styles.NavbarContainer>
-                    <Styles.StyledImage onClick={() => navigate('/')} src={WatchWithFriendsLogo} alt="WatchWithFriends" />
+                    {/*<Styles.StyledImage onClick={() => navigate('/')} src={WatchWithFriendsLogo} alt="WatchWithFriends" />*/}
                     <Styles.LinkContainer>
                         {
                             navigationArrayTop.map((navigation: NavigationProps) => (

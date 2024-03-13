@@ -5,7 +5,7 @@ export const Navbar = styled('div')(() => ({
   display: 'flex',
   alignItems: 'center',
   paddingX: '10px',
-  backgroundColor: theme.palette.secondary.main,
+  backgroundColor: theme.palette.primary.dark,
   position: 'fixed',
   top: 0,
   minHeight: '60px',
@@ -36,7 +36,7 @@ export const ProfileImage = styled('img')({
   width: '50px',
   borderRadius: '50%',
   cursor: 'pointer',
-  objectFit: 'auto',
+  objectFit: 'cover',
 });
 
 export const LinkContainer = styled('div')({
@@ -69,7 +69,7 @@ export const Link = styled('a')({
     justifyContent: 'center',
     boxShadow: 'rgba(0, 0, 0, 0.3) 5px 5px 5px, rgba(0, 0, 0, 0.22) 5px 5px 5px',
     '&:hover': {
-      color: theme.palette.secondary.main,
+      color: theme.palette.primary.light,
     },
   },
 });
@@ -78,7 +78,7 @@ export const StyledMenuItem = styled(MenuItem)({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  color: theme.palette.text.primary,
+  color: theme.palette.primary.main,
 });
 
 export const StyledMenuItemButton = styled('div')({
@@ -92,7 +92,7 @@ export const NavbarButtons = styled(BottomNavigation)({
   zIndex: 100,
   display: 'flex',
   width: '100%',
-  backgroundColor: theme.palette.secondary.dark,
+  backgroundColor: theme.palette.primary.dark,
   position: 'fixed',
   bottom: 0,
   height: '65px',
@@ -104,6 +104,6 @@ export const NavbarButtons = styled(BottomNavigation)({
 export const BottomNavigationLink = styled(BottomNavigationAction)({
   color: 'white',
   '&.Mui-selected': {
-    color: theme.palette.secondary.light,
+    color: theme.palette.primary.light,
   },
 });

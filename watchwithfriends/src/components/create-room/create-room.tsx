@@ -44,8 +44,8 @@ export const CreateRoom = (): JSX.Element => {
                     <Styles.CreateRoomModal>
                         <CommonStyles.Title>Create Room</CommonStyles.Title>
                         <Styles.CreateRoomInputFieldContainer>
-                            <CommonStyles.StyledTextField value={roomName} onChange={e => setRoomName(e.target.value)} placeholder="Name" />
-                            <CommonStyles.StyledTextField value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" type="password" />
+                            <CommonStyles.GenericTextField value={roomName} onChange={e => setRoomName(e.target.value)} placeholder="Name" />
+                            <CommonStyles.GenericTextField value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" type="password" />
                             <CommonStyles.GenericButton onClick={create}>Create</CommonStyles.GenericButton>
                         </Styles.CreateRoomInputFieldContainer>
                         <CommonStyles.SignSwitchButton onClick={close}>Close</CommonStyles.SignSwitchButton>

@@ -4,7 +4,7 @@ import { Button, TextField, Theme} from "@mui/material";
 import { theme } from "./theme";
 
 export const PageContainer = styled('div', {
-  shouldForwardProp: (prop) => prop !== 'backgroundImage' && prop !== 'isLogin',
+  shouldForwardProp: (prop) =>  prop !== 'isLogin',
 })<{ backgroundImage?: string; isLogin?: boolean }>(
   ({ backgroundImage, isLogin }) => `
     background-color: ${theme.palette.background.default};
@@ -12,7 +12,8 @@ export const PageContainer = styled('div', {
     align-items: center;
     width: 100%;
     display: flex;
-    overflow-y: auto;
+    overflow-y: hidden;
+    overflow-x: hidden;
     flex-direction: column;
     justify-content: start;
     background-image: url(${backgroundImage});
@@ -29,74 +30,49 @@ export const PageContainer = styled('div', {
   `
 );
 
-export const StyledTextField = styled(TextField)(() => ({
+
+export const GenericTextField = styled(TextField)(() => ({
   "& .MuiInputBase-input": {
-    color: theme.palette.primary.main,
+    border: 'none',
+    color: theme.palette.text.secondary,
   },
   "& .MuiInputLabel-root": {
-    color: theme.palette.primary.main,
+    color: theme.palette.text.secondary,
   },
   "& .MuiInputLabel-root.Mui-focused": {
-    color: theme.palette.primary.main,
+    color: theme.palette.text.secondary,
   },
   "& .MuiIconButton-root": {
-    color: theme.palette.primary.main,
+    color: theme.palette.text.secondary,
   },
   "& .MuiOutlinedInput-notchedOutline": {
-    borderColor: theme.palette.primary.main,
+    border: 'none',
+    borderBottom: '1px solid ' + theme.palette.primary.main,
+    borderRadius: '0',
   },
   "& .MuiOutlinedInput-root": {
     "& fieldset": {
-      color: theme.palette.primary.main,
+      color: theme.palette.text.secondary,
+      border: 'none',
+      borderBottom: '1px solid ' + theme.palette.primary.main,
     },
     "&:hover fieldset": {
-      color: theme.palette.primary.main,
+      color: theme.palette.text.secondary,
+      border: 'none',
+      borderBottom: '1px solid ' + theme.palette.primary.main,
     },
     "&.Mui-focused fieldset": {
-      color: theme.palette.primary.main,
+      color: theme.palette.text.secondary,
+      border: 'none',
+      borderBottom: '1px solid ' + theme.palette.primary.light,
     },
   },
   input: {
     '&:-webkit-autofill': {
       WebkitBoxShadow: `0 0 0 1000px ${theme.palette.background.default} inset`,
-      backgroundColor: theme.palette.background.default,
+      backgroundColor: theme.palette.primary.main,
       WebkitTextFillColor: theme.palette.primary.main,
       caretColor: theme.palette.primary.main,
-    },
-  },
-  [theme.breakpoints.down('sm')]: {
-    "& .MuiInputBase-input, & .MuiInputLabel-root, & .MuiInputLabel-root.Mui-focused, & .MuiIconButton-root": {
-      border: 'none',
-      borderBottom: `1px solid ${theme.palette.primary.main}`,
-      borderRadius: '0',
-      color: theme.palette.primary.main,
-    },
-    "& .MuiOutlinedInput-notchedOutline": {
-      borderColor: theme.palette.primary.main,
-      border: 'none',
-      borderBottom: `1px solid ${theme.palette.primary.main}`,
-      borderRadius: '0',
-      padding: '0',
-    },
-    "& .MuiOutlinedInput-root": {
-      "& fieldset": {
-        borderColor: theme.palette.primary.main,
-      },
-      "&:hover fieldset": {
-        borderColor: theme.palette.primary.main,
-      },
-      "&.Mui-focused fieldset": {
-        borderColor: theme.palette.primary.main,
-      },
-    },
-    input: {
-      '&:-webkit-autofill': {
-        WebkitBoxShadow: `0 0 0 1000px ${theme.palette.primary.main} inset`,
-        backgroundColor: theme.palette.background.default,
-        WebkitTextFillColor: theme.palette.primary.main,
-        caretColor: theme.palette.primary.main,
-        borderRadius: '0',
-      },
     },
   },
   width: '100%',
@@ -115,12 +91,6 @@ export const GenericButton = styled(Button)(() => ({
     backgroundColor: theme.palette.secondary.main,
   },
 }));
-
-export const ErrorMassage = styled.p`
-    color: red;
-    font-size: 15px;
- `;
- 
 
 export const SignSwitchButton = styled('p')(() => ({
   cursor: 'pointer',

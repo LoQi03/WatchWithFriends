@@ -14,6 +14,9 @@ export const theme = createTheme({
     text: {
       primary: "#9DB2BF",
     },
+    error: {
+      main: "#FF0000",
+    },
   },
   breakpoints: {
     values: {

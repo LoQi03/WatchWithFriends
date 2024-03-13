@@ -122,9 +122,9 @@ export const ProfilePage = (): JSX.Element => {
                     </Button>
                 </Style.ImageContainer>
                 <Style.ProfilePageInputContainer>
-                    <CommonStyle.StyledTextField onChange={handleUserDetailsChange} value={userDetails.name ?? ''} name='name' type='text' placeholder="Username" />
-                    <CommonStyle.StyledTextField onChange={handleUserDetailsChange} value={userDetails.email ?? ''} name='email' type='text' placeholder="E-mail" />
-                    <CommonStyle.StyledTextField
+                    <CommonStyle.GenericTextField onChange={handleUserDetailsChange} value={userDetails.name ?? ''} name='name' type='text' placeholder="Username" />
+                    <CommonStyle.GenericTextField onChange={handleUserDetailsChange} value={userDetails.email ?? ''} name='email' type='text' placeholder="E-mail" />
+                    <CommonStyle.GenericTextField
                         value={userDetails.password ?? ''}
                         onChange={handleUserDetailsChange}
                         name='password'
@@ -146,7 +146,7 @@ export const ProfilePage = (): JSX.Element => {
                     />
                     {showChangePassword ?
                         <>
-                            <CommonStyle.StyledTextField
+                            <CommonStyle.GenericTextField
                                 value={newPassword}
                                 onChange={(e) => setNewPassword(e.target.value)}
                                 type={showNewPassword ? 'text' : 'password'}
@@ -165,7 +165,7 @@ export const ProfilePage = (): JSX.Element => {
                                     ),
                                 }}
                             />
-                            <CommonStyle.StyledTextField
+                            <CommonStyle.GenericTextField
                                 value={confrimNewPassword}
                                 onChange={(e) => setConfrimNewPassword(e.target.value)}
                                 placeholder='Confirm Password'

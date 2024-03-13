@@ -68,7 +68,7 @@ export const RoomsPage = (): JSX.Element => {
         <Styles.RoomsPageContainer>
             {isLoading && <Loader />}
             <Styles.HeaderBar>
-                <CommonStyles.StyledTextField value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search" />
+                <CommonStyles.GenericTextField value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search" />
                 <Styles.RoomHeaderButtonContainer>
                     <CommonStyles.GenericButton onClick={handleOpen} ><AddIcon /></CommonStyles.GenericButton>
                 </Styles.RoomHeaderButtonContainer>

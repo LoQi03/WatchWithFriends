@@ -14,6 +14,7 @@ import { setAxiosConfig } from './AppConfig';
 import * as AppConfig from './AppConfig';
 import { theme } from './theme';
 import { ThemeProvider } from '@mui/material';
+import backgroundImg from './assets/images/background.png';
 const App: React.FC = () => {
   const windowSize = useRef([window.innerWidth, window.innerHeight]);
   setAxiosConfig(AppConfig.getConfig().apiUrl);
@@ -38,7 +39,7 @@ const App: React.FC = () => {
                   <BrowserRouter>
                   <ThemeProvider theme={theme}>
                     <Navbar />
-                    <CommonStyles.PageContainer theme={theme}>
+                    <CommonStyles.PageContainer backgroundImage={backgroundImg} theme={theme}>
                       <Routes>
                         <Route path="/" element={<HomePage />} />
                         <Route path="/friends" element={<FriendsPage />} />
