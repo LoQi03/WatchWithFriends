@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WatchWithFriends")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7a9a5dd5fe48d0c4d5720904e56923c8b2ad2d27")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0ecceff064bfa62b3b4e766152626063e3442e51")]
 [assembly: System.Reflection.AssemblyProductAttribute("WatchWithFriends")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WatchWithFriends")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

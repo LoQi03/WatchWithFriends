@@ -39,7 +39,7 @@ const App: React.FC = () => {
                   <BrowserRouter>
                   <ThemeProvider theme={theme}>
                     <Navbar />
-                    <CommonStyles.PageContainer backgroundImage={backgroundImg} theme={theme}>
+                    <CommonStyles.PageContainer backgroundimg={backgroundImg} theme={theme}>
                       <Routes>
                         <Route path="/" element={<HomePage />} />
                         <Route path="/friends" element={<FriendsPage />} />

@@ -3,7 +3,6 @@ import Button from '@mui/material/Button';
 import HomeIcon from '@mui/icons-material/Home';
 import * as Styles from './styles';
 import { useNavigate } from 'react-router-dom';
-import WatchWithFriendsLogo from '../../assets/images/logo.png';
 import Person2Icon from '@mui/icons-material/Person2';
 import TvIcon from '@mui/icons-material/Tv';
 import LogoutIcon from '@mui/icons-material/Logout';

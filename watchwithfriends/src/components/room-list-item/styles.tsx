@@ -10,13 +10,13 @@ export const RoomListItemHeader = styled('div')({
 
 export const RoomListItemContainer = styled('div')({
   cursor: 'pointer',
-  width: '80%',
+  width: '100%',
   padding: '10px',
-  backgroundColor: theme.palette.primary.main,
-  boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
+  backgroundColor: theme.palette.secondary.main,
+   boxShadow: 'rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px',
   transition: 'background-color 0.2s ease-in-out',
   '&:hover': {
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.secondary.dark,
   },
 });
 

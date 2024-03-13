@@ -1,71 +1,75 @@
-import styled from "@emotion/styled";
+import { styled } from '@mui/system';
+import { theme } from '../../theme';
 
-
-export const RoomsPageContainer = styled.div`
-    width: 70%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow-x: hidden;
-    overflow-y: auto;
-    justify-content: space-between;
-    padding-bottom: 20px;
-    @media screen and (max-width: 800px) {
-        width: 95%;
+export const RoomsPageContainer = styled('div')({
+    marginTop: '20px',
+    width: '90%',
+    height: '90%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    overflowX: 'hidden',
+    overflowY: 'hidden',
+    justifyContent: 'space-between',
+    backgroundColor: theme.palette.primary.dark,
+    padding: '20px',
+    borderRadius: '20px',
+    boxShadow: 'rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px',
+    '@media screen and (max-width: 800px)': {
+        width: '95%',
     }
-`;
-export const HeaderBar = styled.div`
-    margin-top: 20px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 30px;
-    width: 75%;
-`;
-export const RoomList = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 70%;
-    margin-top: 15px;
-    margin-bottom: 15px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding:20px;
-    gap: 20px;
-    max-height:70vh;
+});
+export const HeaderBar = styled('div')({
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: '30px',
+    width: '99%',
+    backgroundColor: theme.palette.background.default,
+    padding: '10px',
+    borderRadius: '10px',
+});
+export const RoomList = styled('div')({
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    width: '100%',
+    height: '85%',
+    marginTop: '30px',
+    marginBottom: '15px',
+    overflowY: 'auto',
+    overflowX: 'hidden',
+    padding: '20px',
+    gap: '20px',
 
-        ::-webkit-scrollbar {
-            width: 15px;
-        }
+    '&::-webkit-scrollbar': {
+        backgroundColor: theme.palette.secondary.main,
+        width: '15px',
+    },
+    '&::-webkit-scrollbar-track': {
+        opacity: 0,
+    },
+    '&::-webkit-scrollbar-thumb': {
+        borderRadius: '5px',
+        width: '10px',
+        backgroundColor: theme.palette.primary.main,
+    },
+    '&::-webkit-scrollbar-thumb:hover': {
+        background: theme.palette.primary.dark,
+    },
+});
 
-        ::-webkit-scrollbar-track {
-        opacity: 0;
-        }
-
-        ::-webkit-scrollbar-thumb {
-        border-radius: 5px;
-        width: 10px;
-        background-color:  #EF8354;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-        background: #EF8354;
-        }
-`;
-
-export const RoomListContainer = styled.div`
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    height: 100%;
-`;
-export const RoomHeaderButtonContainer = styled.div`
-        height: 100%;
-        width: 10%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-`;
+export const RoomListContainer = styled('div')({
+    display: 'flex',
+    width: '100%',
+    justifyContent: 'center',
+    height: '100%',
+});
+export const RoomHeaderButtonContainer = styled('div')({
+    height: '100%',
+    width: '10%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+});

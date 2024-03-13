@@ -77,7 +77,7 @@ export const RoomsPage = (): JSX.Element => {
                 <Styles.RoomList>
                     {
                         filteredRooms && filteredRooms?.length > 0 ? filteredRooms.map((room: RoomDTO) => <RoomListItem key={room.id} id={room.id!} name={room.name!} creatorId={room.creatorId??""} userCount={room.roomUsers?.length ?? 0} />)
-                            : <h1> No room available!</h1>
+                            : <CommonStyles.Title> No room available!</CommonStyles.Title>
                     }
                 </Styles.RoomList>
             </Styles.RoomListContainer>

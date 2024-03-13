@@ -1,12 +1,12 @@
 
 import styled from "@emotion/styled";
-import { Button, TextField, Theme} from "@mui/material";
+import { Button, TextField} from "@mui/material";
 import { theme } from "./theme";
 
 export const PageContainer = styled('div', {
   shouldForwardProp: (prop) =>  prop !== 'isLogin',
-})<{ backgroundImage?: string; isLogin?: boolean }>(
-  ({ backgroundImage, isLogin }) => `
+})<{ backgroundimg?: string; isLogin?: boolean }>(
+  ({ backgroundimg, isLogin }) => `
     background-color: ${theme.palette.background.default};
     ${!isLogin && "margin-top: 60px;"}
     align-items: center;
@@ -16,7 +16,7 @@ export const PageContainer = styled('div', {
     overflow-x: hidden;
     flex-direction: column;
     justify-content: start;
-    background-image: url(${backgroundImage});
+    background-image: url(${backgroundimg});
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

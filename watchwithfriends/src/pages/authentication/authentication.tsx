@@ -14,7 +14,7 @@ export const AuthenticationPage = (): JSX.Element => {
     };
 
     return (
-        <CommonStyle.PageContainer isLogin={true} backgroundImage={backgroundImg}>
+        <CommonStyle.PageContainer isLogin={true} backgroundimg={backgroundImg}>
             <Style.AuthenticationModalContainer>
                 <Style.AuthenticationModal>
                     {isLogin ? <LoginForm formChangeHandler={formChangeHandler} ></LoginForm>

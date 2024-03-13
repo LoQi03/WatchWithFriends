@@ -104,10 +104,10 @@ export const ProfilePage = (): JSX.Element => {
     return (
         <Style.ProfilePageContainer>
             {isLoading && <Loader />}
-            <CommonStyles.Title>{authContext?.currentUser?.name}</CommonStyles.Title>
             <Style.ProfilePageContent>
+                <Style.ImageRowContainer>
                 <Style.ImageContainer>
-
+                    <CommonStyles.Title>{authContext?.currentUser?.name}</CommonStyles.Title>
                     <Button
                         sx={Style.ProfileButtonStyle}
                         component="label"
@@ -121,6 +121,7 @@ export const ProfilePage = (): JSX.Element => {
                         />
                     </Button>
                 </Style.ImageContainer>
+                </Style.ImageRowContainer>
                 <Style.ProfilePageInputContainer>
                     <CommonStyle.GenericTextField onChange={handleUserDetailsChange} value={userDetails.name ?? ''} name='name' type='text' placeholder="Username" />
                     <CommonStyle.GenericTextField onChange={handleUserDetailsChange} value={userDetails.email ?? ''} name='email' type='text' placeholder="E-mail" />
@@ -155,6 +156,7 @@ export const ProfilePage = (): JSX.Element => {
                                     endAdornment: (
                                         <InputAdornment position="end">
                                             <IconButton
+                                                color='primary'
                                                 onClick={handleToggleNewPassword}
                                                 edge="end"
                                                 aria-label="toggle password visibility"
@@ -184,9 +186,11 @@ export const ProfilePage = (): JSX.Element => {
                                     ),
                                 }}
                             />
+    
                         </> : <CommonStyle.SignSwitchButton onClick={() => setShowChangePassword(true)}>Change Password</CommonStyle.SignSwitchButton >}
-                    <CommonStyle.GenericButton onClick={save} title='Save' >Save</CommonStyle.GenericButton >
+                    
                 </Style.ProfilePageInputContainer>
+                <CommonStyle.GenericButton onClick={save} title='Save' >Save</CommonStyle.GenericButton >
             </Style.ProfilePageContent>
         </Style.ProfilePageContainer>
     )

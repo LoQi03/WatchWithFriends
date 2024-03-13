@@ -5,7 +5,7 @@ import { theme } from '../../theme';
 export const PlayListContainer = styled('div')({
   width: '100%',
   maxWidth: '100%',
-  height: '30vh',
+  height: '30%',
   maxHeight: '30vh',
   display: 'flex',
   flexDirection: 'column',
@@ -19,7 +19,7 @@ export const PlayListContainer = styled('div')({
 });
 
 export const PlayList = styled('div')({
-  width: '100%',
+  width: '99%',
   height: '100%',
   display: 'flex',
   flexDirection: 'column',
@@ -27,14 +27,31 @@ export const PlayList = styled('div')({
   overflowY: 'auto',
   overflowX: 'hidden',
   padding: '10px',
+  
+  '&::-webkit-scrollbar': {
+      width: '10px',
+  },
+
+  '&::-webkit-scrollbar-track': {
+      background: theme.palette.secondary.main,
+  },
+
+  '&::-webkit-scrollbar-thumb': {
+      background: theme.palette.primary.main,
+      borderRadius: '5px',
+  },
+
+  '&::-webkit-scrollbar-thumb:hover': {
+      background: theme.palette.primary.dark,
+  }
 });
 
 export const PlayListItemImage = styled('img')({
-  width: '150px',
+  width: '100px',
 });
 
 export const PlayListItem = styled('div')({
-  padding: '15px',
+  padding: '10px',
   width: '92%',
   height: '100px',
   display: 'flex',
@@ -43,7 +60,8 @@ export const PlayListItem = styled('div')({
   justifyContent: 'space-between',
   marginTop: '10px',
   backgroundColor: theme.palette.primary.main,
-  gap: '20px',
+  gap: '10px',
+  boxShadow: 'rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px',
 });
 
 export const PlayListItemTitle = styled('div')({
@@ -62,6 +80,6 @@ export const PlayListItemTitle = styled('div')({
 export const PlayListItemDelete = styled(DeleteIcon)({
   color: theme.palette.primary.light,
   cursor: 'pointer',
-  width: '30px',
-  height: '30px',
+  width: '25px',
+  height: '25px',
 });

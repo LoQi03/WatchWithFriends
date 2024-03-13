@@ -6,7 +6,6 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import * as CommonStyles from '../../commonStyles';
 import { AuthContext } from '../../services/authenticationContext';
 import toast from 'react-hot-toast';
-import { theme } from '../../theme';
 
 interface LoginFormProps {
     formChangeHandler: () => void;

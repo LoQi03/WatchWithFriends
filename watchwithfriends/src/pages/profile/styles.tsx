@@ -3,14 +3,22 @@ import UploadFileTwoToneIcon from '@mui/icons-material/UploadFileTwoTone';
 import { theme } from '../../theme';
 
 export const ProfilePageContainer = styled('div')({
+  marginTop: '20px',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  justifyContent: 'start',
-  borderRadius: '10px',
+  justifyContent: 'center',
+  borderRadius: '20px',
   overflowX: 'hidden',
   overflowY: 'auto',
   gap: '15px',
+
+  backgroundColor: theme.palette.primary.dark,
+  overflow: 'hidden',
+  padding: '20px',
+  width: '50%',
+  height: '90%',
+   boxShadow: 'rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px',
   '@media (max-width: 800px)': {
     width: '99%',
     borderRadius: '0',
@@ -21,18 +29,20 @@ export const ProfilePageContainer = styled('div')({
 
 export const ProfilePageContent = styled('div')({
   display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'start',
+  flexDirection: 'column',
+  justifyContent: 'space-between',
   alignItems: 'center',
+  padding: '20px',
   gap: '30px',
-  width: '100%',
-  height: '100%',
+  width: '97%',
+  borderRadius: '20px',
+  height: '95%',
+  backgroundColor: theme.palette.secondary.light,
   '@media (max-width: 800px)': {
     flexDirection: 'column',
     gap: '1%',
     paddingBottom: '10px',
     paddingTop: '10px',
-    marginBottom: '65px',
   },
 });
 
@@ -41,9 +51,14 @@ export const ProfilePageInputContainer = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  height: '100%',
+  height: 'auto',
   gap: '20px',
   justifyContent: 'start',
+  backgroundColor: theme.palette.background.default,
+  padding: '20px',
+  borderRadius: '20px',
+  marginTop: '20px',
+  boxShadow: 'rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px',
   '@media (max-width: 800px)': {
     justifyContent: 'space-between',
   },
@@ -70,6 +85,18 @@ export const ButtonContainer = styled('div')({
   display: 'flex',
   justifyContent: 'space-between',
   width: '100%',
+});
+
+export const ImageRowContainer = styled('div')({
+  width: '95%',
+  height: '30%',
+  alignItems: 'center',
+  justifyContent: 'center',
+
+  padding: '20px',
+  borderRadius: '20px',
+  display: 'flex',
+  flexDirection: 'column',
 });
 
 export const ImageContainer = styled('div')({

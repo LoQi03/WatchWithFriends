@@ -1,6 +1,5 @@
 import { ChatField } from '../../components/chat/chat-field/chat-field';
 import * as Styles from './styles';
-import { RoomUsers } from '../../components/room-users/room-users';
 import { VideoPlayer } from './video-player';
 import { PlayList } from '../../components/play-list/play-list';
 import { useContext, useEffect, useState } from 'react';
