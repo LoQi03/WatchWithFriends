@@ -3,9 +3,9 @@ import * as Styles from './styles';
 import { ChatEntry } from "../chat-entry/chat-entry";
 import { TextField } from "@mui/material";
 import { RoomContext } from "../../../services/roomContext";
-import { ChatEntryDTO } from "../../../api/models/chatEntryDto";
 import { theme } from "../../../theme";
 import { RoomUsers } from "../../room-users/room-users";
+import { ChatEntryDTO } from "../../../api";
 
 interface ChatFieldParams {
     messages: ChatEntryDTO[];

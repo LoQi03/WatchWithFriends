@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { RoomContext, RoomProvider } from "../../services/roomContext";
+import { RoomProvider } from "../../services/roomContext";
 import { RoomPage } from "./room";
 import { KeyboardEventHandler, useCallback, useContext, useMemo, useState } from "react";
 import * as Styles from "./styles";
@@ -8,7 +8,6 @@ import { Loader } from "../../components/loader/loader";
 import { AuthContext } from "../../services/authenticationContext";
 import toast from "react-hot-toast";
 import { RoomDTO, RoomsApi } from "../../api";
-
 
 export const RoomPageWithProvider: React.FC = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);

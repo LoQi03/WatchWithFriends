@@ -14,7 +14,6 @@ export const ProfilePageContainer = styled('div')({
   gap: '15px',
 
   backgroundColor: theme.palette.primary.dark,
-  overflow: 'hidden',
   padding: '20px',
   width: '50%',
   height: '90%',
@@ -22,6 +21,7 @@ export const ProfilePageContainer = styled('div')({
   '@media (max-width: 800px)': {
     width: '99%',
     borderRadius: '0',
+    marginTop: '0px',
     gap: '5px',
     height: '100%',
   },

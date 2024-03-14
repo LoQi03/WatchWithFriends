@@ -25,7 +25,7 @@ export const PageContainer = styled('div', {
     @media screen and (max-width: ${theme.breakpoints.values.sm}px) {
         padding-top: 0px;
         margin-top: 0px;
-        ${!isLogin && "margin-bottom: 65px;"}
+        ${!isLogin ? "margin-bottom: 65px;":"margin-bottom: 0px;"}
     }
   `
 );

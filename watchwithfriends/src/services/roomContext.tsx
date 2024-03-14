@@ -9,7 +9,7 @@ import * as AppConfig from '../AppConfig';
 import { toggleFullScreen } from '../misc/toggleFullScreen';
 import * as signalR from '@microsoft/signalr';
 import toast from 'react-hot-toast';
-import { ChatEntryDTO, RoomDTO, RoomsApi, UserDTO, Video, VideoPlayer } from '../api';
+import { ChatEntryDTO, RoomDTO, RoomUser, RoomsApi, UserDTO, Video, VideoPlayer } from '../api';
 
 export interface RoomContextType {
     sendMessage: (messageText: string) => Promise<void>;
@@ -122,13 +122,9 @@ export const RoomProvider: React.FC<{ children: ReactNode, id: string }> = ({ ch
             messageHandler(message);
         });
         roomConnection.on('VideoPlayerHandler', (videoPlayer: VideoPlayer) => {
-            if(isHandleReciveChanges)
-            {
-                return;
-            }
             videoPlayerHandler(videoPlayer);
         });
-        roomConnection.on('GetRoomUsers', async (users: UserDTO[]) => {
+        roomConnection.on('GetRoomUsers', async (users: RoomUser[]) => {
             try {
                 const { data } = await roomAPI.getRoom(id);
                 setCurrentRoom(data);
