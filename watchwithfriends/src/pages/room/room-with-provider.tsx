@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { RoomProvider } from "../../services/roomContext";
+import { RoomContext, RoomProvider } from "../../services/roomContext";
 import { RoomPage } from "./room";
 import { KeyboardEventHandler, useCallback, useContext, useMemo, useState } from "react";
 import * as Styles from "./styles";
@@ -19,9 +19,6 @@ export const RoomPageWithProvider: React.FC = () => {
     const params = useParams();
     const roomAPI = new RoomsApi();
     const navigate = useNavigate();
-
-
-
     const getRoom = useCallback(async (): Promise<void> => {
         try {
             if (!params.id) {
@@ -44,7 +41,6 @@ export const RoomPageWithProvider: React.FC = () => {
                         navigate("/rooms");
                     }
                     const response = await roomAPI.verifyRoomConnection({ roomId: params.id, userId: authContext?.currentUser?.id, password: password });
-                    console.log(response);
                     setIsAuthenticated(response.data);
                 } catch (error) {
                     toast.error("Room doesn't exist!");

@@ -2,9 +2,10 @@ import { ChatField } from '../../components/chat/chat-field/chat-field';
 import * as Styles from './styles';
 import { VideoPlayer } from './video-player';
 import { PlayList } from '../../components/play-list/play-list';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
 import { RoomContext } from '../../services/roomContext';
 import * as CommonStyles from '../../commonStyles';
+import { AuthContext } from '../../services/authenticationContext';
 
 export const RoomPage: React.FC = () => {
     const roomContext = useContext(RoomContext);
@@ -24,6 +25,7 @@ export const RoomPage: React.FC = () => {
         }
     }, [roomContext?.messages]);
 
+
     return (
         <>
             {
@@ -35,9 +37,8 @@ export const RoomPage: React.FC = () => {
                                 <CommonStyles.GenericTextField value={roomContext?.newUrl} onChange={e => roomContext?.handleSetNewUrl(e.target.value)} />
                                 <Styles.PlayButton onClick={() => roomContext?.handlePlayUrl(roomContext?.newUrl)}>Play</Styles.PlayButton>
                             </Styles.RoomAddLink>
-                            <Styles.VideoPlayerContainer isFullScreen={roomContext?.isFullScreen}>
+                            
                                 <VideoPlayer />
-                            </Styles.VideoPlayerContainer>
                             <PlayList />
                         </Styles.VideoPlayerAndPlayListContainer>
                         <Styles.ChatContainer>

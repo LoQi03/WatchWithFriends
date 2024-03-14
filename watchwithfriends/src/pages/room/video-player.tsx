@@ -13,7 +13,7 @@ export const VideoPlayer: React.FC = () => {
             {
 
                 roomContext?.currentVideo &&
-                <>
+                <Styles.VideoPlayerContainer isFullScreen={roomContext.isFullScreen}>
                     <ReactPlayer
                         onProgress={(progress) => roomContext?.onProgress(progress)}
                         width={'100%'}
@@ -58,7 +58,7 @@ export const VideoPlayer: React.FC = () => {
                         </Styles.VolumeActionBar>
                         {roomContext?.isFullScreen ? <Styles.ExitFullScreen onClick={() => roomContext?.handleFullScreen(false)} /> : <Styles.FullScreen onClick={() => roomContext?.handleFullScreen(true)} />}
                     </Styles.VideoPlayerActionBar>
-                </>
+                </Styles.VideoPlayerContainer>
             }
         </>
     )

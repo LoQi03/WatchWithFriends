@@ -30,7 +30,6 @@ export const PlayButton = styled(CommonStyles.GenericButton)<ButtonProps>({
     height: "100%",
     width: "15%",
     fontSize: "20px",
-    boxShadow: 'rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px',
 });
 
 export const RoomContainer = styled('div')({

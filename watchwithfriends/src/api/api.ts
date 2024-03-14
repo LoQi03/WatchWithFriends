@@ -26,6 +26,49 @@ import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError, operationServerM
 /**
  * 
  * @export
+ * @interface ChatEntryDTO
+ */
+export interface ChatEntryDTO {
+    /**
+     * 
+     * @type {string}
+     * @memberof ChatEntryDTO
+     */
+    'id'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ChatEntryDTO
+     */
+    'roomId'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ChatEntryDTO
+     */
+    'userId'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ChatEntryDTO
+     */
+    'name'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ChatEntryDTO
+     */
+    'message'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ChatEntryDTO
+     */
+    'messageTime'?: string;
+}
+/**
+ * 
+ * @export
  * @interface Room
  */
 export interface Room {
@@ -294,6 +337,37 @@ export interface Video {
      */
     'room'?: Room;
 }
+/**
+ * 
+ * @export
+ * @interface VideoPlayer
+ */
+export interface VideoPlayer {
+    /**
+     * 
+     * @type {string}
+     * @memberof VideoPlayer
+     */
+    'roomId'?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof VideoPlayer
+     */
+    'isPlaying'?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof VideoPlayer
+     */
+    'duration'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof VideoPlayer
+     */
+    'currentVideoUrl'?: string | null;
+}
 
 /**
  * RoomsApi - axios parameter creator
@@ -529,6 +603,133 @@ export const RoomsApiAxiosParamCreator = function (configuration?: Configuration
         },
         /**
          * 
+         * @param {string} connId 
+         * @param {VideoPlayer} [videoPlayer] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        handleNewUserJoinToRoom: async (connId: string, videoPlayer?: VideoPlayer, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'connId' is not null or undefined
+            assertParamExists('handleNewUserJoinToRoom', 'connId', connId)
+            const localVarPath = `/Rooms/handle-room-new-user/{connId}`
+                .replace(`{${"connId"}}`, encodeURIComponent(String(connId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(videoPlayer, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} senderId 
+         * @param {VideoPlayer} [videoPlayer] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        handleRoomState: async (senderId: string, videoPlayer?: VideoPlayer, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'senderId' is not null or undefined
+            assertParamExists('handleRoomState', 'senderId', senderId)
+            const localVarPath = `/Rooms/handle-room-state/{senderId}`
+                .replace(`{${"senderId"}}`, encodeURIComponent(String(senderId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(videoPlayer, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {string} roomId 
+         * @param {string} connId 
+         * @param {UserDTO} [userDTO] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        joinRoom: async (roomId: string, connId: string, userDTO?: UserDTO, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'roomId' is not null or undefined
+            assertParamExists('joinRoom', 'roomId', roomId)
+            // verify required parameter 'connId' is not null or undefined
+            assertParamExists('joinRoom', 'connId', connId)
+            const localVarPath = `/Rooms/join-room/{roomId}/user/{connId}`
+                .replace(`{${"roomId"}}`, encodeURIComponent(String(roomId)))
+                .replace(`{${"connId"}}`, encodeURIComponent(String(connId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(userDTO, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -558,6 +759,43 @@ export const RoomsApiAxiosParamCreator = function (configuration?: Configuration
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {ChatEntryDTO} [chatEntryDTO] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        sendMessage: async (chatEntryDTO?: ChatEntryDTO, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/Rooms/send-message`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(chatEntryDTO, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -686,6 +924,46 @@ export const RoomsApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {string} connId 
+         * @param {VideoPlayer} [videoPlayer] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async handleNewUserJoinToRoom(connId: string, videoPlayer?: VideoPlayer, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.handleNewUserJoinToRoom(connId, videoPlayer, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['RoomsApi.handleNewUserJoinToRoom']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} senderId 
+         * @param {VideoPlayer} [videoPlayer] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async handleRoomState(senderId: string, videoPlayer?: VideoPlayer, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.handleRoomState(senderId, videoPlayer, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['RoomsApi.handleRoomState']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {string} roomId 
+         * @param {string} connId 
+         * @param {UserDTO} [userDTO] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async joinRoom(roomId: string, connId: string, userDTO?: UserDTO, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.joinRoom(roomId, connId, userDTO, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['RoomsApi.joinRoom']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -694,6 +972,18 @@ export const RoomsApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.nextVideoForRoom(id, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['RoomsApi.nextVideoForRoom']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @param {ChatEntryDTO} [chatEntryDTO] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async sendMessage(chatEntryDTO?: ChatEntryDTO, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.sendMessage(chatEntryDTO, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['RoomsApi.sendMessage']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -775,12 +1065,52 @@ export const RoomsApiFactory = function (configuration?: Configuration, basePath
         },
         /**
          * 
+         * @param {string} connId 
+         * @param {VideoPlayer} [videoPlayer] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        handleNewUserJoinToRoom(connId: string, videoPlayer?: VideoPlayer, options?: any): AxiosPromise<void> {
+            return localVarFp.handleNewUserJoinToRoom(connId, videoPlayer, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} senderId 
+         * @param {VideoPlayer} [videoPlayer] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        handleRoomState(senderId: string, videoPlayer?: VideoPlayer, options?: any): AxiosPromise<void> {
+            return localVarFp.handleRoomState(senderId, videoPlayer, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {string} roomId 
+         * @param {string} connId 
+         * @param {UserDTO} [userDTO] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        joinRoom(roomId: string, connId: string, userDTO?: UserDTO, options?: any): AxiosPromise<void> {
+            return localVarFp.joinRoom(roomId, connId, userDTO, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @param {string} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         nextVideoForRoom(id: string, options?: any): AxiosPromise<RoomDTO> {
             return localVarFp.nextVideoForRoom(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {ChatEntryDTO} [chatEntryDTO] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        sendMessage(chatEntryDTO?: ChatEntryDTO, options?: any): AxiosPromise<void> {
+            return localVarFp.sendMessage(chatEntryDTO, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -870,6 +1200,43 @@ export class RoomsApi extends BaseAPI {
 
     /**
      * 
+     * @param {string} connId 
+     * @param {VideoPlayer} [videoPlayer] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RoomsApi
+     */
+    public handleNewUserJoinToRoom(connId: string, videoPlayer?: VideoPlayer, options?: RawAxiosRequestConfig) {
+        return RoomsApiFp(this.configuration).handleNewUserJoinToRoom(connId, videoPlayer, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} senderId 
+     * @param {VideoPlayer} [videoPlayer] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RoomsApi
+     */
+    public handleRoomState(senderId: string, videoPlayer?: VideoPlayer, options?: RawAxiosRequestConfig) {
+        return RoomsApiFp(this.configuration).handleRoomState(senderId, videoPlayer, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {string} roomId 
+     * @param {string} connId 
+     * @param {UserDTO} [userDTO] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RoomsApi
+     */
+    public joinRoom(roomId: string, connId: string, userDTO?: UserDTO, options?: RawAxiosRequestConfig) {
+        return RoomsApiFp(this.configuration).joinRoom(roomId, connId, userDTO, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @param {string} id 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -877,6 +1244,17 @@ export class RoomsApi extends BaseAPI {
      */
     public nextVideoForRoom(id: string, options?: RawAxiosRequestConfig) {
         return RoomsApiFp(this.configuration).nextVideoForRoom(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {ChatEntryDTO} [chatEntryDTO] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RoomsApi
+     */
+    public sendMessage(chatEntryDTO?: ChatEntryDTO, options?: RawAxiosRequestConfig) {
+        return RoomsApiFp(this.configuration).sendMessage(chatEntryDTO, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

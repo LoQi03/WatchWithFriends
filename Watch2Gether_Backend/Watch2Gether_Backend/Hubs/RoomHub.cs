@@ -2,6 +2,7 @@
 using Watch2Gether_Backend.Model;
 using WatchWithFriends.Model;
 using WatchWithFriends.Services;
+using WatchWithFriends_Data.Model;
 
 namespace WatchWithFriends.Hubs
 {
@@ -29,7 +30,7 @@ namespace WatchWithFriends.Hubs
                 await _roomContext.Clients.Clients(roomUser.Id).SendAsync("UpdateRoomHandler", room);
             }
         }
-        public async Task VideoPlayer(VideoPlayer videoPlayer)
+        public async Task VideoPlayer(VideoPlayer videoPlayer, string senderId)
         {
             var room = await _roomService.GetRoom(videoPlayer.RoomId);
             if (room?.RoomUsers == null)
@@ -38,6 +39,7 @@ namespace WatchWithFriends.Hubs
             }
             foreach (var roomUser in room.RoomUsers)
             {
+                if (roomUser.Id == senderId) continue;
                 await _roomContext.Clients.Clients(roomUser.Id).SendAsync("VideoPlayerHandler", videoPlayer);
             }
         }
@@ -74,14 +76,14 @@ namespace WatchWithFriends.Hubs
                 await _roomContext.Clients.Clients(roomUser.Id).SendAsync("ReciveMessage", chatEntry);
             }
         }
-        public async Task JoinRoom(Guid roomId, Guid userId, string name)
+        public async Task JoinRoom(Guid roomId, Guid userId, string name, string connId)
         {
             var room = await _roomService.GetRoom(roomId);
             if (room == null)
             {
                 return;
             }
-            room = await _roomService.JoinRoom(roomId, userId, Context.ConnectionId, name);
+            room = await _roomService.JoinRoom(roomId, userId, connId, name);
             var users = await _roomService.GetRoomUsers(room);
             if (room.RoomUsers == null)
             {
@@ -91,6 +93,10 @@ namespace WatchWithFriends.Hubs
             {
                 await _roomContext.Clients.Clients(roomUser.Id).SendAsync("GetRoomUsers", users);
             }
+        }
+        public Task HandleNewUserJoinToRoom(string connId, VideoPlayer videoPlayer)
+        {
+            return _roomContext.Clients.Clients(connId).SendAsync("VideoPlayerHandler", videoPlayer);
         }
 
     }

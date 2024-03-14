@@ -1,4 +1,4 @@
-import React, { ReactNode, createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import React, { ReactNode, createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import ReactPlayer from 'react-player';
 import { OnProgressProps } from 'react-player/base';
 import { useNavigate } from 'react-router-dom';
@@ -9,9 +9,7 @@ import * as AppConfig from '../AppConfig';
 import { toggleFullScreen } from '../misc/toggleFullScreen';
 import * as signalR from '@microsoft/signalr';
 import toast from 'react-hot-toast';
-import { RoomDTO, RoomsApi, UserDTO, Video } from '../api';
-import { ChatEntryDTO } from '../api/models/chatEntryDto';
-import { VideoPlayerDTO } from '../api/models/videoPlayerDto';
+import { ChatEntryDTO, RoomDTO, RoomsApi, UserDTO, Video, VideoPlayer } from '../api';
 
 export interface RoomContextType {
     sendMessage: (messageText: string) => Promise<void>;
@@ -44,13 +42,13 @@ export const RoomContext = createContext<RoomContextType | null>(null);
 
 export const RoomProvider: React.FC<{ children: ReactNode, id: string }> = ({ children, id }) => {
     const roomAPI = new RoomsApi();
+    const navigate = useNavigate();
     const authContext = useContext(AuthContext);
     const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
     const [messages, setMessages] = useState<ChatEntryDTO[]>([]);
     const [users, setUsers] = useState<UserDTO[]>();
-    const navigate = useNavigate();
     const playerRef = useRef<ReactPlayer>(null);
-    const [isPlaying, setIsPlaying] = useState(true);
+    const [isPlaying, setIsPlaying] = useState(false);
     const [duration, setDuration] = useState<number>(0);
     const [volume, setVolume] = useState<number>(50);
     const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
@@ -58,16 +56,21 @@ export const RoomProvider: React.FC<{ children: ReactNode, id: string }> = ({ ch
     const [currentRoom, setCurrentRoom] = useState<RoomDTO | null>(null);
     const [currentVideo, setCurrentVideo] = useState<Video | null>(null);
     const [notSeeingMessages, setNotSeeingMessages] = useState<number>(0);
+    const [isHandleReciveChanges, setIsHandleReciveChanges] = useState<boolean>(false);
+    const [isNewUser, setIsNewUser] = useState<boolean>(true);
 
-    const videoPlayerHandler = useCallback((videoPlayer: VideoPlayerDTO) => {
+    const videoPlayerHandler = useCallback((videoPlayer: VideoPlayer) => {
+        setIsHandleReciveChanges(true);
+        setIsNewUser(false);
         if (videoPlayer.roomId !== id) {
             return;
         }
-        if (videoPlayer.isPaused !== null && videoPlayer.isPaused) {
-            setIsPlaying(false);
-        }
-        if (videoPlayer.isPlaying !== null && videoPlayer.isPlaying) {
+        if (videoPlayer.isPlaying) {
             setIsPlaying(true);
+        }
+        else
+        {
+            setIsPlaying(false);
         }
         if (videoPlayer.duration !== null && videoPlayer.duration !== undefined) {
             const player = playerRef.current?.getInternalPlayer();
@@ -82,6 +85,9 @@ export const RoomProvider: React.FC<{ children: ReactNode, id: string }> = ({ ch
                 player.seekTo(videoPlayer.duration);
             }
         }
+        setTimeout(() => {
+            setIsHandleReciveChanges(false);
+        }, 1000);
     }, [id]);
 
     const updateNotSeeingMessages = (count: number) => {
@@ -115,8 +121,11 @@ export const RoomProvider: React.FC<{ children: ReactNode, id: string }> = ({ ch
             }
             messageHandler(message);
         });
-
-        roomConnection.on('VideoPlayerHandler', (videoPlayer: VideoPlayerDTO) => {
+        roomConnection.on('VideoPlayerHandler', (videoPlayer: VideoPlayer) => {
+            if(isHandleReciveChanges)
+            {
+                return;
+            }
             videoPlayerHandler(videoPlayer);
         });
         roomConnection.on('GetRoomUsers', async (users: UserDTO[]) => {
@@ -142,16 +151,36 @@ export const RoomProvider: React.FC<{ children: ReactNode, id: string }> = ({ ch
     ]);
 
     const onStart = async (): Promise<void> => {
-        await connection?.invoke("VideoPlayer", {
+        if(isHandleReciveChanges || isNewUser)
+        {
+            return;
+        }
+        setIsPlaying(true);
+        const videoPlayer: VideoPlayer = {
             roomId: id,
-            isPlaying: true
-        });
+            isPlaying: true,
+            duration: duration
+        };
+        if(!authContext?.currentUser?.id) {
+            return;
+        }
+        await roomAPI.handleRoomState(connection?.connectionId??"", videoPlayer);
     };
     const onPause = async (): Promise<void> => {
-        await connection?.invoke("VideoPlayer", {
+        if(isHandleReciveChanges || isNewUser)
+        {
+            return;
+        }
+        setIsPlaying(false);
+        const videoPlayer: VideoPlayer = {
             roomId: id,
-            isPaused: true
-        });
+            isPlaying: false,
+            duration: duration
+        };
+        if(!authContext?.currentUser?.id) {
+            return;
+        }
+        await roomAPI.handleRoomState(connection?.connectionId??"", videoPlayer);
     };
 
     const onEnd = async (): Promise<void> => {
@@ -162,16 +191,32 @@ export const RoomProvider: React.FC<{ children: ReactNode, id: string }> = ({ ch
             return;
         }
         const { data } = await roomAPI.nextVideoForRoom(id);
-        if (!data) {
-            return;
+        if (data) {
+            setDuration(0);
         }
     };
 
     const onSeek = async (seconds: number): Promise<void> => {
-        await connection?.invoke("VideoPlayer", {
+        if(isHandleReciveChanges || isNewUser)
+        {
+            return;
+        }
+        setDuration(seconds);
+        const player = playerRef.current?.getInternalPlayer();
+        if(!player)
+        {
+            return;
+        }
+        player.seekTo(seconds);
+        const videoPlayer: VideoPlayer = {
             roomId: id,
+            isPlaying: isPlaying,
             duration: seconds
-        });
+        };
+        if(!authContext?.currentUser?.id) {
+            return;
+        }
+        await roomAPI.handleRoomState(connection?.connectionId??"", videoPlayer);
     };
 
     const onProgress = async (progress: OnProgressProps): Promise<void> => {
@@ -196,8 +241,7 @@ export const RoomProvider: React.FC<{ children: ReactNode, id: string }> = ({ ch
         };
     }, []);
 
-
-    useEffect(() => {
+      useEffect(() => {
         if (currentRoom !== null) {
             return;
         }
@@ -213,6 +257,7 @@ export const RoomProvider: React.FC<{ children: ReactNode, id: string }> = ({ ch
                     return;
                 }
                 var currentVideo = data.playList?.find(x => x.id === data.currentVideo);
+                setIsNewUser(false);
                 console.log(currentVideo);
                 if (!currentVideo) {
                     return;
@@ -237,8 +282,14 @@ export const RoomProvider: React.FC<{ children: ReactNode, id: string }> = ({ ch
 
                 subscribeHubEvents(roomConnection);
                 await roomConnection.start();
-                roomConnection.invoke("JoinRoom", id, authContext?.currentUser?.id, authContext?.currentUser?.name);
-                console.log('Connected to the hub.');
+                if(!authContext?.currentUser)
+                {
+                    throw new Error('User not authenticated');
+                }
+                if(roomConnection.connectionId === null || roomConnection.connectionId === undefined){
+                    throw new Error('ConnectionId is null or undefined');
+                }
+                await roomAPI.joinRoom(id, roomConnection.connectionId, authContext?.currentUser);
                 setConnection(roomConnection);
             } catch (err) {
                 console.error('error when connecting to the hub:', err);
@@ -254,9 +305,9 @@ export const RoomProvider: React.FC<{ children: ReactNode, id: string }> = ({ ch
             }
         };
     }, [
-        connection, id,
-        authContext?.currentUser?.id,
-        authContext?.currentUser?.name,
+        connection,
+        id,
+        authContext?.currentUser,
         messageHandler,
         videoPlayerHandler,
         updateRoomHandler,
@@ -264,23 +315,13 @@ export const RoomProvider: React.FC<{ children: ReactNode, id: string }> = ({ ch
         subscribeHubEvents
     ]);
 
-    useMemo(() => {
-        if (authContext?.currentUser?.id !== currentRoom?.creatorId) {
+    useEffect(() => {
+        if(authContext?.currentUser?.id !== currentRoom?.creatorId)
+        {
             return;
         }
-        const sendCurrentDurration = async () => {
-            if (!id) {
-                return;
-            }
-            await connection?.invoke("VideoPlayer", {
-                roomId: id,
-                duration: duration,
-                isPlaying: isPlaying,
-                isPaused: !isPlaying
-            });
-        };
-        sendCurrentDurration();
-    }, [duration, id, authContext?.currentUser?.id, currentRoom?.creatorId, connection, isPlaying]);
+        setIsNewUser(false);
+    }, [authContext?.currentUser?.id, currentRoom?.creatorId]);
 
     const sendMessage = async (messageText: string): Promise<void> => {
         if (!authContext?.currentUser?.name || !authContext?.currentUser?.id || !id) {
@@ -291,10 +332,10 @@ export const RoomProvider: React.FC<{ children: ReactNode, id: string }> = ({ ch
             message: messageText,
             roomId: id,
             userId: authContext?.currentUser?.id,
-            messageTime: new Date(),
+            messageTime: new Date().toISOString(),
             name: authContext?.currentUser?.name
         };
-        connection?.invoke("SendMessage", message);
+        await roomAPI.sendMessage(message);
     };
 
 
@@ -334,7 +375,6 @@ export const RoomProvider: React.FC<{ children: ReactNode, id: string }> = ({ ch
         }
         try {
             const videoDetails = await getVideoDetails(url);
-            console.log(videoDetails);
             if (!videoDetails) {
                 return;
             }
@@ -356,7 +396,7 @@ export const RoomProvider: React.FC<{ children: ReactNode, id: string }> = ({ ch
         }
         catch (error) {
             setNewUrl('');
-            alert('Invalid url');
+            toast.error("Invalid video url!");
             return;
         }
 
@@ -387,7 +427,7 @@ export const RoomProvider: React.FC<{ children: ReactNode, id: string }> = ({ ch
             handleDeleteVideo,
             handlePlayUrl,
             handleSetNewUrl,
-            updateNotSeeingMessages
+            updateNotSeeingMessages,
         }}>
             {children}
         </RoomContext.Provider>

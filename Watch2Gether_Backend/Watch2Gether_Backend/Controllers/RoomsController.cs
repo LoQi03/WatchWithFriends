@@ -94,5 +94,33 @@ namespace WatchWithFriends.Controllers
             var result = await _roomService.VerifyRoomConnection(roomConnectionDTO);
             return Ok(result);
         }
+        [HttpPost("join-room/{roomId}/user/{connId}",Name = nameof(JoinRoom))]
+        public async Task<ActionResult> JoinRoom(string roomId, string connId, UserDTO userDTO)
+        {
+            if(userDTO.Id == null || userDTO.Name == null)
+            {
+                return NotFound();
+            }
+            await _roomHub.JoinRoom(Guid.Parse(roomId), userDTO.Id.Value, userDTO.Name, connId);
+            return Ok();
+        }
+        [HttpPost("handle-room-state/{senderId}", Name = nameof(HandleRoomState))]
+        public async Task<ActionResult> HandleRoomState(VideoPlayer videoPlayer, string senderId)
+        {
+            await _roomHub.VideoPlayer(videoPlayer, senderId);
+            return Ok();
+        }
+        [HttpPost("send-message",Name =nameof(SendMessage))]
+        public async Task<ActionResult> SendMessage(ChatEntryDTO chatEntry)
+        {
+            await _roomHub.SendMessage(chatEntry);
+            return Ok();
+        }
+        [HttpPost("handle-room-new-user/{connId}",Name = nameof(HandleNewUserJoinToRoom))]
+        public async Task<ActionResult> HandleNewUserJoinToRoom(string connId, VideoPlayer videoPlayer)
+        {
+            await _roomHub.HandleNewUserJoinToRoom(connId, videoPlayer);
+            return Ok();
+        }
     }
 }
