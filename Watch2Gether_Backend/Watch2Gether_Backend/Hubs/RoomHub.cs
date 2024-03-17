@@ -30,7 +30,7 @@ namespace WatchWithFriends.Hubs
                 await _roomContext.Clients.Clients(roomUser.Id).SendAsync("UpdateRoomHandler", room);
             }
         }
-        public async Task VideoPlayer(VideoPlayer videoPlayer, string senderId)
+        public async Task VideoPlayerHandler(VideoPlayer videoPlayer, string senderId)
         {
             var room = await _roomService.GetRoom(videoPlayer.RoomId);
             if (room?.RoomUsers == null)

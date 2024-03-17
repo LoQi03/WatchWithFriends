@@ -7,7 +7,7 @@ using WatchWithFriends_Data.Repositories;
 
 namespace WatchWithFriends.Services
 {
-    internal sealed class RoomService : IRoomService
+    public sealed class RoomService : IRoomService
     {
         private readonly IRoomRepository _roomRepository;
         private readonly IUserRepository _userRepository;
@@ -184,12 +184,12 @@ namespace WatchWithFriends.Services
             {
                 return null;
             }
-            await _videoRepository.DeleteVideoAsync(room.CurrentVideo);
-            room = await _roomRepository.GetRoomByIdAsync(roomId);
-            if (room.PlayList == null)
+            var deletedVideo = await _videoRepository.DeleteVideoAsync(room.CurrentVideo);
+            if (room.PlayList == null || deletedVideo == null)
             {
                 return null;
             }
+            room.PlayList.Remove(deletedVideo);
             room.CurrentVideo = room.PlayList?.FirstOrDefault()?.Id;
             await _roomRepository.UpdateRoomAsync(room);
             return RoomDTO.FromModel(room);

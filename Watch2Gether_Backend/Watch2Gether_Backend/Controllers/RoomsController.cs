@@ -107,7 +107,7 @@ namespace WatchWithFriends.Controllers
         [HttpPost("handle-room-state/{senderId}", Name = nameof(HandleRoomState))]
         public async Task<ActionResult> HandleRoomState(VideoPlayer videoPlayer, string senderId)
         {
-            await _roomHub.VideoPlayer(videoPlayer, senderId);
+            await _roomHub.VideoPlayerHandler(videoPlayer, senderId);
             return Ok();
         }
         [HttpPost("send-message",Name =nameof(SendMessage))]
