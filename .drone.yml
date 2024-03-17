@@ -2,6 +2,13 @@ kind: pipeline
 name: deploy watchwithfriends
 
 steps:
+- name: test backend
+    image: microsoft/dotnet:latest
+    commands:
+      - cd Watch2Gether_Backend
+      - dotnet restore
+      - dotnet test \WatchWithFriends_uTests\WatchWithFriends_uTests.csproj
+
 - name: build backend
   image: docker
   commands:
