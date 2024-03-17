@@ -3,7 +3,7 @@ name: deploy watchwithfriends
 
 steps:
   - name: test backend
-    image: microsoft/dotnet:latest
+    image: mcr.microsoft.com/dotnet/sdk:5.0
     commands:
       - cd Watch2Gether_Backend
       - dotnet restore
