@@ -7,7 +7,7 @@ steps:
     commands:
       - cd Watch2Gether_Backend
       - dotnet restore
-      - dotnet test \WatchWithFriends_uTests\WatchWithFriends_uTests.csproj
+      - dotnet test WatchWithFriends_uTests/WatchWithFriends_uTests.csproj
 
   - name: build backend
     image: docker
