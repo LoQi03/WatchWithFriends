@@ -2,31 +2,30 @@ kind: pipeline
 name: deploy watchwithfriends
 
 steps:
-- name: test backend
+  - name: test backend
     image: microsoft/dotnet:latest
     commands:
       - cd Watch2Gether_Backend
       - dotnet restore
       - dotnet test \WatchWithFriends_uTests\WatchWithFriends_uTests.csproj
 
-- name: build backend
-  image: docker
-  commands:
-  - cd Watch2Gether_Backend
-  - docker-compose up --build -d
-  volumes:
-  - name: docker_sock
-    path: /var/run/docker.sock
+  - name: build backend
+    image: docker
+    commands:
+      - cd Watch2Gether_Backend
+      - docker-compose up --build -d
+    volumes:
+      - name: docker_sock
+        path: /var/run/docker.sock
 
-- name: build frontend
-  image: docker
-  commands:
-  - cd watchwithfriends
-  - docker-compose up --build -d
-  volumes:
-  - name: docker_sock
-    path: /var/run/docker.sock
-
+  - name: build frontend
+    image: docker
+    commands:
+      - cd watchwithfriends
+      - docker-compose up --build -d
+    volumes:
+      - name: docker_sock
+        path: /var/run/docker.sock
 
 volumes:
   - name: docker_sock
@@ -35,6 +34,6 @@ volumes:
 
 when:
   branch:
-  - main
+    - main
   event:
-  - push
+    - push
