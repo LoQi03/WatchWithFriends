@@ -10,6 +10,7 @@ WORKDIR /src
 COPY *.sln ./
 COPY ["/Watch2Gether_Backend/WatchWithFriends.csproj", "Watch2Gether_Backend/"]
 COPY ["/Watch2Gether_Data/WatchWithFriends_Data.csproj", "Watch2Gether_Data/"]
+COPY ["/WatchWithFriends_uTests/WatchWithFriends_uTests.csproj", "WatchWithFriends_uTests/"]
 RUN dotnet restore
 COPY . .
 WORKDIR /src/Watch2Gether_Backend
