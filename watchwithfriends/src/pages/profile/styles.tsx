@@ -12,7 +12,7 @@ export const ProfilePageContainer = styled('div')({
   overflowX: 'hidden',
   overflowY: 'auto',
   gap: '15px',
-
+  overflow:'hidden',
   backgroundColor: theme.palette.primary.dark,
   padding: '20px',
   width: '50%',
@@ -58,7 +58,9 @@ export const ProfilePageInputContainer = styled('div')({
   backgroundColor: theme.palette.background.default,
   padding: '20px',
   borderRadius: '20px',
-  marginTop: '20px',
+  overflowX: 'hidden',
+  overflowY: 'auto',
+  marginTop:'20px',
   boxShadow: 'rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px',
   '@media (max-width: 800px)': {
     justifyContent: 'space-between',
@@ -72,6 +74,7 @@ export const StyledImage = styled('img')({
   height: '230px',
   width: '230px',
   borderRadius: '50%',
+  marginBottom:'20px',
   '@media (max-width: 800px)': {
     height: '150px',
     width: '150px',

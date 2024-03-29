@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = WatchWithFriends_uTests
-build_property.ProjectDir = C:\Repos\Watch2gether\Watch2Gether_Backend\WatchWithFriends_uTests\
+build_property.ProjectDir = C:\Repos\WatchWithFriends\Watch2Gether_Backend\WatchWithFriends_uTests\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

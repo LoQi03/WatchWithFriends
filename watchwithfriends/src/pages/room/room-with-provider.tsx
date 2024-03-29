@@ -8,6 +8,7 @@ import { Loader } from "../../components/loader/loader";
 import { AuthContext } from "../../services/authenticationContext";
 import toast from "react-hot-toast";
 import { RoomDTO, RoomsApi } from "../../api";
+import { theme } from "../../theme";
 
 export const RoomPageWithProvider: React.FC = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -105,7 +106,7 @@ export const RoomPageWithProvider: React.FC = () => {
                 </RoomProvider>
                     :
                     <Styles.PasswordRoomInputFieldContainer>
-                        <Styles.PasswordRoomInputFieldContainer>
+                        <Styles.PasswordRoomInputFieldContainer sx={{backgroundColor:theme.palette.background.default, padding:'15px', borderRadius:'15px', height:'40vh', width:'50vw'}}>
                             <Styles.LockIconStyled />
                             <CommonStyles.GenericTextField onKeyDown={handleKeyDown} type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
                             <CommonStyles.GenericButton onClick={handlePasswordSubmit}>Submit</CommonStyles.GenericButton>
