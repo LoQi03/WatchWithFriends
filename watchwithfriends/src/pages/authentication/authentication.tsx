@@ -3,7 +3,7 @@ import * as CommonStyle from '../../commonStyles';
 import * as Style from './styles';
 import { LoginForm } from '../../components/login/login';
 import { RegistrationForm } from '../../components/register/register';
-import backgroundImg from '../../assets/images/background.png';
+import backgroundImg from '../../assets/images/background.jpg';
 
 
 export const AuthenticationPage = (): JSX.Element => {

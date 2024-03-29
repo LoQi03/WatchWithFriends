@@ -65,7 +65,9 @@ export const LoginForm = (props: LoginFormProps): JSX.Element => {
                 />
                 <CommonStyles.GenericButton onClick={login} size='large' startIcon={<LoginIcon />}>Sign In</CommonStyles.GenericButton>
             </Style.InputContainer>
+            <Style.LinkContainer>
             <CommonStyles.SignSwitchButton  onClick={props.formChangeHandler}>Need an account?</CommonStyles.SignSwitchButton>
+            </Style.LinkContainer>
         </>
     )
 }

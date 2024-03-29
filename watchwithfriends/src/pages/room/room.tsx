@@ -33,7 +33,7 @@ export const RoomPage: React.FC = () => {
                     <Styles.RoomContainer>
                         <Styles.VideoPlayerAndPlayListContainer>
                             <Styles.RoomAddLink>
-                                <CommonStyles.GenericTextField value={roomContext?.newUrl} onChange={e => roomContext?.handleSetNewUrl(e.target.value)} />
+                                <CommonStyles.GenericTextField placeholder='Paste the video here....' value={roomContext?.newUrl} onChange={e => roomContext?.handleSetNewUrl(e.target.value)} />
                                 <Styles.PlayButton onClick={() => roomContext?.handlePlayUrl(roomContext?.newUrl)}>Play</Styles.PlayButton>
                             </Styles.RoomAddLink>
                             

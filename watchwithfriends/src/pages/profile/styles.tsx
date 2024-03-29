@@ -19,11 +19,12 @@ export const ProfilePageContainer = styled('div')({
   height: '90%',
    boxShadow: 'rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px',
   '@media (max-width: 800px)': {
-    width: '99%',
+    width: '100%',
     borderRadius: '0',
     marginTop: '0px',
     gap: '5px',
     height: '100%',
+    padding: '10px',
   },
 });
 
@@ -61,6 +62,9 @@ export const ProfilePageInputContainer = styled('div')({
   boxShadow: 'rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px',
   '@media (max-width: 800px)': {
     justifyContent: 'space-between',
+    padding: '15px',
+    gap: '10px',
+    width: '90%'
   },
 });
 

@@ -160,7 +160,9 @@ export const RegistrationForm = (props: RegistrationFormProps): JSX.Element => {
                 />
                 <CommonStyles.GenericButton theme={theme} onClick={register} size='large' >Sign Up</CommonStyles.GenericButton>
             </Style.InputContainer>
+            <Style.LinkContainer>
             <CommonStyles.SignSwitchButton theme={theme} onClick={props.formChangeHandler}>Already have an account?</CommonStyles.SignSwitchButton>
+            </Style.LinkContainer>
         </>
     )
 }

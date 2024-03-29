@@ -7,6 +7,7 @@ import { AuthContext } from "../../services/authenticationContext";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { RoomDTO, RoomsApi } from "../../api";
+import CloseIcon from '@mui/icons-material/Close';
 
 export const CreateRoom = (): JSX.Element => {
     const roomApi = new RoomsApi();
@@ -42,13 +43,15 @@ export const CreateRoom = (): JSX.Element => {
             <Box>
                 <Styles.CreateRoomModalContainer>
                     <Styles.CreateRoomModal>
+                        <Styles.CreateRoomHeader>
                         <CommonStyles.Title>Create Room</CommonStyles.Title>
+                        <Styles.HeaderCloseIcon onClick={close}>{}</Styles.HeaderCloseIcon>
+                        </Styles.CreateRoomHeader>
                         <Styles.CreateRoomInputFieldContainer>
                             <CommonStyles.GenericTextField value={roomName} onChange={e => setRoomName(e.target.value)} placeholder="Name" />
                             <CommonStyles.GenericTextField value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" type="password" />
                             <CommonStyles.GenericButton onClick={create}>Create</CommonStyles.GenericButton>
                         </Styles.CreateRoomInputFieldContainer>
-                        <CommonStyles.SignSwitchButton onClick={close}>Close</CommonStyles.SignSwitchButton>
                     </Styles.CreateRoomModal>
                 </Styles.CreateRoomModalContainer>
             </Box>

@@ -26,7 +26,8 @@ export const NavbarContainer = styled('div')({
 });
 
 export const StyledImage = styled('img')({
-  height: '35px',
+  marginLeft: '20px',
+  height: '45px',
   objectFit: 'cover',
   cursor: 'pointer',
 });
@@ -82,6 +83,7 @@ export const StyledMenuItem = styled(MenuItem)({
 });
 
 export const StyledMenuItemButton = styled('div')({
+  color: theme.palette.text.primary,
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
@@ -92,7 +94,7 @@ export const NavbarButtons = styled(BottomNavigation)({
   zIndex: 100,
   display: 'flex',
   width: '100%',
-  backgroundColor: theme.palette.primary.dark,
+  backgroundColor: theme.palette.secondary.light,
   position: 'fixed',
   bottom: 0,
   height: '65px',

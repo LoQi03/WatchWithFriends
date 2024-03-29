@@ -55,7 +55,8 @@ namespace WatchWithFriends.Extensions
                         (
                             "http://192.168.0.200:5173",
                             "https://watchwithfriends.mt-dev.site",
-                            "http://localhost:5173"
+                            "http://localhost:5173",
+                            "http://127.0.0.1:5173"
                         ) 
                         .AllowCredentials()
                         .AllowAnyHeader()

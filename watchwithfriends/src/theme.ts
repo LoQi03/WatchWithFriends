@@ -12,7 +12,7 @@ export const theme = createTheme({
       default: "#DDE6ED",
     },
     text: {
-      primary: "#9DB2BF",
+      primary: "#DDE6ED",
     },
     error: {
       main: "#FF0000",
@@ -25,6 +25,15 @@ export const theme = createTheme({
       md: 960,
       lg: 1280,
       xl: 1920,
+    },
+  },
+  components: {
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "#526D82",
+        },
+      },
     },
   },
 });

@@ -18,3 +18,9 @@ export const InputContainer = styled.div`
         width: 90%;
     }
     `;
+export const LinkContainer = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+`;

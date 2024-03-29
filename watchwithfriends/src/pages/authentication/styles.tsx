@@ -3,14 +3,13 @@ import { theme } from "../../theme";
 
 export const AuthenticationModal = styled('div')(() => ({
   position: 'relative',
-  marginLeft: '40px',
   width: '700px',
   display: 'flex',
   flexDirection: 'column',
-  alignItems: 'start',
+  alignItems: 'center',
   justifyContent: 'center',
   borderRadius: '15px',
-  backgroundColor: theme.palette.text.primary,
+  backgroundColor: theme.palette.background.default,
   boxShadow: 'rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px',
   padding: '20px 40px',
 
@@ -28,7 +27,7 @@ export const AuthenticationModal = styled('div')(() => ({
 export const AuthenticationModalContainer = styled('div')({
   display: 'flex',
   flexDirection: 'column',
-  alignItems: 'start',
+  alignItems: 'center',
   justifyContent: 'center',
   width: '100%',
   height: '100%',

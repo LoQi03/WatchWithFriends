@@ -46,7 +46,7 @@ export const RoomContainer = styled('div')({
 
     boxShadow: 'rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px',
     gap: '20px',
-    backgroundColor: theme.palette.secondary.light,
+    backgroundColor: theme.palette.background.default,
     height: '90%',
     overflowY: 'hidden',
     overflowX: 'hidden',
@@ -206,6 +206,7 @@ export const ChatContainer = styled('div')({
     alignItems: 'center',
     flexDirection: 'column',
     backgroundColor: theme.palette.primary.dark,
+    borderRadius: '10px',
     justifyContent: 'space-between',
     '@media screen and (max-width: 800px)': {
         display: 'none',

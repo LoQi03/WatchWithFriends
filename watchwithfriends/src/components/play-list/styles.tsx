@@ -7,6 +7,7 @@ export const PlayListContainer = styled('div')({
   maxWidth: '100%',
   height: '30%',
   maxHeight: '30vh',
+  borderRadius: '10px',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
@@ -78,8 +79,11 @@ export const PlayListItemTitle = styled('div')({
 });
 
 export const PlayListItemDelete = styled(DeleteIcon)({
-  color: theme.palette.primary.light,
+  color: theme.palette.secondary.main,
   cursor: 'pointer',
   width: '25px',
   height: '25px',
+  '&:hover': {
+    color: theme.palette.secondary.light,
+  },
 });

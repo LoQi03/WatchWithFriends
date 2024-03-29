@@ -9,6 +9,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { Menu } from '@mui/material';
 import { AuthContext } from '../../services/authenticationContext';
 import * as AppConfig from '../../AppConfig';
+import WatchWithFriendsLogo from '../../assets/images/logo.png';
 interface NavigationProps {
     title: string;
     navigationURL: string;
@@ -57,7 +58,7 @@ export const Navbar: React.FC = () => {
         <>
             <Styles.Navbar>
                 <Styles.NavbarContainer>
-                    {/*<Styles.StyledImage onClick={() => navigate('/')} src={WatchWithFriendsLogo} alt="WatchWithFriends" />*/}
+                    <Styles.StyledImage onClick={() => navigate('/')} src={WatchWithFriendsLogo} alt="WatchWithFriends" />
                     <Styles.LinkContainer>
                         {
                             navigationArrayTop.map((navigation: NavigationProps) => (

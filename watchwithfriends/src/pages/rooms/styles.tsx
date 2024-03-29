@@ -16,7 +16,10 @@ export const RoomsPageContainer = styled('div')({
     borderRadius: '20px',
     boxShadow: 'rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px',
     '@media screen and (max-width: 800px)': {
-        width: '95%',
+        width: '100%',
+        height: '100%',
+        borderRadius: '0',
+        margin: '0',
     }
 });
 export const HeaderBar = styled('div')({
@@ -29,6 +32,10 @@ export const HeaderBar = styled('div')({
     backgroundColor: theme.palette.background.default,
     padding: '10px',
     borderRadius: '10px',
+     '@media screen and (max-width: 800px)': {
+        width: '90%',
+        padding: '15px',
+    }
 });
 export const RoomList = styled('div')({
     display: 'flex',

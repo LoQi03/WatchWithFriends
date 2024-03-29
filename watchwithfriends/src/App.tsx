@@ -14,14 +14,15 @@ import { setAxiosConfig } from './AppConfig';
 import * as AppConfig from './AppConfig';
 import { theme } from './theme';
 import { ThemeProvider } from '@mui/material';
-import backgroundImg from './assets/images/background.png';
+import backgroundImg from './assets/images/background.jpg';
+
 const App: React.FC = () => {
   const windowSize = useRef([window.innerWidth, window.innerHeight]);
   setAxiosConfig(AppConfig.getConfig().apiUrl);
   return (
     <AuthProvider>
       <Toaster
-        position={windowSize.current[0] < 800 ? 'top-center' : 'bottom-right'}
+        position={windowSize.current[0] < 800 ? 'top-center' : 'bottom-left'}
         containerStyle={{ zIndex: 9999 }}
         reverseOrder={false}
       />

@@ -77,9 +77,11 @@ export const GenericTextField = styled(TextField)(() => ({
   },
   width: '100%',
 }));
+
 export const GenericButton = styled(Button)(() => ({
   color: theme.palette.text.primary,
   backgroundColor: theme.palette.primary.main,
+  borderRadius: '15px',
   width: '100%',
   height: '55px',
   fontSize: '20px',
@@ -97,6 +99,9 @@ export const SignSwitchButton = styled('p')(() => ({
   color: theme.palette.primary.main, 
   textDecoration: 'underline',
   fontSize: '17px',
+  "&:hover": {
+    color: theme.palette.primary.light,
+  },
 }));
 
 export const Title = styled('h1')(() => ({

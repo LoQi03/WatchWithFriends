@@ -1,6 +1,6 @@
 import { styled } from '@mui/system';
 import { theme } from '../../theme';
-
+import CloseIcon from '@mui/icons-material/Close';
 export const CreateRoomModalContainer = styled('div')({
   position: 'absolute',
   left: '50%',
@@ -40,7 +40,7 @@ export const CreateRoomModal = styled('div')(() => ({
   boxShadow: 'rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px',
   animation: 'show 1s forwards',
   animationDelay: '.6s',
-  transition: '.2s',
+  transition: '.1s',
   '@keyframes show': {
     '0%': {
       transform: 'translateY(100px)',
@@ -54,10 +54,26 @@ export const CreateRoomModal = styled('div')(() => ({
   [theme.breakpoints.down('sm')]: {
     alignItems: 'center',
     overflow: 'hidden',
-    height: '100vh',
-    width: '100vw',
+    width: '90vw',
     margin: 0,
-    borderRadius: 0,
+    padding: '10px'
   },
 }));
 
+export const CreateRoomHeader = styled('div')({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  width: '100%',
+  marginBottom: '20px',
+});
+
+export const HeaderCloseIcon = styled(CloseIcon)({
+  cursor: 'pointer',
+  color: theme.palette.primary.main,
+  transition: '0.1s',
+  '&:hover': {
+    color: theme.palette.primary.light,
+  },
+  fontSize: '30px',
+});
