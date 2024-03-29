@@ -7,7 +7,6 @@ import { AuthContext } from "../../services/authenticationContext";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { RoomDTO, RoomsApi } from "../../api";
-import CloseIcon from '@mui/icons-material/Close';
 
 export const CreateRoom = (): JSX.Element => {
     const roomApi = new RoomsApi();
