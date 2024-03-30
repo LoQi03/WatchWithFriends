@@ -1,9 +1,7 @@
 ﻿using Moq;
-using Watch2Gether_Backend.Model;
 using WatchWithFriends.Services;
 using WatchWithFriends_Data.Model;
 using WatchWithFriends_Data.Repositories;
-using Xunit;
 
 namespace WatchWithFriends_Tests.Services
 {
