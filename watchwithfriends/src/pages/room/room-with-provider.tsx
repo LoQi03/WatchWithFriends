@@ -38,13 +38,13 @@ export const RoomPageWithProvider: React.FC = () => {
                     }
                     if (data.roomUsers?.find(x => x.userId === authContext?.currentUser?.id)) {
                         toast.error("You are already in this room!");
-                        navigate("/rooms");
+                        navigate("/");
                     }
                     const response = await roomAPI.verifyRoomConnection({ roomId: params.id, userId: authContext?.currentUser?.id, password: password });
                     setIsAuthenticated(response.data);
                 } catch (error) {
                     toast.error("Room doesn't exist!");
-                    navigate("/rooms");
+                    navigate("/");
                 }
 
             } catch (error) {
@@ -86,7 +86,7 @@ export const RoomPageWithProvider: React.FC = () => {
             setIsLoading(false);
         } catch (error) {
             setIsLoading(false);
-            navigate("/rooms");
+            navigate("/");
         }
         setIsLoading(false);
     };
