@@ -3,8 +3,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import * as CommonStyles from './commonStyles';
 import { Navbar } from './components/navbar/navbar';
 import { AuthenticationPage } from './pages/authentication/authentication';
-import { FriendsPage } from './pages/friends/friends';
-import { HomePage } from './pages/home/home';
 import { ProfilePage } from './pages/profile/profile';
 import { RoomsPage } from './pages/rooms/rooms';
 import { AuthContext, AuthProvider, VerifyTokenHandler } from './services/authenticationContext';

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Button from '@mui/material/Button';
-import HomeIcon from '@mui/icons-material/Home';
 import * as Styles from './styles';
 import { useNavigate } from 'react-router-dom';
 import Person2Icon from '@mui/icons-material/Person2';
