@@ -42,9 +42,7 @@ const App: React.FC = () => {
                     <Navbar />
                     <CommonStyles.PageContainer backgroundimg={backgroundImg} theme={theme}>
                       <Routes>
-                        <Route path="/" element={<HomePage />} />
-                        <Route path="/friends" element={<FriendsPage />} />
-                        <Route path="/rooms" element={<RoomsPage />} />
+                        <Route path="/" element={<RoomsPage />} />
                         <Route path="/profile" element={<ProfilePage />} />
                         <Route path="/room/:id" element={<RoomPageWithProvider />} />
                       </Routes>

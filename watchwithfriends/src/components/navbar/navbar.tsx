@@ -17,13 +17,8 @@ interface NavigationProps {
 }
 const navigationArrayTop: NavigationProps[] = [
     {
-        title: "Home",
-        navigationURL: "/",
-        icon: <HomeIcon sx={{ fontSize: '30px' }} />
-    },
-    {
         title: "Rooms",
-        navigationURL: "/rooms",
+        navigationURL: "/",
         icon: <TvIcon sx={{ fontSize: '30px' }} />
     },
     {
