@@ -128,6 +128,16 @@ export const RoomProvider: React.FC<{ children: ReactNode, id: string }> = ({ ch
             try {
                 const { data } = await roomAPI.getRoom(id);
                 setCurrentRoom(data);
+                if(authContext?.currentUser?.id !== data.creatorId)
+                {
+                    const videoPlayer: VideoPlayer = {
+                        roomId: id,
+                        isPlaying: false,
+                        duration: duration
+                    };
+                    
+                    await roomAPI.handleNewUserJoinToRoom(connection?.connectionId??"",videoPlayer)
+                }
             }
             catch (error) {
                 console.log(error);
