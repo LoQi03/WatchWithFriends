@@ -12,7 +12,7 @@ steps:
   - name: build backend
     image: docker
     commands:
-      - cd Watch2Gether_Backend
+      - cd WatchWithFriends_Backend
       - docker-compose up --build -d
     volumes:
       - name: docker_sock
@@ -21,7 +21,7 @@ steps:
   - name: build frontend
     image: docker
     commands:
-      - cd watchwithfriends
+      - cd watchwithfriends_client
       - docker-compose up --build -d
     volumes:
       - name: docker_sock
