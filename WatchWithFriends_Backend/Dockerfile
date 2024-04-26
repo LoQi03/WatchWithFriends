@@ -9,7 +9,7 @@ ARG Configuration=Release
 WORKDIR /src
 COPY *.sln ./
 COPY ["/WatchWithFriends_Backend/WatchWithFriends.csproj", "WatchWithFriends_Backend/"]
-COPY ["/WatchWithFriendsr_Data/WatchWithFriends_Data.csproj", "WatchWithFriends_Data/"]
+COPY ["/WatchWithFriends_Data/WatchWithFriends_Data.csproj", "WatchWithFriends_Data/"]
 COPY ["/WatchWithFriends_uTests/WatchWithFriends_uTests.csproj", "WatchWithFriends_uTests/"]
 RUN dotnet restore
 COPY . .
