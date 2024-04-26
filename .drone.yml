@@ -5,7 +5,7 @@ steps:
   - name: test backend
     image: mcr.microsoft.com/dotnet/sdk:8.0
     commands:
-      - cd Watch2Gether_Backend
+      - cd WatchWithFriends_Backend
       - dotnet restore
       - dotnet test WatchWithFriends_uTests/WatchWithFriends_uTests.csproj
 
