@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{textcomp} % for upquote
+
+% Define colors
+\definecolor{mediumgray}{rgb}{0.5, 0.5, 0.5}
+\definecolor{mediumblue}{rgb}{0, 0, 0.8}
+\definecolor{darkviolet}{rgb}{0.58, 0, 0.83}
+\definecolor{royalblue}{rgb}{0.25, 0.41, 0.88}
+\definecolor{forestgreen}{rgb}{0.13, 0.55, 0.13}
+\definecolor{lightgray}{rgb}{0.9, 0.9, 0.9}
+
+% Define language
+\lstdefinelanguage{CSharp}{
+    morekeywords={abstract, as, base, bool, break, byte, case, catch, char, checked, class, const, continue, decimal, default, delegate, do, double, else, enum, event, explicit, extern, false, finally, fixed, float, for, foreach, goto, if, implicit, in, int, interface, internal, is, lock, long, namespace, new, null, object, operator, out, override, params, private, protected, public, readonly, ref, return, sbyte, sealed, short, sizeof, stackalloc, static, string, struct, switch, this, throw, true, try, typeof, uint, ulong, unchecked, unsafe, ushort, using, virtual, void, volatile, while,
+import, export, createContext, useContext, async, start, await, nameof, Task, FROM, WORKDIR, ENV, EXPOSE, FROM, ARG, WORKDIR, COPY, RUN, dotnet, restore, ENTRYPOINT, useCallback, HttpPut,HttpPost,HttpDelete,HttpGet},
+    morecomment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    morecomment=[s]{///}{///},
+    morestring=[b]",
+    morestring=[b]',
+    sensitive=true
+}
+
+% Define style
+\lstdefinestyle{CSharpBase}{
+    backgroundcolor=\color{lightgray}, % Set background color to light gray
+    basicstyle=\ttfamily\footnotesize, % Set smaller font size
+    breakatwhitespace=false,
+    breaklines=false,
+    captionpos=b,
+    columns=fullflexible,
+    commentstyle=\color{mediumgray}\upshape,
+    emph={},
+    emphstyle=\color{crimson},
+    extendedchars=true,
+    fontadjust=true,
+    frame=,
+    xleftmargin={0cm},
+    xrightmargin={0cm},
+    identifierstyle=\color{black},
+    keepspaces=true,
+    keywordstyle=\color{mediumblue},
+    numbers=none,
+    numbersep=5pt,
+    numberstyle=\tiny\color{black},
+    rulecolor=\color{black},
+    showlines=true,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    stringstyle=\color{forestgreen},
+    tabsize=2,
+    title=\lstname,
+    upquote=true
+}
+
+% Define style for CSharp
+\lstdefinestyle{CSharp}{
+    language=CSharp,
+    style=CSharpBase
+}

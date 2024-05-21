@@ -1,0 +1,83 @@
+\pagestyle{empty}
+
+\section*{CD Használati útmutató}
+
+\subsection*{Mappa szerkezet}
+\dirtree{%
+	.1 document/.
+	.2 chapters/.
+	.2 cover/.
+	.2 images/.
+	.2 styles/.
+	.2 dolgozat.pdf.
+	.1 watchwithfriends\_client/.
+	.2 src/.
+        .2 public/.
+        .1 WatchWithFriends\_Backend/.
+        .2 WatchWithFriends\_Backend/.
+        .3 Services/.
+        .3 Models/.
+        .3 Middleware/.
+        .3 Controllers/.
+        .3 Hubs/.
+        .3 Extensions/.
+        .2 WatchWithFriends\_Data/.
+        .3 Data/.
+        .3 Extensions/.
+        .3 Migrations/.
+        .3 Models/.
+        .3 Repositories/.
+        .2 WatchWithFriends\_uTests/.
+        .1 README.md.
+}
+\vspace{2em}
+\subsection*{document}
+Ez a könyvtár tartalmazza a szakdolgozathoz kapcsolódó összes fájlt, beleértve magát a szakdolgozatot is.
+
+\begin{itemize}
+\item \texttt{chapters:} Tartalmazza a fejezeteket.
+\item \texttt{cover:} A borítók mappája.
+\item \texttt{images:} A szakdolgozatban felhasznált képek.
+\item \texttt{styles:} A szakdolgozatban alkalmazott stílusok.
+\item \texttt{dolgozat.pdf:} A szakdolgozat PDF formátumban.
+\end{itemize}
+
+\subsection*{watchwithfriends\_client}
+Ez a könyvtár tartalmazza a kliens fájlokat.
+
+\begin{itemize}
+\item \texttt{src:} A kliens forrásfájljai.
+\item \texttt{public:} Különböző assetek tárolója.
+\end{itemize}
+
+\subsection*{WatchWithFriends\_Backend}
+Ez a könyvtár tartalmazza a backend-hez kapcsolódó összes fájlt.
+
+\subsubsection*{WatchWithFriends\_Backend}
+Itt találhatóak az összes üzleti logikával kapcsolatos fájlok.
+
+\begin{itemize}
+\item \texttt{Services:} Az üzleti logikát végrehajtó forrásfájlok.
+\item \texttt{Models:} A backenden használt modellek és DTO-k.
+\item \texttt{Middleware:} A middleware által használt metódusok.
+\item \texttt{Controllers:} Az összes végpontot tartalmazó mappa.
+\item \texttt{Hubs:} A hubokat és az azokhoz tartozó interfészeket tartalmazza.
+\item \texttt{Extensions:} Különböző bővítmény metódusokat tartalmaz.
+\end{itemize}
+
+\subsubsection*{WatchWithFriends\_Data}
+Ez a könyvtár tartalmazza az adatbázissal kapcsolatos metódusokat, migrációkat és modelleket.
+
+\begin{itemize}
+\item \texttt{Data:} Az adatbázis kontextusokat tartalmazza.
+\item \texttt{Extensions:} Különböző bővítmény metódusokat tartalmaz.
+\item \texttt{Migrations:} A migrációkat tartalmazza.
+\item \texttt{Models:} Az adatbázisban szereplő táblák modeljeit tartalmazza.
+\item \texttt{Repositories:} Az adatbázishoz kapcsolódó osztályokat tartalmazza.
+\end{itemize}
+
+\subsubsection*{WatchWithFriends\_uTests}
+Ez a könyvtár tartalmazza a unit teszteket.
+
+\subsection*{README.md}
+Ez a fájl tartalmazza a program futtatásához szükséges leírást.
